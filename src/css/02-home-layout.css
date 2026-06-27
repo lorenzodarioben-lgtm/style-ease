@@ -1,0 +1,217 @@
+﻿/*===================
+  Mobile Menu
+===================*/
+
+/* Hidden by default, shown when menu is open */
+.mobile-menu {
+  display: none;
+}
+
+.top-bar.menu-open .mobile-menu {
+  display: block;
+}
+
+/*===================
+  Hero Section
+====================*/
+
+/* Grid layout for hero banner */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 50px;
+  padding: 100px 0;
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+/* Hero text container */
+.hero-content {
+  max-width: 500px;
+}
+
+/* Large hero title text */
+.hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+/* Description text used across sections */
+.hero-description,
+.product-detail-description,
+.product-description,
+.product-material {
+  font-size: 16px;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+/* Container for the hero image */
+.hero-image {
+  overflow: hidden;
+}
+
+/* Hero image effects */
+.hero-image img {
+  width: 100%;
+  height: auto;
+  filter: grayscale(100%) contrast(120%);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.hero-image:hover img {
+  transform: scale(1.05);
+  filter: grayscale(50%) contrast(110%);
+}
+
+/* CTA and buttons shared styles */
+.hero-cta,
+.add-to-cart,
+.add-to-cart-detail,
+.checkout-btn {
+  display: inline-block;
+  background-color: var(--text-color);
+  color: var(--primary-color);
+  padding: 12px 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Hover overlay animation */
+.hero-cta:before,
+.add-to-cart:before,
+.add-to-cart-detail:before,
+.checkout-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+/* Hover effect: dark background, light text */
+.hero-cta:hover,
+.add-to-cart:hover,
+.add-to-cart-detail:hover,
+.checkout-btn:hover {
+  background-color: #000000 !important;
+  color: var(--text-color) !important;
+}
+
+.hero-cta:hover:before,
+.add-to-cart:hover:before,
+.add-to-cart-detail:hover:before,
+.checkout-btn:hover:before {
+  left: 0;
+}
+
+/* Add-to-cart full-width variant */
+.add-to-cart {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+/* Back button styling */
+.back-button {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 12px 30px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: var(--text-color);
+  color: var(--primary-color);
+}
+
+/*===================
+  Categories & Brands
+===================*/
+
+/* Section layout */
+.categories,
+.brands {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+/* Grid layout for categories/brands */
+.categories-grid,
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+/* Item box style for categories/brands */
+.category-item,
+.brand-item {
+  background-color: #1a1a1a;
+  padding: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover animation for category items */
+.category-item:hover {
+  transform: scale(1.05);
+}
+
+/* Consistent image styles for items */
+.category-item img,
+.brand-item img,
+.product-image,
+.product-detail-image img {
+  width: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+/* Category icons with spacing */
+.category-item img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+/* On hover: remove grayscale filter */
+.category-item:hover img,
+.product-item:hover .product-image,
+.product-detail-image:hover img {
+  filter: grayscale(0%);
+}
+
+/* Brand name styling */
+.brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
