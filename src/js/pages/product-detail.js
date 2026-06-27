@@ -1,11 +1,15 @@
-(function (StyleEase) {
-  'use strict';
+import {
+  createEmptyReview,
+  createSelectedCartItem,
+  findProductById,
+  getDefaultSize,
+  readReviews,
+  saveReviews
+} from '../utils/catalog-utils.js';
 
-  var utils = StyleEase.utils;
-
-  StyleEase.pages = StyleEase.pages || {};
-
-  StyleEase.pages.ProductDetail = {
+export default {
+    name: 'ProductDetailPage',
+    emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist'],
     props: {
       wishlist: {
         type: Array,
@@ -16,7 +20,7 @@
     },
     data: function () {
       return {
-        newReview: utils.createEmptyReview(),
+        newReview: createEmptyReview(),
         product: null,
         reviews: [],
         selectedColor: '',
@@ -48,16 +52,16 @@
           return;
         }
 
-        this.$emit('add-to-cart', utils.createSelectedCartItem(this.product, this.selectedSize, this.selectedColor));
+        this.$emit('add-to-cart', createSelectedCartItem(this.product, this.selectedSize, this.selectedColor));
       },
       loadProduct: function () {
         var productId = Number.parseInt(this.$route.params.id, 10);
-        var product = utils.findProductById(productId);
+        var product = findProductById(productId);
 
         this.product = product || null;
         this.showCare = false;
         this.showShipping = false;
-        this.newReview = utils.createEmptyReview();
+        this.newReview = createEmptyReview();
 
         if (!product) {
           this.reviews = [];
@@ -66,9 +70,9 @@
           return;
         }
 
-        this.reviews = utils.readReviews(product.id);
+        this.reviews = readReviews(product.id);
         this.selectedColor = product.colors[0] || '';
-        this.selectedSize = utils.getDefaultSize(product);
+        this.selectedSize = getDefaultSize(product);
       },
       setRating: function (rating) {
         this.newReview.rating = rating;
@@ -82,8 +86,8 @@
           rating: this.newReview.rating,
           comment: this.newReview.comment.trim()
         });
-        utils.saveReviews(this.product.id, this.reviews);
-        this.newReview = utils.createEmptyReview();
+        saveReviews(this.product.id, this.reviews);
+        this.newReview = createEmptyReview();
       },
       toggleAccordion: function (section) {
         if (section === 'shipping') {
@@ -105,7 +109,7 @@
           return;
         }
 
-        this.$emit('add-to-wishlist', utils.createSelectedCartItem(this.product, this.selectedSize, this.selectedColor));
+        this.$emit('add-to-wishlist', createSelectedCartItem(this.product, this.selectedSize, this.selectedColor));
       }
     },
     template: `
@@ -260,4 +264,3 @@
       </div>
     `
   };
-}(window.StyleEase = window.StyleEase || {}));

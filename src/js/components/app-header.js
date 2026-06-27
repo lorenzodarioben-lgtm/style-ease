@@ -1,44 +1,43 @@
-(function () {
-  'use strict';
-
-  Vue.component('app-header', {
-    props: {
-      cartCount: {
-        type: Number,
-        default: 0
-      },
-      isCartBumping: {
-        type: Boolean,
-        default: false
-      },
-      searchValue: {
-        type: String,
-        default: ''
-      }
+export default {
+  name: 'AppHeader',
+  props: {
+    cartCount: {
+      type: Number,
+      default: 0
     },
-    data: function () {
-      return {
-        isMenuOpen: false
-      };
+    isCartBumping: {
+      type: Boolean,
+      default: false
     },
-    methods: {
-      closeMenu: function () {
-        this.isMenuOpen = false;
-      },
-      openCart: function () {
-        this.$emit('open-cart');
-      },
-      submitSearch: function () {
-        this.$emit('submit-search');
-      },
-      toggleMenu: function () {
-        this.isMenuOpen = !this.isMenuOpen;
-      },
-      updateSearch: function (event) {
-        this.$emit('update-search-input', event.target.value);
-      }
+    searchValue: {
+      type: String,
+      default: ''
+    }
+  },
+  emits: ['open-cart', 'submit-search', 'update-search-input'],
+  data: function () {
+    return {
+      isMenuOpen: false
+    };
+  },
+  methods: {
+    closeMenu: function () {
+      this.isMenuOpen = false;
     },
-    template: `
+    openCart: function () {
+      this.$emit('open-cart');
+    },
+    submitSearch: function () {
+      this.$emit('submit-search');
+    },
+    toggleMenu: function () {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+    updateSearch: function (event) {
+      this.$emit('update-search-input', event.target.value);
+    }
+  },
+  template: `
       <header class="top-bar container" :class="{ 'menu-open': isMenuOpen }">
         <div
           class="menu-icon"
@@ -54,9 +53,9 @@
           <span></span>
           <nav class="mobile-menu" @click.stop>
             <ul>
-              <li><router-link to="/" @click.native="closeMenu">Home</router-link></li>
-              <li><router-link to="/products" @click.native="closeMenu">Products</router-link></li>
-              <li><router-link to="/cart" @click.native="closeMenu">Cart</router-link></li>
+              <li><router-link to="/" @click="closeMenu">Home</router-link></li>
+              <li><router-link to="/products" @click="closeMenu">Products</router-link></li>
+              <li><router-link to="/cart" @click="closeMenu">Cart</router-link></li>
             </ul>
           </nav>
         </div>
@@ -96,5 +95,4 @@
         </div>
       </header>
     `
-  });
-}());
+};

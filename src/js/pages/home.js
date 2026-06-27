@@ -1,16 +1,14 @@
-(function (StyleEase) {
-  'use strict';
+import { categoryLinks, featuredBrands } from '../data/catalog.js';
 
-  StyleEase.pages = StyleEase.pages || {};
-
-  StyleEase.pages.Home = {
-    data: function () {
-      return {
-        brands: StyleEase.data.featuredBrands,
-        categories: StyleEase.data.categoryLinks
-      };
-    },
-    template: `
+export default {
+  name: 'HomePage',
+  data: function () {
+    return {
+      brands: featuredBrands,
+      categories: categoryLinks
+    };
+  },
+  template: `
       <div>
         <section class="hero container">
           <div class="hero-content">
@@ -49,5 +47,4 @@
         </section>
       </div>
     `
-  };
-}(window.StyleEase = window.StyleEase || {}));
+};

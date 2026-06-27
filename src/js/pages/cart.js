@@ -1,36 +1,42 @@
-(function (StyleEase) {
-  'use strict';
+export default {
+  name: 'CartPage',
+  props: {
+    cart: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    }
+  },
+  emits: ['remove-from-cart'],
+  computed: {
+    totalPrice: function () {
+      return this.cart.reduce(function (total, item) {
+        return total + item.price;
+      }, 0);
+    }
+  },
+  methods: {
+    cartItemKey: function (item, index) {
+      return [item.id, item.selectedSize, item.selectedColor, index].filter(Boolean).join('-');
+    },
+    goToCheckout: function () {
+      this.$router.push('/checkout');
+    },
+    removeFromCart: function (index) {
+      this.$emit('remove-from-cart', index);
+    },
+    truncate: function (text, length) {
+      var maxLength = length || 20;
 
-  StyleEase.pages = StyleEase.pages || {};
+      if (typeof text !== 'string') {
+        return '';
+      }
 
-  StyleEase.pages.Cart = {
-    props: {
-      cart: {
-        type: Array,
-        default: function () {
-          return [];
-        }
-      }
-    },
-    computed: {
-      totalPrice: function () {
-        return this.cart.reduce(function (total, item) {
-          return total + item.price;
-        }, 0);
-      }
-    },
-    methods: {
-      cartItemKey: function (item, index) {
-        return [item.id, item.selectedSize, item.selectedColor, index].filter(Boolean).join('-');
-      },
-      goToCheckout: function () {
-        this.$router.push('/checkout');
-      },
-      removeFromCart: function (index) {
-        this.$emit('remove-from-cart', index);
-      }
-    },
-    template: `
+      return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    }
+  },
+  template: `
       <div class="container">
         <router-link to="/" class="back-button">&larr; Back to Home</router-link>
         <h1 class="page-title">Shopping Cart</h1>
@@ -48,7 +54,7 @@
               </div>
 
               <div class="cart-item-info">
-                <h3>{{ item.name | truncate(20) }}</h3>
+                <h3>{{ truncate(item.name, 20) }}</h3>
                 <p v-if="item.selectedColor">Color: {{ item.selectedColor }}</p>
                 <p v-if="item.selectedSize">Size: {{ item.selectedSize }}</p>
                 <p class="cart-item-price">\${{ item.price.toFixed(2) }}</p>
@@ -67,5 +73,4 @@
         </div>
       </div>
     `
-  };
-}(window.StyleEase = window.StyleEase || {}));
+};
