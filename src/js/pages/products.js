@@ -1,12 +1,9 @@
-(function (StyleEase) {
-  'use strict';
+import { filterOptions, products } from '../data/catalog.js';
+import { cloneProduct, createEmptyFilters, toggleListValue } from '../utils/catalog-utils.js';
 
-  var data = StyleEase.data;
-  var utils = StyleEase.utils;
-
-  StyleEase.pages = StyleEase.pages || {};
-
-  StyleEase.pages.Products = {
+export default {
+    name: 'ProductsPage',
+    emits: ['add-to-cart'],
     props: {
       searchQuery: {
         type: String,
@@ -17,8 +14,8 @@
       return {
         activeFilterDropdown: null,
         currentPage: 1,
-        filterOptions: data.filterOptions,
-        filters: utils.createEmptyFilters(),
+        filterOptions: filterOptions,
+        filters: createEmptyFilters(),
         itemsPerPage: 6
       };
     },
@@ -40,7 +37,7 @@
         var query = this.searchQuery.trim().toLowerCase();
         var filters = this.filters;
 
-        return data.products.filter(function (product) {
+        return products.filter(function (product) {
           var matchesSearch = !query ||
             product.name.toLowerCase().indexOf(query) > -1 ||
             product.description.toLowerCase().indexOf(query) > -1;
@@ -83,7 +80,7 @@
     },
     methods: {
       addToCart: function (product) {
-        this.$emit('add-to-cart', utils.cloneProduct(product));
+        this.$emit('add-to-cart', cloneProduct(product));
       },
       applyCategoryFromRoute: function (category) {
         if (category && this.filterOptions.categories.indexOf(category) > -1) {
@@ -98,7 +95,7 @@
       },
       clearFilters: function () {
         this.activeFilterDropdown = null;
-        this.filters = utils.createEmptyFilters();
+        this.filters = createEmptyFilters();
         this.currentPage = 1;
       },
       goToPage: function (page) {
@@ -122,18 +119,18 @@
         this.currentPage = 1;
       },
       toggleCategoryFilter: function (category) {
-        utils.toggleListValue(this.filters.category, category);
+        toggleListValue(this.filters.category, category);
         this.currentPage = 1;
       },
       toggleColorFilter: function (color) {
-        utils.toggleListValue(this.filters.color, color);
+        toggleListValue(this.filters.color, color);
         this.currentPage = 1;
       },
       toggleFilterDropdown: function (type) {
         this.activeFilterDropdown = this.activeFilterDropdown === type ? null : type;
       },
       toggleSizeFilter: function (size) {
-        utils.toggleListValue(this.filters.size, size);
+        toggleListValue(this.filters.size, size);
         this.currentPage = 1;
       }
     },
@@ -285,4 +282,3 @@
       </div>
     `
   };
-}(window.StyleEase = window.StyleEase || {}));

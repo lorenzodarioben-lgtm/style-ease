@@ -1,8 +1,4 @@
-(function (StyleEase) {
-  'use strict';
-
-  StyleEase.data = {
-    products: [
+export const products = [
       {
         id: 1,
         name: 'Geometric T-Shirt',
@@ -243,8 +239,9 @@
         colors: ['Black', 'White', 'Gray', 'Blue', 'Red'],
         category: 'Sweaters'
       }
-    ],
-    categoryLinks: [
+];
+
+export const categoryLinks = [
       {
         name: 'T-Shirts',
         image: 'https://images.unsplash.com/photo-1556683944-ba658344ba06?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDMwOTEyOTh8&ixlib=rb-4.0.3&q=85'
@@ -269,17 +266,17 @@
         name: 'Sweaters',
         image: 'https://images.unsplash.com/photo-1512375890245-7862e320210a?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDMwOTE0Mzl8&ixlib=rb-4.0.3&q=85'
       }
-    ],
-    featuredBrands: ['Nike', 'Adidas', 'Gucci', 'Puma', 'Zara', "Levi's", 'Armani', 'Calvin Klein'],
-    filterOptions: {
-      sizes: ['XS', 'S', 'M', 'L', 'XL'],
-      colors: ['Black', 'White', 'Gray', 'Blue', 'Red'],
-      categories: ['T-Shirts', 'Jeans', 'Jackets', 'Shoes', 'Accessories', 'Sweaters'],
-      priceRanges: [
-        { label: 'Under $50', min: 0, max: 49.99 },
-        { label: '$50 to $100', min: 50, max: 100 },
-        { label: 'Over $100', min: 100.01, max: Infinity }
-      ]
-    }
-  };
-}(window.StyleEase = window.StyleEase || {}));
+];
+
+export const featuredBrands = ['Nike', 'Adidas', 'Gucci', 'Puma', 'Zara', "Levi's", 'Armani', 'Calvin Klein'];
+
+export const filterOptions = {
+  sizes: ['XS', 'S', 'M', 'L', 'XL'],
+  colors: ['Black', 'White', 'Gray', 'Blue', 'Red'],
+  categories: ['T-Shirts', 'Jeans', 'Jackets', 'Shoes', 'Accessories', 'Sweaters'],
+  priceRanges: [
+    { label: 'Under $50', min: 0, max: 49.99 },
+    { label: '$50 to $100', min: 50, max: 100 },
+    { label: 'Over $100', min: 100.01, max: Infinity }
+  ]
+};

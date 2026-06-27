@@ -1,16 +1,18 @@
-(function (StyleEase) {
-  'use strict';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import CartPage from './pages/cart.js';
+import CheckoutPage from './pages/checkout.js';
+import HomePage from './pages/home.js';
+import ProductDetailPage from './pages/product-detail.js';
+import ProductsPage from './pages/products.js';
 
-  StyleEase.createRouter = function () {
-    return new VueRouter({
-      routes: [
-        { path: '/', component: StyleEase.pages.Home },
-        { path: '/products', component: StyleEase.pages.Products },
-        { path: '/product/:id', component: StyleEase.pages.ProductDetail },
-        { path: '/cart', component: StyleEase.pages.Cart },
-        { path: '/checkout', component: StyleEase.pages.Checkout },
-        { path: '*', redirect: '/' }
-      ]
-    });
-  };
-}(window.StyleEase = window.StyleEase || {}));
+export default createRouter({
+  history: createWebHashHistory(),
+  routes: [
+    { path: '/', component: HomePage },
+    { path: '/products', component: ProductsPage },
+    { path: '/product/:id', component: ProductDetailPage },
+    { path: '/cart', component: CartPage },
+    { path: '/checkout', component: CheckoutPage },
+    { path: '/:pathMatch(.*)*', redirect: '/' }
+  ]
+});

@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Generated build output
+dist/
+
 # Logs and local runtime output
 *.log
 npm-debug.log*
