@@ -3,6 +3,7 @@ node_modules/
 
 # Generated build output
 dist/
+coverage/
 
 # Logs and local runtime output
 *.log

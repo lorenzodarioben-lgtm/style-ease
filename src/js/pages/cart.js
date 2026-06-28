@@ -1,3 +1,5 @@
+import { calculateCartTotal, formatPrice, truncateText } from '../utils/catalog-utils.js';
+
 export default {
   name: 'CartPage',
   props: {
@@ -11,9 +13,7 @@ export default {
   emits: ['remove-from-cart'],
   computed: {
     totalPrice: function () {
-      return this.cart.reduce(function (total, item) {
-        return total + item.price;
-      }, 0);
+      return calculateCartTotal(this.cart);
     }
   },
   methods: {
@@ -26,14 +26,11 @@ export default {
     removeFromCart: function (index) {
       this.$emit('remove-from-cart', index);
     },
+    formatPrice: function (price) {
+      return formatPrice(price);
+    },
     truncate: function (text, length) {
-      var maxLength = length || 20;
-
-      if (typeof text !== 'string') {
-        return '';
-      }
-
-      return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+      return truncateText(text, length);
     }
   },
   template: `
@@ -57,7 +54,7 @@ export default {
                 <h3>{{ truncate(item.name, 20) }}</h3>
                 <p v-if="item.selectedColor">Color: {{ item.selectedColor }}</p>
                 <p v-if="item.selectedSize">Size: {{ item.selectedSize }}</p>
-                <p class="cart-item-price">\${{ item.price.toFixed(2) }}</p>
+                <p class="cart-item-price">{{ formatPrice(item.price) }}</p>
               </div>
 
               <button class="remove-item" type="button" @click="removeFromCart(index)">Remove</button>
@@ -67,7 +64,7 @@ export default {
           <div class="cart-summary">
             <h3>Order Summary</h3>
             <p>Total Items: {{ cart.length }}</p>
-            <p>Total Price: \${{ totalPrice.toFixed(2) }}</p>
+            <p>Total Price: {{ formatPrice(totalPrice) }}</p>
             <button class="checkout-btn" type="button" @click="goToCheckout">Proceed to Checkout</button>
           </div>
         </div>

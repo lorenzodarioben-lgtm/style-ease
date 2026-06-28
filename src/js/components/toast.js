@@ -18,9 +18,12 @@ export default {
       this.message = message;
       this.visible = true;
 
-      this.hideTimer = setTimeout(function () {
-        this.visible = false;
-      }.bind(this), TOAST_DURATION_MS);
+      this.hideTimer = setTimeout(
+        function () {
+          this.visible = false;
+        }.bind(this),
+        TOAST_DURATION_MS
+      );
     }
   },
   template: `

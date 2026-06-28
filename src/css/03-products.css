@@ -5,7 +5,10 @@
 /* Container for product cards using responsive grid layout */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Auto-fit cards with min 280px width */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(280px, 1fr)
+  ); /* Auto-fit cards with min 280px width */
   gap: 30px; /* Space between cards */
   padding: 40px 0; /* Top and bottom spacing */
 }
@@ -143,7 +146,7 @@
 .in-stock {
   font-size: 17px;
   font-weight: 700;
-  color: #4CAF50; /* Green color */
+  color: #4caf50; /* Green color */
   margin: 0;
   line-height: 1;
   position: relative;
@@ -197,7 +200,9 @@
   border-radius: 0;
   outline: none;
   cursor: pointer;
-  transition: border 0.2s, background 0.2s;
+  transition:
+    border 0.2s,
+    background 0.2s;
   box-shadow: none;
 }
 
@@ -316,5 +321,3 @@
   color: #bbb;
   border-top: 1px solid #222;
 }
-
-

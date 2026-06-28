@@ -50,9 +50,12 @@ export default {
       clearTimeout(this.cartBumpTimer);
       this.isCartBumping = true;
 
-      this.cartBumpTimer = setTimeout(function () {
-        this.isCartBumping = false;
-      }.bind(this), CART_BUMP_DURATION_MS);
+      this.cartBumpTimer = setTimeout(
+        function () {
+          this.isCartBumping = false;
+        }.bind(this),
+        CART_BUMP_DURATION_MS
+      );
     },
     clearCart: function () {
       this.cart = [];

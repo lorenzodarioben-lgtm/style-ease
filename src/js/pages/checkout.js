@@ -1,3 +1,5 @@
+import { calculateCartTotal, formatPrice } from '../utils/catalog-utils.js';
+
 export default {
   name: 'CheckoutPage',
   props: {
@@ -19,15 +21,19 @@ export default {
   },
   computed: {
     totalPrice: function () {
-      return this.cart.reduce(function (total, item) {
-        return total + item.price;
-      }, 0);
+      return calculateCartTotal(this.cart);
     }
   },
   methods: {
+    formatPrice: function (price) {
+      return formatPrice(price);
+    },
+    notifyValidationError: function (message) {
+      window.alert(message);
+    },
     placeOrder: function () {
       if (!this.name.trim() || !this.address.trim()) {
-        alert('Please fill in all fields.');
+        this.notifyValidationError('Please fill in all fields.');
         return;
       }
 
@@ -71,10 +77,10 @@ export default {
           <h3>Order Summary</h3>
           <ul>
             <li v-for="(item, index) in cart" :key="index">
-              {{ item.name }} - \${{ item.price.toFixed(2) }}
+              {{ item.name }} - {{ formatPrice(item.price) }}
             </li>
           </ul>
-          <p><strong>Total: \${{ totalPrice.toFixed(2) }}</strong></p>
+          <p><strong>Total: {{ formatPrice(totalPrice) }}</strong></p>
         </div>
 
         <button class="checkout-btn" type="button" @click="placeOrder">Place Order</button>

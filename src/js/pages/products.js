@@ -1,140 +1,124 @@
 import { filterOptions, products } from '../data/catalog.js';
-import { cloneProduct, createEmptyFilters, toggleListValue } from '../utils/catalog-utils.js';
+import {
+  cloneProduct,
+  createEmptyFilters,
+  filterProducts,
+  formatPrice,
+  toggleListValue
+} from '../utils/catalog-utils.js';
 
 export default {
-    name: 'ProductsPage',
-    emits: ['add-to-cart'],
-    props: {
-      searchQuery: {
-        type: String,
-        default: ''
+  name: 'ProductsPage',
+  emits: ['add-to-cart'],
+  props: {
+    searchQuery: {
+      type: String,
+      default: ''
+    }
+  },
+  data: function () {
+    return {
+      activeFilterDropdown: null,
+      currentPage: 1,
+      filterOptions: filterOptions,
+      filters: createEmptyFilters(),
+      itemsPerPage: 6
+    };
+  },
+  created: function () {
+    this.applyCategoryFromRoute(this.$route.query.category);
+  },
+  computed: {
+    pages: function () {
+      return Array.from({ length: this.totalPages }, function (_, index) {
+        return index + 1;
+      });
+    },
+    paginatedProducts: function () {
+      var start = (this.currentPage - 1) * this.itemsPerPage;
+
+      return this.processedProducts.slice(start, start + this.itemsPerPage);
+    },
+    processedProducts: function () {
+      return filterProducts(products, this.searchQuery, this.filters);
+    },
+    totalPages: function () {
+      return Math.ceil(this.processedProducts.length / this.itemsPerPage);
+    }
+  },
+  watch: {
+    '$route.query.category': function (category) {
+      this.applyCategoryFromRoute(category);
+    },
+    processedProducts: function () {
+      if (this.currentPage > this.totalPages) {
+        this.currentPage = this.totalPages || 1;
       }
     },
-    data: function () {
-      return {
-        activeFilterDropdown: null,
-        currentPage: 1,
-        filterOptions: filterOptions,
-        filters: createEmptyFilters(),
-        itemsPerPage: 6
-      };
+    searchQuery: function () {
+      this.currentPage = 1;
+    }
+  },
+  methods: {
+    addToCart: function (product) {
+      this.$emit('add-to-cart', cloneProduct(product));
     },
-    created: function () {
-      this.applyCategoryFromRoute(this.$route.query.category);
+    formatPrice: function (price) {
+      return formatPrice(price);
     },
-    computed: {
-      pages: function () {
-        return Array.from({ length: this.totalPages }, function (_, index) {
-          return index + 1;
-        });
-      },
-      paginatedProducts: function () {
-        var start = (this.currentPage - 1) * this.itemsPerPage;
-
-        return this.processedProducts.slice(start, start + this.itemsPerPage);
-      },
-      processedProducts: function () {
-        var query = this.searchQuery.trim().toLowerCase();
-        var filters = this.filters;
-
-        return products.filter(function (product) {
-          var matchesSearch = !query ||
-            product.name.toLowerCase().indexOf(query) > -1 ||
-            product.description.toLowerCase().indexOf(query) > -1;
-
-          var matchesSize = filters.size.length === 0 ||
-            filters.size.some(function (size) {
-              return product.sizes.indexOf(size) > -1;
-            });
-
-          var matchesColor = filters.color.length === 0 ||
-            filters.color.some(function (color) {
-              return product.colors.indexOf(color) > -1;
-            });
-
-          var matchesCategory = filters.category.length === 0 ||
-            filters.category.indexOf(product.category) > -1;
-
-          var matchesPrice = !filters.priceRange ||
-            product.price >= filters.priceRange.min && product.price <= filters.priceRange.max;
-
-          return matchesSearch && matchesSize && matchesColor && matchesCategory && matchesPrice;
-        });
-      },
-      totalPages: function () {
-        return Math.ceil(this.processedProducts.length / this.itemsPerPage);
-      }
-    },
-    watch: {
-      '$route.query.category': function (category) {
-        this.applyCategoryFromRoute(category);
-      },
-      processedProducts: function () {
-        if (this.currentPage > this.totalPages) {
-          this.currentPage = this.totalPages || 1;
-        }
-      },
-      searchQuery: function () {
+    applyCategoryFromRoute: function (category) {
+      if (category && this.filterOptions.categories.indexOf(category) > -1) {
+        this.filters.category = [category];
         this.currentPage = 1;
       }
     },
-    methods: {
-      addToCart: function (product) {
-        this.$emit('add-to-cart', cloneProduct(product));
-      },
-      applyCategoryFromRoute: function (category) {
-        if (category && this.filterOptions.categories.indexOf(category) > -1) {
-          this.filters.category = [category];
-          this.currentPage = 1;
-        }
-      },
-      applyPriceFilter: function (range) {
-        this.filters.priceRange =
-          this.filters.priceRange && this.filters.priceRange.label === range.label ? null : range;
-        this.currentPage = 1;
-      },
-      clearFilters: function () {
-        this.activeFilterDropdown = null;
-        this.filters = createEmptyFilters();
-        this.currentPage = 1;
-      },
-      goToPage: function (page) {
-        this.currentPage = page;
-      },
-      goToProduct: function (productId) {
-        this.$router.push('/product/' + productId);
-      },
-      nextPage: function () {
-        if (this.currentPage < this.totalPages) {
-          this.currentPage += 1;
-        }
-      },
-      previousPage: function () {
-        if (this.currentPage > 1) {
-          this.currentPage -= 1;
-        }
-      },
-      removePriceFilter: function () {
-        this.filters.priceRange = null;
-        this.currentPage = 1;
-      },
-      toggleCategoryFilter: function (category) {
-        toggleListValue(this.filters.category, category);
-        this.currentPage = 1;
-      },
-      toggleColorFilter: function (color) {
-        toggleListValue(this.filters.color, color);
-        this.currentPage = 1;
-      },
-      toggleFilterDropdown: function (type) {
-        this.activeFilterDropdown = this.activeFilterDropdown === type ? null : type;
-      },
-      toggleSizeFilter: function (size) {
-        toggleListValue(this.filters.size, size);
-        this.currentPage = 1;
+    applyPriceFilter: function (range) {
+      this.filters.priceRange =
+        this.filters.priceRange && this.filters.priceRange.label === range.label ? null : range;
+      this.currentPage = 1;
+    },
+    clearFilters: function () {
+      this.activeFilterDropdown = null;
+      this.filters = createEmptyFilters();
+      this.currentPage = 1;
+    },
+    goToPage: function (page) {
+      this.currentPage = page;
+    },
+    goToProduct: function (productId) {
+      this.$router.push('/product/' + productId);
+    },
+    nextPage: function () {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage += 1;
       }
     },
-    template: `
+    previousPage: function () {
+      if (this.currentPage > 1) {
+        this.currentPage -= 1;
+      }
+    },
+    removePriceFilter: function () {
+      this.filters.priceRange = null;
+      this.currentPage = 1;
+    },
+    toggleCategoryFilter: function (category) {
+      toggleListValue(this.filters.category, category);
+      this.currentPage = 1;
+    },
+    toggleColorFilter: function (color) {
+      toggleListValue(this.filters.color, color);
+      this.currentPage = 1;
+    },
+    toggleFilterDropdown: function (type) {
+      this.activeFilterDropdown = this.activeFilterDropdown === type ? null : type;
+    },
+    toggleSizeFilter: function (size) {
+      toggleListValue(this.filters.size, size);
+      this.currentPage = 1;
+    }
+  },
+  template: `
       <div class="container">
         <router-link to="/" class="back-button" style="color: inherit; text-decoration: none;">
           &larr; Back to Home
@@ -255,7 +239,7 @@ export default {
             <div class="product-info">
               <h3 class="product-name">{{ product.name }}</h3>
               <p class="product-description">{{ product.description }}</p>
-              <p class="product-price">\${{ product.price.toFixed(2) }}</p>
+              <p class="product-price">{{ formatPrice(product.price) }}</p>
               <button class="add-to-cart" type="button" @click.stop="addToCart(product)">Add to Cart</button>
             </div>
           </div>
@@ -281,4 +265,4 @@ export default {
         </div>
       </div>
     `
-  };
+};
