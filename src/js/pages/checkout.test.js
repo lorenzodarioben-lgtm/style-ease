@@ -13,13 +13,14 @@ describe('checkout page options', function () {
       name: '  ',
       address: '123 Test Street',
       orderPlaced: false,
-      notifyValidationError: vi.fn(),
+      notifyValidationError: CheckoutPage.methods.notifyValidationError,
+      validationError: '',
       $emit: vi.fn()
     };
 
     CheckoutPage.methods.placeOrder.call(context);
 
-    expect(context.notifyValidationError).toHaveBeenCalledWith('Please fill in all fields.');
+    expect(context.validationError).toBe('Please enter your name and shipping address.');
     expect(context.orderPlaced).toBe(false);
     expect(context.$emit).not.toHaveBeenCalled();
   });
@@ -29,6 +30,7 @@ describe('checkout page options', function () {
       name: 'Test Shopper',
       address: '123 Test Street',
       orderPlaced: false,
+      validationError: 'Previous error',
       notifyValidationError: vi.fn(),
       $emit: vi.fn()
     };
@@ -36,6 +38,7 @@ describe('checkout page options', function () {
     CheckoutPage.methods.placeOrder.call(context);
 
     expect(context.notifyValidationError).not.toHaveBeenCalled();
+    expect(context.validationError).toBe('');
     expect(context.orderPlaced).toBe(true);
     expect(context.$emit).toHaveBeenCalledWith('clear-cart');
   });

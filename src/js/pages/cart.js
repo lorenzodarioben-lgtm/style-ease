@@ -26,6 +26,9 @@ export default {
     removeFromCart: function (index) {
       this.$emit('remove-from-cart', index);
     },
+    removeButtonLabel: function (item) {
+      return 'Remove ' + item.name + ' from cart';
+    },
     formatPrice: function (price) {
       return formatPrice(price);
     },
@@ -38,14 +41,14 @@ export default {
         <router-link to="/" class="back-button">&larr; Back to Home</router-link>
         <h1 class="page-title">Shopping Cart</h1>
 
-        <div v-if="cart.length === 0" class="empty-cart">
+        <div v-if="cart.length === 0" class="empty-cart" role="status">
           <p>Your cart is empty</p>
           <router-link to="/products" class="hero-cta">Continue Shopping</router-link>
         </div>
 
         <div v-else class="cart-content">
-          <div class="cart-items">
-            <div class="cart-item" v-for="(item, index) in cart" :key="cartItemKey(item, index)">
+          <div class="cart-items" role="list" aria-label="Cart items">
+            <div class="cart-item" role="listitem" v-for="(item, index) in cart" :key="cartItemKey(item, index)">
               <div class="cart-item-image-container">
                 <img :src="item.image" :alt="item.name" class="cart-item-image">
               </div>
@@ -57,16 +60,23 @@ export default {
                 <p class="cart-item-price">{{ formatPrice(item.price) }}</p>
               </div>
 
-              <button class="remove-item" type="button" @click="removeFromCart(index)">Remove</button>
+              <button
+                class="remove-item"
+                type="button"
+                :aria-label="removeButtonLabel(item)"
+                @click="removeFromCart(index)"
+              >
+                Remove
+              </button>
             </div>
           </div>
 
-          <div class="cart-summary">
-            <h3>Order Summary</h3>
+          <section class="cart-summary" aria-labelledby="cart-summary-title">
+            <h2 id="cart-summary-title">Order Summary</h2>
             <p>Total Items: {{ cart.length }}</p>
             <p>Total Price: {{ formatPrice(totalPrice) }}</p>
             <button class="checkout-btn" type="button" @click="goToCheckout">Proceed to Checkout</button>
-          </div>
+          </section>
         </div>
       </div>
     `

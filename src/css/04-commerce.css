@@ -6,9 +6,16 @@
 .star-rating {
   font-size: 1.8rem; /* Large font size for stars */
   color: #ddd; /* Default gray color for unselected stars */
-  cursor: pointer; /* Shows pointer on hover */
   user-select: none; /* Prevents text selection */
   margin-bottom: 0.5rem; /* Space below the rating */
+  border: 0;
+  padding: 0;
+}
+
+.star-rating legend {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 /* Individual star style */
@@ -17,6 +24,9 @@
   font-size: 1.5rem; /* Size of each star */
   color: #ccc; /* Default unfilled color */
   transition: color 0.2s; /* Smooth color transition */
+  background: transparent;
+  border: 0;
+  padding: 0.15rem;
 }
 
 /* Filled star (active rating) */
@@ -103,6 +113,11 @@ textarea {
 /* Heading inside cart summary */
 .cart-summary h3 {
   margin-bottom: 20px;
+}
+
+.cart-summary h2 {
+  margin-bottom: 20px;
+  font-size: 1.17em;
 }
 
 /* Total section styling */
@@ -222,6 +237,14 @@ textarea {
   border: none;
   border-radius: 0;
   transition: background-color 0.3s ease;
+}
+
+.form-error {
+  border: 1px solid #ff7777;
+  color: #ffffff;
+  background: #3a0f0f;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
 }
 
 /* Focus effect for form elements */

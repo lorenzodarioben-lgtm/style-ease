@@ -88,6 +88,8 @@ export default {
   },
   template: `
     <div>
+      <a class="skip-link" href="#main-content">Skip to main content</a>
+
       <app-header
         :cart-count="cartCount"
         :is-cart-bumping="isCartBumping"
@@ -99,7 +101,7 @@ export default {
 
       <toast ref="toast"></toast>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <router-view v-slot="{ Component }">
           <component
             :is="Component"

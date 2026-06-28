@@ -28,7 +28,7 @@ export default {
   },
   template: `
       <transition name="toast">
-        <div v-if="visible" class="toast-container bottom-right">
+        <div v-if="visible" class="toast-container bottom-right" role="status" aria-live="polite" aria-atomic="true">
           <div class="toast">{{ message }}</div>
         </div>
       </transition>

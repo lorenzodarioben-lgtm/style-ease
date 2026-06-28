@@ -100,6 +100,11 @@ body {
   background-color: var(--secondary-color);
 }
 
+.mobile-menu a[aria-current='page'] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 /* Animation keyframes for mobile menu */
 @keyframes slideDown {
   from {
@@ -153,7 +158,6 @@ body {
     color 0.3s ease;
   padding: 10px;
   text-align: center;
-  cursor: pointer;
 }
 .brand-item:hover {
   background-color: #fff;

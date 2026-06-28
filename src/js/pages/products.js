@@ -42,6 +42,11 @@ export default {
     processedProducts: function () {
       return filterProducts(products, this.searchQuery, this.filters);
     },
+    noResultsMessage: function () {
+      return this.searchQuery
+        ? 'No products match your search or selected filters'
+        : 'No products match your selected filters';
+    },
     totalPages: function () {
       return Math.ceil(this.processedProducts.length / this.itemsPerPage);
     }
@@ -62,6 +67,9 @@ export default {
   methods: {
     addToCart: function (product) {
       this.$emit('add-to-cart', cloneProduct(product));
+    },
+    closeFilterDropdown: function () {
+      this.activeFilterDropdown = null;
     },
     formatPrice: function (price) {
       return formatPrice(price);
@@ -113,6 +121,12 @@ export default {
     toggleFilterDropdown: function (type) {
       this.activeFilterDropdown = this.activeFilterDropdown === type ? null : type;
     },
+    filterButtonLabel: function (label, selectedCount) {
+      return selectedCount ? label + ', ' + selectedCount + ' selected' : label;
+    },
+    isFilterValueActive: function (type, value) {
+      return this.filters[type].indexOf(value) > -1;
+    },
     toggleSizeFilter: function (size) {
       toggleListValue(this.filters.size, size);
       this.currentPage = 1;
@@ -126,83 +140,119 @@ export default {
 
         <h1 class="page-title">Product Catalogue</h1>
 
-        <div class="filter-bar">
+        <div class="filter-bar" @keydown.escape.prevent="closeFilterDropdown">
           <div class="filter-dropdown-container">
-            <button class="filter-button" type="button" @click.stop="toggleFilterDropdown('category')">
+            <button
+              class="filter-button"
+              type="button"
+              :aria-expanded="String(activeFilterDropdown === 'category')"
+              aria-controls="category-filter-options"
+              :aria-label="filterButtonLabel('Category filter', filters.category.length)"
+              @click.stop="toggleFilterDropdown('category')"
+            >
               Category <span v-if="filters.category.length" class="filter-badge">{{ filters.category.length }}</span>
             </button>
-            <div v-if="activeFilterDropdown === 'category'" class="filter-dropdown">
+            <div v-if="activeFilterDropdown === 'category'" id="category-filter-options" class="filter-dropdown">
               <h3>Category</h3>
               <div class="filter-options-grid">
-                <div
+                <button
                   v-for="category in filterOptions.categories"
                   :key="category"
+                  type="button"
                   class="filter-checkbox"
-                  :class="{ active: filters.category.indexOf(category) > -1 }"
+                  :class="{ active: isFilterValueActive('category', category) }"
+                  :aria-pressed="String(isFilterValueActive('category', category))"
                   @click="toggleCategoryFilter(category)"
                 >
                   {{ category }}
-                </div>
+                </button>
               </div>
             </div>
           </div>
 
           <div class="filter-dropdown-container">
-            <button class="filter-button" type="button" @click.stop="toggleFilterDropdown('size')">
+            <button
+              class="filter-button"
+              type="button"
+              :aria-expanded="String(activeFilterDropdown === 'size')"
+              aria-controls="size-filter-options"
+              :aria-label="filterButtonLabel('Size filter', filters.size.length)"
+              @click.stop="toggleFilterDropdown('size')"
+            >
               Size <span v-if="filters.size.length" class="filter-badge">{{ filters.size.length }}</span>
             </button>
-            <div v-if="activeFilterDropdown === 'size'" class="filter-dropdown">
+            <div v-if="activeFilterDropdown === 'size'" id="size-filter-options" class="filter-dropdown">
               <h3>Size</h3>
               <div class="filter-options-grid">
-                <div
+                <button
                   v-for="size in filterOptions.sizes"
                   :key="size"
+                  type="button"
                   class="filter-checkbox"
-                  :class="{ active: filters.size.indexOf(size) > -1 }"
+                  :class="{ active: isFilterValueActive('size', size) }"
+                  :aria-pressed="String(isFilterValueActive('size', size))"
                   @click="toggleSizeFilter(size)"
                 >
                   {{ size }}
-                </div>
+                </button>
               </div>
             </div>
           </div>
 
           <div class="filter-dropdown-container">
-            <button class="filter-button" type="button" @click.stop="toggleFilterDropdown('color')">
+            <button
+              class="filter-button"
+              type="button"
+              :aria-expanded="String(activeFilterDropdown === 'color')"
+              aria-controls="color-filter-options"
+              :aria-label="filterButtonLabel('Color filter', filters.color.length)"
+              @click.stop="toggleFilterDropdown('color')"
+            >
               Color <span v-if="filters.color.length" class="filter-badge">{{ filters.color.length }}</span>
             </button>
-            <div v-if="activeFilterDropdown === 'color'" class="filter-dropdown">
+            <div v-if="activeFilterDropdown === 'color'" id="color-filter-options" class="filter-dropdown">
               <h3>Color</h3>
               <div class="filter-options-grid">
-                <div
+                <button
                   v-for="color in filterOptions.colors"
                   :key="color"
+                  type="button"
                   class="filter-checkbox"
-                  :class="{ active: filters.color.indexOf(color) > -1 }"
+                  :class="{ active: isFilterValueActive('color', color) }"
+                  :aria-pressed="String(isFilterValueActive('color', color))"
                   @click="toggleColorFilter(color)"
                 >
                   {{ color }}
-                </div>
+                </button>
               </div>
             </div>
           </div>
 
           <div class="filter-dropdown-container">
-            <button class="filter-button" type="button" @click.stop="toggleFilterDropdown('price')">
+            <button
+              class="filter-button"
+              type="button"
+              :aria-expanded="String(activeFilterDropdown === 'price')"
+              aria-controls="price-filter-options"
+              :aria-label="filters.priceRange ? 'Price filter, 1 selected' : 'Price filter'"
+              @click.stop="toggleFilterDropdown('price')"
+            >
               Price <span v-if="filters.priceRange" class="filter-badge">1</span>
             </button>
-            <div v-if="activeFilterDropdown === 'price'" class="filter-dropdown">
+            <div v-if="activeFilterDropdown === 'price'" id="price-filter-options" class="filter-dropdown">
               <h3>Price</h3>
               <div class="filter-options-list">
-                <div
+                <button
                   v-for="range in filterOptions.priceRanges"
                   :key="range.label"
+                  type="button"
                   class="filter-radio"
                   :class="{ active: filters.priceRange && filters.priceRange.label === range.label }"
+                  :aria-pressed="String(Boolean(filters.priceRange && filters.priceRange.label === range.label))"
                   @click="applyPriceFilter(range)"
                 >
                   {{ range.label }}
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -210,59 +260,91 @@ export default {
           <button class="clear-filters-btn" type="button" @click="clearFilters">Clear All</button>
         </div>
 
-        <div v-if="filters.size.length || filters.color.length || filters.priceRange || filters.category.length" class="active-filters">
+        <div
+          v-if="filters.size.length || filters.color.length || filters.priceRange || filters.category.length"
+          class="active-filters"
+        >
           <span>Active Filters:</span>
 
           <div v-for="size in filters.size" :key="'size-' + size" class="filter-tag">
-            Size: {{ size }} <button type="button" @click="toggleSizeFilter(size)">&times;</button>
+            Size: {{ size }}
+            <button type="button" :aria-label="'Remove size filter ' + size" @click="toggleSizeFilter(size)">
+              &times;
+            </button>
           </div>
 
           <div v-for="color in filters.color" :key="'color-' + color" class="filter-tag">
-            Color: {{ color }} <button type="button" @click="toggleColorFilter(color)">&times;</button>
+            Color: {{ color }}
+            <button type="button" :aria-label="'Remove color filter ' + color" @click="toggleColorFilter(color)">
+              &times;
+            </button>
           </div>
 
           <div v-if="filters.priceRange" class="filter-tag">
-            Price: {{ filters.priceRange.label }} <button type="button" @click="removePriceFilter">&times;</button>
+            Price: {{ filters.priceRange.label }}
+            <button type="button" :aria-label="'Remove price filter ' + filters.priceRange.label" @click="removePriceFilter">
+              &times;
+            </button>
           </div>
 
           <div v-for="category in filters.category" :key="'category-' + category" class="filter-tag">
-            Category: {{ category }} <button type="button" @click="toggleCategoryFilter(category)">&times;</button>
+            Category: {{ category }}
+            <button type="button" :aria-label="'Remove category filter ' + category" @click="toggleCategoryFilter(category)">
+              &times;
+            </button>
           </div>
         </div>
 
         <div class="product-grid">
-          <div class="product-item" v-for="product in paginatedProducts" :key="product.id" @click="goToProduct(product.id)">
+          <article class="product-item" v-for="product in paginatedProducts" :key="product.id">
             <div class="product-image-container">
-              <img :src="product.image" :alt="product.name" class="product-image">
-              <div class="quick-add-overlay" @click.stop="addToCart(product)">+ Quick Add</div>
+              <router-link
+                class="product-card-link"
+                :to="'/product/' + product.id"
+                :aria-label="'View details for ' + product.name"
+              >
+                <img :src="product.image" :alt="product.name" class="product-image">
+              </router-link>
+              <button
+                class="quick-add-overlay"
+                type="button"
+                :aria-label="'Quick add ' + product.name + ' to cart'"
+                @click.stop="addToCart(product)"
+              >
+                + Quick Add
+              </button>
             </div>
             <div class="product-info">
-              <h3 class="product-name">{{ product.name }}</h3>
+              <h3 class="product-name">
+                <router-link :to="'/product/' + product.id">{{ product.name }}</router-link>
+              </h3>
               <p class="product-description">{{ product.description }}</p>
               <p class="product-price">{{ formatPrice(product.price) }}</p>
-              <button class="add-to-cart" type="button" @click.stop="addToCart(product)">Add to Cart</button>
+              <button class="add-to-cart" type="button" @click="addToCart(product)">Add to Cart</button>
             </div>
-          </div>
+          </article>
         </div>
 
-        <div v-if="processedProducts.length === 0" class="no-results">
-          <p>No products match your selected filters</p>
+        <div v-if="processedProducts.length === 0" class="no-results" role="status">
+          <p>{{ noResultsMessage }}</p>
           <button class="clear-all-btn" type="button" @click="clearFilters">Clear All Filters</button>
         </div>
 
-        <div class="pagination" v-if="totalPages > 1">
-          <a href="#" @click.prevent="previousPage" v-if="currentPage > 1">&larr;</a>
+        <nav class="pagination" v-if="totalPages > 1" aria-label="Product pages">
+          <a href="#" aria-label="Previous page" @click.prevent="previousPage" v-if="currentPage > 1">&larr;</a>
           <a
             href="#"
             v-for="page in pages"
             :key="page"
             :class="{ active: currentPage === page }"
+            :aria-current="currentPage === page ? 'page' : null"
+            :aria-label="'Page ' + page"
             @click.prevent="goToPage(page)"
           >
             {{ page }}
           </a>
-          <a href="#" @click.prevent="nextPage" v-if="currentPage < totalPages">&rarr;</a>
-        </div>
+          <a href="#" aria-label="Next page" @click.prevent="nextPage" v-if="currentPage < totalPages">&rarr;</a>
+        </nav>
       </div>
     `
 };
