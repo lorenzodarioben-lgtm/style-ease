@@ -2,7 +2,32 @@
   "name": "style-ease",
   "version": "1.0.0",
   "private": true,
+  "description": "A responsive front-end fashion storefront built with Vue, Vue Router, and Vite.",
   "type": "module",
+  "homepage": "https://lorenzodarioben-lgtm.github.io/style-ease/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lorenzodarioben-lgtm/style-ease.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lorenzodarioben-lgtm/style-ease/issues"
+  },
+  "author": "Lorenzo Ben",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "vite",
+    "vue-router",
+    "vitest",
+    "eslint",
+    "prettier",
+    "github-actions",
+    "github-pages",
+    "storefront",
+    "ecommerce",
+    "responsive-design",
+    "accessibility"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
