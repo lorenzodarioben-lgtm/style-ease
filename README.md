@@ -1,8 +1,18 @@
 # Style Ease
 
+[![CI](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml/badge.svg)](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml)
+
 Style Ease is a small fashion storefront built with Vue, Vue Router, and Vite.
 
 The app keeps the original visual design while using a modern source structure, local npm dependencies, automated quality checks, and a generated production build.
+
+## Live Demo
+
+The production build is deployed with GitHub Pages:
+
+[https://lorenzodarioben-lgtm.github.io/style-ease/](https://lorenzodarioben-lgtm.github.io/style-ease/)
+
+The deployment becomes available after the first successful run of the deploy workflow on `main` and after GitHub Pages is enabled for the repository (Settings → Pages → Build and deployment → Source: GitHub Actions).
 
 ## Tech Stack
 
@@ -78,7 +88,7 @@ Run tests once:
 npm run test:run
 ```
 
-The current tests cover deterministic product utilities, search and filtering behavior, cart totals, text truncation, review storage fallbacks, wishlist state handling, cart additions/removals, and selected page option logic.
+The suite currently has 39 tests across 8 test files. They cover deterministic product utilities, search and filtering behavior, cart totals, text truncation, review storage fallbacks, wishlist state handling, cart additions/removals, selected page option logic, header accessibility, router titles and focus handling, and product-detail behavior.
 
 The tests do not claim full visual coverage, complete browser coverage, payment behavior, backend behavior, or production readiness. Browser smoke testing is still useful after layout-sensitive changes.
 
@@ -89,6 +99,41 @@ Build for production:
 ```sh
 npm run build
 ```
+
+The build writes the production output to `dist/`, which is generated and not committed to the repository.
+
+## Continuous Integration
+
+Every pull request and every push to `main` runs the `CI` workflow
+(`.github/workflows/ci.yml`). It installs dependencies with `npm ci` and runs
+`npm run validate`, which fails the build if formatting, linting, tests, or the
+production build fail. Node dependencies are cached through `actions/setup-node`
+to keep runs fast.
+
+## Deployment
+
+Pushes to `main` also trigger the `Deploy to GitHub Pages` workflow
+(`.github/workflows/deploy.yml`). It validates the project, builds the
+production bundle, and publishes the generated `dist/` output with the official
+GitHub Pages actions. Pull-request branches are never deployed.
+
+The production build is served from the `/style-ease/` subpath, which is set in
+`vite.config.js` for the production mode only. Local development and the test
+suite continue to run at the root path.
+
+Before the first deployment, enable GitHub Pages for the repository under
+Settings → Pages → Build and deployment → Source: GitHub Actions.
+
+## Routing
+
+The app uses Vue Router with hash history (`createWebHashHistory`). Routes are
+expressed after the `#` in the URL, for example
+`https://lorenzodarioben-lgtm.github.io/style-ease/#/products`.
+
+Hash routing is intentional for static hosting: GitHub Pages has no
+server-side single-page-app fallback, and hash URLs let direct links, page
+refreshes, and browser back/forward navigation work without a custom 404
+rewrite. Unknown routes redirect to the home page.
 
 ## Structure
 
