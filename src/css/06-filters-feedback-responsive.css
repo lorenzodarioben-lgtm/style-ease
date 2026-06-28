@@ -78,7 +78,9 @@
   background-color: #1a1a1a;
   color: #fff;
   font-size: 14px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* Active checkbox filter */
@@ -171,8 +173,8 @@
 .pagination {
   display: flex;
   justify-content: center; /* center horizontally */
-  gap: 0.4rem;              /* space between page links */
-  margin-top: 2rem;         /* space above pagination */
+  gap: 0.4rem; /* space between page links */
+  margin-top: 2rem; /* space above pagination */
 }
 
 /* Styles for individual pagination links */
@@ -180,16 +182,18 @@
   color: #ccc;
   background-color: #222;
   padding: 0.5rem 0.8rem;
-  border-radius: 0;            /* square corners */
+  border-radius: 0; /* square corners */
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: normal;
   display: inline-block;
-  min-width: 32px;             /* ensure equal width */
+  min-width: 32px; /* ensure equal width */
   text-align: center;
-  user-select: none;           /* prevent text selection */
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border: none;                /* remove border */
+  user-select: none; /* prevent text selection */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  border: none; /* remove border */
 }
 
 /* Hover effect for pagination links */
@@ -200,10 +204,10 @@
 
 /* Active page style */
 .pagination a.active {
-  background-color: #fff;  /* white background */
-  color: #222;             /* dark text for contrast */
+  background-color: #fff; /* white background */
+  color: #222; /* dark text for contrast */
   font-weight: bold;
-  cursor: default;         /* show default cursor (not clickable) */
+  cursor: default; /* show default cursor (not clickable) */
 }
 
 /* Message when no results are found */
@@ -220,7 +224,7 @@
   border: 1px solid #444;
   color: #fff;
   padding: 0.4rem 1rem;
-  border-radius: 6px;       /* slightly rounded corners */
+  border-radius: 6px; /* slightly rounded corners */
   cursor: pointer;
 }
 
@@ -228,7 +232,6 @@
 .clear-all-btn:hover {
   background-color: #333;
 }
-
 
 /*===================
   Toast Notifications
@@ -239,11 +242,11 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 9999;                  /* ensures it's on top of other content */
+  z-index: 9999; /* ensures it's on top of other content */
   display: flex;
-  flex-direction: column;        /* stack toasts vertically */
-  align-items: flex-end;         /* align to the right side */
-  gap: 10px;                     /* spacing between toasts */
+  flex-direction: column; /* stack toasts vertically */
+  align-items: flex-end; /* align to the right side */
+  gap: 10px; /* spacing between toasts */
 }
 
 /* Individual toast message box */
@@ -255,9 +258,9 @@
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  max-width: 300px;              /* limit width for readability */
-  word-break: break-word;        /* break long words */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* subtle shadow */
+  max-width: 300px; /* limit width for readability */
+  word-break: break-word; /* break long words */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* subtle shadow */
 }
 
 /* Animations for entering/leaving toasts */
@@ -278,14 +281,12 @@
   transform: translateY(20px);
 }
 
-
 /*===================
   Responsive Design
 ====================*/
 
 /* Adjust layout and font sizes for smaller screens */
 @media (max-width: 768px) {
-
   /* Stack hero section vertically */
   .hero {
     grid-template-columns: 1fr;

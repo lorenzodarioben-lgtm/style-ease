@@ -60,7 +60,9 @@
   width: 100%;
   height: auto;
   filter: grayscale(100%) contrast(120%);
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
 }
 
 .hero-image:hover img {
@@ -139,7 +141,9 @@
   letter-spacing: 1px;
   cursor: pointer;
   margin-bottom: 40px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .back-button:hover {
@@ -214,4 +218,3 @@
   justify-content: center;
   font-weight: 600;
 }
-

@@ -8,111 +8,120 @@ import {
 } from '../utils/catalog-utils.js';
 
 export default {
-    name: 'ProductDetailPage',
-    emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist'],
-    props: {
-      wishlist: {
-        type: Array,
-        default: function () {
-          return [];
-        }
+  name: 'ProductDetailPage',
+  emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist'],
+  props: {
+    wishlist: {
+      type: Array,
+      default: function () {
+        return [];
       }
-    },
-    data: function () {
-      return {
-        newReview: createEmptyReview(),
-        product: null,
-        reviews: [],
-        selectedColor: '',
-        selectedSize: '',
-        showCare: false,
-        showShipping: false
-      };
-    },
-    created: function () {
-      this.loadProduct();
-    },
-    computed: {
-      isWishlisted: function () {
-        var product = this.product;
+    }
+  },
+  data: function () {
+    return {
+      newReview: createEmptyReview(),
+      product: null,
+      reviews: [],
+      selectedColor: '',
+      selectedSize: '',
+      showCare: false,
+      showShipping: false
+    };
+  },
+  created: function () {
+    this.loadProduct();
+  },
+  computed: {
+    isWishlisted: function () {
+      var product = this.product;
 
-        return Boolean(product) && this.wishlist.some(function (item) {
+      return (
+        Boolean(product) &&
+        this.wishlist.some(function (item) {
           return item.id === product.id;
-        });
+        })
+      );
+    }
+  },
+  watch: {
+    '$route.params.id': function () {
+      this.loadProduct();
+    }
+  },
+  methods: {
+    handleAddToCart: function () {
+      if (!this.product) {
+        return;
+      }
+
+      this.$emit(
+        'add-to-cart',
+        createSelectedCartItem(this.product, this.selectedSize, this.selectedColor)
+      );
+    },
+    loadProduct: function () {
+      var productId = Number.parseInt(this.$route.params.id, 10);
+      var product = findProductById(productId);
+
+      this.product = product || null;
+      this.showCare = false;
+      this.showShipping = false;
+      this.newReview = createEmptyReview();
+
+      if (!product) {
+        this.reviews = [];
+        this.selectedColor = '';
+        this.selectedSize = '';
+        return;
+      }
+
+      this.reviews = readReviews(product.id);
+      this.selectedColor = product.colors[0] || '';
+      this.selectedSize = getDefaultSize(product);
+    },
+    setRating: function (rating) {
+      this.newReview.rating = rating;
+    },
+    submitReview: function () {
+      if (!this.product || !this.newReview.rating) {
+        return;
+      }
+
+      this.reviews.push({
+        rating: this.newReview.rating,
+        comment: this.newReview.comment.trim()
+      });
+      saveReviews(this.product.id, this.reviews);
+      this.newReview = createEmptyReview();
+    },
+    toggleAccordion: function (section) {
+      if (section === 'shipping') {
+        this.showShipping = !this.showShipping;
+        return;
+      }
+
+      if (section === 'care') {
+        this.showCare = !this.showCare;
       }
     },
-    watch: {
-      '$route.params.id': function () {
-        this.loadProduct();
+    toggleWishlist: function () {
+      if (!this.product) {
+        return;
       }
-    },
-    methods: {
-      handleAddToCart: function () {
-        if (!this.product) {
-          return;
-        }
 
-        this.$emit('add-to-cart', createSelectedCartItem(this.product, this.selectedSize, this.selectedColor));
-      },
-      loadProduct: function () {
-        var productId = Number.parseInt(this.$route.params.id, 10);
-        var product = findProductById(productId);
-
-        this.product = product || null;
-        this.showCare = false;
-        this.showShipping = false;
-        this.newReview = createEmptyReview();
-
-        if (!product) {
-          this.reviews = [];
-          this.selectedColor = '';
-          this.selectedSize = '';
-          return;
-        }
-
-        this.reviews = readReviews(product.id);
-        this.selectedColor = product.colors[0] || '';
-        this.selectedSize = getDefaultSize(product);
-      },
-      setRating: function (rating) {
-        this.newReview.rating = rating;
-      },
-      submitReview: function () {
-        if (!this.product || !this.newReview.rating) {
-          return;
-        }
-
-        this.reviews.push({
-          rating: this.newReview.rating,
-          comment: this.newReview.comment.trim()
-        });
-        saveReviews(this.product.id, this.reviews);
-        this.newReview = createEmptyReview();
-      },
-      toggleAccordion: function (section) {
-        if (section === 'shipping') {
-          this.showShipping = !this.showShipping;
-          return;
-        }
-
-        if (section === 'care') {
-          this.showCare = !this.showCare;
-        }
-      },
-      toggleWishlist: function () {
-        if (!this.product) {
-          return;
-        }
-
-        if (this.isWishlisted) {
-          this.$emit('remove-from-wishlist', this.product.id);
-          return;
-        }
-
-        this.$emit('add-to-wishlist', createSelectedCartItem(this.product, this.selectedSize, this.selectedColor));
+      if (this.isWishlisted) {
+        this.$emit('remove-from-wishlist', this.product.id);
+        return;
       }
-    },
-    template: `
+
+      this.$emit(
+        'add-to-wishlist',
+        createSelectedCartItem(this.product, this.selectedSize, this.selectedColor)
+      );
+    }
+  },
+  template: `
       <div class="container" v-if="product">
         <router-link to="/products" class="back-button">&larr; Back to Products</router-link>
 
@@ -263,4 +272,4 @@ export default {
         <h1 class="page-title">Product Not Found</h1>
       </div>
     `
-  };
+};

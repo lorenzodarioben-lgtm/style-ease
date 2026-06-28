@@ -4,24 +4,24 @@
 
 /* Container for the star rating widget */
 .star-rating {
-  font-size: 1.8rem;          /* Large font size for stars */
-  color: #ddd;                /* Default gray color for unselected stars */
-  cursor: pointer;           /* Shows pointer on hover */
-  user-select: none;         /* Prevents text selection */
-  margin-bottom: 0.5rem;     /* Space below the rating */
+  font-size: 1.8rem; /* Large font size for stars */
+  color: #ddd; /* Default gray color for unselected stars */
+  cursor: pointer; /* Shows pointer on hover */
+  user-select: none; /* Prevents text selection */
+  margin-bottom: 0.5rem; /* Space below the rating */
 }
 
 /* Individual star style */
 .star {
-  cursor: pointer;           /* Indicates clickable element */
-  font-size: 1.5rem;         /* Size of each star */
-  color: #ccc;               /* Default unfilled color */
-  transition: color 0.2s;    /* Smooth color transition */
+  cursor: pointer; /* Indicates clickable element */
+  font-size: 1.5rem; /* Size of each star */
+  color: #ccc; /* Default unfilled color */
+  transition: color 0.2s; /* Smooth color transition */
 }
 
 /* Filled star (active rating) */
 .star.filled {
-  color: #f5b301;            /* Golden/yellow for filled stars */
+  color: #f5b301; /* Golden/yellow for filled stars */
 }
 
 /*===================
@@ -30,54 +30,54 @@
 
 /* Review textarea styling */
 textarea {
-  width: 100%;               /* Full width */
-  resize: vertical;          /* Vertical resizing only */
-  margin-bottom: 0.5rem;     /* Spacing below */
-  padding: 8px;              /* Inner spacing */
-  font-family: inherit;      /* Inherits font from parent */
-  font-size: 1rem;           /* Standard font size */
+  width: 100%; /* Full width */
+  resize: vertical; /* Vertical resizing only */
+  margin-bottom: 0.5rem; /* Spacing below */
+  padding: 8px; /* Inner spacing */
+  font-family: inherit; /* Inherits font from parent */
+  font-size: 1rem; /* Standard font size */
 }
 
 /* Submit review button */
 .submit-review-btn {
-  background-color: #333;    /* Dark background */
-  color: white;              /* White text */
-  padding: 8px 16px;         /* Padding for button */
-  border: none;              /* No border */
-  cursor: pointer;           /* Pointer on hover */
+  background-color: #333; /* Dark background */
+  color: white; /* White text */
+  padding: 8px 16px; /* Padding for button */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer on hover */
   border-radius: 0;
-  font-weight: bold;         /* Bold text */
+  font-weight: bold; /* Bold text */
 }
 
 /* Disabled state of review button */
 .submit-review-btn:disabled {
-  background-color: #666;    /* Dim background */
-  cursor: not-allowed;       /* Indicate disabled */
+  background-color: #666; /* Dim background */
+  cursor: not-allowed; /* Indicate disabled */
 }
 
 /* Container for displaying submitted reviews */
 .reviews-display {
-  margin-top: 2rem;          /* Space above */
+  margin-top: 2rem; /* Space above */
 }
 
 /* Star rating in review display */
 .review-rating {
-  font-size: 1.2rem;         /* Smaller than input stars */
-  color: gold;               /* Golden color */
+  font-size: 1.2rem; /* Smaller than input stars */
+  color: gold; /* Golden color */
 }
 
 /* Review comment text */
 .review-comment {
-  margin: 0.3rem 0 1rem 0;   /* Vertical spacing */
-  font-style: italic;        /* Italic text */
-  color: #eee;               /* Light gray text */
+  margin: 0.3rem 0 1rem 0; /* Vertical spacing */
+  font-style: italic; /* Italic text */
+  color: #eee; /* Light gray text */
 }
 
 /* Horizontal line between reviews */
 .review hr {
-  border: 0;                 /* No default border */
-  border-top: 1px solid #444;/* Custom horizontal line */
-  margin: 0.5rem 0;          /* Spacing above/below */
+  border: 0; /* No default border */
+  border-top: 1px solid #444; /* Custom horizontal line */
+  margin: 0.5rem 0; /* Spacing above/below */
 }
 
 /*===================
@@ -88,7 +88,7 @@ textarea {
 .cart-content {
   display: grid;
   grid-template-columns: 2fr 1fr; /* Main and summary columns */
-  gap: 40px;                      /* Space between columns */
+  gap: 40px; /* Space between columns */
 }
 
 /* Summary box on the side */
@@ -97,7 +97,7 @@ textarea {
   padding: 40px 30px;
   margin-top: 20px;
   text-align: center;
-  border-radius: 10px;      /* Rounded corners */
+  border-radius: 10px; /* Rounded corners */
 }
 
 /* Heading inside cart summary */
@@ -113,7 +113,7 @@ textarea {
   font-size: 20px;
   margin: 20px 0;
   font-weight: bold;
-  color: var(--accent-color);  /* Uses theme accent */
+  color: var(--accent-color); /* Uses theme accent */
 }
 
 /* Checkout button wrapper */
@@ -156,18 +156,18 @@ textarea {
 /* Remove item button */
 .remove-item {
   background-color: transparent;
-  color: #ff4444;               /* Red text */
-  border: 1px solid #ff4444;    /* Red border */
+  color: #ff4444; /* Red text */
+  border: 1px solid #ff4444; /* Red border */
   padding: 5px 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-  height: fit-content;          /* Size based on content */
+  height: fit-content; /* Size based on content */
 }
 
 /* Hover effect for remove button */
 .remove-item:hover {
-  background-color: #ff4444;    /* Red background */
-  color: white;                 /* White text */
+  background-color: #ff4444; /* Red background */
+  color: white; /* White text */
 }
 
 /*===================
@@ -179,8 +179,8 @@ textarea {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #121212;  /* Dark background */
-  color: #eee;                /* Light text */
+  background-color: #121212; /* Dark background */
+  color: #eee; /* Light text */
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
 }
@@ -237,10 +237,12 @@ textarea {
   font-weight: 700;
   font-size: 1.1rem;
   background-color: #00bcd4; /* Cyan shade */
-  color: #121212;            /* Dark text */
+  color: #121212; /* Dark text */
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
   border-radius: 0;
   margin-top: 1rem;
   box-shadow: none;
@@ -251,4 +253,3 @@ textarea {
   background-color: #0097a7; /* Darker cyan */
   transform: translateX(6px); /* Slide effect */
 }
-
