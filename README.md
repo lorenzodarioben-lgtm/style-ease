@@ -2,151 +2,152 @@
 
 [![CI](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml/badge.svg)](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml)
 
-Style Ease is a small fashion storefront built with Vue, Vue Router, and Vite.
-
-The app keeps the original visual design while using a modern source structure, local npm dependencies, automated quality checks, and a generated production build.
+A responsive front-end fashion storefront built with Vue, Vue Router, and Vite.
 
 ## Live Demo
 
-The production build is deployed with GitHub Pages:
+**[https://lorenzodarioben-lgtm.github.io/style-ease/](https://lorenzodarioben-lgtm.github.io/style-ease/)**
 
-[https://lorenzodarioben-lgtm.github.io/style-ease/](https://lorenzodarioben-lgtm.github.io/style-ease/)
+Deployed automatically from `main` with GitHub Actions and GitHub Pages.
 
-The deployment becomes available after the first successful run of the deploy workflow on `main` and after GitHub Pages is enabled for the repository (Settings → Pages → Build and deployment → Source: GitHub Actions).
+## Screenshots
 
-## Tech Stack
+| Desktop                                                                | Mobile                                                                    |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| ![Style Ease home page on desktop](docs/images/style-ease-desktop.png) | ![Style Ease product detail on mobile](docs/images/style-ease-mobile.png) |
 
-- Vite
-- Vue
-- Vue Router
-- CSS
-- ESLint
-- Prettier
-- Vitest
+## Overview
 
-## Installation
+Style Ease is a single-page fashion storefront that demonstrates a complete browsing-to-checkout flow on the front end. It started as a static design and was rebuilt into a modular Vue and Vite application with automated quality checks, tests, and continuous deployment.
 
-Install dependencies:
+The storefront behaviour is **simulated**: the catalogue is bundled static data and the checkout flow does not process real payments. There is no backend, database, authentication, or real inventory. The focus of the project is front-end architecture, component structure, accessibility, responsive design, and a professional delivery pipeline.
+
+## Key Features
+
+- Product catalogue of 20 items rendered from local data
+- Search by product name and description
+- Filtering by category, size, colour, and price range, with multi-select chips and a clear-all control
+- Client-side pagination of catalogue results
+- Product-detail pages with size and colour selection, an "Add to Bag" action, and a wishlist toggle
+- Expandable shipping and care sections on product pages
+- Star-rating review form with submitted reviews saved per product in the browser's `localStorage`
+- Shopping cart with add and remove, an item count, and an order total
+- Checkout with inline validation, a payment-method selector, and an order-confirmation view
+- Toast feedback when an item is added to the bag
+- Mobile navigation menu and a route-aware header
+
+## Accessibility and Responsive Behaviour
+
+Accessibility work that is implemented in the source includes:
+
+- A skip link to the main content and a focusable main landmark
+- Visible keyboard focus styles
+- Route-specific document titles and focus moved to the main region on navigation
+- Semantic buttons, forms, fieldsets, and labelled controls
+- `aria-expanded`, `aria-controls`, `aria-pressed`, and `aria-current` on interactive elements
+- Polite live-region messages for cart, review, and validation feedback
+
+The layout is responsive and was checked across mobile, tablet, and desktop widths (approximately 320–1440px) without horizontal overflow. These are deliberate accessibility improvements rather than a claim of full WCAG conformance, and they have not been validated with assistive-technology screen-reader testing.
+
+## Technology Stack
+
+- **Vue** – component-based UI (Options API with string templates)
+- **Vue Router** – client-side routing with hash history
+- **Vite** – development server and production build
+- **Vitest** + **happy-dom** – unit and component testing
+- **ESLint** – linting (flat config with the Vue plugin)
+- **Prettier** – code formatting
+- **GitHub Actions** – continuous integration and deployment
+- **GitHub Pages** – hosting for the production build
+
+## Project Structure
+
+```
+.
+├── index.html               # Vite HTML entry point
+├── vite.config.js           # Vite + Vitest config and production base path
+├── eslint.config.js         # ESLint flat config
+├── .github/workflows/       # CI and GitHub Pages deployment workflows
+├── docs/images/             # README screenshots
+└── src/
+    ├── main.js              # App bootstrap (creates and mounts the app)
+    ├── style.css            # Imports the CSS sections in cascade order
+    ├── css/                 # Stylesheet sections
+    └── js/
+        ├── app.js           # Root component and shared cart/wishlist state
+        ├── router.js        # Route definitions, titles, and focus handling
+        ├── components/      # Reusable components (header, toast)
+        ├── pages/           # Route-level pages
+        ├── data/            # Catalogue and site content
+        └── utils/           # Shared helpers (filtering, totals, storage)
+```
+
+## Automated Testing and Quality Checks
+
+The suite currently has **39 tests across 8 test files**, covering product utilities, search and filtering, cart totals, text truncation, review storage fallbacks, wishlist and cart state, header accessibility, router titles and focus handling, and product-detail behaviour.
+
+The tests focus on logic and component behaviour. They do not claim full coverage, and they do not cover visual rendering, real payments, or backend behaviour. Browser smoke testing is still useful after layout-sensitive changes.
+
+`npm run validate` runs the full quality gate in sequence — formatting check, lint, tests, and production build — and is the same command used in continuous integration.
+
+## Local Development
+
+Requirements: Node.js 20 or newer and npm.
 
 ```sh
+# Install dependencies
 npm install
-```
 
-## Development
-
-Start the development server:
-
-```sh
+# Start the development server
 npm run dev
-```
 
-Preview a production build:
+# Build for production
+npm run build
 
-```sh
+# Preview the production build locally
 npm run preview
 ```
 
-## Code Quality
+## Available npm Scripts
 
-Run ESLint:
-
-```sh
-npm run lint
-```
-
-Format supported files:
-
-```sh
-npm run format
-```
-
-Check formatting without modifying files:
-
-```sh
-npm run format:check
-```
-
-Run all validation checks:
-
-```sh
-npm run validate
-```
-
-The validation command runs formatting checks, linting, tests, and the production build in sequence.
-
-## Testing
-
-Run tests in watch mode:
-
-```sh
-npm test
-```
-
-Run tests once:
-
-```sh
-npm run test:run
-```
-
-The suite currently has 39 tests across 8 test files. They cover deterministic product utilities, search and filtering behavior, cart totals, text truncation, review storage fallbacks, wishlist state handling, cart additions/removals, selected page option logic, header accessibility, router titles and focus handling, and product-detail behavior.
-
-The tests do not claim full visual coverage, complete browser coverage, payment behavior, backend behavior, or production readiness. Browser smoke testing is still useful after layout-sensitive changes.
-
-## Production Build
-
-Build for production:
-
-```sh
-npm run build
-```
-
-The build writes the production output to `dist/`, which is generated and not committed to the repository.
-
-## Continuous Integration
-
-Every pull request and every push to `main` runs the `CI` workflow
-(`.github/workflows/ci.yml`). It installs dependencies with `npm ci` and runs
-`npm run validate`, which fails the build if formatting, linting, tests, or the
-production build fail. Node dependencies are cached through `actions/setup-node`
-to keep runs fast.
+| Script                 | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `npm run dev`          | Start the Vite development server                    |
+| `npm run build`        | Create the production build in `dist/`               |
+| `npm run preview`      | Serve the production build locally                   |
+| `npm run lint`         | Run ESLint                                           |
+| `npm run format`       | Format supported files with Prettier                 |
+| `npm run format:check` | Check formatting without writing changes             |
+| `npm test`             | Run the test suite in watch mode                     |
+| `npm run test:run`     | Run the test suite once                              |
+| `npm run validate`     | Run format check, lint, tests, and build in sequence |
 
 ## Deployment
 
-Pushes to `main` also trigger the `Deploy to GitHub Pages` workflow
-(`.github/workflows/deploy.yml`). It validates the project, builds the
-production bundle, and publishes the generated `dist/` output with the official
-GitHub Pages actions. Pull-request branches are never deployed.
+Pushes to `main` trigger two GitHub Actions workflows:
 
-The production build is served from the `/style-ease/` subpath, which is set in
-`vite.config.js` for the production mode only. Local development and the test
-suite continue to run at the root path.
+- **CI** (`.github/workflows/ci.yml`) runs on pull requests and pushes to `main`, installing with `npm ci` and running `npm run validate`.
+- **Deploy** (`.github/workflows/deploy.yml`) runs on pushes to `main`, validates and builds the app, and publishes the generated output with the official GitHub Pages actions. Pull-request branches are never deployed.
 
-Before the first deployment, enable GitHub Pages for the repository under
-Settings → Pages → Build and deployment → Source: GitHub Actions.
+The production build is served from the `/style-ease/` subpath, configured for production mode only in `vite.config.js`; local development and tests run at the root path. The build output is written to `dist/`, which is generated and not committed to the repository.
 
-## Routing
+The application uses hash-based URLs (for example `…/style-ease/#/products`). This is a deliberate choice for GitHub Pages project sites: because Pages has no server-side single-page-app fallback, hash routing keeps direct links and page refreshes working without a custom 404 redirect.
 
-The app uses Vue Router with hash history (`createWebHashHistory`). Routes are
-expressed after the `#` in the URL, for example
-`https://lorenzodarioben-lgtm.github.io/style-ease/#/products`.
+## Current Limitations
 
-Hash routing is intentional for static hosting: GitHub Pages has no
-server-side single-page-app fallback, and hash URLs let direct links, page
-refreshes, and browser back/forward navigation work without a custom 404
-rewrite. Unknown routes redirect to the home page.
+These reflect the intended scope of a front-end demonstration:
 
-## Structure
+- Front-end only — no backend, database, or server-side persistence
+- No authentication or user accounts
+- No real payment processing; checkout is simulated and ends at an order-confirmation view
+- The catalogue is bundled static data, so there is no real inventory or stock tracking
+- The cart and wishlist are held in memory and reset on a page refresh
+- Product reviews persist only in the current browser via `localStorage`
+- Product imagery is loaded from Unsplash and the Inter font from Google Fonts, so both depend on those external services
+- URLs are hash-based for GitHub Pages compatibility
 
-- `index.html` is the Vite HTML entry point.
-- `src/main.js` creates the Vue app and mounts it.
-- `src/style.css` imports the CSS sections in cascade order.
-- `src/css/` contains the stylesheet sections.
-- `src/js/data/` contains catalogue and site content.
-- `src/js/utils/` contains shared helper functions and utility tests.
-- `src/js/components/` contains reusable Vue components.
-- `src/js/pages/` contains route-level Vue pages and page-focused tests.
-- `src/js/router.js` defines the app routes.
-- `src/js/app.js` contains the root Vue component and app state tests.
-- `dist/` is generated by `npm run build` and is not committed.
+## Licence
 
-Original CodePen: [https://codepen.io/Lorenzo-Ben/pen/OPPaqxx](https://codepen.io/Lorenzo-Ben/pen/OPPaqxx).
+Released under the [MIT Licence](LICENSE.txt).
+
+Original design: [CodePen](https://codepen.io/Lorenzo-Ben/pen/OPPaqxx).
