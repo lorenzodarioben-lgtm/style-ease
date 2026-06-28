@@ -22,6 +22,7 @@ export default {
     return {
       newReview: createEmptyReview(),
       product: null,
+      reviewStatus: '',
       reviews: [],
       selectedColor: '',
       selectedSize: '',
@@ -42,6 +43,9 @@ export default {
           return item.id === product.id;
         })
       );
+    },
+    wishlistLabel: function () {
+      return this.isWishlisted ? 'Remove from wishlist' : 'Add to wishlist';
     }
   },
   watch: {
@@ -68,6 +72,7 @@ export default {
       this.showCare = false;
       this.showShipping = false;
       this.newReview = createEmptyReview();
+      this.reviewStatus = '';
 
       if (!product) {
         this.reviews = [];
@@ -82,6 +87,10 @@ export default {
     },
     setRating: function (rating) {
       this.newReview.rating = rating;
+      this.reviewStatus = 'Selected ' + rating + ' out of 5 stars.';
+    },
+    setSelectedSize: function (size) {
+      this.selectedSize = size;
     },
     submitReview: function () {
       if (!this.product || !this.newReview.rating) {
@@ -94,6 +103,7 @@ export default {
       });
       saveReviews(this.product.id, this.reviews);
       this.newReview = createEmptyReview();
+      this.reviewStatus = 'Review submitted.';
     },
     toggleAccordion: function (section) {
       if (section === 'shipping') {
@@ -139,24 +149,25 @@ export default {
             </div>
 
             <div class="product-options">
-              <div class="option-group">
-                <label>Size:</label>
+              <fieldset class="option-group">
+                <legend>Size</legend>
                 <div class="size-buttons">
                   <button
                     v-for="size in product.sizes"
                     :key="size"
                     type="button"
                     :class="{ selected: selectedSize === size }"
-                    @click="selectedSize = size"
+                    :aria-pressed="String(selectedSize === size)"
+                    @click="setSelectedSize(size)"
                   >
                     {{ size }}
                   </button>
                 </div>
-              </div>
+              </fieldset>
 
               <div class="option-group">
-                <label>Color:</label>
-                <select v-model="selectedColor" class="option-select">
+                <label :for="'product-color-' + product.id">Color:</label>
+                <select :id="'product-color-' + product.id" v-model="selectedColor" class="option-select">
                   <option v-for="color in product.colors" :key="color" :value="color">
                     {{ color }}
                   </option>
@@ -171,7 +182,8 @@ export default {
                 class="wishlist-btn"
                 type="button"
                 :class="{ liked: isWishlisted }"
-                :aria-label="isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'"
+                :aria-label="wishlistLabel"
+                :aria-pressed="String(isWishlisted)"
                 @click="toggleWishlist"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -199,22 +211,34 @@ export default {
             </div>
 
             <div class="accordion-group">
-              <div class="accordion-item" @click="toggleAccordion('shipping')">
-                <div class="accordion-title">
+              <div class="accordion-item">
+                <button
+                  class="accordion-title"
+                  type="button"
+                  :aria-expanded="String(showShipping)"
+                  :aria-controls="'shipping-content-' + product.id"
+                  @click="toggleAccordion('shipping')"
+                >
                   Shipping & Returns
-                  <span>{{ showShipping ? '-' : '+' }}</span>
-                </div>
-                <div class="accordion-content" v-show="showShipping">
+                  <span aria-hidden="true">{{ showShipping ? '-' : '+' }}</span>
+                </button>
+                <div :id="'shipping-content-' + product.id" class="accordion-content" v-show="showShipping">
                   <p>We offer free worldwide shipping. Returns are accepted within 30 days of purchase.</p>
                 </div>
               </div>
 
-              <div class="accordion-item" @click="toggleAccordion('care')">
-                <div class="accordion-title">
+              <div class="accordion-item">
+                <button
+                  class="accordion-title"
+                  type="button"
+                  :aria-expanded="String(showCare)"
+                  :aria-controls="'care-content-' + product.id"
+                  @click="toggleAccordion('care')"
+                >
                   Care Instructions
-                  <span>{{ showCare ? '-' : '+' }}</span>
-                </div>
-                <div class="accordion-content" v-show="showCare">
+                  <span aria-hidden="true">{{ showCare ? '-' : '+' }}</span>
+                </button>
+                <div :id="'care-content-' + product.id" class="accordion-content" v-show="showCare">
                   <p>Machine wash cold with like colors. Tumble dry low or hang dry. Do not bleach.</p>
                 </div>
               </div>
@@ -223,40 +247,47 @@ export default {
             <div class="review-section">
               <h3>Submit Your Review</h3>
 
-              <div class="star-rating">
-                <span
+              <form @submit.prevent="submitReview">
+                <fieldset class="star-rating" aria-describedby="review-rating-help">
+                  <legend>Your rating</legend>
+                  <p id="review-rating-help" class="sr-only">Choose a rating from 1 to 5 stars.</p>
+                  <button
                   v-for="star in 5"
                   :key="star"
+                  type="button"
                   class="star"
                   :class="{ filled: star <= newReview.rating }"
-                  role="button"
-                  tabindex="0"
                   :aria-label="'Rate ' + star + ' star'"
+                  :aria-pressed="String(star === newReview.rating)"
                   @click="setRating(star)"
-                  @keydown.enter.prevent="setRating(star)"
-                >&#9733;</span>
-              </div>
+                >&#9733;</button>
+                </fieldset>
 
-              <textarea
-                v-model="newReview.comment"
-                placeholder="Write your review here (optional)"
-                rows="3"
-              ></textarea>
+                <label class="sr-only" :for="'review-comment-' + product.id">Review comment</label>
+                <textarea
+                  :id="'review-comment-' + product.id"
+                  v-model="newReview.comment"
+                  placeholder="Write your review here (optional)"
+                  rows="3"
+                ></textarea>
 
-              <button class="submit-review-btn" type="button" @click="submitReview" :disabled="!newReview.rating">
-                Submit
-              </button>
+                <button class="submit-review-btn" type="submit" :disabled="!newReview.rating">Submit</button>
+              </form>
+
+              <p class="sr-only" role="status" aria-live="polite">{{ reviewStatus }}</p>
             </div>
 
             <div class="reviews-display" v-if="reviews.length > 0">
               <h3>Reviews</h3>
               <div class="review" v-for="(review, index) in reviews" :key="index">
+                <p class="sr-only">{{ review.rating }} out of 5 stars</p>
                 <div class="review-rating">
                   <span
                     v-for="star in 5"
                     :key="star"
                     class="star"
                     :class="{ filled: star <= review.rating }"
+                    aria-hidden="true"
                   >&#9733;</span>
                 </div>
                 <p class="review-comment" v-if="review.comment">{{ review.comment }}</p>
