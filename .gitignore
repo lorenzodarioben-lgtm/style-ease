@@ -16,7 +16,4 @@ yarn-error.log*
 Thumbs.db
 .vscode/
 .idea/
-
-# Local Codex/session metadata
-.agents/
 .claude/
