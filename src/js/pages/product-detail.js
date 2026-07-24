@@ -2,7 +2,9 @@ import {
   createEmptyReview,
   createSelectedCartItem,
   findProductById,
+  getCartProductQuantity,
   getDefaultSize,
+  getProductStock,
   readReviews,
   saveReviews
 } from '../utils/catalog-utils.js';
@@ -11,6 +13,12 @@ export default {
   name: 'ProductDetailPage',
   emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist'],
   props: {
+    cart: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    },
     wishlist: {
       type: Array,
       default: function () {
@@ -34,6 +42,14 @@ export default {
     this.loadProduct();
   },
   computed: {
+    availableStock: function () {
+      return this.product
+        ? Math.max(
+            0,
+            getProductStock(this.product) - getCartProductQuantity(this.cart, this.product.id)
+          )
+        : 0;
+    },
     isWishlisted: function () {
       var product = this.product;
 
@@ -46,6 +62,11 @@ export default {
     },
     wishlistLabel: function () {
       return this.isWishlisted ? 'Remove from wishlist' : 'Add to wishlist';
+    },
+    stockLabel: function () {
+      return this.availableStock > 0
+        ? this.availableStock + ' available in this demo'
+        : 'Out of stock in this demo';
     }
   },
   watch: {
@@ -145,7 +166,7 @@ export default {
 
             <div class="product-price-stock">
               <p class="product-detail-price">\${{ product.price }}</p>
-              <span class="in-stock">In Stock</span>
+              <span class="in-stock" :class="{ 'out-of-stock': availableStock === 0 }">{{ stockLabel }}</span>
             </div>
 
             <div class="product-options">
@@ -176,7 +197,14 @@ export default {
             </div>
 
             <div class="action-buttons">
-              <button class="add-to-cart-detail" type="button" @click="handleAddToCart">Add to Bag</button>
+              <button
+                class="add-to-cart-detail"
+                type="button"
+                :disabled="availableStock === 0"
+                @click="handleAddToCart"
+              >
+                {{ availableStock === 0 ? 'Unavailable' : 'Add to Bag' }}
+              </button>
 
               <button
                 class="wishlist-btn"

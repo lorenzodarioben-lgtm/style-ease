@@ -2,8 +2,10 @@ import { reactive } from 'vue';
 import {
   cloneProduct,
   createCartItem,
+  getCartProductQuantity,
   getCartItemVariantKey,
-  getCartItemQuantity
+  getCartItemQuantity,
+  getProductStock
 } from '../utils/catalog-utils.js';
 
 function cloneItems(items) {
@@ -18,7 +20,7 @@ export function createStorefrontStore(initialState) {
   var initial = initialState || {};
   var listeners = [];
   var state = reactive({
-    cart: cloneItems(initial.cart),
+    cart: [],
     searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
     searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
     wishlist: cloneItems(initial.wishlist)
@@ -30,6 +32,21 @@ export function createStorefrontStore(initialState) {
     });
   }
 
+  cloneItems(initial.cart).forEach(function (item) {
+    var availableQuantity = getProductStock(item) - getCartProductQuantity(state.cart, item.id);
+
+    if (availableQuantity > 0) {
+      state.cart.push(
+        createCartItem(
+          item,
+          item.selectedSize,
+          item.selectedColor,
+          Math.min(getCartItemQuantity(item), availableQuantity)
+        )
+      );
+    }
+  });
+
   return {
     state: state,
     addCartItem: function (item) {
@@ -37,7 +54,19 @@ export function createStorefrontStore(initialState) {
         return false;
       }
 
-      var cartItem = createCartItem(item, item.selectedSize, item.selectedColor, item.quantity);
+      var requestedQuantity = getCartItemQuantity(item);
+      var availableQuantity = getProductStock(item) - getCartProductQuantity(state.cart, item.id);
+
+      if (availableQuantity <= 0) {
+        return false;
+      }
+
+      var cartItem = createCartItem(
+        item,
+        item.selectedSize,
+        item.selectedColor,
+        Math.min(requestedQuantity, availableQuantity)
+      );
       var itemKey = getCartItemVariantKey(cartItem);
       var matchingItem = state.cart.find(function (existingItem) {
         return getCartItemVariantKey(existingItem) === itemKey;
@@ -104,9 +133,25 @@ export function createStorefrontStore(initialState) {
         return false;
       }
 
-      state.cart[index].quantity = getCartItemQuantity({ quantity: quantity });
+      var item = state.cart[index];
+      var quantityLimit =
+        getProductStock(item) - getCartProductQuantity(state.cart, item.id, index);
+
+      state.cart[index].quantity = Math.min(
+        getCartItemQuantity({ quantity: quantity }),
+        Math.max(1, quantityLimit)
+      );
       notify();
       return true;
+    },
+    getCartItemQuantityLimit: function (index) {
+      if (!Number.isInteger(index) || index < 0 || index >= state.cart.length) {
+        return 0;
+      }
+
+      var item = state.cart[index];
+
+      return getProductStock(item) - getCartProductQuantity(state.cart, item.id, index);
     },
     setSearchInput: function (value) {
       state.searchInput = typeof value === 'string' ? value : '';

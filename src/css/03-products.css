@@ -79,6 +79,11 @@
   opacity: 1;
 }
 
+.quick-add-overlay:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 /* Hide default add-to-cart buttons globally */
 .add-to-cart {
   display: none !important;
@@ -168,6 +173,10 @@
   line-height: 1;
   position: relative;
   top: -1px;
+}
+
+.out-of-stock {
+  color: #ff7777;
 }
 
 /* Container for additional product details */
@@ -275,6 +284,11 @@
 /* Hover effect for Add to cart button */
 .add-to-cart-detail:hover {
   background-color: #e6b800; /* Slightly darker yellow */
+}
+
+.add-to-cart-detail:disabled {
+  background: #666;
+  cursor: not-allowed;
 }
 
 /* Product description heading */

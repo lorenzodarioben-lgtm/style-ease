@@ -12,6 +12,8 @@ import {
   formatPrice,
   getDefaultSize,
   getCartItemVariantKey,
+  getCartProductQuantity,
+  getProductStock,
   normalizeSearchQuery,
   productMatchesFilters,
   productMatchesSearch,
@@ -61,6 +63,9 @@ describe('catalog utilities', function () {
       quantity: 1
     });
     expect(getCartItemVariantKey(item)).toBe('1:M:Black');
+    expect(getCartProductQuantity([item, Object.assign({}, item, { quantity: 2 })], 1)).toBe(5);
+    expect(getProductStock(Object.assign({}, products[0], { stock: 4 }))).toBe(4);
+    expect(getProductStock({ stock: -1 })).toBe(0);
   });
 
   it('creates independent empty filter objects', function () {

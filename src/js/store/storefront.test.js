@@ -57,4 +57,32 @@ describe('storefront store', function () {
     expect(store.setCartItemQuantity(0, 5)).toBe(true);
     expect(store.state.cart[0].quantity).toBe(5);
   });
+
+  it('caps additions and quantity updates at the product stock level', function () {
+    var lowStockProduct = Object.assign({}, products[0], { stock: 3 });
+    var store = createStorefrontStore();
+
+    store.addCartItem(Object.assign({}, lowStockProduct, { quantity: 2 }));
+    store.addCartItem(Object.assign({}, lowStockProduct, { selectedSize: 'L', quantity: 3 }));
+
+    expect(store.state.cart).toHaveLength(2);
+    expect(store.state.cart[1].quantity).toBe(1);
+    expect(store.getCartItemQuantityLimit(0)).toBe(2);
+    store.setCartItemQuantity(0, 8);
+    expect(store.state.cart[0].quantity).toBe(2);
+    expect(store.addCartItem(lowStockProduct)).toBe(false);
+  });
+
+  it('caps restored cart quantities before exposing the state', function () {
+    var lowStockProduct = Object.assign({}, products[0], { stock: 3, quantity: 8 });
+    var store = createStorefrontStore({
+      cart: [
+        lowStockProduct,
+        Object.assign({}, lowStockProduct, { selectedSize: 'L', quantity: 2 })
+      ]
+    });
+
+    expect(store.state.cart).toHaveLength(1);
+    expect(store.state.cart[0].quantity).toBe(3);
+  });
 });

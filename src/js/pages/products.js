@@ -309,9 +309,10 @@ export default {
                 class="quick-add-overlay"
                 type="button"
                 :aria-label="'Quick add ' + product.name + ' to cart'"
+                :disabled="product.stock === 0"
                 @click.stop="addToCart(product)"
               >
-                + Quick Add
+                {{ product.stock === 0 ? 'Unavailable' : '+ Quick Add' }}
               </button>
             </div>
             <div class="product-info">
@@ -320,7 +321,9 @@ export default {
               </h3>
               <p class="product-description">{{ product.description }}</p>
               <p class="product-price">{{ formatPrice(product.price) }}</p>
-              <button class="add-to-cart" type="button" @click="addToCart(product)">Add to Cart</button>
+              <button class="add-to-cart" type="button" :disabled="product.stock === 0" @click="addToCart(product)">
+                {{ product.stock === 0 ? 'Unavailable' : 'Add to Cart' }}
+              </button>
             </div>
           </article>
         </div>

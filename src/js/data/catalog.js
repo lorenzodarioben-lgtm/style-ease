@@ -1,3 +1,5 @@
+const productStock = [8, 3, 6, 4, 12, 5, 2, 7, 9, 0, 4, 3, 6, 5, 8, 10, 4, 3, 1, 7];
+
 export const products = [
   {
     id: 1,
@@ -288,7 +290,9 @@ export const products = [
     colors: ['Black', 'White', 'Gray', 'Blue', 'Red'],
     category: 'Sweaters'
   }
-];
+].map(function (product, index) {
+  return Object.assign({}, product, { stock: productStock[index] });
+});
 
 export const categoryLinks = [
   {

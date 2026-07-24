@@ -2,7 +2,9 @@ import {
   calculateCartQuantity,
   calculateCartTotal,
   formatPrice,
+  getCartProductQuantity,
   getCartItemVariantKey,
+  getProductStock,
   truncateText
 } from '../utils/catalog-utils.js';
 
@@ -46,6 +48,9 @@ export default {
     },
     updateQuantity: function (index, quantity) {
       this.$emit('update-cart-quantity', index, quantity);
+    },
+    quantityLimit: function (item, index) {
+      return getProductStock(item) - getCartProductQuantity(this.cart, item.id, index);
     }
   },
   template: `
@@ -86,12 +91,14 @@ export default {
                   :id="'cart-quantity-' + index"
                   type="number"
                   min="1"
+                  :max="quantityLimit(item, index)"
                   :value="item.quantity"
                   @change="updateQuantity(index, $event.target.value)"
                 >
                 <button
                   type="button"
                   :aria-label="'Increase quantity of ' + item.name"
+                  :disabled="item.quantity >= quantityLimit(item, index)"
                   @click="updateQuantity(index, item.quantity + 1)"
                 >
                   +

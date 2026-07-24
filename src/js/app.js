@@ -36,6 +36,9 @@ export default {
   methods: {
     addToCart: function (product) {
       if (!this.store.addCartItem(product)) {
+        if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+          this.$refs.toast.show(product.name + ' is no longer available in the selected quantity.');
+        }
         return;
       }
       this.bumpCartCount();

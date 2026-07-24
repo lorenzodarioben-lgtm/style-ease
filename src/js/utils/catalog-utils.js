@@ -85,6 +85,26 @@ export function getCartItemVariantKey(item) {
   return [item.id, item.selectedSize || '', item.selectedColor || ''].join(':');
 }
 
+export function getCartProductQuantity(cart, productId, excludedIndex) {
+  if (!Array.isArray(cart)) {
+    return 0;
+  }
+
+  return cart.reduce(function (total, item, index) {
+    if (index === excludedIndex || !item || item.id !== productId) {
+      return total;
+    }
+
+    return total + getCartItemQuantity(item);
+  }, 0);
+}
+
+export function getProductStock(product) {
+  var stock = Math.floor(Number(product && product.stock));
+
+  return Number.isFinite(stock) && stock > 0 ? stock : 0;
+}
+
 export function filterProducts(productList, searchQuery, filters) {
   if (!Array.isArray(productList)) {
     return [];
