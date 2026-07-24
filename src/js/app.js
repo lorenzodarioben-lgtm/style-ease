@@ -75,9 +75,10 @@ export default {
     performSearch: function () {
       this.store.setSearchQuery(this.store.state.searchInput);
 
-      if (this.$route.path !== '/products') {
-        this.$router.push('/products');
-      }
+      this.$router.push({
+        path: '/products',
+        query: this.store.state.searchQuery ? { q: this.store.state.searchQuery } : {}
+      });
     },
     removeFromCart: function (index) {
       this.store.removeCartItem(index);
@@ -90,6 +91,14 @@ export default {
     },
     updateSearchInput: function (value) {
       this.store.setSearchInput(value);
+    }
+  },
+  watch: {
+    '$route.query.q': function (query) {
+      var searchQuery = typeof query === 'string' ? query : '';
+
+      this.store.setSearchInput(searchQuery);
+      this.store.setSearchQuery(searchQuery);
     }
   },
   template: `

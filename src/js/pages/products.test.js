@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { products } from '../data/catalog.js';
 import { createEmptyFilters } from '../utils/catalog-utils.js';
 import ProductsPage from './products.js';
@@ -10,29 +10,37 @@ function createProductsContext(overrides) {
       filterOptions: ProductsPage.data().filterOptions,
       filters: createEmptyFilters(),
       itemsPerPage: 6,
-      searchQuery: ''
+      searchQuery: '',
+      sortBy: 'featured',
+      $route: { query: {} },
+      $router: { replace: vi.fn() },
+      resetPageAndSync: ProductsPage.methods.resetPageAndSync,
+      syncRoute: ProductsPage.methods.syncRoute
     },
     overrides
   );
 }
 
 describe('products page options', function () {
-  it('applies a valid route category filter and resets pagination', function () {
-    var context = createProductsContext();
+  it('restores supported catalogue filters from the route query', function () {
+    var context = createProductsContext({ $route: { query: { category: 'Jeans', page: '2' } } });
 
-    ProductsPage.methods.applyCategoryFromRoute.call(context, 'Jeans');
+    ProductsPage.methods.applyRouteState.call(context);
 
     expect(context.filters.category).toEqual(['Jeans']);
-    expect(context.currentPage).toBe(1);
+    expect(context.currentPage).toBe(2);
   });
 
-  it('ignores unknown route category filters', function () {
+  it('writes filter changes back to the route query', function () {
     var context = createProductsContext();
 
-    ProductsPage.methods.applyCategoryFromRoute.call(context, 'Unknown');
+    ProductsPage.methods.toggleCategoryFilter.call(context, 'Jeans');
 
-    expect(context.filters.category).toEqual([]);
-    expect(context.currentPage).toBe(2);
+    expect(context.filters.category).toEqual(['Jeans']);
+    expect(context.$router.replace).toHaveBeenCalledWith({
+      path: '/products',
+      query: { category: 'Jeans' }
+    });
   });
 
   it('filters processed products using the production computed property', function () {

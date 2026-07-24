@@ -76,10 +76,10 @@ describe('root app state methods', function () {
     App.methods.performSearch.call(context);
 
     expect(context.store.setSearchQuery).toHaveBeenCalledWith('  shirt  ');
-    expect(context.$router.push).toHaveBeenCalledWith('/products');
+    expect(context.$router.push).toHaveBeenCalledWith({ path: '/products', query: {} });
   });
 
-  it('does not reroute searches that already start on the catalogue', function () {
+  it('refreshes the catalogue URL when searching from the catalogue', function () {
     var context = createAppContext({
       $route: {
         path: '/products'
@@ -90,6 +90,6 @@ describe('root app state methods', function () {
     App.methods.performSearch.call(context);
 
     expect(context.store.setSearchQuery).toHaveBeenCalledWith('jeans');
-    expect(context.$router.push).not.toHaveBeenCalled();
+    expect(context.$router.push).toHaveBeenCalledWith({ path: '/products', query: {} });
   });
 });

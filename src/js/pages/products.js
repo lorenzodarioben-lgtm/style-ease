@@ -7,16 +7,11 @@ import {
   sortProducts,
   toggleListValue
 } from '../utils/catalog-utils.js';
+import { createCatalogueQuery, readCatalogueQuery } from '../utils/catalogue-state.js';
 
 export default {
   name: 'ProductsPage',
   emits: ['add-to-cart'],
-  props: {
-    searchQuery: {
-      type: String,
-      default: ''
-    }
-  },
   data: function () {
     return {
       activeFilterDropdown: null,
@@ -24,11 +19,12 @@ export default {
       filterOptions: filterOptions,
       filters: createEmptyFilters(),
       itemsPerPage: 6,
+      searchQuery: '',
       sortBy: 'featured'
     };
   },
   created: function () {
-    this.applyCategoryFromRoute(this.$route.query.category);
+    this.applyRouteState();
   },
   computed: {
     pages: function () {
@@ -54,16 +50,13 @@ export default {
     }
   },
   watch: {
-    '$route.query.category': function (category) {
-      this.applyCategoryFromRoute(category);
+    '$route.query': function () {
+      this.applyRouteState();
     },
     processedProducts: function () {
       if (this.currentPage > this.totalPages) {
         this.currentPage = this.totalPages || 1;
       }
-    },
-    searchQuery: function () {
-      this.currentPage = 1;
     }
   },
   methods: {
@@ -76,24 +69,27 @@ export default {
     formatPrice: function (price) {
       return formatPrice(price);
     },
-    applyCategoryFromRoute: function (category) {
-      if (category && this.filterOptions.categories.indexOf(category) > -1) {
-        this.filters.category = [category];
-        this.currentPage = 1;
-      }
+    applyRouteState: function () {
+      var routeState = readCatalogueQuery(this.$route.query);
+
+      this.currentPage = routeState.currentPage;
+      this.filters = routeState.filters;
+      this.searchQuery = routeState.searchQuery;
+      this.sortBy = routeState.sortBy;
     },
     applyPriceFilter: function (range) {
       this.filters.priceRange =
         this.filters.priceRange && this.filters.priceRange.label === range.label ? null : range;
-      this.currentPage = 1;
+      this.resetPageAndSync();
     },
     clearFilters: function () {
       this.activeFilterDropdown = null;
       this.filters = createEmptyFilters();
-      this.currentPage = 1;
+      this.resetPageAndSync();
     },
     goToPage: function (page) {
       this.currentPage = page;
+      this.syncRoute();
     },
     goToProduct: function (productId) {
       this.$router.push('/product/' + productId);
@@ -101,28 +97,30 @@ export default {
     nextPage: function () {
       if (this.currentPage < this.totalPages) {
         this.currentPage += 1;
+        this.syncRoute();
       }
     },
     previousPage: function () {
       if (this.currentPage > 1) {
         this.currentPage -= 1;
+        this.syncRoute();
       }
     },
     removePriceFilter: function () {
       this.filters.priceRange = null;
-      this.currentPage = 1;
+      this.resetPageAndSync();
     },
     setSort: function (sortBy) {
       this.sortBy = sortBy;
-      this.currentPage = 1;
+      this.resetPageAndSync();
     },
     toggleCategoryFilter: function (category) {
       toggleListValue(this.filters.category, category);
-      this.currentPage = 1;
+      this.resetPageAndSync();
     },
     toggleColorFilter: function (color) {
       toggleListValue(this.filters.color, color);
-      this.currentPage = 1;
+      this.resetPageAndSync();
     },
     toggleFilterDropdown: function (type) {
       this.activeFilterDropdown = this.activeFilterDropdown === type ? null : type;
@@ -135,7 +133,22 @@ export default {
     },
     toggleSizeFilter: function (size) {
       toggleListValue(this.filters.size, size);
+      this.resetPageAndSync();
+    },
+    resetPageAndSync: function () {
       this.currentPage = 1;
+      this.syncRoute();
+    },
+    syncRoute: function () {
+      this.$router.replace({
+        path: '/products',
+        query: createCatalogueQuery({
+          currentPage: this.currentPage,
+          filters: this.filters,
+          searchQuery: this.searchQuery,
+          sortBy: this.sortBy
+        })
+      });
     }
   },
   template: `
