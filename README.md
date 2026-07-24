@@ -25,14 +25,17 @@ The storefront behaviour is **simulated**: the catalogue is bundled static data 
 ## Key Features
 
 - Product catalogue of 20 items rendered from local data
-- Search by product name and description
-- Filtering by category, size, colour, and price range, with multi-select chips and a clear-all control
-- Client-side pagination of catalogue results
-- Product-detail pages with size and colour selection, an "Add to Bag" action, and a wishlist toggle
+- Search, filtering, sorting, and pagination with URL-backed catalogue state that can be bookmarked and restored
+- Product-detail pages with size and colour selection, static demo stock, an "Add to Bag" action, wishlist toggle, and recently viewed styles
+- Cart lines that preserve selected variants, merge matching quantities, and enforce static stock limits
+- Persisted cart, wishlist, comparison, recently viewed, and demo-receipt state with defensive browser-storage validation
+- Dedicated accessible wishlist and side-by-side comparison workspaces
 - Expandable shipping and care sections on product pages
 - Star-rating review form with submitted reviews saved per product in the browser's `localStorage`
-- Shopping cart with add and remove, an item count, and an order total
-- Checkout with inline validation, a payment-method selector, and an order-confirmation view
+- Two-step checkout with inline validation, accessible error announcements, review navigation, and an explicit demo-order confirmation
+- Browser-local demo order history and expandable receipts; no payment is processed
+- Responsive product images with lazy loading, `srcset`, intrinsic sizing, and a visual fallback
+- Route-level lazy loading for non-initial pages
 - Toast feedback when an item is added to the bag
 - Mobile navigation menu and a route-aware header
 
@@ -45,7 +48,8 @@ Accessibility work that is implemented in the source includes:
 - Route-specific document titles and focus moved to the main region on navigation
 - Semantic buttons, forms, fieldsets, and labelled controls
 - `aria-expanded`, `aria-controls`, `aria-pressed`, and `aria-current` on interactive elements
-- Polite live-region messages for cart, review, and validation feedback
+- Polite live-region messages for cart, review, checkout validation, and empty states
+- Keyboard-operable quantity, comparison, filter, and checkout controls
 
 The layout is responsive and was checked across mobile, tablet, and desktop widths (approximately 320–1440px) without horizontal overflow. These are deliberate accessibility improvements rather than a claim of full WCAG conformance, and they have not been validated with assistive-technology screen-reader testing.
 
@@ -84,7 +88,7 @@ The layout is responsive and was checked across mobile, tablet, and desktop widt
 
 ## Automated Testing and Quality Checks
 
-The suite currently has **39 tests across 8 test files**, covering product utilities, search and filtering, cart totals, text truncation, review storage fallbacks, wishlist and cart state, header accessibility, router titles and focus handling, and product-detail behaviour.
+The suite currently has **67 tests across 17 test files**, covering catalogue filtering, sorting and URL state; session-storage fallbacks; cart variants, quantities, and stock limits; wishlist, comparison, recently viewed, checkout, receipt, header, router, and image-delivery behaviour; plus a persisted shopping-flow integration path.
 
 The tests focus on logic and component behaviour. They do not claim full coverage, and they do not cover visual rendering, real payments, or backend behaviour. Browser smoke testing is still useful after layout-sensitive changes.
 
@@ -133,6 +137,8 @@ The production build is served from the `/style-ease/` subpath, configured for p
 
 The application uses hash-based URLs (for example `…/style-ease/#/products`). This is a deliberate choice for GitHub Pages project sites: because Pages has no server-side single-page-app fallback, hash routing keeps direct links and page refreshes working without a custom 404 redirect.
 
+For implementation details and the browser-data boundaries, see [Architecture](docs/ARCHITECTURE.md).
+
 ## Current Limitations
 
 These reflect the intended scope of a front-end demonstration:
@@ -140,8 +146,8 @@ These reflect the intended scope of a front-end demonstration:
 - Front-end only — no backend, database, or server-side persistence
 - No authentication or user accounts
 - No real payment processing; checkout is simulated and ends at an order-confirmation view
-- The catalogue is bundled static data, so there is no real inventory or stock tracking
-- The cart and wishlist are held in memory and reset on a page refresh
+- Catalogue stock is fixed demonstration data; there is no real inventory synchronization
+- Cart, wishlist, comparisons, recently viewed products, and receipts persist only in the current browser and are not customer accounts
 - Product reviews persist only in the current browser via `localStorage`
 - Product imagery is loaded from Unsplash and the Inter font from Google Fonts, so both depend on those external services
 - URLs are hash-based for GitHub Pages compatibility
