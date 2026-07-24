@@ -1,4 +1,4 @@
-import { findProductById } from '../utils/catalog-utils.js';
+import { createCartItem, findProductById } from '../utils/catalog-utils.js';
 
 export const STOREFRONT_STORAGE_KEY = 'style-ease-storefront-v1';
 const STOREFRONT_STORAGE_VERSION = 1;
@@ -30,15 +30,16 @@ function readCartItem(item) {
     return null;
   }
 
-  return Object.assign({}, product, {
-    price: Number.isFinite(Number(item.price)) ? Number(item.price) : product.price,
-    selectedColor: isKnownOption(product, 'colors', item.selectedColor)
-      ? item.selectedColor
-      : product.colors[0] || '',
-    selectedSize: isKnownOption(product, 'sizes', item.selectedSize)
-      ? item.selectedSize
-      : product.sizes[0] || ''
-  });
+  var cartItem = createCartItem(
+    product,
+    isKnownOption(product, 'sizes', item.selectedSize) ? item.selectedSize : '',
+    isKnownOption(product, 'colors', item.selectedColor) ? item.selectedColor : '',
+    item.quantity
+  );
+
+  cartItem.price = Number.isFinite(Number(item.price)) ? Number(item.price) : product.price;
+
+  return cartItem;
 }
 
 function readWishlistItem(item) {
@@ -89,6 +90,9 @@ export function saveStorefrontState(state, storage) {
           return {
             id: item.id,
             price: Number.isFinite(Number(item.price)) ? Number(item.price) : 0,
+            quantity: Number.isFinite(Number(item.quantity))
+              ? Math.max(1, Math.floor(item.quantity))
+              : 1,
             selectedColor: typeof item.selectedColor === 'string' ? item.selectedColor : '',
             selectedSize: typeof item.selectedSize === 'string' ? item.selectedSize : ''
           };

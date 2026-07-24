@@ -141,7 +141,7 @@ textarea {
 /* Individual cart item layout */
 .cart-item {
   display: grid;
-  grid-template-columns: 100px 1fr auto; /* Image, details, remove */
+  grid-template-columns: 100px minmax(0, 1fr) auto auto auto;
   gap: 20px;
   align-items: center;
   padding: 20px 0;
@@ -166,6 +166,43 @@ textarea {
 .cart-item-price {
   font-weight: bold;
   color: var(--accent-color);
+}
+
+.cart-item-total {
+  color: var(--accent-color);
+  font-weight: 700;
+  min-width: 76px;
+  text-align: right;
+}
+
+.quantity-control {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.quantity-control button,
+.quantity-control input {
+  background: #1a1a1a;
+  border: 1px solid #555;
+  color: #fff;
+  font: inherit;
+  min-height: 36px;
+  text-align: center;
+}
+
+.quantity-control button {
+  cursor: pointer;
+  min-width: 36px;
+}
+
+.quantity-control button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.quantity-control input {
+  width: 48px;
 }
 
 /* Remove item button */

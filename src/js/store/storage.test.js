@@ -59,7 +59,7 @@ describe('storefront session storage', function () {
       STOREFRONT_STORAGE_KEY,
       JSON.stringify({
         version: 1,
-        cart: [{ id: 1, price: 75, selectedColor: 'Black', selectedSize: 'M' }],
+        cart: [{ id: 1, price: 75, quantity: 1, selectedColor: 'Black', selectedSize: 'M' }],
         wishlist: [{ id: 2 }]
       })
     );

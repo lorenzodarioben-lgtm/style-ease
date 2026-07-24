@@ -2,6 +2,7 @@ import AppHeader from './components/app-header.js';
 import Toast from './components/toast.js';
 import { createStorefrontStore } from './store/storefront.js';
 import { readStorefrontState, saveStorefrontState } from './store/storage.js';
+import { calculateCartQuantity } from './utils/catalog-utils.js';
 
 const CART_BUMP_DURATION_MS = 300;
 
@@ -26,7 +27,7 @@ export default {
   },
   computed: {
     cartCount: function () {
-      return this.store.state.cart.length;
+      return calculateCartQuantity(this.store.state.cart);
     }
   },
   beforeUnmount: function () {
@@ -78,6 +79,9 @@ export default {
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
     },
+    updateCartQuantity: function (index, quantity) {
+      this.store.setCartItemQuantity(index, quantity);
+    },
     updateSearchInput: function (value) {
       this.store.setSearchInput(value);
     }
@@ -109,6 +113,7 @@ export default {
             @clear-cart="clearCart"
             @remove-from-cart="removeFromCart"
             @remove-from-wishlist="removeFromWishlist"
+            @update-cart-quantity="updateCartQuantity"
           />
         </router-view>
       </main>

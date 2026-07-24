@@ -2,13 +2,16 @@ import { describe, expect, it, vi } from 'vitest';
 import { filterOptions, products } from '../data/catalog.js';
 import {
   calculateCartTotal,
+  calculateCartQuantity,
   cloneProduct,
+  createCartItem,
   createEmptyFilters,
   createSelectedCartItem,
   filterProducts,
   findProductById,
   formatPrice,
   getDefaultSize,
+  getCartItemVariantKey,
   normalizeSearchQuery,
   productMatchesFilters,
   productMatchesSearch,
@@ -46,6 +49,18 @@ describe('catalog utilities', function () {
       selectedColor: 'Black'
     });
     expect(product.selectedSize).toBeUndefined();
+  });
+
+  it('normalizes cart variants, quantities, and item keys', function () {
+    var item = createCartItem(products[0], 'M', 'Black', 3);
+
+    expect(item).toMatchObject({ selectedSize: 'M', selectedColor: 'Black', quantity: 3 });
+    expect(createCartItem(products[0], 'Unknown', 'Purple', 0)).toMatchObject({
+      selectedSize: 'M',
+      selectedColor: 'Black',
+      quantity: 1
+    });
+    expect(getCartItemVariantKey(item)).toBe('1:M:Black');
   });
 
   it('creates independent empty filter objects', function () {
@@ -128,9 +143,12 @@ describe('catalog utilities', function () {
     expect(formatPrice(75)).toBe('$75.00');
     expect(formatPrice('12.5')).toBe('$12.50');
     expect(formatPrice('not-a-price')).toBe('$0.00');
-    expect(calculateCartTotal([{ price: 10 }, { price: '5.5' }, { price: null }])).toBe(15.5);
+    expect(
+      calculateCartTotal([{ price: 10, quantity: 2 }, { price: '5.5' }, { price: null }])
+    ).toBe(25.5);
     expect(calculateCartTotal([])).toBe(0);
     expect(calculateCartTotal(null)).toBe(0);
+    expect(calculateCartQuantity([{ quantity: 3 }, { quantity: 0 }, {}])).toBe(5);
   });
 
   it('toggles list values in place', function () {

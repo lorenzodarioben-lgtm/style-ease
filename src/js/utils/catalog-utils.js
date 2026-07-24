@@ -11,7 +11,17 @@ export function calculateCartTotal(cart) {
   return cart.reduce(function (total, item) {
     var price = Number(item && item.price);
 
-    return Number.isFinite(price) ? total + price : total;
+    return Number.isFinite(price) ? total + price * getCartItemQuantity(item) : total;
+  }, 0);
+}
+
+export function calculateCartQuantity(cart) {
+  if (!Array.isArray(cart)) {
+    return 0;
+  }
+
+  return cart.reduce(function (total, item) {
+    return total + getCartItemQuantity(item);
   }, 0);
 }
 
@@ -40,10 +50,39 @@ function createReviewStorageKey(productId) {
 }
 
 export function createSelectedCartItem(product, selectedSize, selectedColor) {
+  return createCartItem(product, selectedSize, selectedColor, 1);
+}
+
+export function createCartItem(product, selectedSize, selectedColor, quantity) {
+  if (!product) {
+    return null;
+  }
+
   return Object.assign(cloneProduct(product), {
-    selectedSize: selectedSize,
-    selectedColor: selectedColor
+    quantity: getCartItemQuantity({ quantity: quantity }),
+    selectedColor:
+      Array.isArray(product.colors) && product.colors.indexOf(selectedColor) > -1
+        ? selectedColor
+        : product.colors[0] || '',
+    selectedSize:
+      Array.isArray(product.sizes) && product.sizes.indexOf(selectedSize) > -1
+        ? selectedSize
+        : getDefaultSize(product)
   });
+}
+
+export function getCartItemQuantity(item) {
+  var quantity = Math.floor(Number(item && item.quantity));
+
+  return Number.isFinite(quantity) && quantity > 0 ? quantity : 1;
+}
+
+export function getCartItemVariantKey(item) {
+  if (!item || !Number.isInteger(Number(item.id))) {
+    return '';
+  }
+
+  return [item.id, item.selectedSize || '', item.selectedColor || ''].join(':');
 }
 
 export function filterProducts(productList, searchQuery, filters) {

@@ -38,4 +38,23 @@ describe('storefront store', function () {
 
     expect(notify).toHaveBeenCalledWith(store.state);
   });
+
+  it('merges matching variants and updates their quantities', function () {
+    var store = createStorefrontStore();
+
+    store.addCartItem(
+      Object.assign({}, products[0], { selectedSize: 'M', selectedColor: 'Black' })
+    );
+    store.addCartItem(
+      Object.assign({}, products[0], { selectedSize: 'M', selectedColor: 'Black', quantity: 2 })
+    );
+    store.addCartItem(
+      Object.assign({}, products[0], { selectedSize: 'L', selectedColor: 'Black' })
+    );
+
+    expect(store.state.cart).toHaveLength(2);
+    expect(store.state.cart[0].quantity).toBe(3);
+    expect(store.setCartItemQuantity(0, 5)).toBe(true);
+    expect(store.state.cart[0].quantity).toBe(5);
+  });
 });

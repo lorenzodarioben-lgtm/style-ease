@@ -1,4 +1,10 @@
-import { calculateCartTotal, formatPrice, truncateText } from '../utils/catalog-utils.js';
+import {
+  calculateCartQuantity,
+  calculateCartTotal,
+  formatPrice,
+  getCartItemVariantKey,
+  truncateText
+} from '../utils/catalog-utils.js';
 
 export default {
   name: 'CartPage',
@@ -10,15 +16,18 @@ export default {
       }
     }
   },
-  emits: ['remove-from-cart'],
+  emits: ['remove-from-cart', 'update-cart-quantity'],
   computed: {
+    cartItemCount: function () {
+      return calculateCartQuantity(this.cart);
+    },
     totalPrice: function () {
       return calculateCartTotal(this.cart);
     }
   },
   methods: {
     cartItemKey: function (item, index) {
-      return [item.id, item.selectedSize, item.selectedColor, index].filter(Boolean).join('-');
+      return getCartItemVariantKey(item) || String(index);
     },
     goToCheckout: function () {
       this.$router.push('/checkout');
@@ -34,6 +43,9 @@ export default {
     },
     truncate: function (text, length) {
       return truncateText(text, length);
+    },
+    updateQuantity: function (index, quantity) {
+      this.$emit('update-cart-quantity', index, quantity);
     }
   },
   template: `
@@ -57,8 +69,36 @@ export default {
                 <h3>{{ truncate(item.name, 20) }}</h3>
                 <p v-if="item.selectedColor">Color: {{ item.selectedColor }}</p>
                 <p v-if="item.selectedSize">Size: {{ item.selectedSize }}</p>
-                <p class="cart-item-price">{{ formatPrice(item.price) }}</p>
+                <p class="cart-item-price">{{ formatPrice(item.price) }} each</p>
               </div>
+
+              <div class="quantity-control">
+                <button
+                  type="button"
+                  :aria-label="'Decrease quantity of ' + item.name"
+                  :disabled="item.quantity <= 1"
+                  @click="updateQuantity(index, item.quantity - 1)"
+                >
+                  −
+                </button>
+                <label class="sr-only" :for="'cart-quantity-' + index">Quantity for {{ item.name }}</label>
+                <input
+                  :id="'cart-quantity-' + index"
+                  type="number"
+                  min="1"
+                  :value="item.quantity"
+                  @change="updateQuantity(index, $event.target.value)"
+                >
+                <button
+                  type="button"
+                  :aria-label="'Increase quantity of ' + item.name"
+                  @click="updateQuantity(index, item.quantity + 1)"
+                >
+                  +
+                </button>
+              </div>
+
+              <p class="cart-item-total">{{ formatPrice(item.price * item.quantity) }}</p>
 
               <button
                 class="remove-item"
@@ -73,7 +113,7 @@ export default {
 
           <section class="cart-summary" aria-labelledby="cart-summary-title">
             <h2 id="cart-summary-title">Order Summary</h2>
-            <p>Total Items: {{ cart.length }}</p>
+            <p>Total Items: {{ cartItemCount }}</p>
             <p>Total Price: {{ formatPrice(totalPrice) }}</p>
             <button class="checkout-btn" type="button" @click="goToCheckout">Proceed to Checkout</button>
           </section>

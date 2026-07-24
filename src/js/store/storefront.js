@@ -1,5 +1,10 @@
 import { reactive } from 'vue';
-import { cloneProduct } from '../utils/catalog-utils.js';
+import {
+  cloneProduct,
+  createCartItem,
+  getCartItemVariantKey,
+  getCartItemQuantity
+} from '../utils/catalog-utils.js';
 
 function cloneItems(items) {
   return Array.isArray(items)
@@ -32,7 +37,18 @@ export function createStorefrontStore(initialState) {
         return false;
       }
 
-      state.cart.push(cloneProduct(item));
+      var cartItem = createCartItem(item, item.selectedSize, item.selectedColor, item.quantity);
+      var itemKey = getCartItemVariantKey(cartItem);
+      var matchingItem = state.cart.find(function (existingItem) {
+        return getCartItemVariantKey(existingItem) === itemKey;
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity += getCartItemQuantity(cartItem);
+      } else {
+        state.cart.push(cartItem);
+      }
+
       notify();
       return true;
     },
@@ -80,6 +96,15 @@ export function createStorefrontStore(initialState) {
       }
 
       state.wishlist.splice(index, 1);
+      notify();
+      return true;
+    },
+    setCartItemQuantity: function (index, quantity) {
+      if (!Number.isInteger(index) || index < 0 || index >= state.cart.length) {
+        return false;
+      }
+
+      state.cart[index].quantity = getCartItemQuantity({ quantity: quantity });
       notify();
       return true;
     },
