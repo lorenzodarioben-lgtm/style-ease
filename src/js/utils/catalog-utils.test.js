@@ -19,6 +19,7 @@ import {
   productMatchesSearch,
   readReviews,
   saveReviews,
+  sortProducts,
   toggleListValue,
   truncateText
 } from './catalog-utils.js';
@@ -135,6 +136,35 @@ describe('catalog utilities', function () {
     ).toBe(true);
     expect(filterProducts(products, 'zzzzzz', createEmptyFilters())).toEqual([]);
     expect(filterProducts(null, '', createEmptyFilters())).toEqual([]);
+  });
+
+  it('sorts a copy of products by storefront controls', function () {
+    var list = [
+      { id: 1, name: 'Zulu', price: 40, rating: 4.3, releasedAt: '2026-01-01' },
+      { id: 2, name: 'Alpha', price: 10, rating: 4.8, releasedAt: '2026-01-03' }
+    ];
+
+    expect(
+      sortProducts(list, 'price-asc').map(function (item) {
+        return item.id;
+      })
+    ).toEqual([2, 1]);
+    expect(
+      sortProducts(list, 'rating').map(function (item) {
+        return item.id;
+      })
+    ).toEqual([2, 1]);
+    expect(
+      sortProducts(list, 'name').map(function (item) {
+        return item.id;
+      })
+    ).toEqual([2, 1]);
+    expect(
+      sortProducts(list, 'newest').map(function (item) {
+        return item.id;
+      })
+    ).toEqual([2, 1]);
+    expect(list[0].id).toBe(1);
   });
 
   it('handles malformed filters without matching invalid products', function () {

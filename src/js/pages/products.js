@@ -4,6 +4,7 @@ import {
   createEmptyFilters,
   filterProducts,
   formatPrice,
+  sortProducts,
   toggleListValue
 } from '../utils/catalog-utils.js';
 
@@ -22,7 +23,8 @@ export default {
       currentPage: 1,
       filterOptions: filterOptions,
       filters: createEmptyFilters(),
-      itemsPerPage: 6
+      itemsPerPage: 6,
+      sortBy: 'featured'
     };
   },
   created: function () {
@@ -40,7 +42,7 @@ export default {
       return this.processedProducts.slice(start, start + this.itemsPerPage);
     },
     processedProducts: function () {
-      return filterProducts(products, this.searchQuery, this.filters);
+      return sortProducts(filterProducts(products, this.searchQuery, this.filters), this.sortBy);
     },
     noResultsMessage: function () {
       return this.searchQuery
@@ -110,6 +112,10 @@ export default {
       this.filters.priceRange = null;
       this.currentPage = 1;
     },
+    setSort: function (sortBy) {
+      this.sortBy = sortBy;
+      this.currentPage = 1;
+    },
     toggleCategoryFilter: function (category) {
       toggleListValue(this.filters.category, category);
       this.currentPage = 1;
@@ -139,6 +145,21 @@ export default {
         </router-link>
 
         <h1 class="page-title">Product Catalogue</h1>
+
+        <div class="catalogue-toolbar">
+          <p role="status" aria-live="polite">{{ processedProducts.length }} styles available</p>
+          <label for="catalogue-sort">
+            Sort by
+            <select id="catalogue-sort" :value="sortBy" @change="setSort($event.target.value)">
+              <option value="featured">Featured</option>
+              <option value="newest">Newest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </label>
+        </div>
 
         <div class="filter-bar" @keydown.escape.prevent="closeFilterDropdown">
           <div class="filter-dropdown-container">
@@ -320,6 +341,7 @@ export default {
                 <router-link :to="'/product/' + product.id">{{ product.name }}</router-link>
               </h3>
               <p class="product-description">{{ product.description }}</p>
+              <p class="product-rating" :aria-label="product.rating + ' out of 5 stars'">★ {{ product.rating }}</p>
               <p class="product-price">{{ formatPrice(product.price) }}</p>
               <button class="add-to-cart" type="button" :disabled="product.stock === 0" @click="addToCart(product)">
                 {{ product.stock === 0 ? 'Unavailable' : 'Add to Cart' }}

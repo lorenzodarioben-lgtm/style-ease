@@ -13,6 +13,29 @@
   padding: 40px 0; /* Top and bottom spacing */
 }
 
+.catalogue-toolbar {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.catalogue-toolbar label {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  gap: 8px;
+}
+
+.catalogue-toolbar select {
+  background: #1a1a1a;
+  border: 1px solid #555;
+  color: #fff;
+  font: inherit;
+  padding: 8px;
+}
+
 /* Individual product card styles */
 .product-item {
   display: flex;
@@ -122,6 +145,13 @@
   color: var(--accent-color); /* Highlighted price color */
   margin-top: auto; /* Pushes price to bottom */
   margin-bottom: 15px;
+}
+
+.product-rating {
+  color: #f5b301;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-top: 12px;
 }
 
 /*===================

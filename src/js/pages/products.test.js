@@ -90,4 +90,13 @@ describe('products page options', function () {
     expect(ProductsPage.methods.isFilterValueActive.call(context, 'size', 'M')).toBe(true);
     expect(ProductsPage.methods.isFilterValueActive.call(context, 'category', 'Shoes')).toBe(false);
   });
+
+  it('resets pagination when the selected sort changes', function () {
+    var context = createProductsContext({ sortBy: 'featured' });
+
+    ProductsPage.methods.setSort.call(context, 'price-asc');
+
+    expect(context.sortBy).toBe('price-asc');
+    expect(context.currentPage).toBe(1);
+  });
 });

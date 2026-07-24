@@ -364,6 +364,12 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .catalogue-toolbar,
+  .catalogue-toolbar label {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .product-image-container {
     height: 320px;
   }

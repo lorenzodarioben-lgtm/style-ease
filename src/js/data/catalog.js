@@ -1,4 +1,7 @@
 const productStock = [8, 3, 6, 4, 12, 5, 2, 7, 9, 0, 4, 3, 6, 5, 8, 10, 4, 3, 1, 7];
+const productRatings = [
+  4.7, 4.8, 4.6, 4.9, 4.4, 4.8, 4.9, 4.5, 4.6, 4.7, 4.6, 4.8, 4.5, 4.7, 4.6, 4.4, 4.8, 4.7, 4.3, 4.5
+];
 
 export const products = [
   {
@@ -291,7 +294,11 @@ export const products = [
     category: 'Sweaters'
   }
 ].map(function (product, index) {
-  return Object.assign({}, product, { stock: productStock[index] });
+  return Object.assign({}, product, {
+    rating: productRatings[index],
+    releasedAt: '2026-01-' + String(index + 1).padStart(2, '0'),
+    stock: productStock[index]
+  });
 });
 
 export const categoryLinks = [

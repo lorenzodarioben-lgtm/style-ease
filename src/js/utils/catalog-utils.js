@@ -195,6 +195,36 @@ export function productMatchesSearch(product, searchQuery) {
   );
 }
 
+export function sortProducts(productList, sortBy) {
+  var productsToSort = Array.isArray(productList) ? productList.slice() : [];
+
+  return productsToSort.sort(function (firstProduct, secondProduct) {
+    if (sortBy === 'price-asc') {
+      return firstProduct.price - secondProduct.price;
+    }
+
+    if (sortBy === 'price-desc') {
+      return secondProduct.price - firstProduct.price;
+    }
+
+    if (sortBy === 'name') {
+      return firstProduct.name.localeCompare(secondProduct.name);
+    }
+
+    if (sortBy === 'rating') {
+      return Number(secondProduct.rating || 0) - Number(firstProduct.rating || 0);
+    }
+
+    if (sortBy === 'newest') {
+      return String(secondProduct.releasedAt || '').localeCompare(
+        String(firstProduct.releasedAt || '')
+      );
+    }
+
+    return firstProduct.id - secondProduct.id;
+  });
+}
+
 export function readReviews(productId, storage) {
   var reviewStorage = storage || localStorage;
 
