@@ -1,12 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import CartPage from './pages/cart.js';
-import CheckoutPage from './pages/checkout.js';
-import ComparePage from './pages/compare.js';
-import HomePage from './pages/home.js';
-import OrdersPage from './pages/orders.js';
-import ProductDetailPage from './pages/product-detail.js';
-import ProductsPage from './pages/products.js';
-import WishlistPage from './pages/wishlist.js';
 import { findProductById } from './utils/catalog-utils.js';
 
 const APP_TITLE = 'Style Ease';
@@ -59,19 +51,61 @@ function focusRouteStart() {
   }
 }
 
+export const routes = [
+  {
+    path: '/',
+    component: function () {
+      return import('./pages/home.js');
+    }
+  },
+  {
+    path: '/products',
+    component: function () {
+      return import('./pages/products.js');
+    }
+  },
+  {
+    path: '/product/:id',
+    component: function () {
+      return import('./pages/product-detail.js');
+    }
+  },
+  {
+    path: '/cart',
+    component: function () {
+      return import('./pages/cart.js');
+    }
+  },
+  {
+    path: '/compare',
+    component: function () {
+      return import('./pages/compare.js');
+    }
+  },
+  {
+    path: '/wishlist',
+    component: function () {
+      return import('./pages/wishlist.js');
+    }
+  },
+  {
+    path: '/orders',
+    component: function () {
+      return import('./pages/orders.js');
+    }
+  },
+  {
+    path: '/checkout',
+    component: function () {
+      return import('./pages/checkout.js');
+    }
+  },
+  { path: '/:pathMatch(.*)*', redirect: '/' }
+];
+
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: [
-    { path: '/', component: HomePage },
-    { path: '/products', component: ProductsPage },
-    { path: '/product/:id', component: ProductDetailPage },
-    { path: '/cart', component: CartPage },
-    { path: '/compare', component: ComparePage },
-    { path: '/wishlist', component: WishlistPage },
-    { path: '/orders', component: OrdersPage },
-    { path: '/checkout', component: CheckoutPage },
-    { path: '/:pathMatch(.*)*', redirect: '/' }
-  ]
+  routes: routes
 });
 
 router.afterEach(function (to) {

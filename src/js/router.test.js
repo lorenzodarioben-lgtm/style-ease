@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRouteTitle } from './router.js';
+import { getRouteTitle, routes } from './router.js';
 
 describe('route titles', function () {
   it('returns meaningful titles for primary routes', function () {
@@ -22,5 +22,18 @@ describe('route titles', function () {
     expect(getRouteTitle({ path: '/product/9999', params: { id: '9999' } })).toBe(
       'Product Not Found - Style Ease'
     );
+  });
+
+  it('defers every route page to a route-level module', function () {
+    var pageRoutes = routes.filter(function (route) {
+      return route.component;
+    });
+
+    expect(pageRoutes).toHaveLength(8);
+    expect(
+      pageRoutes.every(function (route) {
+        return typeof route.component === 'function';
+      })
+    ).toBe(true);
   });
 });
