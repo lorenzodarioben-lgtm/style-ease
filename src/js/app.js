@@ -1,6 +1,6 @@
 import AppHeader from './components/app-header.js';
 import Toast from './components/toast.js';
-import { cloneProduct } from './utils/catalog-utils.js';
+import { createStorefrontStore } from './store/storefront.js';
 
 const CART_BUMP_DURATION_MS = 300;
 
@@ -12,17 +12,14 @@ export default {
   },
   data: function () {
     return {
-      cart: [],
       cartBumpTimer: null,
       isCartBumping: false,
-      searchInput: '',
-      searchQuery: '',
-      wishlist: []
+      store: createStorefrontStore()
     };
   },
   computed: {
     cartCount: function () {
-      return this.cart.length;
+      return this.store.state.cart.length;
     }
   },
   beforeUnmount: function () {
@@ -30,7 +27,9 @@ export default {
   },
   methods: {
     addToCart: function (product) {
-      this.cart.push(cloneProduct(product));
+      if (!this.store.addCartItem(product)) {
+        return;
+      }
       this.bumpCartCount();
 
       if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
@@ -38,13 +37,7 @@ export default {
       }
     },
     addToWishlist: function (product) {
-      var exists = this.wishlist.some(function (item) {
-        return item.id === product.id;
-      });
-
-      if (!exists) {
-        this.wishlist.push(cloneProduct(product));
-      }
+      this.store.addWishlistItem(product);
     },
     bumpCartCount: function () {
       clearTimeout(this.cartBumpTimer);
@@ -58,7 +51,7 @@ export default {
       );
     },
     clearCart: function () {
-      this.cart = [];
+      this.store.clearCart();
     },
     goToCart: function () {
       if (this.$route.path !== '/cart') {
@@ -66,24 +59,20 @@ export default {
       }
     },
     performSearch: function () {
-      this.searchQuery = this.searchInput.trim();
+      this.store.setSearchQuery(this.store.state.searchInput);
 
       if (this.$route.path !== '/products') {
         this.$router.push('/products');
       }
     },
     removeFromCart: function (index) {
-      if (index >= 0 && index < this.cart.length) {
-        this.cart.splice(index, 1);
-      }
+      this.store.removeCartItem(index);
     },
     removeFromWishlist: function (productId) {
-      this.wishlist = this.wishlist.filter(function (item) {
-        return item.id !== productId;
-      });
+      this.store.removeWishlistItem(productId);
     },
     updateSearchInput: function (value) {
-      this.searchInput = value;
+      this.store.setSearchInput(value);
     }
   },
   template: `
@@ -93,7 +82,7 @@ export default {
       <app-header
         :cart-count="cartCount"
         :is-cart-bumping="isCartBumping"
-        :search-value="searchInput"
+        :search-value="store.state.searchInput"
         @open-cart="goToCart"
         @submit-search="performSearch"
         @update-search-input="updateSearchInput"
@@ -105,9 +94,9 @@ export default {
         <router-view v-slot="{ Component }">
           <component
             :is="Component"
-            :cart="cart"
-            :search-query="searchQuery"
-            :wishlist="wishlist"
+            :cart="store.state.cart"
+            :search-query="store.state.searchQuery"
+            :wishlist="store.state.wishlist"
             @add-to-cart="addToCart"
             @add-to-wishlist="addToWishlist"
             @clear-cart="clearCart"
