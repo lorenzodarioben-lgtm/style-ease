@@ -86,6 +86,9 @@ export default {
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
     },
+    recordRecentlyViewed: function (product) {
+      this.store.recordRecentlyViewed(product);
+    },
     updateCartQuantity: function (index, quantity) {
       this.store.setCartItemQuantity(index, quantity);
     },
@@ -122,6 +125,7 @@ export default {
           <component
             :is="Component"
             :cart="store.state.cart"
+            :recently-viewed="store.state.recentlyViewed"
             :search-query="store.state.searchQuery"
             :wishlist="store.state.wishlist"
             @add-to-cart="addToCart"
@@ -130,6 +134,7 @@ export default {
             @remove-from-cart="removeFromCart"
             @remove-from-wishlist="removeFromWishlist"
             @update-cart-quantity="updateCartQuantity"
+            @view-product="recordRecentlyViewed"
           />
         </router-view>
       </main>

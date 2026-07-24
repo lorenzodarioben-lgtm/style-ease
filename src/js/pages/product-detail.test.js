@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { products } from '../data/catalog.js';
 import ProductDetailPage from './product-detail.js';
 
@@ -60,5 +60,24 @@ describe('product detail accessibility state', function () {
     expect(ProductDetailPage.computed.stockLabel.call({ availableStock: 0 })).toBe(
       'Out of stock in this demo'
     );
+  });
+
+  it('records a viewed product after loading it', function () {
+    var emit = vi.fn();
+    var context = {
+      $emit: emit,
+      $route: { params: { id: '1' } },
+      newReview: null,
+      reviewStatus: 'old',
+      reviews: [],
+      selectedColor: '',
+      selectedSize: '',
+      showCare: true,
+      showShipping: true
+    };
+
+    ProductDetailPage.methods.loadProduct.call(context);
+
+    expect(emit).toHaveBeenCalledWith('view-product', products[0]);
   });
 });

@@ -21,6 +21,7 @@ export function createStorefrontStore(initialState) {
   var listeners = [];
   var state = reactive({
     cart: [],
+    recentlyViewed: cloneItems(initial.recentlyViewed),
     searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
     searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
     wishlist: cloneItems(initial.wishlist)
@@ -125,6 +126,24 @@ export function createStorefrontStore(initialState) {
       }
 
       state.wishlist.splice(index, 1);
+      notify();
+      return true;
+    },
+    recordRecentlyViewed: function (product) {
+      if (!product || !Number.isInteger(Number(product.id))) {
+        return false;
+      }
+
+      var existingIndex = state.recentlyViewed.findIndex(function (item) {
+        return item.id === product.id;
+      });
+
+      if (existingIndex > -1) {
+        state.recentlyViewed.splice(existingIndex, 1);
+      }
+
+      state.recentlyViewed.unshift(cloneProduct(product));
+      state.recentlyViewed.splice(6);
       notify();
       return true;
     },

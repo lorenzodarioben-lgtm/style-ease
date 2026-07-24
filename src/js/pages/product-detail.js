@@ -8,12 +8,22 @@ import {
   readReviews,
   saveReviews
 } from '../utils/catalog-utils.js';
+import RecentlyViewed from '../components/recently-viewed.js';
 
 export default {
   name: 'ProductDetailPage',
-  emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist'],
+  components: {
+    RecentlyViewed
+  },
+  emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist', 'view-product'],
   props: {
     cart: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    },
+    recentlyViewed: {
       type: Array,
       default: function () {
         return [];
@@ -60,6 +70,13 @@ export default {
         })
       );
     },
+    recentAlternatives: function () {
+      var currentProductId = this.product && this.product.id;
+
+      return this.recentlyViewed.filter(function (item) {
+        return item.id !== currentProductId;
+      });
+    },
     wishlistLabel: function () {
       return this.isWishlisted ? 'Remove from wishlist' : 'Add to wishlist';
     },
@@ -105,6 +122,7 @@ export default {
       this.reviews = readReviews(product.id);
       this.selectedColor = product.colors[0] || '';
       this.selectedSize = getDefaultSize(product);
+      this.$emit('view-product', product);
     },
     setRating: function (rating) {
       this.newReview.rating = rating;
@@ -324,6 +342,8 @@ export default {
             </div>
           </div>
         </div>
+
+        <recently-viewed :products="recentAlternatives"></recently-viewed>
       </div>
 
       <div class="container" v-else>

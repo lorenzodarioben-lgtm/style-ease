@@ -85,4 +85,21 @@ describe('storefront store', function () {
     expect(store.state.cart).toHaveLength(1);
     expect(store.state.cart[0].quantity).toBe(3);
   });
+
+  it('keeps a de-duplicated, capped recently viewed history', function () {
+    var store = createStorefrontStore();
+
+    products.slice(0, 7).forEach(function (product) {
+      store.recordRecentlyViewed(product);
+    });
+    store.recordRecentlyViewed(products[2]);
+
+    expect(store.state.recentlyViewed).toHaveLength(6);
+    expect(store.state.recentlyViewed[0].id).toBe(products[2].id);
+    expect(
+      store.state.recentlyViewed.filter(function (item) {
+        return item.id === products[2].id;
+      })
+    ).toHaveLength(1);
+  });
 });

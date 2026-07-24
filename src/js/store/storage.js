@@ -49,6 +49,10 @@ function readWishlistItem(item) {
   return product ? Object.assign({}, product) : null;
 }
 
+function readRecentItem(item) {
+  return readWishlistItem(item);
+}
+
 export function readStorefrontState(storage) {
   var browserStorage = getStorage(storage);
 
@@ -65,6 +69,9 @@ export function readStorefrontState(storage) {
 
     return {
       cart: Array.isArray(saved.cart) ? saved.cart.map(readCartItem).filter(Boolean) : [],
+      recentlyViewed: Array.isArray(saved.recentlyViewed)
+        ? saved.recentlyViewed.map(readRecentItem).filter(Boolean).slice(0, 6)
+        : [],
       wishlist: Array.isArray(saved.wishlist)
         ? saved.wishlist.map(readWishlistItem).filter(Boolean)
         : []
@@ -107,6 +114,16 @@ export function saveStorefrontState(state, storage) {
           return { id: item.id };
         })
     : [];
+  var recentlyViewed = Array.isArray(state.recentlyViewed)
+    ? state.recentlyViewed
+        .filter(function (item) {
+          return item && Number.isInteger(item.id);
+        })
+        .slice(0, 6)
+        .map(function (item) {
+          return { id: item.id };
+        })
+    : [];
 
   try {
     browserStorage.setItem(
@@ -114,6 +131,7 @@ export function saveStorefrontState(state, storage) {
       JSON.stringify({
         version: STOREFRONT_STORAGE_VERSION,
         cart: cart,
+        recentlyViewed: recentlyViewed,
         wishlist: wishlist
       })
     );
