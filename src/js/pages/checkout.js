@@ -10,7 +10,7 @@ export default {
       }
     }
   },
-  emits: ['clear-cart'],
+  emits: ['complete-order'],
   data: function () {
     return {
       address: '',
@@ -79,7 +79,17 @@ export default {
 
       this.validationError = '';
       this.orderPlaced = true;
-      this.$emit('clear-cart');
+      this.$emit('complete-order', {
+        customer: {
+          address: this.address.trim(),
+          city: this.city.trim(),
+          email: this.email.trim(),
+          name: this.name.trim(),
+          postcode: this.postcode.trim()
+        },
+        items: this.cart,
+        paymentMethod: this.paymentMethod
+      });
       return true;
     }
   },

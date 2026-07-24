@@ -3,6 +3,7 @@ import CartPage from './pages/cart.js';
 import CheckoutPage from './pages/checkout.js';
 import ComparePage from './pages/compare.js';
 import HomePage from './pages/home.js';
+import OrdersPage from './pages/orders.js';
 import ProductDetailPage from './pages/product-detail.js';
 import ProductsPage from './pages/products.js';
 import WishlistPage from './pages/wishlist.js';
@@ -31,6 +32,10 @@ export function getRouteTitle(route) {
 
   if (route.path === '/wishlist') {
     return 'Wishlist - ' + APP_TITLE;
+  }
+
+  if (route.path === '/orders') {
+    return 'Demo Order History - ' + APP_TITLE;
   }
 
   if (route.path === '/checkout') {
@@ -63,6 +68,7 @@ const router = createRouter({
     { path: '/cart', component: CartPage },
     { path: '/compare', component: ComparePage },
     { path: '/wishlist', component: WishlistPage },
+    { path: '/orders', component: OrdersPage },
     { path: '/checkout', component: CheckoutPage },
     { path: '/:pathMatch(.*)*', redirect: '/' }
   ]

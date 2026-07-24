@@ -1,5 +1,6 @@
 import { reactive } from 'vue';
 import {
+  calculateCartTotal,
   cloneProduct,
   createCartItem,
   getCartProductQuantity,
@@ -22,6 +23,7 @@ export function createStorefrontStore(initialState) {
   var state = reactive({
     cart: [],
     comparison: cloneItems(initial.comparison).slice(0, 3),
+    orders: Array.isArray(initial.orders) ? initial.orders.slice(0, 12) : [],
     recentlyViewed: cloneItems(initial.recentlyViewed),
     searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
     searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
@@ -147,6 +149,32 @@ export function createStorefrontStore(initialState) {
       state.recentlyViewed.splice(6);
       notify();
       return true;
+    },
+    createOrder: function (details) {
+      if (!details || !Array.isArray(details.items) || details.items.length === 0) {
+        return null;
+      }
+
+      var customer = details.customer || {};
+      var order = {
+        createdAt: new Date().toISOString(),
+        customer: {
+          address: String(customer.address || ''),
+          city: String(customer.city || ''),
+          email: String(customer.email || ''),
+          name: String(customer.name || ''),
+          postcode: String(customer.postcode || '')
+        },
+        id: 'DEMO-' + Date.now().toString(36).toUpperCase(),
+        items: cloneItems(details.items),
+        paymentMethod: String(details.paymentMethod || 'credit'),
+        total: calculateCartTotal(details.items)
+      };
+
+      state.orders.unshift(order);
+      state.orders.splice(12);
+      notify();
+      return order;
     },
     toggleComparison: function (product) {
       if (!product || !Number.isInteger(Number(product.id))) {

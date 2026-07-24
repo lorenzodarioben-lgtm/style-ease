@@ -328,6 +328,44 @@ textarea {
   min-width: 140px;
 }
 
+.order-history-note {
+  color: #ccc;
+  margin: -20px auto 28px;
+  max-width: 640px;
+  text-align: center;
+}
+
+.order-history {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 48px;
+}
+
+.order-receipt {
+  background: #111;
+  border: 1px solid #333;
+}
+
+.order-receipt summary {
+  align-items: center;
+  cursor: pointer;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto auto;
+  padding: 16px;
+}
+
+.receipt-content {
+  border-top: 1px solid #333;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.receipt-content ul {
+  padding-left: 20px;
+}
+
 .quantity-control {
   align-items: center;
   display: flex;

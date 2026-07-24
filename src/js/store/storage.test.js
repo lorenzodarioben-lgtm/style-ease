@@ -33,6 +33,7 @@ describe('storefront session storage', function () {
         })
       ],
       comparison: [expect.objectContaining({ id: 4 })],
+      orders: [],
       recentlyViewed: [expect.objectContaining({ id: 3 })],
       wishlist: [expect.objectContaining({ id: 2 })]
     });
@@ -45,7 +46,7 @@ describe('storefront session storage', function () {
       readStorefrontState(
         createStorage(JSON.stringify({ version: 1, cart: [{ id: 999 }], wishlist: [{ id: 999 }] }))
       )
-    ).toEqual({ cart: [], comparison: [], recentlyViewed: [], wishlist: [] });
+    ).toEqual({ cart: [], comparison: [], orders: [], recentlyViewed: [], wishlist: [] });
   });
 
   it('writes a compact versioned snapshot and tolerates storage errors', function () {
@@ -65,6 +66,7 @@ describe('storefront session storage', function () {
         version: 1,
         cart: [{ id: 1, price: 75, quantity: 1, selectedColor: 'Black', selectedSize: 'M' }],
         comparison: [],
+        orders: [],
         recentlyViewed: [],
         wishlist: [{ id: 2 }]
       })

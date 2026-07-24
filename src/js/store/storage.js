@@ -53,6 +53,29 @@ function readRecentItem(item) {
   return readWishlistItem(item);
 }
 
+function readOrder(item) {
+  if (!item || typeof item.id !== 'string' || !Array.isArray(item.items)) {
+    return null;
+  }
+
+  var customer = item.customer || {};
+
+  return {
+    createdAt: typeof item.createdAt === 'string' ? item.createdAt : '',
+    customer: {
+      address: typeof customer.address === 'string' ? customer.address : '',
+      city: typeof customer.city === 'string' ? customer.city : '',
+      email: typeof customer.email === 'string' ? customer.email : '',
+      name: typeof customer.name === 'string' ? customer.name : '',
+      postcode: typeof customer.postcode === 'string' ? customer.postcode : ''
+    },
+    id: item.id,
+    items: item.items.map(readCartItem).filter(Boolean),
+    paymentMethod: typeof item.paymentMethod === 'string' ? item.paymentMethod : 'credit',
+    total: Number.isFinite(Number(item.total)) ? Number(item.total) : 0
+  };
+}
+
 export function readStorefrontState(storage) {
   var browserStorage = getStorage(storage);
 
@@ -71,6 +94,9 @@ export function readStorefrontState(storage) {
       cart: Array.isArray(saved.cart) ? saved.cart.map(readCartItem).filter(Boolean) : [],
       comparison: Array.isArray(saved.comparison)
         ? saved.comparison.map(readRecentItem).filter(Boolean).slice(0, 3)
+        : [],
+      orders: Array.isArray(saved.orders)
+        ? saved.orders.map(readOrder).filter(Boolean).slice(0, 12)
         : [],
       recentlyViewed: Array.isArray(saved.recentlyViewed)
         ? saved.recentlyViewed.map(readRecentItem).filter(Boolean).slice(0, 6)
@@ -137,6 +163,13 @@ export function saveStorefrontState(state, storage) {
           return { id: item.id };
         })
     : [];
+  var orders = Array.isArray(state.orders)
+    ? state.orders
+        .filter(function (order) {
+          return order && typeof order.id === 'string' && Array.isArray(order.items);
+        })
+        .slice(0, 12)
+    : [];
 
   try {
     browserStorage.setItem(
@@ -145,6 +178,7 @@ export function saveStorefrontState(state, storage) {
         version: STOREFRONT_STORAGE_VERSION,
         cart: cart,
         comparison: comparison,
+        orders: orders,
         recentlyViewed: recentlyViewed,
         wishlist: wishlist
       })

@@ -67,6 +67,11 @@ export default {
     clearCart: function () {
       this.store.clearCart();
     },
+    completeOrder: function (details) {
+      if (this.store.createOrder(details)) {
+        this.store.clearCart();
+      }
+    },
     goToCart: function () {
       if (this.$route.path !== '/cart') {
         this.$router.push('/cart');
@@ -133,12 +138,14 @@ export default {
             :is="Component"
             :cart="store.state.cart"
             :comparison="store.state.comparison"
+            :orders="store.state.orders"
             :recently-viewed="store.state.recentlyViewed"
             :search-query="store.state.searchQuery"
             :wishlist="store.state.wishlist"
             @add-to-cart="addToCart"
             @add-to-wishlist="addToWishlist"
             @clear-cart="clearCart"
+            @complete-order="completeOrder"
             @toggle-comparison="toggleComparison"
             @remove-from-cart="removeFromCart"
             @remove-from-wishlist="removeFromWishlist"

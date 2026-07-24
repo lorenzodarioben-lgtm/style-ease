@@ -54,13 +54,20 @@ describe('checkout page options', function () {
     expect(context.step).toBe(1);
   });
 
-  it('does not confirm an empty bag and clears a valid demo order', function () {
+  it('does not confirm an empty bag and emits a valid demo order', function () {
     var emptyContext = createCheckoutContext({ cart: [] });
     var orderContext = createCheckoutContext();
 
     expect(CheckoutPage.methods.placeOrder.call(emptyContext)).toBe(false);
     expect(CheckoutPage.methods.placeOrder.call(orderContext)).toBe(true);
     expect(orderContext.orderPlaced).toBe(true);
-    expect(orderContext.$emit).toHaveBeenCalledWith('clear-cart');
+    expect(orderContext.$emit).toHaveBeenCalledWith(
+      'complete-order',
+      expect.objectContaining({
+        customer: expect.objectContaining({ name: '' }),
+        items: orderContext.cart,
+        paymentMethod: undefined
+      })
+    );
   });
 });

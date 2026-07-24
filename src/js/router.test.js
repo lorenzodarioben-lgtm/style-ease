@@ -8,6 +8,7 @@ describe('route titles', function () {
     expect(getRouteTitle({ path: '/cart' })).toBe('Shopping Cart - Style Ease');
     expect(getRouteTitle({ path: '/compare' })).toBe('Compare Styles - Style Ease');
     expect(getRouteTitle({ path: '/wishlist' })).toBe('Wishlist - Style Ease');
+    expect(getRouteTitle({ path: '/orders' })).toBe('Demo Order History - Style Ease');
     expect(getRouteTitle({ path: '/checkout' })).toBe('Checkout - Style Ease');
   });
 

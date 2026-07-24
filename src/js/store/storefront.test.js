@@ -118,4 +118,17 @@ describe('storefront store', function () {
       })
     ).toEqual([1, 3]);
   });
+
+  it('creates local receipt data from a completed demo checkout', function () {
+    var store = createStorefrontStore();
+    var order = store.createOrder({
+      customer: { name: 'Test Shopper' },
+      items: [Object.assign({}, products[0], { quantity: 2 })],
+      paymentMethod: 'paypal'
+    });
+
+    expect(order).toMatchObject({ paymentMethod: 'paypal', total: 150 });
+    expect(order.id).toMatch(/^DEMO-/);
+    expect(store.state.orders).toHaveLength(1);
+  });
 });
