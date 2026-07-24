@@ -1,6 +1,7 @@
 import AppHeader from './components/app-header.js';
 import Toast from './components/toast.js';
 import { createStorefrontStore } from './store/storefront.js';
+import { readStorefrontState, saveStorefrontState } from './store/storage.js';
 
 const CART_BUMP_DURATION_MS = 300;
 
@@ -11,10 +12,16 @@ export default {
     Toast
   },
   data: function () {
+    var store = createStorefrontStore(readStorefrontState());
+
+    store.subscribe(function (state) {
+      saveStorefrontState(state);
+    });
+
     return {
       cartBumpTimer: null,
       isCartBumping: false,
-      store: createStorefrontStore()
+      store: store
     };
   },
   computed: {

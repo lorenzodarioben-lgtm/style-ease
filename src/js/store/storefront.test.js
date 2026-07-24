@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { products } from '../data/catalog.js';
 import { createStorefrontStore } from './storefront.js';
 
@@ -27,5 +27,15 @@ describe('storefront store', function () {
 
     expect(store.state.searchQuery).toBe('jacket');
     expect(store.state.searchInput).toBe('');
+  });
+
+  it('notifies subscribers after state changes', function () {
+    var store = createStorefrontStore();
+    var notify = vi.fn();
+
+    store.subscribe(notify);
+    store.addCartItem(products[0]);
+
+    expect(notify).toHaveBeenCalledWith(store.state);
   });
 });

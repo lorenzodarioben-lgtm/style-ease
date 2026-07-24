@@ -11,12 +11,19 @@ function cloneItems(items) {
 
 export function createStorefrontStore(initialState) {
   var initial = initialState || {};
+  var listeners = [];
   var state = reactive({
     cart: cloneItems(initial.cart),
     searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
     searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
     wishlist: cloneItems(initial.wishlist)
   });
+
+  function notify() {
+    listeners.forEach(function (listener) {
+      listener(state);
+    });
+  }
 
   return {
     state: state,
@@ -26,6 +33,7 @@ export function createStorefrontStore(initialState) {
       }
 
       state.cart.push(cloneProduct(item));
+      notify();
       return true;
     },
     addWishlistItem: function (item) {
@@ -42,10 +50,16 @@ export function createStorefrontStore(initialState) {
       }
 
       state.wishlist.push(cloneProduct(item));
+      notify();
       return true;
     },
     clearCart: function () {
+      if (state.cart.length === 0) {
+        return;
+      }
+
       state.cart.splice(0);
+      notify();
     },
     removeCartItem: function (index) {
       if (!Number.isInteger(index) || index < 0 || index >= state.cart.length) {
@@ -53,6 +67,7 @@ export function createStorefrontStore(initialState) {
       }
 
       state.cart.splice(index, 1);
+      notify();
       return true;
     },
     removeWishlistItem: function (productId) {
@@ -65,13 +80,29 @@ export function createStorefrontStore(initialState) {
       }
 
       state.wishlist.splice(index, 1);
+      notify();
       return true;
     },
     setSearchInput: function (value) {
       state.searchInput = typeof value === 'string' ? value : '';
+      notify();
     },
     setSearchQuery: function (value) {
       state.searchQuery = typeof value === 'string' ? value.trim() : '';
+      notify();
+    },
+    subscribe: function (listener) {
+      if (typeof listener !== 'function') {
+        return function () {};
+      }
+
+      listeners.push(listener);
+
+      return function () {
+        listeners = listeners.filter(function (registeredListener) {
+          return registeredListener !== listener;
+        });
+      };
     }
   };
 }
