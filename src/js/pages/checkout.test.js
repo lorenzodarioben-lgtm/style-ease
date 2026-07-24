@@ -1,45 +1,66 @@
 import { describe, expect, it, vi } from 'vitest';
 import CheckoutPage from './checkout.js';
 
+function createCheckoutContext(overrides) {
+  return Object.assign(
+    {
+      address: '',
+      city: '',
+      email: '',
+      fieldErrors: {},
+      name: '',
+      orderPlaced: false,
+      postcode: '',
+      step: 1,
+      validationError: '',
+      cart: [{ id: 1, name: 'T-Shirt', price: 75, quantity: 2 }],
+      $emit: vi.fn()
+    },
+    overrides
+  );
+}
+
 describe('checkout page options', function () {
   it('calculates checkout totals through production component logic', function () {
-    var cart = [{ price: 75 }, { price: '25.5' }, { price: undefined }];
-
-    expect(CheckoutPage.computed.totalPrice.call({ cart: cart })).toBe(100.5);
+    expect(CheckoutPage.computed.totalPrice.call({ cart: [{ price: 75, quantity: 2 }] })).toBe(150);
   });
 
-  it('blocks order submission when required fields are blank', function () {
-    var context = {
-      name: '  ',
+  it('keeps shoppers on shipping when required fields are invalid', function () {
+    var context = createCheckoutContext();
+    context.getShippingErrors = CheckoutPage.methods.getShippingErrors;
+
+    expect(CheckoutPage.methods.goToPayment.call(context)).toBe(false);
+    expect(context.step).toBe(1);
+    expect(context.fieldErrors).toMatchObject({
+      name: expect.any(String),
+      email: expect.any(String)
+    });
+    expect(context.validationError).toBe('Please fix the highlighted shipping details.');
+  });
+
+  it('moves valid shipping details to review and supports returning', function () {
+    var context = createCheckoutContext({
       address: '123 Test Street',
-      orderPlaced: false,
-      notifyValidationError: CheckoutPage.methods.notifyValidationError,
-      validationError: '',
-      $emit: vi.fn()
-    };
-
-    CheckoutPage.methods.placeOrder.call(context);
-
-    expect(context.validationError).toBe('Please enter your name and shipping address.');
-    expect(context.orderPlaced).toBe(false);
-    expect(context.$emit).not.toHaveBeenCalled();
-  });
-
-  it('places valid orders and clears the cart', function () {
-    var context = {
+      city: 'Sydney',
+      email: 'shopper@example.com',
       name: 'Test Shopper',
-      address: '123 Test Street',
-      orderPlaced: false,
-      validationError: 'Previous error',
-      notifyValidationError: vi.fn(),
-      $emit: vi.fn()
-    };
+      postcode: '2000'
+    });
+    context.getShippingErrors = CheckoutPage.methods.getShippingErrors;
 
-    CheckoutPage.methods.placeOrder.call(context);
+    expect(CheckoutPage.methods.goToPayment.call(context)).toBe(true);
+    expect(context.step).toBe(2);
+    CheckoutPage.methods.returnToShipping.call(context);
+    expect(context.step).toBe(1);
+  });
 
-    expect(context.notifyValidationError).not.toHaveBeenCalled();
-    expect(context.validationError).toBe('');
-    expect(context.orderPlaced).toBe(true);
-    expect(context.$emit).toHaveBeenCalledWith('clear-cart');
+  it('does not confirm an empty bag and clears a valid demo order', function () {
+    var emptyContext = createCheckoutContext({ cart: [] });
+    var orderContext = createCheckoutContext();
+
+    expect(CheckoutPage.methods.placeOrder.call(emptyContext)).toBe(false);
+    expect(CheckoutPage.methods.placeOrder.call(orderContext)).toBe(true);
+    expect(orderContext.orderPlaced).toBe(true);
+    expect(orderContext.$emit).toHaveBeenCalledWith('clear-cart');
   });
 });

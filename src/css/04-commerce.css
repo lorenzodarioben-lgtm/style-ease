@@ -437,6 +437,65 @@ textarea {
   font-weight: 600;
 }
 
+.field-error {
+  color: #ff9999;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+.checkout-fieldset {
+  border: 0;
+  padding: 0;
+}
+
+.checkout-fieldset legend,
+.checkout-form h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.checkout-steps {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.checkout-steps li {
+  color: #aaa;
+  font-weight: 700;
+}
+
+.checkout-steps li.active {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.checkout-note {
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.checkout-location-grid,
+.checkout-navigation {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.back-checkout-btn {
+  background: transparent;
+  border: 1px solid #777;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  margin-top: 20px;
+  padding: 12px;
+}
+
 /* Focus effect for form elements */
 .checkout-form input:focus,
 .checkout-form select:focus,
