@@ -175,6 +175,63 @@ textarea {
   text-align: right;
 }
 
+.wishlist-intro {
+  color: #ccc;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.wishlist-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  padding-bottom: 48px;
+}
+
+.wishlist-card {
+  background: #111;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.wishlist-image {
+  aspect-ratio: 4 / 5;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.wishlist-card-content {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+}
+
+.wishlist-card-content h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.wishlist-card-content a {
+  color: inherit;
+}
+
+.wishlist-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.wishlist-actions .add-to-cart-detail {
+  margin: 0;
+  max-width: none;
+}
+
+.wishlist-empty {
+  margin: 0 auto;
+  max-width: 500px;
+}
+
 .quantity-control {
   align-items: center;
   display: flex;

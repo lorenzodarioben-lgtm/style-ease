@@ -4,6 +4,7 @@ import CheckoutPage from './pages/checkout.js';
 import HomePage from './pages/home.js';
 import ProductDetailPage from './pages/product-detail.js';
 import ProductsPage from './pages/products.js';
+import WishlistPage from './pages/wishlist.js';
 import { findProductById } from './utils/catalog-utils.js';
 
 const APP_TITLE = 'Style Ease';
@@ -21,6 +22,10 @@ export function getRouteTitle(route) {
 
   if (route.path === '/cart') {
     return 'Shopping Cart - ' + APP_TITLE;
+  }
+
+  if (route.path === '/wishlist') {
+    return 'Wishlist - ' + APP_TITLE;
   }
 
   if (route.path === '/checkout') {
@@ -51,6 +56,7 @@ const router = createRouter({
     { path: '/products', component: ProductsPage },
     { path: '/product/:id', component: ProductDetailPage },
     { path: '/cart', component: CartPage },
+    { path: '/wishlist', component: WishlistPage },
     { path: '/checkout', component: CheckoutPage },
     { path: '/:pathMatch(.*)*', redirect: '/' }
   ]

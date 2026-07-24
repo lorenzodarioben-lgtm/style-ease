@@ -12,6 +12,10 @@ export default {
     searchValue: {
       type: String,
       default: ''
+    },
+    wishlistCount: {
+      type: Number,
+      default: 0
     }
   },
   emits: ['open-cart', 'submit-search', 'update-search-input'],
@@ -87,6 +91,15 @@ export default {
                 @click="closeMenu"
               >
                 Products
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                to="/wishlist"
+                :aria-current="isCurrentRoute('/wishlist') ? 'page' : null"
+                @click="closeMenu"
+              >
+                Wishlist <span v-if="wishlistCount" aria-label="saved items">({{ wishlistCount }})</span>
               </router-link>
             </li>
             <li>

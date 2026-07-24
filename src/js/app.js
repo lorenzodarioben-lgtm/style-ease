@@ -28,6 +28,9 @@ export default {
   computed: {
     cartCount: function () {
       return calculateCartQuantity(this.store.state.cart);
+    },
+    wishlistCount: function () {
+      return this.store.state.wishlist.length;
     }
   },
   beforeUnmount: function () {
@@ -97,6 +100,7 @@ export default {
         :cart-count="cartCount"
         :is-cart-bumping="isCartBumping"
         :search-value="store.state.searchInput"
+        :wishlist-count="wishlistCount"
         @open-cart="goToCart"
         @submit-search="performSearch"
         @update-search-input="updateSearchInput"
