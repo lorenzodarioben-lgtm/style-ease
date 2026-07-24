@@ -7,9 +7,13 @@ import {
   getProductStock,
   truncateText
 } from '../utils/catalog-utils.js';
+import ProductImage from '../components/product-image.js';
 
 export default {
   name: 'CartPage',
+  components: {
+    ProductImage
+  },
   props: {
     cart: {
       type: Array,
@@ -67,7 +71,7 @@ export default {
           <div class="cart-items" role="list" aria-label="Cart items">
             <div class="cart-item" role="listitem" v-for="(item, index) in cart" :key="cartItemKey(item, index)">
               <div class="cart-item-image-container">
-                <img :src="item.image" :alt="item.name" class="cart-item-image">
+                <product-image :src="item.image" :alt="item.name" image-class="cart-item-image"></product-image>
               </div>
 
               <div class="cart-item-info">

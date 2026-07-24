@@ -1,7 +1,11 @@
 import { formatPrice } from '../utils/catalog-utils.js';
+import ProductImage from '../components/product-image.js';
 
 export default {
   name: 'WishlistPage',
+  components: {
+    ProductImage
+  },
   emits: ['add-to-cart', 'remove-from-wishlist'],
   props: {
     wishlist: {
@@ -32,7 +36,7 @@ export default {
         <div class="wishlist-grid">
           <article v-for="product in wishlist" :key="product.id" class="wishlist-card">
             <router-link :to="'/product/' + product.id" :aria-label="'View ' + product.name">
-              <img :src="product.image" :alt="product.name" class="wishlist-image">
+              <product-image :src="product.image" :alt="product.name" image-class="wishlist-image"></product-image>
             </router-link>
             <div class="wishlist-card-content">
               <h2><router-link :to="'/product/' + product.id">{{ product.name }}</router-link></h2>

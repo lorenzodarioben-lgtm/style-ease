@@ -9,10 +9,12 @@ import {
   saveReviews
 } from '../utils/catalog-utils.js';
 import RecentlyViewed from '../components/recently-viewed.js';
+import ProductImage from '../components/product-image.js';
 
 export default {
   name: 'ProductDetailPage',
   components: {
+    ProductImage,
     RecentlyViewed
   },
   emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist', 'view-product'],
@@ -176,7 +178,7 @@ export default {
 
         <div class="product-detail">
           <div class="product-detail-image">
-            <img :src="product.image" :alt="product.name">
+            <product-image :src="product.image" :alt="product.name" image-class="product-detail-image-element" loading="eager"></product-image>
           </div>
 
           <div class="product-detail-info">

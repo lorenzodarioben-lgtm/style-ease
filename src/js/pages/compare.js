@@ -1,7 +1,11 @@
 import { formatPrice, getProductStock } from '../utils/catalog-utils.js';
+import ProductImage from '../components/product-image.js';
 
 export default {
   name: 'ComparePage',
+  components: {
+    ProductImage
+  },
   emits: ['add-to-cart', 'toggle-comparison'],
   props: {
     comparison: {
@@ -31,7 +35,7 @@ export default {
         <p id="comparison-title">Compare up to three saved styles side by side.</p>
         <div class="comparison-products">
           <article v-for="product in comparison" :key="product.id" class="comparison-product">
-            <img :src="product.image" :alt="product.name">
+            <product-image :src="product.image" :alt="product.name" image-class="comparison-image"></product-image>
             <h2>{{ product.name }}</h2>
             <div class="comparison-actions">
               <button class="add-to-cart-detail" type="button" :disabled="product.stock === 0" @click="$emit('add-to-cart', product)">

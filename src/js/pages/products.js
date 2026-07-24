@@ -8,9 +8,13 @@ import {
   toggleListValue
 } from '../utils/catalog-utils.js';
 import { createCatalogueQuery, readCatalogueQuery } from '../utils/catalogue-state.js';
+import ProductImage from '../components/product-image.js';
 
 export default {
   name: 'ProductsPage',
+  components: {
+    ProductImage
+  },
   emits: ['add-to-cart', 'toggle-comparison'],
   props: {
     comparison: {
@@ -350,7 +354,7 @@ export default {
                 :to="'/product/' + product.id"
                 :aria-label="'View details for ' + product.name"
               >
-                <img :src="product.image" :alt="product.name" class="product-image">
+                <product-image :src="product.image" :alt="product.name" image-class="product-image"></product-image>
               </router-link>
               <button
                 class="quick-add-overlay"
