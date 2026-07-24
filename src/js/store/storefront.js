@@ -21,6 +21,7 @@ export function createStorefrontStore(initialState) {
   var listeners = [];
   var state = reactive({
     cart: [],
+    comparison: cloneItems(initial.comparison).slice(0, 3),
     recentlyViewed: cloneItems(initial.recentlyViewed),
     searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
     searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
@@ -144,6 +145,29 @@ export function createStorefrontStore(initialState) {
 
       state.recentlyViewed.unshift(cloneProduct(product));
       state.recentlyViewed.splice(6);
+      notify();
+      return true;
+    },
+    toggleComparison: function (product) {
+      if (!product || !Number.isInteger(Number(product.id))) {
+        return false;
+      }
+
+      var existingIndex = state.comparison.findIndex(function (item) {
+        return item.id === product.id;
+      });
+
+      if (existingIndex > -1) {
+        state.comparison.splice(existingIndex, 1);
+        notify();
+        return true;
+      }
+
+      if (state.comparison.length === 3) {
+        return false;
+      }
+
+      state.comparison.push(cloneProduct(product));
       notify();
       return true;
     },

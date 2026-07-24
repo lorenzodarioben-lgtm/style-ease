@@ -86,6 +86,13 @@ export default {
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
     },
+    toggleComparison: function (product) {
+      var changed = this.store.toggleComparison(product);
+
+      if (!changed && this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+        this.$refs.toast.show('You can compare up to three styles at a time.');
+      }
+    },
     recordRecentlyViewed: function (product) {
       this.store.recordRecentlyViewed(product);
     },
@@ -125,12 +132,14 @@ export default {
           <component
             :is="Component"
             :cart="store.state.cart"
+            :comparison="store.state.comparison"
             :recently-viewed="store.state.recentlyViewed"
             :search-query="store.state.searchQuery"
             :wishlist="store.state.wishlist"
             @add-to-cart="addToCart"
             @add-to-wishlist="addToWishlist"
             @clear-cart="clearCart"
+            @toggle-comparison="toggleComparison"
             @remove-from-cart="removeFromCart"
             @remove-from-wishlist="removeFromWishlist"
             @update-cart-quantity="updateCartQuantity"

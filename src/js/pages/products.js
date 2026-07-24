@@ -11,7 +11,15 @@ import { createCatalogueQuery, readCatalogueQuery } from '../utils/catalogue-sta
 
 export default {
   name: 'ProductsPage',
-  emits: ['add-to-cart'],
+  emits: ['add-to-cart', 'toggle-comparison'],
+  props: {
+    comparison: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    }
+  },
   data: function () {
     return {
       activeFilterDropdown: null,
@@ -130,6 +138,11 @@ export default {
     },
     isFilterValueActive: function (type, value) {
       return this.filters[type].indexOf(value) > -1;
+    },
+    isCompared: function (product) {
+      return this.comparison.some(function (item) {
+        return item.id === product.id;
+      });
     },
     toggleSizeFilter: function (size) {
       toggleListValue(this.filters.size, size);
@@ -356,6 +369,14 @@ export default {
               <p class="product-description">{{ product.description }}</p>
               <p class="product-rating" :aria-label="product.rating + ' out of 5 stars'">★ {{ product.rating }}</p>
               <p class="product-price">{{ formatPrice(product.price) }}</p>
+              <button
+                class="compare-toggle"
+                type="button"
+                :aria-pressed="String(isCompared(product))"
+                @click="$emit('toggle-comparison', product)"
+              >
+                {{ isCompared(product) ? 'Remove from Compare' : 'Compare' }}
+              </button>
               <button class="add-to-cart" type="button" :disabled="product.stock === 0" @click="addToCart(product)">
                 {{ product.stock === 0 ? 'Unavailable' : 'Add to Cart' }}
               </button>

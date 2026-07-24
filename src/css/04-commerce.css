@@ -264,6 +264,70 @@ textarea {
   max-width: 500px;
 }
 
+.comparison-workspace > p {
+  color: #ccc;
+  margin-bottom: 24px;
+}
+
+.comparison-products {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-bottom: 32px;
+}
+
+.comparison-product {
+  background: #111;
+  border: 1px solid #333;
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+}
+
+.comparison-product img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  width: 100%;
+}
+
+.comparison-product h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.comparison-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.comparison-actions .add-to-cart-detail {
+  margin: 0;
+  max-width: none;
+}
+
+.comparison-table-wrap {
+  overflow-x: auto;
+}
+
+.comparison-table {
+  border-collapse: collapse;
+  min-width: 640px;
+  width: 100%;
+}
+
+.comparison-table th,
+.comparison-table td {
+  border: 1px solid #444;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.comparison-table th {
+  background: #222;
+  min-width: 140px;
+}
+
 .quantity-control {
   align-items: center;
   display: flex;

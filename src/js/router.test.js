@@ -6,6 +6,7 @@ describe('route titles', function () {
     expect(getRouteTitle({ path: '/' })).toBe('Style Ease - Modern Fashion');
     expect(getRouteTitle({ path: '/products', query: {} })).toBe('Product Catalogue - Style Ease');
     expect(getRouteTitle({ path: '/cart' })).toBe('Shopping Cart - Style Ease');
+    expect(getRouteTitle({ path: '/compare' })).toBe('Compare Styles - Style Ease');
     expect(getRouteTitle({ path: '/wishlist' })).toBe('Wishlist - Style Ease');
     expect(getRouteTitle({ path: '/checkout' })).toBe('Checkout - Style Ease');
   });

@@ -69,6 +69,9 @@ export function readStorefrontState(storage) {
 
     return {
       cart: Array.isArray(saved.cart) ? saved.cart.map(readCartItem).filter(Boolean) : [],
+      comparison: Array.isArray(saved.comparison)
+        ? saved.comparison.map(readRecentItem).filter(Boolean).slice(0, 3)
+        : [],
       recentlyViewed: Array.isArray(saved.recentlyViewed)
         ? saved.recentlyViewed.map(readRecentItem).filter(Boolean).slice(0, 6)
         : [],
@@ -124,6 +127,16 @@ export function saveStorefrontState(state, storage) {
           return { id: item.id };
         })
     : [];
+  var comparison = Array.isArray(state.comparison)
+    ? state.comparison
+        .filter(function (item) {
+          return item && Number.isInteger(item.id);
+        })
+        .slice(0, 3)
+        .map(function (item) {
+          return { id: item.id };
+        })
+    : [];
 
   try {
     browserStorage.setItem(
@@ -131,6 +144,7 @@ export function saveStorefrontState(state, storage) {
       JSON.stringify({
         version: STOREFRONT_STORAGE_VERSION,
         cart: cart,
+        comparison: comparison,
         recentlyViewed: recentlyViewed,
         wishlist: wishlist
       })

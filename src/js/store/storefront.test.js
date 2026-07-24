@@ -102,4 +102,20 @@ describe('storefront store', function () {
       })
     ).toHaveLength(1);
   });
+
+  it('allows a compact comparison set and removes selected products', function () {
+    var store = createStorefrontStore();
+
+    products.slice(0, 3).forEach(function (product) {
+      expect(store.toggleComparison(product)).toBe(true);
+    });
+
+    expect(store.toggleComparison(products[3])).toBe(false);
+    expect(store.toggleComparison(products[1])).toBe(true);
+    expect(
+      store.state.comparison.map(function (item) {
+        return item.id;
+      })
+    ).toEqual([1, 3]);
+  });
 });

@@ -10,6 +10,7 @@ function createProductsContext(overrides) {
       filterOptions: ProductsPage.data().filterOptions,
       filters: createEmptyFilters(),
       itemsPerPage: 6,
+      comparison: [],
       searchQuery: '',
       sortBy: 'featured',
       $route: { query: {} },
@@ -106,5 +107,12 @@ describe('products page options', function () {
 
     expect(context.sortBy).toBe('price-asc');
     expect(context.currentPage).toBe(1);
+  });
+
+  it('reports comparison membership through production component state', function () {
+    expect(ProductsPage.methods.isCompared.call({ comparison: [products[0]] }, products[0])).toBe(
+      true
+    );
+    expect(ProductsPage.methods.isCompared.call({ comparison: [] }, products[0])).toBe(false);
   });
 });

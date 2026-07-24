@@ -154,6 +154,22 @@
   margin-top: 12px;
 }
 
+.compare-toggle {
+  align-self: start;
+  background: transparent;
+  border: 1px solid #666;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+}
+
+.compare-toggle[aria-pressed='true'] {
+  background: #fff;
+  color: #000;
+}
+
 /*===================
   Product Detail Page
 ===================*/

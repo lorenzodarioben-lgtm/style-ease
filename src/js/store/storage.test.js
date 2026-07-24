@@ -17,6 +17,7 @@ describe('storefront session storage', function () {
       JSON.stringify({
         version: 1,
         cart: [{ id: 1, price: 70, selectedSize: 'M', selectedColor: 'Black' }],
+        comparison: [{ id: 4 }],
         recentlyViewed: [{ id: 3 }],
         wishlist: [{ id: 2 }]
       })
@@ -31,6 +32,7 @@ describe('storefront session storage', function () {
           selectedColor: 'Black'
         })
       ],
+      comparison: [expect.objectContaining({ id: 4 })],
       recentlyViewed: [expect.objectContaining({ id: 3 })],
       wishlist: [expect.objectContaining({ id: 2 })]
     });
@@ -43,7 +45,7 @@ describe('storefront session storage', function () {
       readStorefrontState(
         createStorage(JSON.stringify({ version: 1, cart: [{ id: 999 }], wishlist: [{ id: 999 }] }))
       )
-    ).toEqual({ cart: [], recentlyViewed: [], wishlist: [] });
+    ).toEqual({ cart: [], comparison: [], recentlyViewed: [], wishlist: [] });
   });
 
   it('writes a compact versioned snapshot and tolerates storage errors', function () {
@@ -62,6 +64,7 @@ describe('storefront session storage', function () {
       JSON.stringify({
         version: 1,
         cart: [{ id: 1, price: 75, quantity: 1, selectedColor: 'Black', selectedSize: 'M' }],
+        comparison: [],
         recentlyViewed: [],
         wishlist: [{ id: 2 }]
       })

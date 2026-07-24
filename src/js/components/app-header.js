@@ -86,6 +86,15 @@ export default {
             </li>
             <li>
               <router-link
+                to="/compare"
+                :aria-current="isCurrentRoute('/compare') ? 'page' : null"
+                @click="closeMenu"
+              >
+                Compare
+              </router-link>
+            </li>
+            <li>
+              <router-link
                 to="/products"
                 :aria-current="isCurrentRoute('/products') ? 'page' : null"
                 @click="closeMenu"
