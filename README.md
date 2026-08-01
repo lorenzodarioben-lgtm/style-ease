@@ -141,7 +141,7 @@ For implementation details and the browser-data boundaries, see [Architecture](d
 
 ## Current Limitations
 
-These reflect the intended scope of a front-end demonstration:
+These reflect the intended scope of a front-end demonstration: 
 
 - Front-end only — no backend, database, or server-side persistence
 - No authentication or user accounts
