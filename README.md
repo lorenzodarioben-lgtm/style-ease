@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml/badge.svg)](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml)
 
-A responsive front-end fashion storefront built with Vue, Vue Router, and Vite.
+A responsive front-end fashion storefront built with Vue, Vue Router, and Vite. 
 
 ## Live Demo
 
