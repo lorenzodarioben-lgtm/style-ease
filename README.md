@@ -39,7 +39,7 @@ The storefront behaviour is **simulated**: the catalogue is bundled static data 
 - Toast feedback when an item is added to the bag
 - Mobile navigation menu and a route-aware header
 
-## Accessibility and Responsive Behaviour
+## Accessibility and Responsive Behaviour 
 
 Accessibility work that is implemented in the source includes:
 
