@@ -90,6 +90,24 @@ describe('products page options', function () {
     );
   });
 
+  it('closes an open filter when the user clicks outside the filter bar', function () {
+    var context = createProductsContext({
+      activeFilterDropdown: 'size',
+      $refs: {
+        filterBar: {
+          contains: vi.fn(function () {
+            return false;
+          })
+        }
+      },
+      closeFilterDropdown: vi.fn()
+    });
+
+    ProductsPage.methods.handleDocumentClick.call(context, { target: {} });
+
+    expect(context.closeFilterDropdown).toHaveBeenCalledOnce();
+  });
+
   it('reports active filter values through production state', function () {
     var context = createProductsContext({
       filters: {
