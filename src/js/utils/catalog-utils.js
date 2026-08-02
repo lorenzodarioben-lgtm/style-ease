@@ -2,6 +2,8 @@ import { products } from '../data/catalog.js';
 
 const REVIEW_STORAGE_PREFIX = 'reviews-product-';
 const DEFAULT_TRUNCATE_LENGTH = 20;
+const MAX_REVIEW_COMMENT_LENGTH = 500;
+const MAX_REVIEWS_PER_PRODUCT = 50;
 
 export function calculateCartTotal(cart) {
   if (!Array.isArray(cart)) {
@@ -47,6 +49,40 @@ export function createEmptyReview() {
 
 function createReviewStorageKey(productId) {
   return REVIEW_STORAGE_PREFIX + productId;
+}
+
+function getReviewStorage(storage) {
+  if (storage) {
+    return storage;
+  }
+
+  try {
+    return typeof localStorage === 'undefined' ? null : localStorage;
+  } catch {
+    return null;
+  }
+}
+
+function sanitizeReview(review) {
+  var rating = Number(review && review.rating);
+
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+    return null;
+  }
+
+  return {
+    rating: rating,
+    comment:
+      typeof review.comment === 'string'
+        ? review.comment.trim().slice(0, MAX_REVIEW_COMMENT_LENGTH)
+        : ''
+  };
+}
+
+function sanitizeReviews(reviews) {
+  return Array.isArray(reviews)
+    ? reviews.map(sanitizeReview).filter(Boolean).slice(-MAX_REVIEWS_PER_PRODUCT)
+    : [];
 }
 
 export function createSelectedCartItem(product, selectedSize, selectedColor) {
@@ -226,7 +262,11 @@ export function sortProducts(productList, sortBy) {
 }
 
 export function readReviews(productId, storage) {
-  var reviewStorage = storage || localStorage;
+  var reviewStorage = getReviewStorage(storage);
+
+  if (!reviewStorage) {
+    return [];
+  }
 
   try {
     var reviews = JSON.parse(reviewStorage.getItem(createReviewStorageKey(productId)) || '[]');
@@ -235,22 +275,27 @@ export function readReviews(productId, storage) {
       return [];
     }
 
-    return reviews.filter(function (review) {
-      return review && Number.isFinite(review.rating);
-    });
+    return sanitizeReviews(reviews);
   } catch {
     return [];
   }
 }
 
 export function saveReviews(productId, reviews, storage) {
-  var reviewStorage = storage || localStorage;
+  var reviewStorage = getReviewStorage(storage);
+  var safeReviews = sanitizeReviews(reviews);
+
+  if (!reviewStorage) {
+    return safeReviews;
+  }
 
   try {
-    reviewStorage.setItem(createReviewStorageKey(productId), JSON.stringify(reviews));
+    reviewStorage.setItem(createReviewStorageKey(productId), JSON.stringify(safeReviews));
   } catch {
     // Reviews still work in memory if storage is unavailable.
   }
+
+  return safeReviews;
 }
 
 export function toggleListValue(list, value) {

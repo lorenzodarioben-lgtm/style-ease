@@ -147,11 +147,13 @@ export default {
         return;
       }
 
-      this.reviews.push({
-        rating: this.newReview.rating,
-        comment: this.newReview.comment.trim()
-      });
-      saveReviews(this.product.id, this.reviews);
+      this.reviews = saveReviews(
+        this.product.id,
+        this.reviews.concat({
+          rating: this.newReview.rating,
+          comment: this.newReview.comment
+        })
+      );
       this.newReview = createEmptyReview();
       this.reviewStatus = 'Review submitted.';
     },
@@ -338,6 +340,7 @@ export default {
                 <textarea
                   :id="'review-comment-' + product.id"
                   v-model="newReview.comment"
+                  maxlength="500"
                   placeholder="Write your review here (optional)"
                   rows="3"
                 ></textarea>

@@ -238,6 +238,28 @@ describe('catalog utilities', function () {
     );
   });
 
+  it('sanitizes persisted reviews and limits their retained count', function () {
+    var storage = createStorage({
+      'reviews-product-1': JSON.stringify([
+        { rating: 5, comment: '  Great  ' },
+        { rating: 0, comment: 'Invalid' },
+        { rating: 3.5, comment: 'Invalid' },
+        { rating: 6, comment: 'Invalid' },
+        { rating: 4, comment: 42 }
+      ])
+    });
+    var manyReviews = Array.from({ length: 55 }, function (_, index) {
+      return { rating: 5, comment: 'Review ' + index };
+    });
+
+    expect(readReviews(1, storage)).toEqual([
+      { rating: 5, comment: 'Great' },
+      { rating: 4, comment: '' }
+    ]);
+    expect(saveReviews(1, manyReviews, storage)).toHaveLength(50);
+    expect(JSON.parse(storage.values['reviews-product-1'])).toHaveLength(50);
+  });
+
   it('falls back to empty reviews when storage contains invalid data or throws', function () {
     var malformedStorage = createStorage({ 'reviews-product-1': '{nope' });
     var throwingStorage = {
