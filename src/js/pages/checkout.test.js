@@ -28,6 +28,7 @@ describe('checkout page options', function () {
   it('keeps shoppers on shipping when required fields are invalid', function () {
     var context = createCheckoutContext();
     context.getShippingErrors = CheckoutPage.methods.getShippingErrors;
+    context.focusFirstError = vi.fn();
 
     expect(CheckoutPage.methods.goToPayment.call(context)).toBe(false);
     expect(context.step).toBe(1);
@@ -36,6 +37,24 @@ describe('checkout page options', function () {
       email: expect.any(String)
     });
     expect(context.validationError).toBe('Please fix the highlighted shipping details.');
+    expect(context.focusFirstError).toHaveBeenCalledOnce();
+  });
+
+  it('focuses the first invalid field and clears an error after input', function () {
+    var focus = vi.fn();
+    var context = createCheckoutContext({
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { email: { focus: focus } },
+      fieldErrors: { email: 'Enter a valid email address.', name: 'Enter your full name.' }
+    });
+
+    CheckoutPage.methods.focusFirstError.call(context);
+    CheckoutPage.methods.clearFieldError.call(context, 'email');
+
+    expect(focus).toHaveBeenCalledOnce();
+    expect(context.fieldErrors).toEqual({ name: 'Enter your full name.' });
   });
 
   it('moves valid shipping details to review and supports returning', function () {
