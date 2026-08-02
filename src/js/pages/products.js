@@ -434,9 +434,9 @@ export default {
               </button>
             </div>
             <div class="product-info">
-              <h3 class="product-name">
+              <h2 class="product-name">
                 <router-link :to="'/product/' + product.id">{{ product.name }}</router-link>
-              </h3>
+              </h2>
               <p class="product-description">{{ product.description }}</p>
               <p class="product-rating" :aria-label="product.rating + ' out of 5 stars'">★ {{ product.rating }}</p>
               <p class="product-price">{{ formatPrice(product.price) }}</p>

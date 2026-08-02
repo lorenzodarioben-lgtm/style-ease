@@ -88,7 +88,7 @@ The layout is responsive and was checked across mobile, tablet, and desktop widt
 
 ## Automated Testing and Quality Checks
 
-The suite currently has **67 tests across 17 test files**, covering catalogue filtering, sorting and URL state; session-storage fallbacks; cart variants, quantities, and stock limits; wishlist, comparison, recently viewed, checkout, receipt, header, router, and image-delivery behaviour; plus a persisted shopping-flow integration path.
+The unit suite has **84 tests across 18 test files**, covering catalogue filtering, sorting and URL state; session-storage fallbacks; cart variants, quantities, and stock limits; wishlist, comparison, recently viewed, checkout, receipt, header, router, and image-delivery behaviour; plus a persisted shopping-flow integration path. Three Playwright checks exercise the production build's demo purchase flow, automated accessibility, and mobile overflow.
 
 The tests focus on logic and component behaviour. They do not claim full coverage, and they do not cover visual rendering, real payments, or backend behaviour. Browser smoke testing is still useful after layout-sensitive changes.
 
@@ -114,23 +114,24 @@ npm run preview
 
 ## Available npm Scripts
 
-| Script                 | Description                                          |
-| ---------------------- | ---------------------------------------------------- |
-| `npm run dev`          | Start the Vite development server                    |
-| `npm run build`        | Create the production build in `dist/`               |
-| `npm run preview`      | Serve the production build locally                   |
-| `npm run lint`         | Run ESLint                                           |
-| `npm run format`       | Format supported files with Prettier                 |
-| `npm run format:check` | Check formatting without writing changes             |
-| `npm test`             | Run the test suite in watch mode                     |
-| `npm run test:run`     | Run the test suite once                              |
-| `npm run validate`     | Run format check, lint, tests, and build in sequence |
+| Script                 | Description                                           |
+| ---------------------- | ----------------------------------------------------- |
+| `npm run dev`          | Start the Vite development server                     |
+| `npm run build`        | Create the production build in `dist/`                |
+| `npm run preview`      | Serve the production build locally                    |
+| `npm run lint`         | Run ESLint                                            |
+| `npm run format`       | Format supported files with Prettier                  |
+| `npm run format:check` | Check formatting without writing changes              |
+| `npm test`             | Run the test suite in watch mode                      |
+| `npm run test:run`     | Run the test suite once                               |
+| `npm run test:e2e`     | Run production-build browser and accessibility checks |
+| `npm run validate`     | Run format check, lint, tests, and build in sequence  |
 
 ## Deployment
 
 Pushes to `main` trigger two GitHub Actions workflows:
 
-- **CI** (`.github/workflows/ci.yml`) runs on pull requests and pushes to `main`, installing with `npm ci` and running `npm run validate`.
+- **CI** (`.github/workflows/ci.yml`) runs on pull requests and pushes to `main`, installing with `npm ci`, running `npm run validate`, and checking the production build with Playwright.
 - **Deploy** (`.github/workflows/deploy.yml`) runs on pushes to `main`, validates and builds the app, and publishes the generated output with the official GitHub Pages actions. Pull-request branches are never deployed.
 
 The production build is served from the `/style-ease/` subpath, configured for production mode only in `vite.config.js`; local development and tests run at the root path. The build output is written to `dist/`, which is generated and not committed to the repository.

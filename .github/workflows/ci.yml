@@ -33,3 +33,9 @@ jobs:
 
       - name: Validate (format, lint, test, build)
         run: npm run validate
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser regression tests
+        run: npm run test:e2e

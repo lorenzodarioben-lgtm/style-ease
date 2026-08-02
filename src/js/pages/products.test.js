@@ -90,6 +90,10 @@ describe('products page options', function () {
     );
   });
 
+  it('uses card headings that follow the catalogue page heading', function () {
+    expect(ProductsPage.template).toContain('<h2 class="product-name">');
+  });
+
   it('closes an open filter when the user clicks outside the filter bar', function () {
     var context = createProductsContext({
       activeFilterDropdown: 'size',
