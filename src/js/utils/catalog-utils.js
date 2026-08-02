@@ -298,6 +298,23 @@ export function saveReviews(productId, reviews, storage) {
   return safeReviews;
 }
 
+export function clearReviews(storage) {
+  var reviewStorage = getReviewStorage(storage);
+
+  if (!reviewStorage) {
+    return false;
+  }
+
+  try {
+    products.forEach(function (product) {
+      reviewStorage.removeItem(createReviewStorageKey(product.id));
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function toggleListValue(list, value) {
   var index = list.indexOf(value);
 

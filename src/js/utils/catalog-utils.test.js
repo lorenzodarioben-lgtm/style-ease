@@ -3,6 +3,7 @@ import { filterOptions, products } from '../data/catalog.js';
 import {
   calculateCartTotal,
   calculateCartQuantity,
+  clearReviews,
   cloneProduct,
   createCartItem,
   createEmptyFilters,
@@ -33,6 +34,9 @@ function createStorage(initialValues) {
     }),
     setItem: vi.fn(function (key, value) {
       values[key] = String(value);
+    }),
+    removeItem: vi.fn(function (key) {
+      delete values[key];
     }),
     values: values
   };
@@ -258,6 +262,17 @@ describe('catalog utilities', function () {
     ]);
     expect(saveReviews(1, manyReviews, storage)).toHaveLength(50);
     expect(JSON.parse(storage.values['reviews-product-1'])).toHaveLength(50);
+  });
+
+  it('removes reviews for every catalogue product without clearing other storage', function () {
+    var storage = createStorage({
+      'reviews-product-1': JSON.stringify([{ rating: 5, comment: 'Great' }]),
+      unrelated: 'keep'
+    });
+
+    expect(clearReviews(storage)).toBe(true);
+    expect(storage.removeItem).toHaveBeenCalledTimes(products.length);
+    expect(storage.values.unrelated).toBe('keep');
   });
 
   it('falls back to empty reviews when storage contains invalid data or throws', function () {
