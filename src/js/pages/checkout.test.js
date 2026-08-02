@@ -25,6 +25,13 @@ describe('checkout page options', function () {
     expect(CheckoutPage.computed.totalPrice.call({ cart: [{ price: 75, quantity: 2 }] })).toBe(150);
   });
 
+  it('uses the newest saved order as the confirmation receipt', function () {
+    expect(CheckoutPage.computed.latestOrder.call({ orders: [] })).toBeNull();
+    expect(
+      CheckoutPage.computed.latestOrder.call({ orders: [{ id: 'DEMO-NEW' }, { id: 'DEMO-OLD' }] })
+    ).toEqual({ id: 'DEMO-NEW' });
+  });
+
   it('keeps shoppers on shipping when required fields are invalid', function () {
     var context = createCheckoutContext();
     context.getShippingErrors = CheckoutPage.methods.getShippingErrors;

@@ -8,6 +8,12 @@ export default {
       default: function () {
         return [];
       }
+    },
+    orders: {
+      type: Array,
+      default: function () {
+        return [];
+      }
     }
   },
   emits: ['complete-order'],
@@ -26,6 +32,9 @@ export default {
     };
   },
   computed: {
+    latestOrder: function () {
+      return this.orders[0] || null;
+    },
     totalPrice: function () {
       return calculateCartTotal(this.cart);
     }
@@ -134,6 +143,8 @@ export default {
         <h2>Order request received, {{ name }}.</h2>
         <p>This portfolio demonstration does not process payments or create real orders.</p>
         <p>Delivery details: {{ address }}, {{ city }}, {{ postcode }}</p>
+        <p v-if="latestOrder"><strong>Demo receipt: {{ latestOrder.id }}</strong></p>
+        <router-link to="/orders" class="back-checkout-btn">View Demo Receipt</router-link>
         <router-link to="/" class="hero-cta">Return to Home</router-link>
       </div>
 
