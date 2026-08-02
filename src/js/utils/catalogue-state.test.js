@@ -6,7 +6,7 @@ describe('catalogue URL state', function () {
     expect(
       readCatalogueQuery({
         q: '  jacket ',
-        category: 'Jackets,Unknown',
+        category: 'T-Shirts,Tops,Tops,Unknown',
         color: 'Black,Blue',
         size: 'M,Invalid',
         price: 'Over $100',
@@ -15,7 +15,7 @@ describe('catalogue URL state', function () {
       })
     ).toMatchObject({
       currentPage: 3,
-      filters: { category: ['Jackets'], color: ['Black', 'Blue'], size: ['M'] },
+      filters: { category: ['Tops'], color: ['Black', 'Blue'], size: ['M'] },
       searchQuery: 'jacket',
       sortBy: 'price-desc'
     });

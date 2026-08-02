@@ -23,13 +23,17 @@ function createProductsContext(overrides) {
 }
 
 describe('products page options', function () {
-  it('restores supported catalogue filters from the route query', function () {
+  it('restores supported catalogue filters and canonicalizes an out-of-range page', function () {
     var context = createProductsContext({ $route: { query: { category: 'Jeans', page: '2' } } });
 
     ProductsPage.methods.applyRouteState.call(context);
 
     expect(context.filters.category).toEqual(['Jeans']);
-    expect(context.currentPage).toBe(2);
+    expect(context.currentPage).toBe(1);
+    expect(context.$router.replace).toHaveBeenCalledWith({
+      path: '/products',
+      query: { category: 'Jeans' }
+    });
   });
 
   it('writes filter changes back to the route query', function () {

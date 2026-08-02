@@ -10,6 +10,25 @@ import {
 import { createCatalogueQuery, readCatalogueQuery } from '../utils/catalogue-state.js';
 import ProductImage from '../components/product-image.js';
 
+function getTotalPages(searchQuery, filters, itemsPerPage) {
+  return Math.max(
+    1,
+    Math.ceil(filterProducts(products, searchQuery, filters).length / itemsPerPage)
+  );
+}
+
+function queriesMatch(source, target) {
+  var sourceKeys = Object.keys(source || {});
+  var targetKeys = Object.keys(target || {});
+
+  return (
+    sourceKeys.length === targetKeys.length &&
+    sourceKeys.every(function (key) {
+      return target[key] === source[key];
+    })
+  );
+}
+
 export default {
   name: 'ProductsPage',
   components: {
@@ -83,11 +102,29 @@ export default {
     },
     applyRouteState: function () {
       var routeState = readCatalogueQuery(this.$route.query);
+      var currentPage = Math.min(
+        routeState.currentPage,
+        getTotalPages(routeState.searchQuery, routeState.filters, this.itemsPerPage)
+      );
 
-      this.currentPage = routeState.currentPage;
+      this.currentPage = currentPage;
       this.filters = routeState.filters;
       this.searchQuery = routeState.searchQuery;
       this.sortBy = routeState.sortBy;
+
+      var canonicalQuery = createCatalogueQuery({
+        currentPage: currentPage,
+        filters: routeState.filters,
+        searchQuery: routeState.searchQuery,
+        sortBy: routeState.sortBy
+      });
+
+      if (!queriesMatch(this.$route.query, canonicalQuery)) {
+        this.$router.replace({
+          path: '/products',
+          query: canonicalQuery
+        });
+      }
     },
     applyPriceFilter: function (range) {
       this.filters.priceRange =

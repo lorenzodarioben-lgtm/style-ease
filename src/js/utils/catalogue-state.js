@@ -2,17 +2,27 @@ import { filterOptions } from '../data/catalog.js';
 import { createEmptyFilters } from './catalog-utils.js';
 
 const SORT_OPTIONS = ['featured', 'newest', 'price-asc', 'price-desc', 'rating', 'name'];
+const CATEGORY_ALIASES = {
+  'T-Shirts': 'Tops'
+};
 
 function asString(value) {
   return Array.isArray(value) ? value[0] || '' : typeof value === 'string' ? value : '';
 }
 
-function readList(value, allowedValues) {
-  return asString(value)
-    .split(',')
-    .filter(function (item) {
-      return allowedValues.indexOf(item) > -1;
-    });
+function readList(value, allowedValues, aliases) {
+  return Array.from(
+    new Set(
+      asString(value)
+        .split(',')
+        .map(function (item) {
+          return (aliases && aliases[item]) || item;
+        })
+        .filter(function (item) {
+          return allowedValues.indexOf(item) > -1;
+        })
+    )
+  );
 }
 
 function readPriceRange(value) {
@@ -70,7 +80,7 @@ export function readCatalogueQuery(query) {
   return {
     currentPage: Number.isFinite(page) && page > 0 ? page : 1,
     filters: {
-      category: readList(source.category, filterOptions.categories),
+      category: readList(source.category, filterOptions.categories, CATEGORY_ALIASES),
       color: readList(source.color, filterOptions.colors),
       priceRange: readPriceRange(source.price),
       size: readList(source.size, filterOptions.sizes)
