@@ -12,4 +12,10 @@ describe('comparison page', function () {
     ComparePage.methods.removeProduct.call({ $emit: emit }, product);
     expect(emit).toHaveBeenCalledWith('toggle-comparison', product);
   });
+
+  it('provides column headers that identify each compared product', function () {
+    expect(ComparePage.template).toContain('<thead>');
+    expect(ComparePage.template).toContain('scope="col"');
+    expect(ComparePage.template).toContain("'name-' + product.id");
+  });
 });

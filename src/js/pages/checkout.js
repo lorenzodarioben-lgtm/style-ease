@@ -8,6 +8,12 @@ export default {
       default: function () {
         return [];
       }
+    },
+    orders: {
+      type: Array,
+      default: function () {
+        return [];
+      }
     }
   },
   emits: ['complete-order'],
@@ -26,6 +32,9 @@ export default {
     };
   },
   computed: {
+    latestOrder: function () {
+      return this.orders[0] || null;
+    },
     totalPrice: function () {
       return calculateCartTotal(this.cart);
     }
@@ -33,6 +42,37 @@ export default {
   methods: {
     formatPrice: function (price) {
       return formatPrice(price);
+    },
+    clearFieldError: function (field) {
+      if (!this.fieldErrors[field]) {
+        return;
+      }
+
+      var errors = Object.assign({}, this.fieldErrors);
+
+      delete errors[field];
+      this.fieldErrors = errors;
+
+      if (Object.keys(errors).length === 0) {
+        this.validationError = '';
+      }
+    },
+    focusFirstError: function () {
+      var firstField = Object.keys(this.fieldErrors)[0];
+
+      if (!firstField || !this.$refs) {
+        return;
+      }
+
+      this.$nextTick(
+        function () {
+          var field = this.$refs[firstField];
+
+          if (field && typeof field.focus === 'function') {
+            field.focus();
+          }
+        }.bind(this)
+      );
     },
     getShippingErrors: function () {
       var errors = {};
@@ -60,6 +100,7 @@ export default {
 
       if (Object.keys(this.fieldErrors).length) {
         this.validationError = 'Please fix the highlighted shipping details.';
+        this.focusFirstError();
         return false;
       }
 
@@ -102,6 +143,8 @@ export default {
         <h2>Order request received, {{ name }}.</h2>
         <p>This portfolio demonstration does not process payments or create real orders.</p>
         <p>Delivery details: {{ address }}, {{ city }}, {{ postcode }}</p>
+        <p v-if="latestOrder"><strong>Demo receipt: {{ latestOrder.id }}</strong></p>
+        <router-link to="/orders" class="back-checkout-btn">View Demo Receipt</router-link>
         <router-link to="/" class="hero-cta">Return to Home</router-link>
       </div>
 
@@ -119,31 +162,31 @@ export default {
 
           <div class="form-section">
             <label for="checkout-name">Full name</label>
-            <input id="checkout-name" v-model="name" type="text" autocomplete="name" :aria-invalid="String(Boolean(fieldErrors.name))" :aria-describedby="fieldErrors.name ? 'checkout-name-error' : null">
+            <input id="checkout-name" ref="name" v-model="name" type="text" autocomplete="name" :aria-invalid="String(Boolean(fieldErrors.name))" :aria-describedby="fieldErrors.name ? 'checkout-name-error' : null" @input="clearFieldError('name')">
             <p v-if="fieldErrors.name" id="checkout-name-error" class="field-error">{{ fieldErrors.name }}</p>
           </div>
 
           <div class="form-section">
             <label for="checkout-email">Email</label>
-            <input id="checkout-email" v-model="email" type="email" autocomplete="email" :aria-invalid="String(Boolean(fieldErrors.email))" :aria-describedby="fieldErrors.email ? 'checkout-email-error' : null">
+            <input id="checkout-email" ref="email" v-model="email" type="email" autocomplete="email" :aria-invalid="String(Boolean(fieldErrors.email))" :aria-describedby="fieldErrors.email ? 'checkout-email-error' : null" @input="clearFieldError('email')">
             <p v-if="fieldErrors.email" id="checkout-email-error" class="field-error">{{ fieldErrors.email }}</p>
           </div>
 
           <div class="form-section">
             <label for="checkout-address">Street address</label>
-            <textarea id="checkout-address" v-model="address" autocomplete="street-address" :aria-invalid="String(Boolean(fieldErrors.address))" :aria-describedby="fieldErrors.address ? 'checkout-address-error' : null"></textarea>
+            <textarea id="checkout-address" ref="address" v-model="address" autocomplete="street-address" :aria-invalid="String(Boolean(fieldErrors.address))" :aria-describedby="fieldErrors.address ? 'checkout-address-error' : null" @input="clearFieldError('address')"></textarea>
             <p v-if="fieldErrors.address" id="checkout-address-error" class="field-error">{{ fieldErrors.address }}</p>
           </div>
 
           <div class="checkout-location-grid">
             <div class="form-section">
               <label for="checkout-city">City or suburb</label>
-              <input id="checkout-city" v-model="city" type="text" autocomplete="address-level2" :aria-invalid="String(Boolean(fieldErrors.city))" :aria-describedby="fieldErrors.city ? 'checkout-city-error' : null">
+              <input id="checkout-city" ref="city" v-model="city" type="text" autocomplete="address-level2" :aria-invalid="String(Boolean(fieldErrors.city))" :aria-describedby="fieldErrors.city ? 'checkout-city-error' : null" @input="clearFieldError('city')">
               <p v-if="fieldErrors.city" id="checkout-city-error" class="field-error">{{ fieldErrors.city }}</p>
             </div>
             <div class="form-section">
               <label for="checkout-postcode">Postcode</label>
-              <input id="checkout-postcode" v-model="postcode" type="text" autocomplete="postal-code" :aria-invalid="String(Boolean(fieldErrors.postcode))" :aria-describedby="fieldErrors.postcode ? 'checkout-postcode-error' : null">
+              <input id="checkout-postcode" ref="postcode" v-model="postcode" type="text" autocomplete="postal-code" :aria-invalid="String(Boolean(fieldErrors.postcode))" :aria-describedby="fieldErrors.postcode ? 'checkout-postcode-error' : null" @input="clearFieldError('postcode')">
               <p v-if="fieldErrors.postcode" id="checkout-postcode-error" class="field-error">{{ fieldErrors.postcode }}</p>
             </div>
           </div>

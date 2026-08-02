@@ -20,6 +20,10 @@ export default {
       type: String,
       default: ''
     },
+    fetchPriority: {
+      type: String,
+      default: 'auto'
+    },
     loading: {
       type: String,
       default: 'lazy'
@@ -27,6 +31,10 @@ export default {
     src: {
       type: String,
       default: ''
+    },
+    sizes: {
+      type: String,
+      default: '(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw'
     }
   },
   data: function () {
@@ -58,10 +66,11 @@ export default {
     <img
       :src="imageSource"
       :srcset="imageSourceSet"
-      sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
+      :sizes="sizes"
       :alt="alt"
       :class="imageClass"
       :loading="loading"
+      :fetchpriority="fetchPriority"
       decoding="async"
       width="900"
       height="1125"

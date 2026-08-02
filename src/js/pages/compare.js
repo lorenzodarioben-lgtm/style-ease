@@ -50,6 +50,14 @@ export default {
         <div class="comparison-table-wrap" tabindex="0">
           <table class="comparison-table">
             <caption class="sr-only">Product comparison</caption>
+            <thead>
+              <tr>
+                <th scope="col">Details</th>
+                <th v-for="product in comparison" :key="'name-' + product.id" scope="col">
+                  {{ product.name }}
+                </th>
+              </tr>
+            </thead>
             <tbody>
               <tr><th scope="row">Price</th><td v-for="product in comparison" :key="'price-' + product.id">{{ formatPrice(product.price) }}</td></tr>
               <tr><th scope="row">Rating</th><td v-for="product in comparison" :key="'rating-' + product.id">{{ product.rating }} / 5</td></tr>

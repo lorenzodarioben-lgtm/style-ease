@@ -187,3 +187,18 @@ export function saveStorefrontState(state, storage) {
     // The storefront remains usable when browser storage is unavailable.
   }
 }
+
+export function clearStorefrontState(storage) {
+  var browserStorage = getStorage(storage);
+
+  if (!browserStorage) {
+    return false;
+  }
+
+  try {
+    browserStorage.removeItem(STOREFRONT_STORAGE_KEY);
+    return true;
+  } catch {
+    return false;
+  }
+}

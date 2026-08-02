@@ -9,6 +9,7 @@ function createStore() {
     }),
     addWishlistItem: vi.fn(),
     clearCart: vi.fn(),
+    reset: vi.fn(),
     removeCartItem: vi.fn(),
     removeWishlistItem: vi.fn(),
     setSearchInput: vi.fn(),
@@ -67,6 +68,15 @@ describe('root app state methods', function () {
     expect(context.store.addWishlistItem).toHaveBeenCalledWith(products[0]);
     expect(context.store.removeWishlistItem).toHaveBeenCalledWith(products[0].id);
     expect(context.store.clearCart).toHaveBeenCalled();
+  });
+
+  it('clears saved demo data through the central storefront store', function () {
+    var context = createAppContext();
+
+    App.methods.clearDemoData.call(context);
+
+    expect(context.store.reset).toHaveBeenCalledOnce();
+    expect(context.$refs.toast.show).toHaveBeenCalledWith('Saved demo data has been cleared.');
   });
 
   it('submits the shared search query and routes to the catalogue', function () {

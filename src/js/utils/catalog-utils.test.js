@@ -3,6 +3,7 @@ import { filterOptions, products } from '../data/catalog.js';
 import {
   calculateCartTotal,
   calculateCartQuantity,
+  clearReviews,
   cloneProduct,
   createCartItem,
   createEmptyFilters,
@@ -34,11 +35,30 @@ function createStorage(initialValues) {
     setItem: vi.fn(function (key, value) {
       values[key] = String(value);
     }),
+    removeItem: vi.fn(function (key) {
+      delete values[key];
+    }),
     values: values
   };
 }
 
 describe('catalog utilities', function () {
+  it('derives filters from every product option', function () {
+    expect(filterOptions.sizes).toEqual(
+      expect.arrayContaining(['XXL', '28', '38', 'One Size', 'Standard'])
+    );
+    expect(filterOptions.colors).toEqual(
+      expect.arrayContaining(['Black', 'White', 'Gray', 'Blue', 'Red'])
+    );
+  });
+
+  it('uses a consistent category taxonomy for topwear and outerwear', function () {
+    expect(products[0].category).toBe('Tops');
+    expect(products[6].category).toBe('Jackets');
+    expect(products[7].category).toBe('Tops');
+    expect(products[19].category).toBe('Tops');
+  });
+
   it('clones products and adds selected cart options without mutating the source product', function () {
     var product = products[0];
     var clone = cloneProduct(product);
@@ -220,6 +240,39 @@ describe('catalog utilities', function () {
       'reviews-product-2',
       JSON.stringify([{ rating: 4, comment: 'Nice' }])
     );
+  });
+
+  it('sanitizes persisted reviews and limits their retained count', function () {
+    var storage = createStorage({
+      'reviews-product-1': JSON.stringify([
+        { rating: 5, comment: '  Great  ' },
+        { rating: 0, comment: 'Invalid' },
+        { rating: 3.5, comment: 'Invalid' },
+        { rating: 6, comment: 'Invalid' },
+        { rating: 4, comment: 42 }
+      ])
+    });
+    var manyReviews = Array.from({ length: 55 }, function (_, index) {
+      return { rating: 5, comment: 'Review ' + index };
+    });
+
+    expect(readReviews(1, storage)).toEqual([
+      { rating: 5, comment: 'Great' },
+      { rating: 4, comment: '' }
+    ]);
+    expect(saveReviews(1, manyReviews, storage)).toHaveLength(50);
+    expect(JSON.parse(storage.values['reviews-product-1'])).toHaveLength(50);
+  });
+
+  it('removes reviews for every catalogue product without clearing other storage', function () {
+    var storage = createStorage({
+      'reviews-product-1': JSON.stringify([{ rating: 5, comment: 'Great' }]),
+      unrelated: 'keep'
+    });
+
+    expect(clearReviews(storage)).toBe(true);
+    expect(storage.removeItem).toHaveBeenCalledTimes(products.length);
+    expect(storage.values.unrelated).toBe('keep');
   });
 
   it('falls back to empty reviews when storage contains invalid data or throws', function () {

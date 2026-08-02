@@ -10,6 +10,25 @@ import {
 import { createCatalogueQuery, readCatalogueQuery } from '../utils/catalogue-state.js';
 import ProductImage from '../components/product-image.js';
 
+function getTotalPages(searchQuery, filters, itemsPerPage) {
+  return Math.max(
+    1,
+    Math.ceil(filterProducts(products, searchQuery, filters).length / itemsPerPage)
+  );
+}
+
+function queriesMatch(source, target) {
+  var sourceKeys = Object.keys(source || {});
+  var targetKeys = Object.keys(target || {});
+
+  return (
+    sourceKeys.length === targetKeys.length &&
+    sourceKeys.every(function (key) {
+      return target[key] === source[key];
+    })
+  );
+}
+
 export default {
   name: 'ProductsPage',
   components: {
@@ -38,6 +57,12 @@ export default {
   created: function () {
     this.applyRouteState();
   },
+  mounted: function () {
+    document.addEventListener('click', this.handleDocumentClick);
+  },
+  beforeUnmount: function () {
+    document.removeEventListener('click', this.handleDocumentClick);
+  },
   computed: {
     pages: function () {
       return Array.from({ length: this.totalPages }, function (_, index) {
@@ -63,6 +88,7 @@ export default {
   },
   watch: {
     '$route.query': function () {
+      this.closeFilterDropdown();
       this.applyRouteState();
     },
     processedProducts: function () {
@@ -75,19 +101,49 @@ export default {
     addToCart: function (product) {
       this.$emit('add-to-cart', cloneProduct(product));
     },
-    closeFilterDropdown: function () {
+    closeFilterDropdown: function (restoreFocus) {
+      var activeDropdown = this.activeFilterDropdown;
+
       this.activeFilterDropdown = null;
+
+      if (restoreFocus && activeDropdown && this.$refs) {
+        this.$nextTick(function () {
+          var trigger = this.$refs['filter-' + activeDropdown];
+
+          if (trigger && typeof trigger.focus === 'function') {
+            trigger.focus();
+          }
+        });
+      }
     },
     formatPrice: function (price) {
       return formatPrice(price);
     },
     applyRouteState: function () {
       var routeState = readCatalogueQuery(this.$route.query);
+      var currentPage = Math.min(
+        routeState.currentPage,
+        getTotalPages(routeState.searchQuery, routeState.filters, this.itemsPerPage)
+      );
 
-      this.currentPage = routeState.currentPage;
+      this.currentPage = currentPage;
       this.filters = routeState.filters;
       this.searchQuery = routeState.searchQuery;
       this.sortBy = routeState.sortBy;
+
+      var canonicalQuery = createCatalogueQuery({
+        currentPage: currentPage,
+        filters: routeState.filters,
+        searchQuery: routeState.searchQuery,
+        sortBy: routeState.sortBy
+      });
+
+      if (!queriesMatch(this.$route.query, canonicalQuery)) {
+        this.$router.replace({
+          path: '/products',
+          query: canonicalQuery
+        });
+      }
     },
     applyPriceFilter: function (range) {
       this.filters.priceRange =
@@ -105,6 +161,13 @@ export default {
     },
     goToProduct: function (productId) {
       this.$router.push('/product/' + productId);
+    },
+    handleDocumentClick: function (event) {
+      var filterBar = this.$refs && this.$refs.filterBar;
+
+      if (this.activeFilterDropdown && filterBar && !filterBar.contains(event.target)) {
+        this.closeFilterDropdown();
+      }
     },
     nextPage: function () {
       if (this.currentPage < this.totalPages) {
@@ -191,11 +254,12 @@ export default {
           </label>
         </div>
 
-        <div class="filter-bar" @keydown.escape.prevent="closeFilterDropdown">
+        <div ref="filterBar" class="filter-bar" @keydown.escape.prevent="closeFilterDropdown(true)">
           <div class="filter-dropdown-container">
             <button
               class="filter-button"
               type="button"
+              ref="filter-category"
               :aria-expanded="String(activeFilterDropdown === 'category')"
               aria-controls="category-filter-options"
               :aria-label="filterButtonLabel('Category filter', filters.category.length)"
@@ -225,6 +289,7 @@ export default {
             <button
               class="filter-button"
               type="button"
+              ref="filter-size"
               :aria-expanded="String(activeFilterDropdown === 'size')"
               aria-controls="size-filter-options"
               :aria-label="filterButtonLabel('Size filter', filters.size.length)"
@@ -254,6 +319,7 @@ export default {
             <button
               class="filter-button"
               type="button"
+              ref="filter-color"
               :aria-expanded="String(activeFilterDropdown === 'color')"
               aria-controls="color-filter-options"
               :aria-label="filterButtonLabel('Color filter', filters.color.length)"
@@ -283,6 +349,7 @@ export default {
             <button
               class="filter-button"
               type="button"
+              ref="filter-price"
               :aria-expanded="String(activeFilterDropdown === 'price')"
               aria-controls="price-filter-options"
               :aria-label="filters.priceRange ? 'Price filter, 1 selected' : 'Price filter'"
@@ -367,9 +434,9 @@ export default {
               </button>
             </div>
             <div class="product-info">
-              <h3 class="product-name">
+              <h2 class="product-name">
                 <router-link :to="'/product/' + product.id">{{ product.name }}</router-link>
-              </h3>
+              </h2>
               <p class="product-description">{{ product.description }}</p>
               <p class="product-rating" :aria-label="product.rating + ' out of 5 stars'">★ {{ product.rating }}</p>
               <p class="product-price">{{ formatPrice(product.price) }}</p>

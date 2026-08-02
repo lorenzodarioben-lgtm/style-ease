@@ -1,8 +1,8 @@
 import AppHeader from './components/app-header.js';
 import Toast from './components/toast.js';
 import { createStorefrontStore } from './store/storefront.js';
-import { readStorefrontState, saveStorefrontState } from './store/storage.js';
-import { calculateCartQuantity } from './utils/catalog-utils.js';
+import { clearStorefrontState, readStorefrontState, saveStorefrontState } from './store/storage.js';
+import { calculateCartQuantity, clearReviews } from './utils/catalog-utils.js';
 
 const CART_BUMP_DURATION_MS = 300;
 
@@ -66,6 +66,15 @@ export default {
     },
     clearCart: function () {
       this.store.clearCart();
+    },
+    clearDemoData: function () {
+      this.store.reset();
+      clearStorefrontState();
+      clearReviews();
+
+      if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+        this.$refs.toast.show('Saved demo data has been cleared.');
+      }
     },
     completeOrder: function (details) {
       if (this.store.createOrder(details)) {
@@ -145,6 +154,7 @@ export default {
             @add-to-cart="addToCart"
             @add-to-wishlist="addToWishlist"
             @clear-cart="clearCart"
+            @clear-demo-data="clearDemoData"
             @complete-order="completeOrder"
             @toggle-comparison="toggleComparison"
             @remove-from-cart="removeFromCart"

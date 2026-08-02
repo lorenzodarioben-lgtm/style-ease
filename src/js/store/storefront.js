@@ -150,6 +150,16 @@ export function createStorefrontStore(initialState) {
       notify();
       return true;
     },
+    reset: function () {
+      state.cart.splice(0);
+      state.comparison.splice(0);
+      state.orders.splice(0);
+      state.recentlyViewed.splice(0);
+      state.searchInput = '';
+      state.searchQuery = '';
+      state.wishlist.splice(0);
+      notify();
+    },
     createOrder: function (details) {
       if (!details || !Array.isArray(details.items) || details.items.length === 0) {
         return null;

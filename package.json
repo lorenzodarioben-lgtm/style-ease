@@ -35,8 +35,10 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{css,html,js,json,md}\" .prettierrc",
     "format:check": "prettier --check \"**/*.{css,html,js,json,md}\" .prettierrc",
+    "audit": "npm audit --audit-level=high",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:e2e": "npm run build && playwright test",
     "validate": "run-s format:check lint test:run build"
   },
   "dependencies": {
@@ -44,7 +46,9 @@
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.62.1",
     "@vitejs/plugin-vue": "^6.0.7",
     "eslint": "^10.6.0",
     "eslint-plugin-vue": "^10.9.2",

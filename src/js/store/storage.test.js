@@ -1,12 +1,18 @@
 import { describe, expect, it, vi } from 'vitest';
 import { products } from '../data/catalog.js';
-import { STOREFRONT_STORAGE_KEY, readStorefrontState, saveStorefrontState } from './storage.js';
+import {
+  STOREFRONT_STORAGE_KEY,
+  clearStorefrontState,
+  readStorefrontState,
+  saveStorefrontState
+} from './storage.js';
 
 function createStorage(value) {
   return {
     getItem: vi.fn(function () {
       return value || null;
     }),
+    removeItem: vi.fn(),
     setItem: vi.fn()
   };
 }
@@ -82,5 +88,12 @@ describe('storefront session storage', function () {
         }
       );
     }).not.toThrow();
+  });
+
+  it('removes only the storefront snapshot when requested', function () {
+    var storage = createStorage();
+
+    expect(clearStorefrontState(storage)).toBe(true);
+    expect(storage.removeItem).toHaveBeenCalledWith(STOREFRONT_STORAGE_KEY);
   });
 });

@@ -131,4 +131,28 @@ describe('storefront store', function () {
     expect(order.id).toMatch(/^DEMO-/);
     expect(store.state.orders).toHaveLength(1);
   });
+
+  it('resets all in-memory storefront data', function () {
+    var store = createStorefrontStore({
+      cart: [products[0]],
+      comparison: [products[1]],
+      orders: [{ id: 'DEMO-1', items: [products[0]] }],
+      recentlyViewed: [products[2]],
+      searchInput: 'shirt',
+      searchQuery: 'shirt',
+      wishlist: [products[3]]
+    });
+
+    store.reset();
+
+    expect(store.state).toMatchObject({
+      cart: [],
+      comparison: [],
+      orders: [],
+      recentlyViewed: [],
+      searchInput: '',
+      searchQuery: '',
+      wishlist: []
+    });
+  });
 });

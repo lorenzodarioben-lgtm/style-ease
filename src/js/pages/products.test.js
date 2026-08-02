@@ -23,13 +23,17 @@ function createProductsContext(overrides) {
 }
 
 describe('products page options', function () {
-  it('restores supported catalogue filters from the route query', function () {
+  it('restores supported catalogue filters and canonicalizes an out-of-range page', function () {
     var context = createProductsContext({ $route: { query: { category: 'Jeans', page: '2' } } });
 
     ProductsPage.methods.applyRouteState.call(context);
 
     expect(context.filters.category).toEqual(['Jeans']);
-    expect(context.currentPage).toBe(2);
+    expect(context.currentPage).toBe(1);
+    expect(context.$router.replace).toHaveBeenCalledWith({
+      path: '/products',
+      query: { category: 'Jeans' }
+    });
   });
 
   it('writes filter changes back to the route query', function () {
@@ -84,6 +88,28 @@ describe('products page options', function () {
     expect(ProductsPage.methods.filterButtonLabel('Category filter', 2)).toBe(
       'Category filter, 2 selected'
     );
+  });
+
+  it('uses card headings that follow the catalogue page heading', function () {
+    expect(ProductsPage.template).toContain('<h2 class="product-name">');
+  });
+
+  it('closes an open filter when the user clicks outside the filter bar', function () {
+    var context = createProductsContext({
+      activeFilterDropdown: 'size',
+      $refs: {
+        filterBar: {
+          contains: vi.fn(function () {
+            return false;
+          })
+        }
+      },
+      closeFilterDropdown: vi.fn()
+    });
+
+    ProductsPage.methods.handleDocumentClick.call(context, { target: {} });
+
+    expect(context.closeFilterDropdown).toHaveBeenCalledOnce();
   });
 
   it('reports active filter values through production state', function () {

@@ -1,4 +1,5 @@
 import {
+  createCartItem,
   createEmptyReview,
   createSelectedCartItem,
   findProductById,
@@ -45,6 +46,7 @@ export default {
       reviewStatus: '',
       reviews: [],
       selectedColor: '',
+      selectedQuantity: 1,
       selectedSize: '',
       showCare: false,
       showShipping: false
@@ -79,6 +81,11 @@ export default {
         return item.id !== currentProductId;
       });
     },
+    quantityOptions: function () {
+      return Array.from({ length: this.availableStock }, function (_, index) {
+        return index + 1;
+      });
+    },
     wishlistLabel: function () {
       return this.isWishlisted ? 'Remove from wishlist' : 'Add to wishlist';
     },
@@ -101,8 +108,9 @@ export default {
 
       this.$emit(
         'add-to-cart',
-        createSelectedCartItem(this.product, this.selectedSize, this.selectedColor)
+        createCartItem(this.product, this.selectedSize, this.selectedColor, this.selectedQuantity)
       );
+      this.selectedQuantity = 1;
     },
     loadProduct: function () {
       var productId = Number.parseInt(this.$route.params.id, 10);
@@ -113,6 +121,7 @@ export default {
       this.showShipping = false;
       this.newReview = createEmptyReview();
       this.reviewStatus = '';
+      this.selectedQuantity = 1;
 
       if (!product) {
         this.reviews = [];
@@ -138,11 +147,13 @@ export default {
         return;
       }
 
-      this.reviews.push({
-        rating: this.newReview.rating,
-        comment: this.newReview.comment.trim()
-      });
-      saveReviews(this.product.id, this.reviews);
+      this.reviews = saveReviews(
+        this.product.id,
+        this.reviews.concat({
+          rating: this.newReview.rating,
+          comment: this.newReview.comment
+        })
+      );
       this.newReview = createEmptyReview();
       this.reviewStatus = 'Review submitted.';
     },
@@ -211,6 +222,20 @@ export default {
                 <select :id="'product-color-' + product.id" v-model="selectedColor" class="option-select">
                   <option v-for="color in product.colors" :key="color" :value="color">
                     {{ color }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="option-group">
+                <label :for="'product-quantity-' + product.id">Quantity:</label>
+                <select
+                  :id="'product-quantity-' + product.id"
+                  v-model.number="selectedQuantity"
+                  class="option-select"
+                  :disabled="availableStock === 0"
+                >
+                  <option v-for="quantity in quantityOptions" :key="quantity" :value="quantity">
+                    {{ quantity }}
                   </option>
                 </select>
               </div>
@@ -315,6 +340,7 @@ export default {
                 <textarea
                   :id="'review-comment-' + product.id"
                   v-model="newReview.comment"
+                  maxlength="500"
                   placeholder="Write your review here (optional)"
                   rows="3"
                 ></textarea>

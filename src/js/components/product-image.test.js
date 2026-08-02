@@ -15,4 +15,10 @@ describe('product image delivery', function () {
     ProductImage.methods.useFallback.call(context);
     expect(context.hasError).toBe(true);
   });
+
+  it('accepts context-specific sizes and fetch priority', function () {
+    expect(ProductImage.props.fetchPriority.default).toBe('auto');
+    expect(ProductImage.props.sizes.default).toContain('(max-width: 480px)');
+    expect(ProductImage.template).toContain(':fetchpriority="fetchPriority"');
+  });
 });

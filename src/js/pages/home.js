@@ -1,11 +1,17 @@
 import { categoryLinks, featuredBrands } from '../data/catalog.js';
+import ProductImage from '../components/product-image.js';
 
 export default {
   name: 'HomePage',
+  components: {
+    ProductImage
+  },
   data: function () {
     return {
       brands: featuredBrands,
-      categories: categoryLinks
+      categories: categoryLinks,
+      heroImage:
+        'https://images.unsplash.com/photo-1615222443417-6d76586644a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDMwOTEyNDh8&ixlib=rb-4.0.3&q=85'
     };
   },
   template: `
@@ -20,7 +26,13 @@ export default {
             <router-link to="/products" class="hero-cta">Explore Collection</router-link>
           </div>
           <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1615222443417-6d76586644a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDMwOTEyNDh8&ixlib=rb-4.0.3&q=85" alt="Model wearing angular monochrome fashion">
+            <product-image
+              :src="heroImage"
+              alt="Model wearing angular monochrome fashion"
+              loading="eager"
+              fetch-priority="high"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            ></product-image>
           </div>
         </section>
 
@@ -33,7 +45,7 @@ export default {
               :key="category.name"
               :to="{ path: '/products', query: { category: category.name } }"
             >
-              <img :src="category.image" alt="" aria-hidden="true">
+              <product-image :src="category.image" alt="" aria-hidden="true"></product-image>
               <h3>{{ category.name }}</h3>
             </router-link>
           </div>
