@@ -35,6 +35,7 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{css,html,js,json,md}\" .prettierrc",
     "format:check": "prettier --check \"**/*.{css,html,js,json,md}\" .prettierrc",
+    "audit": "npm audit --audit-level=high",
     "test": "vitest",
     "test:run": "vitest run",
     "validate": "run-s format:check lint test:run build"
