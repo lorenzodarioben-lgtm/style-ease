@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml/badge.svg)](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml)
 
-A responsive front-end fashion storefront built with Vue, Vue Router, and Vite. 
+A responsive front-end fashion storefront built with Vue, Vue Router, and Vite.
 
 ## Live Demo
 
@@ -39,7 +39,7 @@ The storefront behaviour is **simulated**: the catalogue is bundled static data 
 - Toast feedback when an item is added to the bag
 - Mobile navigation menu and a route-aware header
 
-## Accessibility and Responsive Behaviour 
+## Accessibility and Responsive Behaviour
 
 Accessibility work that is implemented in the source includes:
 
@@ -141,7 +141,7 @@ For implementation details and the browser-data boundaries, see [Architecture](d
 
 ## Current Limitations
 
-These reflect the intended scope of a front-end demonstration: 
+These reflect the intended scope of a front-end demonstration:
 
 - Front-end only — no backend, database, or server-side persistence
 - No authentication or user accounts
