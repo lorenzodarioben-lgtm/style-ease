@@ -62,6 +62,31 @@ describe('product detail accessibility state', function () {
     );
   });
 
+  it('limits the quantity picker to stock remaining after cart reservations', function () {
+    expect(ProductDetailPage.computed.quantityOptions.call({ availableStock: 3 })).toEqual([
+      1, 2, 3
+    ]);
+  });
+
+  it('adds the selected quantity and resets the picker', function () {
+    var emit = vi.fn();
+    var context = {
+      $emit: emit,
+      product: products[0],
+      selectedColor: 'Black',
+      selectedQuantity: 3,
+      selectedSize: 'M'
+    };
+
+    ProductDetailPage.methods.handleAddToCart.call(context);
+
+    expect(emit).toHaveBeenCalledWith(
+      'add-to-cart',
+      expect.objectContaining({ quantity: 3, selectedColor: 'Black', selectedSize: 'M' })
+    );
+    expect(context.selectedQuantity).toBe(1);
+  });
+
   it('records a viewed product after loading it', function () {
     var emit = vi.fn();
     var context = {
@@ -71,6 +96,7 @@ describe('product detail accessibility state', function () {
       reviewStatus: 'old',
       reviews: [],
       selectedColor: '',
+      selectedQuantity: 4,
       selectedSize: '',
       showCare: true,
       showShipping: true
@@ -79,5 +105,6 @@ describe('product detail accessibility state', function () {
     ProductDetailPage.methods.loadProduct.call(context);
 
     expect(emit).toHaveBeenCalledWith('view-product', products[0]);
+    expect(context.selectedQuantity).toBe(1);
   });
 });
