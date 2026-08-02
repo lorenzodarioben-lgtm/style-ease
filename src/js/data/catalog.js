@@ -15,7 +15,7 @@ export const products = [
     material: '100% Premium Cotton',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     colors: ['Black', 'White', 'Gray'],
-    category: 'T-Shirts'
+    category: 'Tops'
   },
   {
     id: 2,
@@ -99,7 +99,7 @@ export const products = [
     material: 'Wool Blend',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: ['Black', 'Gray'],
-    category: 'Sweaters'
+    category: 'Jackets'
   },
   {
     id: 8,
@@ -113,7 +113,7 @@ export const products = [
     material: '100% Cotton',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['Black', 'White', 'Blue', 'Gray'],
-    category: 'T-Shirts'
+    category: 'Tops'
   },
   {
     id: 9,
@@ -291,7 +291,7 @@ export const products = [
     material: 'Lightweight Fabric',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: ['Black', 'White', 'Gray', 'Blue', 'Red'],
-    category: 'Sweaters'
+    category: 'Tops'
   }
 ].map(function (product, index) {
   return Object.assign({}, product, {
@@ -303,7 +303,7 @@ export const products = [
 
 export const categoryLinks = [
   {
-    name: 'T-Shirts',
+    name: 'Tops',
     image:
       'https://images.unsplash.com/photo-1556683944-ba658344ba06?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDMwOTEyOTh8&ixlib=rb-4.0.3&q=85'
   },

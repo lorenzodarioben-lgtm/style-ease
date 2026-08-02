@@ -43,7 +43,16 @@ describe('catalog utilities', function () {
     expect(filterOptions.sizes).toEqual(
       expect.arrayContaining(['XXL', '28', '38', 'One Size', 'Standard'])
     );
-    expect(filterOptions.colors).toEqual(expect.arrayContaining(['Black', 'White', 'Gray', 'Blue', 'Red']));
+    expect(filterOptions.colors).toEqual(
+      expect.arrayContaining(['Black', 'White', 'Gray', 'Blue', 'Red'])
+    );
+  });
+
+  it('uses a consistent category taxonomy for topwear and outerwear', function () {
+    expect(products[0].category).toBe('Tops');
+    expect(products[6].category).toBe('Jackets');
+    expect(products[7].category).toBe('Tops');
+    expect(products[19].category).toBe('Tops');
   });
 
   it('clones products and adds selected cart options without mutating the source product', function () {
