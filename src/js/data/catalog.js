@@ -345,10 +345,20 @@ export const featuredBrands = [
   'Calvin Klein'
 ];
 
+function getProductOptions(property) {
+  return Array.from(
+    new Set(
+      products.flatMap(function (product) {
+        return product[property];
+      })
+    )
+  );
+}
+
 export const filterOptions = {
-  sizes: ['XS', 'S', 'M', 'L', 'XL'],
-  colors: ['Black', 'White', 'Gray', 'Blue', 'Red'],
-  categories: ['T-Shirts', 'Jeans', 'Jackets', 'Shoes', 'Accessories', 'Sweaters'],
+  sizes: getProductOptions('sizes'),
+  colors: getProductOptions('colors'),
+  categories: getProductOptions('category'),
   priceRanges: [
     { label: 'Under $50', min: 0, max: 49.99 },
     { label: '$50 to $100', min: 50, max: 100 },

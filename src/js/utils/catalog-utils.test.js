@@ -39,6 +39,13 @@ function createStorage(initialValues) {
 }
 
 describe('catalog utilities', function () {
+  it('derives filters from every product option', function () {
+    expect(filterOptions.sizes).toEqual(
+      expect.arrayContaining(['XXL', '28', '38', 'One Size', 'Standard'])
+    );
+    expect(filterOptions.colors).toEqual(expect.arrayContaining(['Black', 'White', 'Gray', 'Blue', 'Red']));
+  });
+
   it('clones products and adds selected cart options without mutating the source product', function () {
     var product = products[0];
     var clone = cloneProduct(product);
