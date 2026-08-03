@@ -144,7 +144,11 @@ export default {
         <p>This portfolio demonstration does not process payments or create real orders.</p>
         <p>Delivery details: {{ address }}, {{ city }}, {{ postcode }}</p>
         <p v-if="latestOrder"><strong>Demo receipt: {{ latestOrder.id }}</strong></p>
-        <router-link to="/orders" class="back-checkout-btn">View Demo Receipt</router-link>
+        <router-link
+          v-if="latestOrder"
+          :to="{ path: '/orders', query: { receipt: latestOrder.id } }"
+          class="back-checkout-btn"
+        >View Demo Receipt</router-link>
         <router-link to="/" class="hero-cta">Return to Home</router-link>
       </div>
 

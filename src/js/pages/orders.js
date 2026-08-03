@@ -16,6 +16,14 @@ export default {
       isClearConfirmationVisible: false
     };
   },
+  mounted: function () {
+    this.focusSelectedReceipt();
+  },
+  watch: {
+    '$route.query.receipt': function () {
+      this.focusSelectedReceipt();
+    }
+  },
   methods: {
     cancelClearDemoData: function () {
       this.isClearConfirmationVisible = false;
@@ -42,6 +50,33 @@ export default {
       return [customer.name, customer.address, customer.city, customer.postcode]
         .filter(Boolean)
         .join(', ');
+    },
+    focusSelectedReceipt: function () {
+      var receiptId = this.getSelectedReceiptId();
+
+      if (!receiptId || !this.$refs) {
+        return;
+      }
+
+      this.$nextTick(function () {
+        var summary = this.$refs['receipt-' + receiptId];
+
+        if (Array.isArray(summary)) {
+          summary = summary[0];
+        }
+
+        if (summary && typeof summary.focus === 'function') {
+          summary.focus();
+        }
+      });
+    },
+    getSelectedReceiptId: function () {
+      return this.$route && this.$route.query && typeof this.$route.query.receipt === 'string'
+        ? this.$route.query.receipt
+        : '';
+    },
+    isReceiptOpen: function (order) {
+      return Boolean(order && order.id === this.getSelectedReceiptId());
     }
   },
   template: `
@@ -51,8 +86,8 @@ export default {
       <p class="order-history-note">Receipts are stored only in this browser; delivery details are available only in the current session.</p>
 
       <section v-if="orders.length" class="order-history" aria-label="Demo order receipts">
-        <details v-for="order in orders" :key="order.id" class="order-receipt">
-          <summary>
+        <details v-for="order in orders" :key="order.id" class="order-receipt" :open="isReceiptOpen(order)">
+          <summary :ref="'receipt-' + order.id">
             <span>{{ order.id }}</span>
             <span>{{ formatDate(order.createdAt) }}</span>
             <strong>{{ formatPrice(order.total) }}</strong>

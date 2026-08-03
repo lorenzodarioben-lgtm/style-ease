@@ -23,6 +23,19 @@ describe('order history page', function () {
     ).toBe('Ada Shopper, 1 Test Street, Sydney, 2000');
   });
 
+  it('opens and identifies a receipt selected in the URL', function () {
+    var context = {
+      $route: { query: { receipt: 'DEMO-1' } },
+      getSelectedReceiptId: function () {
+        return OrdersPage.methods.getSelectedReceiptId.call(this);
+      }
+    };
+
+    expect(OrdersPage.methods.getSelectedReceiptId.call(context)).toBe('DEMO-1');
+    expect(OrdersPage.methods.isReceiptOpen.call(context, { id: 'DEMO-1' })).toBe(true);
+    expect(OrdersPage.methods.isReceiptOpen.call(context, { id: 'DEMO-2' })).toBe(false);
+  });
+
   it('requires a confirmation before emitting a clear-data request', function () {
     var context = {
       $emit: vi.fn(),

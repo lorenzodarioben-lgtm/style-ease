@@ -32,6 +32,10 @@ describe('checkout page options', function () {
     ).toEqual({ id: 'DEMO-NEW' });
   });
 
+  it('links a confirmation to the selected saved receipt', function () {
+    expect(CheckoutPage.template).toContain('query: { receipt: latestOrder.id }');
+  });
+
   it('keeps shoppers on shipping when required fields are invalid', function () {
     var context = createCheckoutContext();
     context.getShippingErrors = CheckoutPage.methods.getShippingErrors;
