@@ -86,7 +86,6 @@ function readOrder(item) {
     return null;
   }
 
-  var customer = item.customer || {};
   var items = item.items.map(readCartItem).filter(Boolean);
 
   if (items.length === 0) {
@@ -95,13 +94,6 @@ function readOrder(item) {
 
   return {
     createdAt: typeof item.createdAt === 'string' ? item.createdAt : '',
-    customer: {
-      address: typeof customer.address === 'string' ? customer.address : '',
-      city: typeof customer.city === 'string' ? customer.city : '',
-      email: typeof customer.email === 'string' ? customer.email : '',
-      name: typeof customer.name === 'string' ? customer.name : '',
-      postcode: typeof customer.postcode === 'string' ? customer.postcode : ''
-    },
     id: item.id,
     items: items,
     paymentMethod: PAYMENT_METHODS.indexOf(item.paymentMethod) > -1 ? item.paymentMethod : 'credit',
@@ -114,7 +106,6 @@ function writeOrder(order) {
     return null;
   }
 
-  var customer = order.customer || {};
   var items = order.items.map(writeCartItem).filter(Boolean);
 
   if (items.length === 0) {
@@ -123,13 +114,6 @@ function writeOrder(order) {
 
   return {
     createdAt: typeof order.createdAt === 'string' ? order.createdAt : '',
-    customer: {
-      address: typeof customer.address === 'string' ? customer.address : '',
-      city: typeof customer.city === 'string' ? customer.city : '',
-      email: typeof customer.email === 'string' ? customer.email : '',
-      name: typeof customer.name === 'string' ? customer.name : '',
-      postcode: typeof customer.postcode === 'string' ? customer.postcode : ''
-    },
     id: order.id,
     items: items,
     paymentMethod:

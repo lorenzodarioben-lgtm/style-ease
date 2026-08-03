@@ -33,7 +33,7 @@ The storefront behaviour is **simulated**: the catalogue is bundled static data 
 - Expandable shipping and care sections on product pages
 - Star-rating review form with submitted reviews saved per product in the browser's `localStorage`
 - Two-step checkout with inline validation, accessible error announcements, review navigation, and an explicit demo-order confirmation
-- Browser-local demo order history and expandable receipts; no payment is processed
+- Browser-local demo order history and expandable receipts; delivery details are kept only for the current session
 - Responsive product images with lazy loading, `srcset`, intrinsic sizing, and a visual fallback
 - Route-level lazy loading for non-initial pages
 - Toast feedback when an item is added to the bag
@@ -148,7 +148,7 @@ These reflect the intended scope of a front-end demonstration:
 - No authentication or user accounts
 - No real payment processing; checkout is simulated and ends at an order-confirmation view
 - Catalogue stock is fixed demonstration data; there is no real inventory synchronization
-- Cart, wishlist, comparisons, recently viewed products, and receipts persist only in the current browser and are not customer accounts
+- Cart, wishlist, comparisons, recently viewed products, and receipts persist only in the current browser and are not customer accounts; delivery details are not persisted
 - Product reviews persist only in the current browser via `localStorage`
 - Product imagery is loaded from Unsplash and the Inter font from Google Fonts, so both depend on those external services
 - URLs are hash-based for GitHub Pages compatibility

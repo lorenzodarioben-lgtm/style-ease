@@ -31,13 +31,24 @@ export default {
       var date = new Date(dateValue);
 
       return Number.isNaN(date.getTime()) ? 'Date unavailable' : date.toLocaleDateString();
+    },
+    formatDelivery: function (order) {
+      var customer = order && order.customer;
+
+      if (!customer || !customer.name) {
+        return 'Delivery details are only available in the current session.';
+      }
+
+      return [customer.name, customer.address, customer.city, customer.postcode]
+        .filter(Boolean)
+        .join(', ');
     }
   },
   template: `
     <div class="container">
       <router-link to="/products" class="back-button">&larr; Continue Shopping</router-link>
       <h1 class="page-title">Demo Order History</h1>
-      <p class="order-history-note">Orders are stored only in this browser for portfolio demonstration purposes.</p>
+      <p class="order-history-note">Receipts are stored only in this browser; delivery details are available only in the current session.</p>
 
       <section v-if="orders.length" class="order-history" aria-label="Demo order receipts">
         <details v-for="order in orders" :key="order.id" class="order-receipt">
@@ -49,7 +60,7 @@ export default {
           <div class="receipt-content">
             <h2>Receipt</h2>
             <p>Preferred payment: {{ order.paymentMethod }}</p>
-            <p>Delivery: {{ order.customer.name }}, {{ order.customer.address }}, {{ order.customer.city }}, {{ order.customer.postcode }}</p>
+            <p>Delivery: {{ formatDelivery(order) }}</p>
             <ul>
               <li v-for="item in order.items" :key="item.id + item.selectedSize + item.selectedColor">
                 {{ item.quantity }} × {{ item.name }} ({{ item.selectedSize }}, {{ item.selectedColor }}) — {{ formatPrice(item.price * item.quantity) }}
@@ -67,7 +78,7 @@ export default {
 
       <section class="clear-demo-data" aria-labelledby="clear-demo-data-title">
         <h2 id="clear-demo-data-title">Clear saved demo data</h2>
-        <p>Remove your cart, wishlist, comparisons, reviews, receipts, and entered delivery details from this browser.</p>
+        <p>Remove your cart, wishlist, comparisons, reviews, receipts, and current-session delivery details.</p>
         <button class="remove-item" type="button" @click="isClearConfirmationVisible = true">Clear saved data</button>
         <div v-if="isClearConfirmationVisible" class="form-error" role="alert">
           <p>This cannot be undone.</p>

@@ -80,6 +80,7 @@ describe('storefront session storage', function () {
       paymentMethod: 'credit',
       total: products[0].price * 2
     });
+    expect(state.orders[0].customer).toBeUndefined();
   });
 
   it('writes a compact versioned snapshot and tolerates storage errors', function () {
@@ -139,13 +140,6 @@ describe('storefront session storage', function () {
     expect(JSON.parse(storage.setItem.mock.calls[0][1]).orders).toEqual([
       {
         createdAt: '2026-08-03T00:00:00.000Z',
-        customer: {
-          address: '',
-          city: '',
-          email: 'ada@example.com',
-          name: 'Ada Shopper',
-          postcode: ''
-        },
         id: 'DEMO-1',
         items: [{ id: 1, price: 75, quantity: 2, selectedColor: '', selectedSize: '' }],
         paymentMethod: 'credit',

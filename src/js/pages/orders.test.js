@@ -7,6 +7,22 @@ describe('order history page', function () {
     expect(OrdersPage.methods.formatDate('invalid')).toBe('Date unavailable');
   });
 
+  it('keeps delivery details out of restored receipts', function () {
+    expect(OrdersPage.methods.formatDelivery({})).toBe(
+      'Delivery details are only available in the current session.'
+    );
+    expect(
+      OrdersPage.methods.formatDelivery({
+        customer: {
+          address: '1 Test Street',
+          city: 'Sydney',
+          name: 'Ada Shopper',
+          postcode: '2000'
+        }
+      })
+    ).toBe('Ada Shopper, 1 Test Street, Sydney, 2000');
+  });
+
   it('requires a confirmation before emitting a clear-data request', function () {
     var context = {
       $emit: vi.fn(),
