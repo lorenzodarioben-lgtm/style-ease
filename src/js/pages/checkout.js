@@ -74,6 +74,21 @@ export default {
         }.bind(this)
       );
     },
+    focusPanel: function (refName) {
+      if (!this.$refs) {
+        return;
+      }
+
+      this.$nextTick(
+        function () {
+          var panel = this.$refs[refName];
+
+          if (panel && typeof panel.focus === 'function') {
+            panel.focus();
+          }
+        }.bind(this)
+      );
+    },
     getShippingErrors: function () {
       var errors = {};
 
@@ -106,11 +121,13 @@ export default {
 
       this.validationError = '';
       this.step = 2;
+      this.focusPanel('reviewHeading');
       return true;
     },
     returnToShipping: function () {
       this.step = 1;
       this.validationError = '';
+      this.focusPanel('name');
     },
     placeOrder: function () {
       if (!this.cart.length) {
@@ -120,6 +137,7 @@ export default {
 
       this.validationError = '';
       this.orderPlaced = true;
+      this.focusPanel('confirmationHeading');
       this.$emit('complete-order', {
         customer: {
           address: this.address.trim(),
@@ -140,7 +158,7 @@ export default {
       <h1 class="page-title">Checkout</h1>
 
       <div v-if="orderPlaced" class="order-confirmation" role="status" aria-live="polite">
-        <h2>Order request received, {{ name }}.</h2>
+        <h2 ref="confirmationHeading" tabindex="-1">Order request received, {{ name }}.</h2>
         <p>This portfolio demonstration does not process payments or create real orders.</p>
         <p>Delivery details: {{ address }}, {{ city }}, {{ postcode }}</p>
         <p v-if="latestOrder"><strong>Demo receipt: {{ latestOrder.id }}</strong></p>
@@ -199,7 +217,7 @@ export default {
         </fieldset>
 
         <section v-else aria-labelledby="review-order-title">
-          <h2 id="review-order-title">Review your request</h2>
+          <h2 id="review-order-title" ref="reviewHeading" tabindex="-1">Review your request</h2>
           <div class="form-section">
             <label for="checkout-payment">Preferred payment method</label>
             <select id="checkout-payment" v-model="paymentMethod" autocomplete="cc-type">
