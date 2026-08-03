@@ -83,6 +83,27 @@ describe('storefront session storage', function () {
     expect(state.orders[0].customer).toBeUndefined();
   });
 
+  it('rewrites legacy receipts without delivery data when they are restored', function () {
+    var storage = createStorage(
+      JSON.stringify({
+        version: 1,
+        orders: [
+          {
+            createdAt: '2026-08-03T00:00:00.000Z',
+            customer: { address: '1 Test Street', email: 'ada@example.com', name: 'Ada Shopper' },
+            id: 'DEMO-1',
+            items: [{ id: 1, price: 75, quantity: 1 }],
+            paymentMethod: 'credit'
+          }
+        ]
+      })
+    );
+
+    readStorefrontState(storage);
+
+    expect(JSON.parse(storage.setItem.mock.calls[0][1]).orders[0].customer).toBeUndefined();
+  });
+
   it('writes a compact versioned snapshot and tolerates storage errors', function () {
     var storage = createStorage();
 

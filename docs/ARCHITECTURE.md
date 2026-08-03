@@ -15,7 +15,7 @@ Style Ease is a static Vue storefront designed for GitHub Pages. It is intention
 
 Cart lines are identified by product, size, and colour. Matching variants merge quantities, while the central store caps quantities across all variants at the static product stock value. Product prices are copied onto cart lines so a demo receipt keeps the price shown at the time of selection.
 
-Browser storage is a convenience, not a user account. A saved snapshot may contain cart, wishlist, comparison, recently viewed, and receipt data, but never checkout delivery details. Reading the snapshot is defensive: invalid JSON, obsolete versions, unknown products, and unsupported product options are ignored safely.
+Browser storage is a convenience, not a user account. A saved snapshot may contain cart, wishlist, comparison, recently viewed, and receipt data, but never checkout delivery details; legacy receipts are rewritten without them when read. Reading the snapshot is defensive: invalid JSON, obsolete versions, unknown products, and unsupported product options are ignored safely.
 
 ## Routing and deployment
 

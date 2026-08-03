@@ -81,6 +81,15 @@ function readRecentItem(item) {
   return readWishlistItem(item);
 }
 
+function hasLegacyCustomerData(orders) {
+  return (
+    Array.isArray(orders) &&
+    orders.some(function (order) {
+      return order && Object.prototype.hasOwnProperty.call(order, 'customer');
+    })
+  );
+}
+
 function readOrder(item) {
   if (!item || typeof item.id !== 'string' || !Array.isArray(item.items)) {
     return null;
@@ -136,7 +145,7 @@ export function readStorefrontState(storage) {
       return {};
     }
 
-    return {
+    var state = {
       cart: Array.isArray(saved.cart) ? saved.cart.map(readCartItem).filter(Boolean) : [],
       comparison: Array.isArray(saved.comparison)
         ? saved.comparison.map(readRecentItem).filter(Boolean).slice(0, 3)
@@ -151,6 +160,12 @@ export function readStorefrontState(storage) {
         ? saved.wishlist.map(readWishlistItem).filter(Boolean)
         : []
     };
+
+    if (hasLegacyCustomerData(saved.orders)) {
+      saveStorefrontState(state, browserStorage);
+    }
+
+    return state;
   } catch {
     return {};
   }
