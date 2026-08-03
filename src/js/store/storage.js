@@ -1,7 +1,9 @@
-import { createCartItem, findProductById } from '../utils/catalog-utils.js';
+import { calculateCartTotal, createCartItem, findProductById } from '../utils/catalog-utils.js';
 
 export const STOREFRONT_STORAGE_KEY = 'style-ease-storefront-v1';
 const STOREFRONT_STORAGE_VERSION = 1;
+const MAX_PERSISTED_PRICE = 100_000;
+const PAYMENT_METHODS = ['credit', 'paypal', 'applepay'];
 
 function getStorage(storage) {
   if (storage) {
@@ -17,6 +19,32 @@ function getStorage(storage) {
 
 function isKnownOption(product, property, value) {
   return typeof value === 'string' && product[property].indexOf(value) > -1;
+}
+
+function readPrice(value, fallback) {
+  var price = Number(value);
+
+  return Number.isFinite(price) && price > 0 && price <= MAX_PERSISTED_PRICE ? price : fallback;
+}
+
+function writeCartItem(item) {
+  if (!item || !Number.isInteger(item.id)) {
+    return null;
+  }
+
+  var product = findProductById(item.id);
+
+  if (!product) {
+    return null;
+  }
+
+  return {
+    id: item.id,
+    price: readPrice(item.price, product.price),
+    quantity: Number.isFinite(Number(item.quantity)) ? Math.max(1, Math.floor(item.quantity)) : 1,
+    selectedColor: typeof item.selectedColor === 'string' ? item.selectedColor : '',
+    selectedSize: typeof item.selectedSize === 'string' ? item.selectedSize : ''
+  };
 }
 
 function readCartItem(item) {
@@ -37,7 +65,7 @@ function readCartItem(item) {
     item.quantity
   );
 
-  cartItem.price = Number.isFinite(Number(item.price)) ? Number(item.price) : product.price;
+  cartItem.price = readPrice(item.price, product.price);
 
   return cartItem;
 }
@@ -53,26 +81,53 @@ function readRecentItem(item) {
   return readWishlistItem(item);
 }
 
+function hasLegacyCustomerData(orders) {
+  return (
+    Array.isArray(orders) &&
+    orders.some(function (order) {
+      return order && Object.prototype.hasOwnProperty.call(order, 'customer');
+    })
+  );
+}
+
 function readOrder(item) {
   if (!item || typeof item.id !== 'string' || !Array.isArray(item.items)) {
     return null;
   }
 
-  var customer = item.customer || {};
+  var items = item.items.map(readCartItem).filter(Boolean);
+
+  if (items.length === 0) {
+    return null;
+  }
 
   return {
     createdAt: typeof item.createdAt === 'string' ? item.createdAt : '',
-    customer: {
-      address: typeof customer.address === 'string' ? customer.address : '',
-      city: typeof customer.city === 'string' ? customer.city : '',
-      email: typeof customer.email === 'string' ? customer.email : '',
-      name: typeof customer.name === 'string' ? customer.name : '',
-      postcode: typeof customer.postcode === 'string' ? customer.postcode : ''
-    },
     id: item.id,
-    items: item.items.map(readCartItem).filter(Boolean),
-    paymentMethod: typeof item.paymentMethod === 'string' ? item.paymentMethod : 'credit',
-    total: Number.isFinite(Number(item.total)) ? Number(item.total) : 0
+    items: items,
+    paymentMethod: PAYMENT_METHODS.indexOf(item.paymentMethod) > -1 ? item.paymentMethod : 'credit',
+    total: calculateCartTotal(items)
+  };
+}
+
+function writeOrder(order) {
+  if (!order || typeof order.id !== 'string' || !Array.isArray(order.items)) {
+    return null;
+  }
+
+  var items = order.items.map(writeCartItem).filter(Boolean);
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return {
+    createdAt: typeof order.createdAt === 'string' ? order.createdAt : '',
+    id: order.id,
+    items: items,
+    paymentMethod:
+      PAYMENT_METHODS.indexOf(order.paymentMethod) > -1 ? order.paymentMethod : 'credit',
+    total: calculateCartTotal(items)
   };
 }
 
@@ -90,7 +145,7 @@ export function readStorefrontState(storage) {
       return {};
     }
 
-    return {
+    var state = {
       cart: Array.isArray(saved.cart) ? saved.cart.map(readCartItem).filter(Boolean) : [],
       comparison: Array.isArray(saved.comparison)
         ? saved.comparison.map(readRecentItem).filter(Boolean).slice(0, 3)
@@ -105,6 +160,12 @@ export function readStorefrontState(storage) {
         ? saved.wishlist.map(readWishlistItem).filter(Boolean)
         : []
     };
+
+    if (hasLegacyCustomerData(saved.orders)) {
+      saveStorefrontState(state, browserStorage);
+    }
+
+    return state;
   } catch {
     return {};
   }
@@ -117,23 +178,7 @@ export function saveStorefrontState(state, storage) {
     return;
   }
 
-  var cart = Array.isArray(state.cart)
-    ? state.cart
-        .filter(function (item) {
-          return item && Number.isInteger(item.id);
-        })
-        .map(function (item) {
-          return {
-            id: item.id,
-            price: Number.isFinite(Number(item.price)) ? Number(item.price) : 0,
-            quantity: Number.isFinite(Number(item.quantity))
-              ? Math.max(1, Math.floor(item.quantity))
-              : 1,
-            selectedColor: typeof item.selectedColor === 'string' ? item.selectedColor : '',
-            selectedSize: typeof item.selectedSize === 'string' ? item.selectedSize : ''
-          };
-        })
-    : [];
+  var cart = Array.isArray(state.cart) ? state.cart.map(writeCartItem).filter(Boolean) : [];
   var wishlist = Array.isArray(state.wishlist)
     ? state.wishlist
         .filter(function (item) {
@@ -164,11 +209,7 @@ export function saveStorefrontState(state, storage) {
         })
     : [];
   var orders = Array.isArray(state.orders)
-    ? state.orders
-        .filter(function (order) {
-          return order && typeof order.id === 'string' && Array.isArray(order.items);
-        })
-        .slice(0, 12)
+    ? state.orders.map(writeOrder).filter(Boolean).slice(0, 12)
     : [];
 
   try {

@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { products } from '../data/catalog.js';
 import CartPage from './cart.js';
 
 describe('cart page options', function () {
@@ -17,5 +18,32 @@ describe('cart page options', function () {
     expect(CartPage.methods.truncate('Crest Axio Golden Antique Silmaril Cuff Bracelet', 20)).toBe(
       'Crest Axio Golden An...'
     );
+  });
+
+  it('announces normalized quantity and total changes', function () {
+    var context = {
+      $emit: vi.fn(),
+      cart: [Object.assign({}, products[0], { quantity: 1 })],
+      cartStatus: '',
+      quantityLimit: CartPage.methods.quantityLimit
+    };
+
+    CartPage.methods.updateQuantity.call(context, 0, 20);
+
+    expect(context.$emit).toHaveBeenCalledWith('update-cart-quantity', 0, products[0].stock);
+    expect(context.cartStatus).toBe('Geometric T-Shirt quantity updated to 8. Cart total $600.00.');
+  });
+
+  it('announces the name of a removed cart item', function () {
+    var context = {
+      $emit: vi.fn(),
+      cart: [products[0]],
+      cartStatus: ''
+    };
+
+    CartPage.methods.removeFromCart.call(context, 0);
+
+    expect(context.$emit).toHaveBeenCalledWith('remove-from-cart', 0);
+    expect(context.cartStatus).toBe('Geometric T-Shirt removed from your cart.');
   });
 });

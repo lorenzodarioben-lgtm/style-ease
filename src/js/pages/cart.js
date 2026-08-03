@@ -3,6 +3,7 @@ import {
   calculateCartTotal,
   formatPrice,
   getCartProductQuantity,
+  getCartItemQuantity,
   getCartItemVariantKey,
   getProductStock,
   truncateText
@@ -23,6 +24,11 @@ export default {
     }
   },
   emits: ['remove-from-cart', 'update-cart-quantity'],
+  data: function () {
+    return {
+      cartStatus: ''
+    };
+  },
   computed: {
     cartItemCount: function () {
       return calculateCartQuantity(this.cart);
@@ -39,6 +45,12 @@ export default {
       this.$router.push('/checkout');
     },
     removeFromCart: function (index) {
+      var item = this.cart[index];
+
+      if (item) {
+        this.cartStatus = item.name + ' removed from your cart.';
+      }
+
       this.$emit('remove-from-cart', index);
     },
     removeButtonLabel: function (item) {
@@ -51,7 +63,33 @@ export default {
       return truncateText(text, length);
     },
     updateQuantity: function (index, quantity) {
-      this.$emit('update-cart-quantity', index, quantity);
+      var item = this.cart[index];
+
+      if (!item) {
+        return;
+      }
+
+      var quantityLimit = this.quantityLimit(item, index);
+
+      if (quantityLimit < 1) {
+        return;
+      }
+
+      var nextQuantity = Math.min(getCartItemQuantity({ quantity: quantity }), quantityLimit);
+      var nextCart = this.cart.map(function (cartItem, cartIndex) {
+        return cartIndex === index
+          ? Object.assign({}, cartItem, { quantity: nextQuantity })
+          : cartItem;
+      });
+
+      this.$emit('update-cart-quantity', index, nextQuantity);
+      this.cartStatus =
+        item.name +
+        ' quantity updated to ' +
+        nextQuantity +
+        '. Cart total ' +
+        formatPrice(calculateCartTotal(nextCart)) +
+        '.';
     },
     quantityLimit: function (item, index) {
       return getProductStock(item) - getCartProductQuantity(this.cart, item.id, index);
@@ -61,6 +99,7 @@ export default {
       <div class="container">
         <router-link to="/" class="back-button">&larr; Back to Home</router-link>
         <h1 class="page-title">Shopping Cart</h1>
+        <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">{{ cartStatus }}</p>
 
         <div v-if="cart.length === 0" class="empty-cart" role="status">
           <p>Your cart is empty</p>

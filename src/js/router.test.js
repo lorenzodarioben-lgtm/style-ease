@@ -22,6 +22,9 @@ describe('route titles', function () {
     expect(getRouteTitle({ path: '/product/9999', params: { id: '9999' } })).toBe(
       'Product Not Found - Style Ease'
     );
+    expect(getRouteTitle({ path: '/product/1abc', params: { id: '1abc' } })).toBe(
+      'Product Not Found - Style Ease'
+    );
   });
 
   it('defers every route page to a route-level module', function () {

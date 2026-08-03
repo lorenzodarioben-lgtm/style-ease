@@ -14,6 +14,7 @@ function createCheckoutContext(overrides) {
       step: 1,
       validationError: '',
       cart: [{ id: 1, name: 'T-Shirt', price: 75, quantity: 2 }],
+      focusPanel: vi.fn(),
       $emit: vi.fn()
     },
     overrides
@@ -30,6 +31,10 @@ describe('checkout page options', function () {
     expect(
       CheckoutPage.computed.latestOrder.call({ orders: [{ id: 'DEMO-NEW' }, { id: 'DEMO-OLD' }] })
     ).toEqual({ id: 'DEMO-NEW' });
+  });
+
+  it('links a confirmation to the selected saved receipt', function () {
+    expect(CheckoutPage.template).toContain('query: { receipt: latestOrder.id }');
   });
 
   it('keeps shoppers on shipping when required fields are invalid', function () {
@@ -64,6 +69,20 @@ describe('checkout page options', function () {
     expect(context.fieldErrors).toEqual({ name: 'Enter your full name.' });
   });
 
+  it('focuses a newly revealed checkout panel', function () {
+    var focus = vi.fn();
+    var context = createCheckoutContext({
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { reviewHeading: { focus: focus } }
+    });
+
+    CheckoutPage.methods.focusPanel.call(context, 'reviewHeading');
+
+    expect(focus).toHaveBeenCalledOnce();
+  });
+
   it('moves valid shipping details to review and supports returning', function () {
     var context = createCheckoutContext({
       address: '123 Test Street',
@@ -76,8 +95,10 @@ describe('checkout page options', function () {
 
     expect(CheckoutPage.methods.goToPayment.call(context)).toBe(true);
     expect(context.step).toBe(2);
+    expect(context.focusPanel).toHaveBeenCalledWith('reviewHeading');
     CheckoutPage.methods.returnToShipping.call(context);
     expect(context.step).toBe(1);
+    expect(context.focusPanel).toHaveBeenLastCalledWith('name');
   });
 
   it('does not confirm an empty bag and emits a valid demo order', function () {
@@ -87,6 +108,7 @@ describe('checkout page options', function () {
     expect(CheckoutPage.methods.placeOrder.call(emptyContext)).toBe(false);
     expect(CheckoutPage.methods.placeOrder.call(orderContext)).toBe(true);
     expect(orderContext.orderPlaced).toBe(true);
+    expect(orderContext.focusPanel).toHaveBeenCalledWith('confirmationHeading');
     expect(orderContext.$emit).toHaveBeenCalledWith(
       'complete-order',
       expect.objectContaining({

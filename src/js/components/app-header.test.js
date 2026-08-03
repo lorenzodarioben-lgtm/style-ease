@@ -27,6 +27,36 @@ describe('app header accessibility behavior', function () {
     expect(emit).toHaveBeenCalledWith('open-cart');
   });
 
+  it('returns focus to the menu trigger after closing the mobile navigation with Escape', function () {
+    var focus = vi.fn();
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { menuButton: { focus: focus } },
+      isMenuOpen: true
+    };
+
+    AppHeader.methods.closeMenu.call(context, true);
+
+    expect(context.isMenuOpen).toBe(false);
+    expect(focus).toHaveBeenCalledOnce();
+  });
+
+  it('closes an open mobile menu before submitting search', function () {
+    var emit = vi.fn();
+    var context = {
+      $emit: emit,
+      closeMenu: vi.fn(),
+      isMenuOpen: true
+    };
+
+    AppHeader.methods.submitSearch.call(context);
+
+    expect(context.closeMenu).toHaveBeenCalledOnce();
+    expect(emit).toHaveBeenCalledWith('submit-search');
+  });
+
   it('marks the current route for navigation links', function () {
     expect(
       AppHeader.methods.isCurrentRoute.call({ $route: { path: '/products' } }, '/products')

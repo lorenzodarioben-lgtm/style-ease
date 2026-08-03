@@ -90,6 +90,11 @@ describe('products page options', function () {
     );
   });
 
+  it('uses ordered headings when a filter panel is expanded', function () {
+    expect(ProductsPage.template).toContain('<h2>Category</h2>');
+    expect(ProductsPage.template).not.toContain('<h3>Category</h3>');
+  });
+
   it('uses card headings that follow the catalogue page heading', function () {
     expect(ProductsPage.template).toContain('<h2 class="product-name">');
   });

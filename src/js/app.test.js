@@ -12,8 +12,12 @@ function createStore() {
     reset: vi.fn(),
     removeCartItem: vi.fn(),
     removeWishlistItem: vi.fn(),
-    setSearchInput: vi.fn(),
-    setSearchQuery: vi.fn(),
+    setSearchInput: vi.fn(function (value) {
+      this.state.searchInput = typeof value === 'string' ? value : '';
+    }),
+    setSearchQuery: vi.fn(function (value) {
+      this.state.searchQuery = typeof value === 'string' ? value.trim() : '';
+    }),
     state: {
       cart: [],
       searchInput: '',
@@ -34,7 +38,8 @@ function createAppContext(overrides) {
         }
       },
       $route: {
-        path: '/'
+        path: '/',
+        query: {}
       },
       $router: {
         push: vi.fn()
@@ -70,6 +75,31 @@ describe('root app state methods', function () {
     expect(context.store.clearCart).toHaveBeenCalled();
   });
 
+  it('moves a wishlist item only after the cart accepts it', function () {
+    var context = createAppContext();
+
+    expect(App.methods.moveWishlistItemToCart.call(context, products[0])).toBe(true);
+
+    expect(context.store.addCartItem).toHaveBeenCalledWith(products[0]);
+    expect(context.store.removeWishlistItem).toHaveBeenCalledWith(products[0].id);
+    expect(context.bumpCartCount).toHaveBeenCalledTimes(1);
+    expect(context.$refs.toast.show).toHaveBeenCalledWith('Geometric T-Shirt moved to your bag.');
+  });
+
+  it('keeps a wishlist item when there is no stock to move it into the cart', function () {
+    var context = createAppContext();
+
+    context.store.addCartItem.mockReturnValue(false);
+
+    expect(App.methods.moveWishlistItemToCart.call(context, products[0])).toBe(false);
+
+    expect(context.store.removeWishlistItem).not.toHaveBeenCalled();
+    expect(context.bumpCartCount).not.toHaveBeenCalled();
+    expect(context.$refs.toast.show).toHaveBeenCalledWith(
+      'Geometric T-Shirt is no longer available in the selected quantity.'
+    );
+  });
+
   it('clears saved demo data through the central storefront store', function () {
     var context = createAppContext();
 
@@ -86,13 +116,14 @@ describe('root app state methods', function () {
     App.methods.performSearch.call(context);
 
     expect(context.store.setSearchQuery).toHaveBeenCalledWith('  shirt  ');
-    expect(context.$router.push).toHaveBeenCalledWith({ path: '/products', query: {} });
+    expect(context.$router.push).toHaveBeenCalledWith({ path: '/products', query: { q: 'shirt' } });
   });
 
   it('refreshes the catalogue URL when searching from the catalogue', function () {
     var context = createAppContext({
       $route: {
-        path: '/products'
+        path: '/products',
+        query: { category: 'Tops' }
       }
     });
 
@@ -100,6 +131,49 @@ describe('root app state methods', function () {
     App.methods.performSearch.call(context);
 
     expect(context.store.setSearchQuery).toHaveBeenCalledWith('jeans');
-    expect(context.$router.push).toHaveBeenCalledWith({ path: '/products', query: {} });
+    expect(context.$router.push).toHaveBeenCalledWith({
+      path: '/products',
+      query: { category: 'Tops', q: 'jeans' }
+    });
+  });
+
+  it('preserves active filters and sorting while searching the catalogue', function () {
+    var context = createAppContext({
+      $route: {
+        path: '/products',
+        query: {
+          category: 'Tops,Jackets',
+          color: 'Black',
+          page: '3',
+          price: 'Over $100',
+          size: 'M,L',
+          sort: 'price-desc'
+        }
+      }
+    });
+
+    context.store.state.searchInput = 'jacket';
+    App.methods.performSearch.call(context);
+
+    expect(context.$router.push).toHaveBeenCalledWith({
+      path: '/products',
+      query: {
+        category: 'Tops,Jackets',
+        color: 'Black',
+        price: 'Over $100',
+        q: 'jacket',
+        size: 'M,L',
+        sort: 'price-desc'
+      }
+    });
+  });
+
+  it('synchronizes the shared search state from a direct catalogue URL', function () {
+    var context = createAppContext();
+
+    App.methods.syncSearchQueryFromRoute.call(context, '  angular  ');
+
+    expect(context.store.state.searchInput).toBe('  angular  ');
+    expect(context.store.state.searchQuery).toBe('angular');
   });
 });

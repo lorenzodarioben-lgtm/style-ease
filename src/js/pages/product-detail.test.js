@@ -107,4 +107,13 @@ describe('product detail accessibility state', function () {
     expect(emit).toHaveBeenCalledWith('view-product', products[0]);
     expect(context.selectedQuantity).toBe(1);
   });
+
+  it('requests an appropriate responsive size for the detail image', function () {
+    expect(ProductDetailPage.template).toContain('sizes="(max-width: 768px) 100vw, 50vw"');
+  });
+
+  it('keeps product page section headings in order', function () {
+    expect(ProductDetailPage.template).toContain('<h2>Description</h2>');
+    expect(ProductDetailPage.template).not.toContain('<h3>Description</h3>');
+  });
 });

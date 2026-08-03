@@ -33,7 +33,7 @@ The storefront behaviour is **simulated**: the catalogue is bundled static data 
 - Expandable shipping and care sections on product pages
 - Star-rating review form with submitted reviews saved per product in the browser's `localStorage`
 - Two-step checkout with inline validation, accessible error announcements, review navigation, and an explicit demo-order confirmation
-- Browser-local demo order history and expandable receipts; no payment is processed
+- Browser-local demo order history and expandable receipts; delivery details are kept only for the current session
 - Responsive product images with lazy loading, `srcset`, intrinsic sizing, and a visual fallback
 - Route-level lazy loading for non-initial pages
 - Toast feedback when an item is added to the bag
@@ -125,7 +125,8 @@ npm run preview
 | `npm test`             | Run the test suite in watch mode                      |
 | `npm run test:run`     | Run the test suite once                               |
 | `npm run test:e2e`     | Run production-build browser and accessibility checks |
-| `npm run validate`     | Run format check, lint, tests, and build in sequence  |
+| `npm run check:bundle` | Enforce initial JavaScript and CSS gzip budgets       |
+| `npm run validate`     | Run format check, lint, tests, build, and budgets     |
 
 ## Deployment
 
@@ -148,9 +149,9 @@ These reflect the intended scope of a front-end demonstration:
 - No authentication or user accounts
 - No real payment processing; checkout is simulated and ends at an order-confirmation view
 - Catalogue stock is fixed demonstration data; there is no real inventory synchronization
-- Cart, wishlist, comparisons, recently viewed products, and receipts persist only in the current browser and are not customer accounts
+- Cart, wishlist, comparisons, recently viewed products, and receipts persist only in the current browser and are not customer accounts; delivery details are not persisted
 - Product reviews persist only in the current browser via `localStorage`
-- Product imagery is loaded from Unsplash and the Inter font from Google Fonts, so both depend on those external services
+- Product imagery is loaded from Unsplash, so images depend on that external service; the Inter font is bundled with the application
 - URLs are hash-based for GitHub Pages compatibility
 
 ## Licence

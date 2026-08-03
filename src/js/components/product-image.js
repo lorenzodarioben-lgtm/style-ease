@@ -1,12 +1,20 @@
 const FALLBACK_IMAGE =
   'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"%3E%3Crect width="4" height="5" fill="%23222222"/%3E%3Cpath d="M0 4l1.2-1.3 1 1L3 2.8 4 4v1H0z" fill="%23555"/%3E%3C/svg%3E';
+const IMAGE_ASPECT_RATIO = 5 / 4;
 
 function addImageWidth(source, width) {
   if (typeof source !== 'string' || !source) {
     return FALLBACK_IMAGE;
   }
 
-  return source + (source.indexOf('?') > -1 ? '&' : '?') + 'auto=format&fit=crop&w=' + width;
+  return (
+    source +
+    (source.indexOf('?') > -1 ? '&' : '?') +
+    'auto=format&fit=crop&w=' +
+    width +
+    '&h=' +
+    Math.round(width * IMAGE_ASPECT_RATIO)
+  );
 }
 
 export default {
@@ -49,7 +57,12 @@ export default {
     imageSourceSet: function () {
       return this.hasError
         ? undefined
-        : addImageWidth(this.src, 480) + ' 480w, ' + addImageWidth(this.src, 900) + ' 900w';
+        : addImageWidth(this.src, 480) +
+            ' 480w, ' +
+            addImageWidth(this.src, 900) +
+            ' 900w, ' +
+            addImageWidth(this.src, 1440) +
+            ' 1440w';
     }
   },
   watch: {

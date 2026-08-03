@@ -34,9 +34,28 @@ export default {
       return this.isMenuOpen ? 'Close navigation' : 'Open navigation';
     }
   },
+  watch: {
+    '$route.fullPath': function () {
+      this.closeMenu();
+    }
+  },
   methods: {
-    closeMenu: function () {
+    closeMenu: function (returnFocus) {
+      var wasOpen = this.isMenuOpen;
+
       this.isMenuOpen = false;
+
+      if (returnFocus && wasOpen && this.$refs) {
+        this.$nextTick(
+          function () {
+            var menuButton = this.$refs.menuButton;
+
+            if (menuButton && typeof menuButton.focus === 'function') {
+              menuButton.focus();
+            }
+          }.bind(this)
+        );
+      }
     },
     openCart: function () {
       this.$emit('open-cart');
@@ -45,6 +64,7 @@ export default {
       return this.$route.path === path;
     },
     submitSearch: function () {
+      this.closeMenu();
       this.$emit('submit-search');
     },
     toggleMenu: function () {
@@ -62,8 +82,9 @@ export default {
           :aria-label="menuButtonLabel"
           :aria-expanded="String(isMenuOpen)"
           aria-controls="primary-navigation"
+          ref="menuButton"
           @click="toggleMenu"
-          @keydown.escape.prevent="closeMenu"
+          @keydown.escape.prevent="closeMenu(true)"
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -76,7 +97,7 @@ export default {
           aria-label="Primary navigation"
           v-show="isMenuOpen"
           @click.stop
-          @keydown.escape.prevent="closeMenu"
+          @keydown.escape.prevent="closeMenu(true)"
         >
           <ul>
             <li>

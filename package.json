@@ -33,15 +33,17 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write \"**/*.{css,html,js,json,md}\" .prettierrc",
-    "format:check": "prettier --check \"**/*.{css,html,js,json,md}\" .prettierrc",
+    "format": "prettier --write \"**/*.{css,html,js,json,md,mjs}\" .prettierrc",
+    "format:check": "prettier --check \"**/*.{css,html,js,json,md,mjs}\" .prettierrc",
     "audit": "npm audit --audit-level=high",
     "test": "vitest",
     "test:run": "vitest run",
     "test:e2e": "npm run build && playwright test",
-    "validate": "run-s format:check lint test:run build"
+    "check:bundle": "node scripts/check-bundle-size.mjs",
+    "validate": "run-s format:check lint test:run build check:bundle"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.3.0",
     "vue": "^3.5.39",
     "vue-router": "^5.1.0"
   },

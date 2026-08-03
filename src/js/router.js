@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { findProductById } from './utils/catalog-utils.js';
+import { findProductById, parseProductId } from './utils/catalog-utils.js';
 
 const APP_TITLE = 'Style Ease';
 
@@ -35,7 +35,7 @@ export function getRouteTitle(route) {
   }
 
   if (route.path.indexOf('/product/') === 0) {
-    var product = findProductById(Number.parseInt(route.params.id, 10));
+    var product = findProductById(parseProductId(route.params.id));
 
     return (product ? product.name : 'Product Not Found') + ' - ' + APP_TITLE;
   }

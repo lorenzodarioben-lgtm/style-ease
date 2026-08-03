@@ -15,13 +15,13 @@ Style Ease is a static Vue storefront designed for GitHub Pages. It is intention
 
 Cart lines are identified by product, size, and colour. Matching variants merge quantities, while the central store caps quantities across all variants at the static product stock value. Product prices are copied onto cart lines so a demo receipt keeps the price shown at the time of selection.
 
-Browser storage is a convenience, not a user account. A saved snapshot may contain cart, wishlist, comparison, recently viewed, and receipt data. Reading the snapshot is defensive: invalid JSON, obsolete versions, unknown products, and unsupported product options are ignored safely.
+Browser storage is a convenience, not a user account. A saved snapshot may contain cart, wishlist, comparison, recently viewed, and receipt data, but never checkout delivery details; legacy receipts are rewritten without them when read. Reading the snapshot is defensive: invalid JSON, obsolete versions, unknown products, and unsupported product options are ignored safely.
 
 ## Routing and deployment
 
 The app uses hash routing so bookmarked routes and refreshes work on a GitHub Pages project site. Catalogue URLs can include `q`, `category`, `size`, `color`, `price`, `sort`, and `page` query values. The Vite production base remains `/style-ease/`, matching the GitHub Pages project path.
 
-GitHub Actions installs with `npm ci`, runs `npm run validate`, builds the site, and deploys only the generated `dist/` output from `main`.
+GitHub Actions installs with `npm ci`, runs `npm run validate` (including the initial JavaScript and CSS gzip budgets), builds the site, and deploys only the generated `dist/` output from `main`.
 
 ## Verification approach
 

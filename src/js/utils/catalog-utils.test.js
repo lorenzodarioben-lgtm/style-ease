@@ -16,6 +16,7 @@ import {
   getCartProductQuantity,
   getProductStock,
   normalizeSearchQuery,
+  parseProductId,
   productMatchesFilters,
   productMatchesSearch,
   readReviews,
@@ -114,6 +115,14 @@ describe('catalog utilities', function () {
     expect(normalizeSearchQuery('  SHIRT  ')).toBe('shirt');
     expect(normalizeSearchQuery('')).toBe('');
     expect(normalizeSearchQuery(null)).toBe('');
+  });
+
+  it('accepts only canonical positive product identifiers', function () {
+    expect(parseProductId('1')).toBe(1);
+    expect(parseProductId(2)).toBe(2);
+    expect(parseProductId('1abc')).toBeNull();
+    expect(parseProductId('01')).toBeNull();
+    expect(parseProductId(0)).toBeNull();
   });
 
   it('matches product search against names and descriptions', function () {
