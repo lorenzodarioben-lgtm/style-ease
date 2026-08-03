@@ -377,16 +377,26 @@ export default {
                 <fieldset class="star-rating" aria-describedby="review-rating-help">
                   <legend>Your rating</legend>
                   <p id="review-rating-help" class="sr-only">Choose a rating from 1 to 5 stars.</p>
-                  <button
-                  v-for="star in 5"
-                  :key="star"
-                  type="button"
-                  class="star"
-                  :class="{ filled: star <= newReview.rating }"
-                  :aria-label="'Rate ' + star + ' star'"
-                  :aria-pressed="String(star === newReview.rating)"
-                  @click="setRating(star)"
-                >&#9733;</button>
+                  <div class="star-rating-controls">
+                    <template v-for="star in 5" :key="star">
+                      <input
+                        :id="'review-rating-' + product.id + '-' + star"
+                        v-model.number="newReview.rating"
+                        class="sr-only rating-radio"
+                        type="radio"
+                        :name="'review-rating-' + product.id"
+                        :value="star"
+                        :aria-label="star + ' out of 5 stars'"
+                        @change="setRating(star)"
+                      >
+                      <label
+                        :for="'review-rating-' + product.id + '-' + star"
+                        class="star"
+                        :class="{ filled: star <= newReview.rating }"
+                        aria-hidden="true"
+                      >&#9733;</label>
+                    </template>
+                  </div>
                 </fieldset>
 
                 <label class="sr-only" :for="'review-comment-' + product.id">Review comment</label>

@@ -120,7 +120,9 @@ describe('mounted storefront interactions', function () {
       selectedSize: selectedSize
     });
 
-    await wrapper.get('[aria-label="Rate 4 star"]').trigger('click');
+    expect(wrapper.findAll('input[type="radio"]')).toHaveLength(5);
+    expect(wrapper.get('.submit-review-btn').attributes('disabled')).toBeDefined();
+    await wrapper.get('[aria-label="4 out of 5 stars"]').setValue();
     expect(wrapper.get('.submit-review-btn').attributes('disabled')).toBeUndefined();
     await wrapper.get('form').trigger('submit');
     expect(wrapper.vm.reviewStatus).toBe('Review submitted.');

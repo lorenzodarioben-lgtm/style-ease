@@ -34,6 +34,11 @@
   color: #f5b301; /* Golden/yellow for filled stars */
 }
 
+.rating-radio:focus-visible + .star {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
 /*===================
   Review Input & Display
 ===================*/
