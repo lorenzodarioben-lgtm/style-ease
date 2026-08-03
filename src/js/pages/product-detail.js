@@ -19,9 +19,21 @@ export default {
     ProductImage,
     RecentlyViewed
   },
-  emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist', 'view-product'],
+  emits: [
+    'add-to-cart',
+    'add-to-wishlist',
+    'remove-from-wishlist',
+    'toggle-comparison',
+    'view-product'
+  ],
   props: {
     cart: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    },
+    comparison: {
       type: Array,
       default: function () {
         return [];
@@ -75,6 +87,16 @@ export default {
         })
       );
     },
+    isCompared: function () {
+      var product = this.product;
+
+      return (
+        Boolean(product) &&
+        this.comparison.some(function (item) {
+          return item.id === product.id;
+        })
+      );
+    },
     recentAlternatives: function () {
       var currentProductId = this.product && this.product.id;
 
@@ -89,6 +111,15 @@ export default {
     },
     wishlistLabel: function () {
       return this.isWishlisted ? 'Remove from wishlist' : 'Add to wishlist';
+    },
+    comparisonLabel: function () {
+      if (!this.product) {
+        return 'Compare style';
+      }
+
+      return this.isCompared
+        ? 'Remove ' + this.product.name + ' from comparison'
+        : 'Add ' + this.product.name + ' to comparison';
     },
     stockLabel: function () {
       return this.availableStock > 0
@@ -166,6 +197,11 @@ export default {
 
       if (section === 'care') {
         this.showCare = !this.showCare;
+      }
+    },
+    toggleComparison: function () {
+      if (this.product) {
+        this.$emit('toggle-comparison', this.product);
       }
     },
     toggleWishlist: function () {
@@ -274,6 +310,16 @@ export default {
                     5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"
                   />
                 </svg>
+              </button>
+
+              <button
+                class="compare-toggle"
+                type="button"
+                :aria-label="comparisonLabel"
+                :aria-pressed="String(isCompared)"
+                @click="toggleComparison"
+              >
+                {{ isCompared ? 'Remove from Compare' : 'Compare' }}
               </button>
             </div>
 

@@ -23,6 +23,26 @@ describe('product detail accessibility state', function () {
     );
   });
 
+  it('exposes add and remove comparison controls for the current product', function () {
+    var emit = vi.fn();
+    var product = products[0];
+
+    expect(
+      ProductDetailPage.computed.isCompared.call({ comparison: [product], product: product })
+    ).toBe(true);
+    expect(
+      ProductDetailPage.computed.comparisonLabel.call({
+        isCompared: false,
+        product: product
+      })
+    ).toBe('Add Geometric T-Shirt to comparison');
+
+    ProductDetailPage.methods.toggleComparison.call({ $emit: emit, product: product });
+
+    expect(emit).toHaveBeenCalledWith('toggle-comparison', product);
+    expect(ProductDetailPage.template).toContain(':aria-pressed="String(isCompared)"');
+  });
+
   it('updates selected rating and review status through production methods', function () {
     var context = {
       newReview: {
