@@ -11,7 +11,7 @@ describe('wishlist page actions', function () {
     WishlistPage.methods.moveToBag.call(context, products[0]);
     WishlistPage.methods.removeFromWishlist.call(context, products[0].id);
 
-    expect(emit).toHaveBeenNthCalledWith(1, 'add-to-cart', products[0]);
+    expect(emit).toHaveBeenNthCalledWith(1, 'move-wishlist-item-to-cart', products[0]);
     expect(emit).toHaveBeenNthCalledWith(2, 'remove-from-wishlist', products[0].id);
   });
 });

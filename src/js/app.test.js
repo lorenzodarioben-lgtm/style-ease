@@ -75,6 +75,31 @@ describe('root app state methods', function () {
     expect(context.store.clearCart).toHaveBeenCalled();
   });
 
+  it('moves a wishlist item only after the cart accepts it', function () {
+    var context = createAppContext();
+
+    expect(App.methods.moveWishlistItemToCart.call(context, products[0])).toBe(true);
+
+    expect(context.store.addCartItem).toHaveBeenCalledWith(products[0]);
+    expect(context.store.removeWishlistItem).toHaveBeenCalledWith(products[0].id);
+    expect(context.bumpCartCount).toHaveBeenCalledTimes(1);
+    expect(context.$refs.toast.show).toHaveBeenCalledWith('Geometric T-Shirt moved to your bag.');
+  });
+
+  it('keeps a wishlist item when there is no stock to move it into the cart', function () {
+    var context = createAppContext();
+
+    context.store.addCartItem.mockReturnValue(false);
+
+    expect(App.methods.moveWishlistItemToCart.call(context, products[0])).toBe(false);
+
+    expect(context.store.removeWishlistItem).not.toHaveBeenCalled();
+    expect(context.bumpCartCount).not.toHaveBeenCalled();
+    expect(context.$refs.toast.show).toHaveBeenCalledWith(
+      'Geometric T-Shirt is no longer available in the selected quantity.'
+    );
+  });
+
   it('clears saved demo data through the central storefront store', function () {
     var context = createAppContext();
 

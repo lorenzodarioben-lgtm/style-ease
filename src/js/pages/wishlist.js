@@ -6,7 +6,7 @@ export default {
   components: {
     ProductImage
   },
-  emits: ['add-to-cart', 'remove-from-wishlist'],
+  emits: ['move-wishlist-item-to-cart', 'remove-from-wishlist'],
   props: {
     wishlist: {
       type: Array,
@@ -20,7 +20,7 @@ export default {
       return formatPrice(price);
     },
     moveToBag: function (product) {
-      this.$emit('add-to-cart', product);
+      this.$emit('move-wishlist-item-to-cart', product);
     },
     removeFromWishlist: function (productId) {
       this.$emit('remove-from-wishlist', productId);

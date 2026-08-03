@@ -119,6 +119,23 @@ export default {
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
     },
+    moveWishlistItemToCart: function (product) {
+      if (!this.store.addCartItem(product)) {
+        if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+          this.$refs.toast.show(product.name + ' is no longer available in the selected quantity.');
+        }
+        return false;
+      }
+
+      this.store.removeWishlistItem(product.id);
+      this.bumpCartCount();
+
+      if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+        this.$refs.toast.show(product.name + ' moved to your bag.');
+      }
+
+      return true;
+    },
     syncSearchQueryFromRoute: function (query) {
       var searchQuery = typeof query === 'string' ? query : '';
 
@@ -181,6 +198,7 @@ export default {
             @toggle-comparison="toggleComparison"
             @remove-from-cart="removeFromCart"
             @remove-from-wishlist="removeFromWishlist"
+            @move-wishlist-item-to-cart="moveWishlistItemToCart"
             @update-cart-quantity="updateCartQuantity"
             @view-product="recordRecentlyViewed"
           />
