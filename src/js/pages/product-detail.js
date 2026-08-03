@@ -6,6 +6,7 @@ import {
   getCartProductQuantity,
   getDefaultSize,
   getProductStock,
+  parseProductId,
   readReviews,
   saveReviews
 } from '../utils/catalog-utils.js';
@@ -113,7 +114,7 @@ export default {
       this.selectedQuantity = 1;
     },
     loadProduct: function () {
-      var productId = Number.parseInt(this.$route.params.id, 10);
+      var productId = parseProductId(this.$route.params.id);
       var product = findProductById(productId);
 
       this.product = product || null;

@@ -181,6 +181,14 @@ export function normalizeSearchQuery(searchQuery) {
   return typeof searchQuery === 'string' ? searchQuery.trim().toLowerCase() : '';
 }
 
+export function parseProductId(value) {
+  if (typeof value === 'number') {
+    return Number.isInteger(value) && value > 0 ? value : null;
+  }
+
+  return typeof value === 'string' && /^[1-9]\d*$/.test(value) ? Number(value) : null;
+}
+
 export function productMatchesFilters(product, filters) {
   if (!product) {
     return false;
