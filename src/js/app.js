@@ -30,6 +30,9 @@ export default {
     cartCount: function () {
       return calculateCartQuantity(this.store.state.cart);
     },
+    comparisonCount: function () {
+      return this.store.state.comparison.length;
+    },
     wishlistCount: function () {
       return this.store.state.wishlist.length;
     }
@@ -170,6 +173,7 @@ export default {
 
       <app-header
         :cart-count="cartCount"
+        :comparison-count="comparisonCount"
         :is-cart-bumping="isCartBumping"
         :search-value="store.state.searchInput"
         :wishlist-count="wishlistCount"

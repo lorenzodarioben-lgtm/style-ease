@@ -63,6 +63,20 @@ describe('mounted storefront interactions', function () {
     wrapper.unmount();
   });
 
+  it('renders a reactive, labelled comparison count in the navigation', function () {
+    var wrapper = mountWithRoute(AppHeader, {
+      props: {
+        comparisonCount: 2
+      }
+    });
+    var comparisonLink = wrapper.find('a[href="/compare"]');
+
+    expect(comparisonLink.text()).toBe('Compare (2)');
+    expect(comparisonLink.attributes('aria-label')).toBe('Compare styles, 2 styles selected');
+
+    wrapper.unmount();
+  });
+
   it('filters the catalogue through mounted controls', async function () {
     var router = { push: vi.fn(), replace: vi.fn() };
     var wrapper = mountWithRoute(ProductsPage, {
