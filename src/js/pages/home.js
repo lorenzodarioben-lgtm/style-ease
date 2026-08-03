@@ -1,10 +1,22 @@
-import { categoryLinks, featuredBrands } from '../data/catalog.js';
+import { categoryLinks, featuredBrands, products } from '../data/catalog.js';
 import ProductImage from '../components/product-image.js';
+import RecentlyViewed from '../components/recently-viewed.js';
+
+const FEATURED_STYLE_IDS = [2, 4, 7, 12];
 
 export default {
   name: 'HomePage',
   components: {
-    ProductImage
+    ProductImage,
+    RecentlyViewed
+  },
+  props: {
+    recentlyViewed: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    }
   },
   data: function () {
     return {
@@ -13,6 +25,34 @@ export default {
       heroImage:
         'https://images.unsplash.com/photo-1615222443417-6d76586644a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NDMwOTEyNDh8&ixlib=rb-4.0.3&q=85'
     };
+  },
+  computed: {
+    featuredStyles: function () {
+      return FEATURED_STYLE_IDS.map(function (productId) {
+        return products.find(function (product) {
+          return product.id === productId;
+        });
+      }).filter(Boolean);
+    },
+    recentStyles: function () {
+      var seen = {};
+
+      return this.recentlyViewed
+        .map(function (item) {
+          return products.find(function (product) {
+            return product.id === Number(item && item.id);
+          });
+        })
+        .filter(function (product) {
+          if (!product || seen[product.id]) {
+            return false;
+          }
+
+          seen[product.id] = true;
+          return true;
+        })
+        .slice(0, 6);
+    }
   },
   template: `
       <div>
@@ -50,6 +90,18 @@ export default {
             </router-link>
           </div>
         </section>
+
+        <recently-viewed
+          :products="recentStyles"
+          section-id="home-recently-viewed-title"
+          title="Recently Viewed"
+        ></recently-viewed>
+
+        <recently-viewed
+          :products="featuredStyles"
+          section-id="featured-styles-title"
+          title="Featured Styles"
+        ></recently-viewed>
 
         <section class="brands container">
           <h2 class="section-title">Featured Brands</h2>
