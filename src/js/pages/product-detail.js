@@ -278,10 +278,10 @@ export default {
             </div>
 
             <div class="product-description">
-              <h3>Description</h3>
+              <h2>Description</h2>
               <p>{{ product.details }}</p>
 
-              <h3>Features</h3>
+              <h2>Features</h2>
               <ul class="feature-list">
                 <li>Premium quality material</li>
                 <li>Geometric design elements</li>
@@ -325,7 +325,7 @@ export default {
             </div>
 
             <div class="review-section">
-              <h3>Submit Your Review</h3>
+              <h2>Submit Your Review</h2>
 
               <form @submit.prevent="submitReview">
                 <fieldset class="star-rating" aria-describedby="review-rating-help">
@@ -359,7 +359,7 @@ export default {
             </div>
 
             <div class="reviews-display" v-if="reviews.length > 0">
-              <h3>Reviews</h3>
+              <h2>Reviews</h2>
               <div class="review" v-for="(review, index) in reviews" :key="index">
                 <p class="sr-only">{{ review.rating }} out of 5 stars</p>
                 <div class="review-rating">

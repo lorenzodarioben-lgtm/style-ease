@@ -1,6 +1,12 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+async function expectNoAccessibilityViolations(page) {
+  var results = await new AxeBuilder({ page }).analyze();
+
+  expect(results.violations).toEqual([]);
+}
+
 test('completes the demo purchase flow through its saved receipt', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Explore Collection' }).click();
@@ -52,12 +58,33 @@ test('preserves direct catalogue state and moves a wishlisted style into the bag
   await expect(page.getByText('Your wishlist is ready for inspiration.')).toBeVisible();
 });
 
-test('has no automated accessibility violations on the catalogue', async ({ page }) => {
+test('has no automated accessibility violations on primary routes and navigation states', async ({
+  page
+}) => {
+  var routes = [
+    '/',
+    '/#/products',
+    '/#/product/1',
+    '/#/cart',
+    '/#/compare',
+    '/#/wishlist',
+    '/#/orders',
+    '/#/checkout'
+  ];
+
+  for (var index = 0; index < routes.length; index += 1) {
+    await page.goto(routes[index]);
+    await expectNoAccessibilityViolations(page);
+  }
+
   await page.goto('/#/products');
+  await page.getByRole('button', { name: 'Category filter' }).click();
+  await expectNoAccessibilityViolations(page);
 
-  var results = await new AxeBuilder({ page }).analyze();
-
-  expect(results.violations).toEqual([]);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Open navigation' }).click();
+  await expectNoAccessibilityViolations(page);
 });
 
 test('keeps the catalogue within a mobile viewport', async ({ page }) => {

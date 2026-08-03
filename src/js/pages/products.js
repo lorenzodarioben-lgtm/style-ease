@@ -268,7 +268,7 @@ export default {
               Category <span v-if="filters.category.length" class="filter-badge">{{ filters.category.length }}</span>
             </button>
             <div v-if="activeFilterDropdown === 'category'" id="category-filter-options" class="filter-dropdown">
-              <h3>Category</h3>
+              <h2>Category</h2>
               <div class="filter-options-grid">
                 <button
                   v-for="category in filterOptions.categories"
@@ -298,7 +298,7 @@ export default {
               Size <span v-if="filters.size.length" class="filter-badge">{{ filters.size.length }}</span>
             </button>
             <div v-if="activeFilterDropdown === 'size'" id="size-filter-options" class="filter-dropdown">
-              <h3>Size</h3>
+              <h2>Size</h2>
               <div class="filter-options-grid">
                 <button
                   v-for="size in filterOptions.sizes"
@@ -328,7 +328,7 @@ export default {
               Color <span v-if="filters.color.length" class="filter-badge">{{ filters.color.length }}</span>
             </button>
             <div v-if="activeFilterDropdown === 'color'" id="color-filter-options" class="filter-dropdown">
-              <h3>Color</h3>
+              <h2>Color</h2>
               <div class="filter-options-grid">
                 <button
                   v-for="color in filterOptions.colors"
@@ -358,7 +358,7 @@ export default {
               Price <span v-if="filters.priceRange" class="filter-badge">1</span>
             </button>
             <div v-if="activeFilterDropdown === 'price'" id="price-filter-options" class="filter-dropdown">
-              <h3>Price</h3>
+              <h2>Price</h2>
               <div class="filter-options-list">
                 <button
                   v-for="range in filterOptions.priceRanges"
