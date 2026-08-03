@@ -46,4 +46,17 @@ describe('cart page options', function () {
     expect(context.$emit).toHaveBeenCalledWith('remove-from-cart', 0);
     expect(context.cartStatus).toBe('Geometric T-Shirt removed from your cart.');
   });
+
+  it('emits a save-for-later action for the selected cart line', function () {
+    var context = {
+      $emit: vi.fn(),
+      cart: [products[0]]
+    };
+
+    CartPage.methods.saveForLater.call(context, 0);
+    CartPage.methods.saveForLater.call(context, 1);
+
+    expect(context.$emit).toHaveBeenCalledTimes(1);
+    expect(context.$emit).toHaveBeenCalledWith('save-cart-item-for-later', 0);
+  });
 });

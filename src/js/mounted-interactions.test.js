@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import AppHeader from './components/app-header.js';
+import CartPage from './pages/cart.js';
 import ProductDetailPage from './pages/product-detail.js';
 import ProductsPage from './pages/products.js';
 import { products } from './data/catalog.js';
@@ -123,6 +124,25 @@ describe('mounted storefront interactions', function () {
     expect(wrapper.get('.submit-review-btn').attributes('disabled')).toBeUndefined();
     await wrapper.get('form').trigger('submit');
     expect(wrapper.vm.reviewStatus).toBe('Review submitted.');
+    wrapper.unmount();
+  });
+
+  it('emits a mounted save-for-later action without mutating the cart view', async function () {
+    var cartItem = Object.assign({}, products[1], {
+      quantity: 1,
+      selectedColor: 'Black',
+      selectedSize: 'M'
+    });
+    var wrapper = mountWithRoute(CartPage, {
+      props: {
+        cart: [cartItem]
+      }
+    });
+
+    await wrapper.get('[aria-label="Save Angular Jacket for later"]').trigger('click');
+    expect(wrapper.emitted('save-cart-item-for-later')).toEqual([[0]]);
+    expect(wrapper.findAll('.cart-item')).toHaveLength(1);
+
     wrapper.unmount();
   });
 });

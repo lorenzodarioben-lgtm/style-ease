@@ -2,7 +2,11 @@ import AppHeader from './components/app-header.js';
 import Toast from './components/toast.js';
 import { createStorefrontStore } from './store/storefront.js';
 import { clearStorefrontState, readStorefrontState, saveStorefrontState } from './store/storage.js';
-import { calculateCartQuantity, clearReviews } from './utils/catalog-utils.js';
+import {
+  calculateCartQuantity,
+  clearReviews,
+  getCartItemVariantKey
+} from './utils/catalog-utils.js';
 import { createCatalogueQuery, readCatalogueQuery } from './utils/catalogue-state.js';
 
 const CART_BUMP_DURATION_MS = 300;
@@ -122,6 +126,38 @@ export default {
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
     },
+    saveCartItemForLater: function (index) {
+      var item = this.store.state.cart[index];
+
+      if (!item) {
+        return false;
+      }
+
+      var itemKey = getCartItemVariantKey(item);
+      var alreadySaved = this.store.state.wishlist.some(function (wishlistItem) {
+        return getCartItemVariantKey(wishlistItem) === itemKey;
+      });
+      var saved = alreadySaved || this.store.addWishlistItem(item);
+
+      if (!saved) {
+        if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+          this.$refs.toast.show(
+            'We could not save ' + item.name + ' for later. Your bag is unchanged.'
+          );
+        }
+        return false;
+      }
+
+      if (!this.store.removeCartItem(index)) {
+        return false;
+      }
+
+      if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+        this.$refs.toast.show(item.name + ' saved for later.');
+      }
+
+      return true;
+    },
     moveWishlistItemToCart: function (product) {
       if (!this.store.addCartItem(product)) {
         if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
@@ -130,7 +166,7 @@ export default {
         return false;
       }
 
-      this.store.removeWishlistItem(product.id);
+      this.store.removeWishlistItem(product);
       this.bumpCartCount();
 
       if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
@@ -203,6 +239,7 @@ export default {
             @remove-from-cart="removeFromCart"
             @remove-from-wishlist="removeFromWishlist"
             @move-wishlist-item-to-cart="moveWishlistItemToCart"
+            @save-cart-item-for-later="saveCartItemForLater"
             @update-cart-quantity="updateCartQuantity"
             @view-product="recordRecentlyViewed"
           />

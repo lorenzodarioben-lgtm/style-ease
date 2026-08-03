@@ -407,6 +407,19 @@ textarea {
   height: fit-content; /* Size based on content */
 }
 
+.save-for-later {
+  background: transparent;
+  border: 1px solid var(--secondary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.save-for-later:hover,
+.save-for-later:focus-visible {
+  border-color: var(--text-color);
+}
+
 /* Hover effect for remove button */
 .remove-item:hover {
   background-color: #ff4444; /* Red background */
