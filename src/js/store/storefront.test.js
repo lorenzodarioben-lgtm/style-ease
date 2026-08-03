@@ -16,6 +16,30 @@ describe('storefront store', function () {
     expect(store.state.wishlist[0]).not.toBe(products[0]);
   });
 
+  it('preserves valid wishlist variants while rejecting invalid products and duplicates', function () {
+    var store = createStorefrontStore();
+    var selectedItem = Object.assign({}, products[1], {
+      selectedColor: 'Black',
+      selectedSize: 'M'
+    });
+
+    expect(store.addWishlistItem(selectedItem)).toBe(true);
+    expect(store.addWishlistItem(selectedItem)).toBe(false);
+    expect(
+      store.addWishlistItem(
+        Object.assign({}, products[1], { selectedColor: 'Gray', selectedSize: 'M' })
+      )
+    ).toBe(true);
+    expect(store.addWishlistItem({ id: 999, selectedColor: 'Black', selectedSize: 'M' })).toBe(
+      false
+    );
+    expect(store.state.wishlist[0]).toMatchObject({
+      id: products[1].id,
+      selectedColor: 'Black',
+      selectedSize: 'M'
+    });
+  });
+
   it('guards invalid cart mutations and preserves reactive search state', function () {
     var store = createStorefrontStore({ searchInput: '  jacket  ' });
 

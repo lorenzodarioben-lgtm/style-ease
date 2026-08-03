@@ -18,7 +18,11 @@ function getStorage(storage) {
 }
 
 function isKnownOption(product, property, value) {
-  return typeof value === 'string' && product[property].indexOf(value) > -1;
+  return (
+    typeof value === 'string' &&
+    Array.isArray(product && product[property]) &&
+    product[property].indexOf(value) > -1
+  );
 }
 
 function readPrice(value, fallback) {
@@ -73,8 +77,42 @@ function readCartItem(item) {
 function readWishlistItem(item) {
   var productId = Number(item && item.id);
   var product = Number.isInteger(productId) ? findProductById(productId) : null;
+  var wishlistItem = product ? Object.assign({}, product) : null;
 
-  return product ? Object.assign({}, product) : null;
+  if (!wishlistItem) {
+    return null;
+  }
+
+  if (isKnownOption(product, 'sizes', item.selectedSize)) {
+    wishlistItem.selectedSize = item.selectedSize;
+  }
+
+  if (isKnownOption(product, 'colors', item.selectedColor)) {
+    wishlistItem.selectedColor = item.selectedColor;
+  }
+
+  return wishlistItem;
+}
+
+function writeWishlistItem(item) {
+  var productId = Number(item && item.id);
+  var product = Number.isInteger(productId) ? findProductById(productId) : null;
+
+  if (!product) {
+    return null;
+  }
+
+  var wishlistItem = { id: product.id };
+
+  if (isKnownOption(product, 'sizes', item.selectedSize)) {
+    wishlistItem.selectedSize = item.selectedSize;
+  }
+
+  if (isKnownOption(product, 'colors', item.selectedColor)) {
+    wishlistItem.selectedColor = item.selectedColor;
+  }
+
+  return wishlistItem;
 }
 
 function readRecentItem(item) {
@@ -180,13 +218,7 @@ export function saveStorefrontState(state, storage) {
 
   var cart = Array.isArray(state.cart) ? state.cart.map(writeCartItem).filter(Boolean) : [];
   var wishlist = Array.isArray(state.wishlist)
-    ? state.wishlist
-        .filter(function (item) {
-          return item && Number.isInteger(item.id);
-        })
-        .map(function (item) {
-          return { id: item.id };
-        })
+    ? state.wishlist.map(writeWishlistItem).filter(Boolean)
     : [];
   var recentlyViewed = Array.isArray(state.recentlyViewed)
     ? state.recentlyViewed

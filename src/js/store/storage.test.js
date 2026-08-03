@@ -18,14 +18,14 @@ function createStorage(value) {
 }
 
 describe('storefront session storage', function () {
-  it('restores valid cart variants and wishlisted products safely', function () {
+  it('restores valid cart and wishlist variants while preserving ID-only saved items', function () {
     var storage = createStorage(
       JSON.stringify({
         version: 1,
         cart: [{ id: 1, price: 70, selectedSize: 'M', selectedColor: 'Black' }],
         comparison: [{ id: 4 }],
         recentlyViewed: [{ id: 3 }],
-        wishlist: [{ id: 2 }]
+        wishlist: [{ id: 2 }, { id: 4, selectedColor: 'Black', selectedSize: '9' }]
       })
     );
 
@@ -41,8 +41,12 @@ describe('storefront session storage', function () {
       comparison: [expect.objectContaining({ id: 4 })],
       orders: [],
       recentlyViewed: [expect.objectContaining({ id: 3 })],
-      wishlist: [expect.objectContaining({ id: 2 })]
+      wishlist: [
+        expect.objectContaining({ id: 2 }),
+        expect.objectContaining({ id: 4, selectedColor: 'Black', selectedSize: '9' })
+      ]
     });
+    expect(readStorefrontState(storage).wishlist[0].selectedSize).toBeUndefined();
   });
 
   it('ignores malformed, outdated, and unknown stored values', function () {
@@ -110,7 +114,12 @@ describe('storefront session storage', function () {
     saveStorefrontState(
       {
         cart: [Object.assign({}, products[0], { selectedSize: 'M', selectedColor: 'Black' })],
-        wishlist: [products[1]]
+        wishlist: [
+          products[1],
+          Object.assign({}, products[3], { selectedColor: 'Black', selectedSize: '9' }),
+          { id: 999, selectedColor: 'Black', selectedSize: 'M' },
+          { id: 1, selectedColor: 'Purple', selectedSize: 'Unknown' }
+        ]
       },
       storage
     );
@@ -123,7 +132,7 @@ describe('storefront session storage', function () {
         comparison: [],
         orders: [],
         recentlyViewed: [],
-        wishlist: [{ id: 2 }]
+        wishlist: [{ id: 2 }, { id: 4, selectedSize: '9', selectedColor: 'Black' }, { id: 1 }]
       })
     );
 

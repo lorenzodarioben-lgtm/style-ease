@@ -3,6 +3,7 @@ import {
   calculateCartTotal,
   cloneProduct,
   createCartItem,
+  findProductById,
   getCartProductQuantity,
   getCartItemVariantKey,
   getCartItemQuantity,
@@ -17,6 +18,31 @@ function cloneItems(items) {
     : [];
 }
 
+function createWishlistItem(item) {
+  var productId = Number(item && item.id);
+  var product = Number.isInteger(productId) ? findProductById(productId) : null;
+
+  if (!product) {
+    return null;
+  }
+
+  var wishlistItem = cloneProduct(product);
+
+  if (Array.isArray(product.sizes) && product.sizes.indexOf(item.selectedSize) > -1) {
+    wishlistItem.selectedSize = item.selectedSize;
+  }
+
+  if (Array.isArray(product.colors) && product.colors.indexOf(item.selectedColor) > -1) {
+    wishlistItem.selectedColor = item.selectedColor;
+  }
+
+  return wishlistItem;
+}
+
+function getWishlistItemKey(item) {
+  return getCartItemVariantKey(item);
+}
+
 export function createStorefrontStore(initialState) {
   var initial = initialState || {};
   var listeners = [];
@@ -27,7 +53,9 @@ export function createStorefrontStore(initialState) {
     recentlyViewed: cloneItems(initial.recentlyViewed),
     searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
     searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
-    wishlist: cloneItems(initial.wishlist)
+    wishlist: Array.isArray(initial.wishlist)
+      ? initial.wishlist.map(createWishlistItem).filter(Boolean)
+      : []
   });
 
   function notify() {
@@ -86,19 +114,23 @@ export function createStorefrontStore(initialState) {
       return true;
     },
     addWishlistItem: function (item) {
-      if (!item || !Number.isFinite(Number(item.id))) {
+      var wishlistItem = createWishlistItem(item);
+
+      if (!wishlistItem) {
         return false;
       }
 
+      var itemKey = getWishlistItemKey(wishlistItem);
+
       var exists = state.wishlist.some(function (wishlistItem) {
-        return wishlistItem.id === item.id;
+        return getWishlistItemKey(wishlistItem) === itemKey;
       });
 
       if (exists) {
         return false;
       }
 
-      state.wishlist.push(cloneProduct(item));
+      state.wishlist.push(wishlistItem);
       notify();
       return true;
     },
@@ -119,9 +151,11 @@ export function createStorefrontStore(initialState) {
       notify();
       return true;
     },
-    removeWishlistItem: function (productId) {
+    removeWishlistItem: function (item) {
+      var productId = Number(item && item.id ? item.id : item);
+      var itemKey = item && typeof item === 'object' ? getWishlistItemKey(item) : '';
       var index = state.wishlist.findIndex(function (item) {
-        return item.id === productId;
+        return itemKey ? getWishlistItemKey(item) === itemKey : item.id === productId;
       });
 
       if (index === -1) {
