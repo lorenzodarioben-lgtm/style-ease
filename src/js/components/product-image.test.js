@@ -3,7 +3,7 @@ import ProductImage, { addImageWidth } from './product-image.js';
 
 describe('product image delivery', function () {
   it('adds responsive sizing parameters and falls back after an image error', function () {
-    expect(addImageWidth('https://images.example/product.jpg', 480)).toContain('w=480');
+    expect(addImageWidth('https://images.example/product.jpg', 480)).toContain('w=480&h=600');
     expect(
       ProductImage.computed.imageSource.call({
         hasError: false,
@@ -20,5 +20,11 @@ describe('product image delivery', function () {
     expect(ProductImage.props.fetchPriority.default).toBe('auto');
     expect(ProductImage.props.sizes.default).toContain('(max-width: 480px)');
     expect(ProductImage.template).toContain(':fetchpriority="fetchPriority"');
+    expect(
+      ProductImage.computed.imageSourceSet.call({
+        hasError: false,
+        src: 'https://images.example/a.jpg'
+      })
+    ).toContain('w=1440&h=1800');
   });
 });

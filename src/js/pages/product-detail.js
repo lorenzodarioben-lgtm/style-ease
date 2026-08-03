@@ -190,7 +190,13 @@ export default {
 
         <div class="product-detail">
           <div class="product-detail-image">
-            <product-image :src="product.image" :alt="product.name" image-class="product-detail-image-element" loading="eager"></product-image>
+            <product-image
+              :src="product.image"
+              :alt="product.name"
+              image-class="product-detail-image-element"
+              loading="eager"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            ></product-image>
           </div>
 
           <div class="product-detail-info">
