@@ -178,7 +178,9 @@ export function getDefaultSize(product) {
 }
 
 export function normalizeSearchQuery(searchQuery) {
-  return typeof searchQuery === 'string' ? searchQuery.trim().toLowerCase() : '';
+  return typeof searchQuery === 'string'
+    ? searchQuery.trim().toLowerCase().replace(/\s+/g, ' ')
+    : '';
 }
 
 export function parseProductId(value) {
@@ -233,10 +235,24 @@ export function productMatchesSearch(product, searchQuery) {
     return true;
   }
 
-  return (
-    product.name.toLowerCase().indexOf(normalizedQuery) > -1 ||
-    product.description.toLowerCase().indexOf(normalizedQuery) > -1
-  );
+  var searchableValues = [
+    product.name,
+    product.description,
+    product.details,
+    product.category,
+    product.material
+  ]
+    .concat(Array.isArray(product.colors) ? product.colors : [])
+    .concat(Array.isArray(product.sizes) ? product.sizes : [])
+    .filter(function (value) {
+      return typeof value === 'string';
+    })
+    .map(normalizeSearchQuery)
+    .join(' ');
+
+  return normalizedQuery.split(' ').every(function (term) {
+    return searchableValues.indexOf(term) > -1;
+  });
 }
 
 export function sortProducts(productList, sortBy) {

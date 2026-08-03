@@ -125,10 +125,15 @@ describe('catalog utilities', function () {
     expect(parseProductId(0)).toBeNull();
   });
 
-  it('matches product search against names and descriptions', function () {
+  it('matches product search against product attributes with normalized terms', function () {
     expect(productMatchesSearch(products[0], 'geometric')).toBe(true);
     expect(productMatchesSearch(products[0], 'bold patterns')).toBe(true);
+    expect(productMatchesSearch(products[1], '  BLACK   WOOL ')).toBe(true);
+    expect(productMatchesSearch(products[1], 'jacket')).toBe(true);
+    expect(productMatchesSearch(products[3], 'leather')).toBe(true);
+    expect(productMatchesSearch(products[1], 'M')).toBe(true);
     expect(productMatchesSearch(products[0], 'no-such-product')).toBe(false);
+    expect(productMatchesSearch({ name: 'Minimal' }, 'black')).toBe(false);
     expect(productMatchesSearch(null, 'shirt')).toBe(false);
   });
 
