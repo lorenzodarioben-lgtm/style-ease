@@ -172,6 +172,15 @@ describe('catalog utilities', function () {
     expect(filterProducts(null, '', createEmptyFilters())).toEqual([]);
   });
 
+  it('filters static demo stock without treating cart reservations as unavailable', function () {
+    var filters = createEmptyFilters();
+
+    filters.inStock = true;
+    expect(filterProducts(products, '', filters)).toHaveLength(products.length - 1);
+    expect(productMatchesFilters(products[9], filters)).toBe(false);
+    expect(productMatchesFilters(products[0], filters)).toBe(true);
+  });
+
   it('sorts a copy of products by storefront controls', function () {
     var list = [
       { id: 1, name: 'Zulu', price: 40, rating: 4.3, releasedAt: '2026-01-01' },

@@ -36,6 +36,7 @@ export function createEmptyFilters() {
     size: [],
     color: [],
     category: [],
+    inStock: false,
     priceRange: null
   };
 }
@@ -200,6 +201,7 @@ export function productMatchesFilters(product, filters) {
   var selectedSizes = Array.isArray(activeFilters.size) ? activeFilters.size : [];
   var selectedColors = Array.isArray(activeFilters.color) ? activeFilters.color : [];
   var selectedCategories = Array.isArray(activeFilters.category) ? activeFilters.category : [];
+  var inStockOnly = activeFilters.inStock === true;
   var priceRange = activeFilters.priceRange;
 
   var matchesSize =
@@ -220,8 +222,9 @@ export function productMatchesFilters(product, filters) {
   var minPrice = priceRange && Number.isFinite(priceRange.min) ? priceRange.min : -Infinity;
   var maxPrice = priceRange && Number.isFinite(priceRange.max) ? priceRange.max : Infinity;
   var matchesPrice = !priceRange || (product.price >= minPrice && product.price <= maxPrice);
+  var matchesAvailability = !inStockOnly || getProductStock(product) > 0;
 
-  return matchesSize && matchesColor && matchesCategory && matchesPrice;
+  return matchesSize && matchesColor && matchesCategory && matchesPrice && matchesAvailability;
 }
 
 export function productMatchesSearch(product, searchQuery) {

@@ -61,6 +61,10 @@ export function createCatalogueQuery(state) {
     query.price = filters.priceRange.label;
   }
 
+  if (filters.inStock) {
+    query.inStock = '1';
+  }
+
   if (state.sortBy && state.sortBy !== 'featured') {
     query.sort = state.sortBy;
   }
@@ -82,6 +86,7 @@ export function readCatalogueQuery(query) {
     filters: {
       category: readList(source.category, filterOptions.categories, CATEGORY_ALIASES),
       color: readList(source.color, filterOptions.colors),
+      inStock: asString(source.inStock) === '1',
       priceRange: readPriceRange(source.price),
       size: readList(source.size, filterOptions.sizes)
     },
