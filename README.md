@@ -125,7 +125,8 @@ npm run preview
 | `npm test`             | Run the test suite in watch mode                      |
 | `npm run test:run`     | Run the test suite once                               |
 | `npm run test:e2e`     | Run production-build browser and accessibility checks |
-| `npm run validate`     | Run format check, lint, tests, and build in sequence  |
+| `npm run check:bundle` | Enforce initial JavaScript and CSS gzip budgets       |
+| `npm run validate`     | Run format check, lint, tests, build, and budgets     |
 
 ## Deployment
 

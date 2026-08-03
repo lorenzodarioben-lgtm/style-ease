@@ -29,7 +29,13 @@ export default [
     }
   },
   {
-    files: ['eslint.config.js', 'playwright.config.js', 'vite.config.js', 'e2e/global-setup.js'],
+    files: [
+      'eslint.config.js',
+      'playwright.config.js',
+      'vite.config.js',
+      'e2e/global-setup.js',
+      'scripts/**/*.mjs'
+    ],
     languageOptions: {
       globals: {
         ...globals.node

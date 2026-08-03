@@ -21,7 +21,7 @@ Browser storage is a convenience, not a user account. A saved snapshot may conta
 
 The app uses hash routing so bookmarked routes and refreshes work on a GitHub Pages project site. Catalogue URLs can include `q`, `category`, `size`, `color`, `price`, `sort`, and `page` query values. The Vite production base remains `/style-ease/`, matching the GitHub Pages project path.
 
-GitHub Actions installs with `npm ci`, runs `npm run validate`, builds the site, and deploys only the generated `dist/` output from `main`.
+GitHub Actions installs with `npm ci`, runs `npm run validate` (including the initial JavaScript and CSS gzip budgets), builds the site, and deploys only the generated `dist/` output from `main`.
 
 ## Verification approach
 
