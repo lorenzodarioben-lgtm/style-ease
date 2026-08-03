@@ -3,6 +3,7 @@ import Toast from './components/toast.js';
 import { createStorefrontStore } from './store/storefront.js';
 import { clearStorefrontState, readStorefrontState, saveStorefrontState } from './store/storage.js';
 import { calculateCartQuantity, clearReviews } from './utils/catalog-utils.js';
+import { createCatalogueQuery, readCatalogueQuery } from './utils/catalogue-state.js';
 
 const CART_BUMP_DURATION_MS = 300;
 
@@ -32,6 +33,9 @@ export default {
     wishlistCount: function () {
       return this.store.state.wishlist.length;
     }
+  },
+  created: function () {
+    this.syncSearchQueryFromRoute(this.$route.query.q);
   },
   beforeUnmount: function () {
     clearTimeout(this.cartBumpTimer);
@@ -89,6 +93,21 @@ export default {
     performSearch: function () {
       this.store.setSearchQuery(this.store.state.searchInput);
 
+      if (this.$route.path === '/products') {
+        var catalogueState = readCatalogueQuery(this.$route.query);
+
+        this.$router.push({
+          path: '/products',
+          query: createCatalogueQuery({
+            currentPage: 1,
+            filters: catalogueState.filters,
+            searchQuery: this.store.state.searchQuery,
+            sortBy: catalogueState.sortBy
+          })
+        });
+        return;
+      }
+
       this.$router.push({
         path: '/products',
         query: this.store.state.searchQuery ? { q: this.store.state.searchQuery } : {}
@@ -99,6 +118,12 @@ export default {
     },
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
+    },
+    syncSearchQueryFromRoute: function (query) {
+      var searchQuery = typeof query === 'string' ? query : '';
+
+      this.store.setSearchInput(searchQuery);
+      this.store.setSearchQuery(searchQuery);
     },
     toggleComparison: function (product) {
       var changed = this.store.toggleComparison(product);
@@ -119,10 +144,7 @@ export default {
   },
   watch: {
     '$route.query.q': function (query) {
-      var searchQuery = typeof query === 'string' ? query : '';
-
-      this.store.setSearchInput(searchQuery);
-      this.store.setSearchQuery(searchQuery);
+      this.syncSearchQueryFromRoute(query);
     }
   },
   template: `
