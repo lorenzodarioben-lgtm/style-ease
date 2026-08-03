@@ -13,11 +13,17 @@ export default {
   },
   data: function () {
     return {
-      isClearConfirmationVisible: false
+      isClearConfirmationVisible: false,
+      printingReceiptId: ''
     };
   },
   mounted: function () {
     this.focusSelectedReceipt();
+    window.addEventListener('afterprint', this.clearPrintReceipt);
+  },
+  beforeUnmount: function () {
+    window.removeEventListener('afterprint', this.clearPrintReceipt);
+    this.clearPrintReceipt();
   },
   watch: {
     '$route.query.receipt': function () {
@@ -27,6 +33,13 @@ export default {
   methods: {
     cancelClearDemoData: function () {
       this.isClearConfirmationVisible = false;
+    },
+    clearPrintReceipt: function () {
+      this.printingReceiptId = '';
+
+      if (typeof document !== 'undefined' && document.body) {
+        document.body.classList.remove('printing-receipt');
+      }
     },
     confirmClearDemoData: function () {
       this.$emit('clear-demo-data');
@@ -77,6 +90,29 @@ export default {
     },
     isReceiptOpen: function (order) {
       return Boolean(order && order.id === this.getSelectedReceiptId());
+    },
+    isPrintingReceipt: function (order) {
+      return Boolean(order && order.id === this.printingReceiptId);
+    },
+    printReceipt: function (order) {
+      if (
+        !order ||
+        !order.id ||
+        typeof window === 'undefined' ||
+        typeof window.print !== 'function'
+      ) {
+        return false;
+      }
+
+      this.printingReceiptId = order.id;
+      this.$nextTick(function () {
+        if (document.body) {
+          document.body.classList.add('printing-receipt');
+        }
+        window.print();
+      });
+
+      return true;
     }
   },
   template: `
@@ -86,7 +122,13 @@ export default {
       <p class="order-history-note">Receipts are stored only in this browser; delivery details are available only in the current session.</p>
 
       <section v-if="orders.length" class="order-history" aria-label="Demo order receipts">
-        <details v-for="order in orders" :key="order.id" class="order-receipt" :open="isReceiptOpen(order)">
+        <details
+          v-for="order in orders"
+          :key="order.id"
+          class="order-receipt"
+          :class="{ 'is-printing': isPrintingReceipt(order) }"
+          :open="isReceiptOpen(order) || isPrintingReceipt(order)"
+        >
           <summary :ref="'receipt-' + order.id">
             <span>{{ order.id }}</span>
             <span>{{ formatDate(order.createdAt) }}</span>
@@ -94,7 +136,7 @@ export default {
           </summary>
           <div class="receipt-content">
             <h2>Receipt</h2>
-            <p>Preferred payment: {{ order.paymentMethod }}</p>
+            <p>This browser-local record is a demo receipt, not a completed purchase.</p>
             <p>Delivery: {{ formatDelivery(order) }}</p>
             <ul>
               <li v-for="item in order.items" :key="item.id + item.selectedSize + item.selectedColor">
@@ -102,6 +144,7 @@ export default {
               </li>
             </ul>
             <p><strong>Total: {{ formatPrice(order.total) }}</strong></p>
+            <button class="print-receipt" type="button" @click="printReceipt(order)">Print receipt</button>
           </div>
         </details>
       </section>
