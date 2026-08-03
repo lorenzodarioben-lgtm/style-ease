@@ -21,7 +21,35 @@ test('completes the demo purchase flow through its saved receipt', async ({ page
   await expect(page.getByText(/Demo receipt: DEMO-/)).toBeVisible();
   await page.getByRole('link', { name: 'View Demo Receipt' }).click();
   await expect(page.getByRole('heading', { name: 'Demo Order History' })).toBeVisible();
-  await expect(page.getByText(/DEMO-/)).toBeVisible();
+  await expect(page.locator('details[open]')).toContainText(/DEMO-/);
+
+  await page.reload();
+
+  await expect(page.locator('details[open]')).toContainText(
+    'Delivery details are only available in the current session.'
+  );
+});
+
+test('preserves direct catalogue state and moves a wishlisted style into the bag', async ({
+  page
+}) => {
+  await page.goto('/#/products?category=Jackets&q=angular&sort=price-desc&page=2');
+
+  await expect(page.getByLabel('Search Style Ease')).toHaveValue('angular');
+  await page.getByRole('button', { name: 'Search' }).click();
+
+  expect(page.url()).toContain('q=angular');
+  expect(page.url()).toContain('category=Jackets');
+  expect(page.url()).toContain('sort=price-desc');
+  expect(page.url()).not.toContain('page=2');
+
+  await page.goto('/#/product/1');
+  await page.getByRole('button', { name: 'Add to wishlist' }).click();
+  await page.goto('/#/wishlist');
+  await page.getByRole('button', { name: 'Move to Bag' }).click();
+
+  await expect(page.getByRole('button', { name: 'View shopping cart, 1 item' })).toBeVisible();
+  await expect(page.getByText('Your wishlist is ready for inspiration.')).toBeVisible();
 });
 
 test('has no automated accessibility violations on the catalogue', async ({ page }) => {
