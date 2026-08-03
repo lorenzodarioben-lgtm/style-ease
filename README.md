@@ -150,7 +150,7 @@ These reflect the intended scope of a front-end demonstration:
 - Catalogue stock is fixed demonstration data; there is no real inventory synchronization
 - Cart, wishlist, comparisons, recently viewed products, and receipts persist only in the current browser and are not customer accounts; delivery details are not persisted
 - Product reviews persist only in the current browser via `localStorage`
-- Product imagery is loaded from Unsplash and the Inter font from Google Fonts, so both depend on those external services
+- Product imagery is loaded from Unsplash, so images depend on that external service; the Inter font is bundled with the application
 - URLs are hash-based for GitHub Pages compatibility
 
 ## Licence
