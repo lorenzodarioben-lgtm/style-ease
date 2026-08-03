@@ -1,0 +1,114 @@
+import { mount } from '@vue/test-utils';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import AppHeader from './components/app-header.js';
+import ProductDetailPage from './pages/product-detail.js';
+import ProductsPage from './pages/products.js';
+import { products } from './data/catalog.js';
+
+function createRoute(path, query, params) {
+  return {
+    fullPath: path,
+    params: params || {},
+    path: path,
+    query: query || {}
+  };
+}
+
+function mountWithRoute(component, options) {
+  var settings = options || {};
+
+  return mount(component, {
+    attachTo: settings.attachTo,
+    global: {
+      mocks: {
+        $route: settings.route || createRoute('/'),
+        $router: settings.router || { push: vi.fn(), replace: vi.fn() }
+      },
+      stubs: {
+        RouterLink: {
+          props: ['to'],
+          template: '<a :href="typeof to === \'string\' ? to : to.path"><slot></slot></a>'
+        }
+      }
+    },
+    props: settings.props || {}
+  });
+}
+
+afterEach(function () {
+  document.body.innerHTML = '';
+});
+
+describe('mounted storefront interactions', function () {
+  it('submits header searches and restores focus after closing the mobile menu', async function () {
+    var host = document.createElement('div');
+    document.body.appendChild(host);
+    var wrapper = mountWithRoute(AppHeader, {
+      attachTo: host,
+      route: createRoute('/products')
+    });
+
+    await wrapper.find('#site-search').setValue('black wool');
+    await wrapper.find('form[role="search"]').trigger('submit');
+    expect(wrapper.emitted('update-search-input')[0]).toEqual(['black wool']);
+    expect(wrapper.emitted('submit-search')).toHaveLength(1);
+
+    var menuButton = wrapper.find('.menu-icon');
+    await menuButton.trigger('click');
+    expect(wrapper.find('#primary-navigation').isVisible()).toBe(true);
+
+    await menuButton.trigger('keydown', { key: 'Escape' });
+    expect(wrapper.vm.isMenuOpen).toBe(false);
+    expect(document.activeElement).toBe(menuButton.element);
+    wrapper.unmount();
+  });
+
+  it('filters the catalogue through mounted controls', async function () {
+    var router = { push: vi.fn(), replace: vi.fn() };
+    var wrapper = mountWithRoute(ProductsPage, {
+      route: createRoute('/products'),
+      router: router
+    });
+
+    await wrapper.get('[aria-label="Category filter"]').trigger('click');
+    var jacket = wrapper.findAll('#category-filter-options button').find(function (button) {
+      return button.text() === 'Jackets';
+    });
+
+    await jacket.trigger('click');
+    expect(wrapper.vm.filters.category).toEqual(['Jackets']);
+    expect(router.replace).toHaveBeenCalledWith(
+      expect.objectContaining({
+        path: '/products'
+      })
+    );
+    wrapper.unmount();
+  });
+
+  it('selects product variants, adds them to the cart, and submits a rating', async function () {
+    var product = products[0];
+    var wrapper = mountWithRoute(ProductDetailPage, {
+      route: createRoute('/product/' + product.id, {}, { id: String(product.id) }),
+      props: {
+        cart: []
+      }
+    });
+    var selectedSize = product.sizes[product.sizes.length - 1];
+    var selectedColor = product.colors[product.colors.length - 1];
+
+    await wrapper.get('.size-buttons button:last-child').trigger('click');
+    await wrapper.get('#product-color-' + product.id).setValue(selectedColor);
+    await wrapper.get('.add-to-cart-detail').trigger('click');
+    expect(wrapper.emitted('add-to-cart')[0][0]).toMatchObject({
+      id: product.id,
+      selectedColor: selectedColor,
+      selectedSize: selectedSize
+    });
+
+    await wrapper.get('[aria-label="Rate 4 star"]').trigger('click');
+    expect(wrapper.get('.submit-review-btn').attributes('disabled')).toBeUndefined();
+    await wrapper.get('form').trigger('submit');
+    expect(wrapper.vm.reviewStatus).toBe('Review submitted.');
+    wrapper.unmount();
+  });
+});
