@@ -13,6 +13,7 @@ import {
   getCartItemVariantKey
 } from './utils/catalog-utils.js';
 import { createCatalogueQuery, readCatalogueQuery } from './utils/catalogue-state.js';
+import { retryFailedRoute, routeRecoveryState } from './router.js';
 
 const CART_BUMP_DURATION_MS = 300;
 
@@ -31,6 +32,7 @@ export default {
     return {
       cartBumpTimer: null,
       isCartBumping: false,
+      routeRecovery: routeRecoveryState,
       store: store,
       storeSubscription: unsubscribe
     };
@@ -232,6 +234,9 @@ export default {
     recordRecentlyViewed: function (product) {
       this.store.recordRecentlyViewed(product);
     },
+    retryRouteLoad: function () {
+      retryFailedRoute(this.$router);
+    },
     updateCartQuantity: function (index, quantity) {
       this.store.setCartItemQuantity(index, quantity);
     },
@@ -262,8 +267,14 @@ export default {
       <toast ref="toast"></toast>
 
       <main id="main-content" tabindex="-1">
+        <section v-if="routeRecovery.hasError" class="container empty-cart" role="alert" aria-labelledby="route-recovery-title">
+          <h1 id="route-recovery-title" class="page-title">We could not load this page</h1>
+          <p>A browser update or connection problem may have interrupted this route.</p>
+          <button class="hero-cta" type="button" @click="retryRouteLoad">Retry</button>
+        </section>
         <router-view v-slot="{ Component }">
           <component
+            v-if="!routeRecovery.hasError"
             :is="Component"
             :cart="store.state.cart"
             :comparison="store.state.comparison"

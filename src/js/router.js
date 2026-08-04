@@ -1,7 +1,87 @@
+import { reactive } from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { findProductById, parseProductId } from './utils/catalog-utils.js';
 
 const APP_TITLE = 'Style Ease';
+export const LAZY_ROUTE_RELOAD_KEY = 'style-ease-lazy-route-reload';
+export const routeRecoveryState = reactive({
+  hasError: false,
+  target: ''
+});
+
+function getSessionStorage(storage) {
+  if (storage) {
+    return storage;
+  }
+
+  try {
+    return typeof sessionStorage === 'undefined' ? null : sessionStorage;
+  } catch {
+    return null;
+  }
+}
+
+export function clearLazyRouteReloadGuard(storage) {
+  var browserStorage = getSessionStorage(storage);
+
+  if (!browserStorage) {
+    return;
+  }
+
+  try {
+    browserStorage.removeItem(LAZY_ROUTE_RELOAD_KEY);
+  } catch {
+    // The retry UI remains available when session storage cannot be used.
+  }
+}
+
+export function clearRouteRecovery() {
+  routeRecoveryState.hasError = false;
+  routeRecoveryState.target = '';
+}
+
+export function createLazyRouteErrorHandler(options) {
+  var settings = options || {};
+  var recoveryState = settings.recoveryState || routeRecoveryState;
+  var browserStorage = getSessionStorage(settings.storage);
+  var reload = settings.reload || function () {};
+
+  return function (error, to) {
+    var errorMessage = String((error && error.message) || error || '');
+    var isLazyLoadFailure =
+      /chunkloaderror|dynamically imported module|importing a module script|loading chunk/i.test(
+        errorMessage
+      );
+
+    recoveryState.hasError = true;
+    recoveryState.target = to && to.fullPath ? to.fullPath : '/';
+
+    if (!isLazyLoadFailure || !browserStorage) {
+      return;
+    }
+
+    try {
+      if (browserStorage.getItem(LAZY_ROUTE_RELOAD_KEY)) {
+        return;
+      }
+
+      browserStorage.setItem(LAZY_ROUTE_RELOAD_KEY, '1');
+      reload();
+    } catch {
+      // A Retry action is still available if session storage is blocked.
+    }
+  };
+}
+
+export function retryFailedRoute(router) {
+  var target = routeRecoveryState.target || '/';
+
+  clearRouteRecovery();
+
+  return router && typeof router.replace === 'function'
+    ? router.replace(target)
+    : Promise.resolve();
+}
 
 export function getRouteTitle(route) {
   if (route && route.name === 'not-found') {
@@ -119,8 +199,20 @@ const router = createRouter({
 });
 
 router.afterEach(function (to) {
+  clearLazyRouteReloadGuard();
+  clearRouteRecovery();
   document.title = getRouteTitle(to);
   window.setTimeout(focusRouteStart, 0);
 });
+
+router.onError(
+  createLazyRouteErrorHandler({
+    reload: function () {
+      if (typeof window !== 'undefined' && window.location) {
+        window.location.reload();
+      }
+    }
+  })
+);
 
 export default router;

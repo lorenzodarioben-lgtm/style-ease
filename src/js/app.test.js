@@ -280,4 +280,13 @@ describe('root app state methods', function () {
     addEventListener.mockRestore();
     removeEventListener.mockRestore();
   });
+
+  it('offers a retry control when lazy route loading fails', function () {
+    var context = createAppContext();
+
+    App.methods.retryRouteLoad.call(context);
+
+    expect(App.template).toContain('We could not load this page');
+    expect(App.template).toContain('@click="retryRouteLoad"');
+  });
 });
