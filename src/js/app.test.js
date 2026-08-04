@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import App from './app.js';
 import { products } from './data/catalog.js';
+import { STOREFRONT_STORAGE_KEY } from './store/storage.js';
 
 function createStore() {
   return {
@@ -16,6 +17,7 @@ function createStore() {
       return true;
     }),
     removeWishlistItem: vi.fn(),
+    replaceState: vi.fn(),
     setSearchInput: vi.fn(function (value) {
       this.state.searchInput = typeof value === 'string' ? value : '';
     }),
@@ -226,5 +228,56 @@ describe('root app state methods', function () {
 
     expect(context.store.state.searchInput).toBe('  angular  ');
     expect(context.store.state.searchQuery).toBe('angular');
+  });
+
+  it('applies a defensive synthetic storage event without writing it back', function () {
+    var context = createAppContext();
+
+    App.methods.handleStorageEvent.call(context, {
+      key: STOREFRONT_STORAGE_KEY,
+      newValue: JSON.stringify({
+        version: 1,
+        cart: [{ id: 1, selectedColor: 'Black', selectedSize: 'M' }],
+        comparison: [{ id: 2 }],
+        orders: [{ customer: { name: 'Ada' }, id: 'DEMO-1', items: [{ id: 3 }] }],
+        recentlyViewed: [{ id: 4 }],
+        wishlist: [{ id: 5 }]
+      })
+    });
+
+    expect(context.store.replaceState).toHaveBeenCalledWith(
+      expect.objectContaining({
+        cart: [expect.objectContaining({ id: 1 })],
+        comparison: [expect.objectContaining({ id: 2 })],
+        orders: [expect.not.objectContaining({ customer: expect.anything() })],
+        recentlyViewed: [expect.objectContaining({ id: 4 })],
+        wishlist: [expect.objectContaining({ id: 5 })]
+      })
+    );
+
+    App.methods.handleStorageEvent.call(context, { key: STOREFRONT_STORAGE_KEY, newValue: null });
+    expect(context.store.replaceState).toHaveBeenLastCalledWith({});
+  });
+
+  it('registers and unregisters the cross-tab storage listener', function () {
+    var addEventListener = vi.spyOn(window, 'addEventListener');
+    var removeEventListener = vi.spyOn(window, 'removeEventListener');
+    var context = {
+      $route: { query: {} },
+      cartBumpTimer: null,
+      handleStorageEvent: vi.fn(),
+      storeSubscription: vi.fn(),
+      syncSearchQueryFromRoute: vi.fn()
+    };
+
+    App.created.call(context);
+    App.beforeUnmount.call(context);
+
+    expect(addEventListener).toHaveBeenCalledWith('storage', context.handleStorageEvent);
+    expect(removeEventListener).toHaveBeenCalledWith('storage', context.handleStorageEvent);
+    expect(context.storeSubscription).toHaveBeenCalledOnce();
+
+    addEventListener.mockRestore();
+    removeEventListener.mockRestore();
   });
 });

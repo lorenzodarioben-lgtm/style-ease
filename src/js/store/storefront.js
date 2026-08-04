@@ -43,11 +43,36 @@ function getWishlistItemKey(item) {
   return getCartItemVariantKey(item);
 }
 
+function restoreCartItems(items) {
+  var cart = [];
+
+  cloneItems(items).forEach(function (item) {
+    var availableQuantity = getProductStock(item) - getCartProductQuantity(cart, item.id);
+
+    if (availableQuantity > 0) {
+      cart.push(
+        createCartItem(
+          item,
+          item.selectedSize,
+          item.selectedColor,
+          Math.min(getCartItemQuantity(item), availableQuantity)
+        )
+      );
+    }
+  });
+
+  return cart;
+}
+
+function replaceCollection(collection, nextItems) {
+  collection.splice.apply(collection, [0, collection.length].concat(nextItems));
+}
+
 export function createStorefrontStore(initialState) {
   var initial = initialState || {};
   var listeners = [];
   var state = reactive({
-    cart: [],
+    cart: restoreCartItems(initial.cart),
     comparison: cloneItems(initial.comparison).slice(0, 3),
     orders: Array.isArray(initial.orders) ? initial.orders.slice(0, 12) : [],
     recentlyViewed: cloneItems(initial.recentlyViewed),
@@ -63,21 +88,6 @@ export function createStorefrontStore(initialState) {
       listener(state);
     });
   }
-
-  cloneItems(initial.cart).forEach(function (item) {
-    var availableQuantity = getProductStock(item) - getCartProductQuantity(state.cart, item.id);
-
-    if (availableQuantity > 0) {
-      state.cart.push(
-        createCartItem(
-          item,
-          item.selectedSize,
-          item.selectedColor,
-          Math.min(getCartItemQuantity(item), availableQuantity)
-        )
-      );
-    }
-  });
 
   return {
     state: state,
@@ -182,6 +192,19 @@ export function createStorefrontStore(initialState) {
       state.recentlyViewed.unshift(cloneProduct(product));
       state.recentlyViewed.splice(6);
       notify();
+      return true;
+    },
+    replaceState: function (nextState) {
+      var next = nextState || {};
+      var nextWishlist = Array.isArray(next.wishlist)
+        ? next.wishlist.map(createWishlistItem).filter(Boolean)
+        : [];
+
+      replaceCollection(state.cart, restoreCartItems(next.cart));
+      replaceCollection(state.comparison, cloneItems(next.comparison).slice(0, 3));
+      replaceCollection(state.orders, Array.isArray(next.orders) ? next.orders.slice(0, 12) : []);
+      replaceCollection(state.recentlyViewed, cloneItems(next.recentlyViewed).slice(0, 6));
+      replaceCollection(state.wishlist, nextWishlist);
       return true;
     },
     reset: function () {

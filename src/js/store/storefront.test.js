@@ -127,6 +127,34 @@ describe('storefront store', function () {
     ).toHaveLength(1);
   });
 
+  it('replaces synchronized collections without notifying persistence subscribers', function () {
+    var store = createStorefrontStore({
+      cart: [products[0]],
+      wishlist: [products[1]]
+    });
+    var listener = vi.fn();
+
+    store.subscribe(listener);
+    store.replaceState({
+      cart: [
+        Object.assign({}, products[2], { quantity: 2, selectedColor: 'Blue', selectedSize: '32' })
+      ],
+      comparison: [products[3]],
+      orders: [{ id: 'DEMO-1', items: [products[4]] }],
+      recentlyViewed: [products[5]],
+      wishlist: [Object.assign({}, products[6], { selectedColor: 'Gray', selectedSize: 'L' })]
+    });
+
+    expect(store.state.cart[0]).toMatchObject({ id: 3, quantity: 2 });
+    expect(store.state.comparison).toEqual([expect.objectContaining({ id: 4 })]);
+    expect(store.state.orders).toHaveLength(1);
+    expect(store.state.recentlyViewed).toEqual([expect.objectContaining({ id: 6 })]);
+    expect(store.state.wishlist).toEqual([
+      expect.objectContaining({ id: 7, selectedColor: 'Gray', selectedSize: 'L' })
+    ]);
+    expect(listener).not.toHaveBeenCalled();
+  });
+
   it('allows a compact comparison set and removes selected products', function () {
     var store = createStorefrontStore();
 

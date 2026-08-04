@@ -1,7 +1,12 @@
 import AppHeader from './components/app-header.js';
 import Toast from './components/toast.js';
 import { createStorefrontStore } from './store/storefront.js';
-import { clearStorefrontState, readStorefrontState, saveStorefrontState } from './store/storage.js';
+import {
+  clearStorefrontState,
+  readStorefrontState,
+  saveStorefrontState,
+  STOREFRONT_STORAGE_KEY
+} from './store/storage.js';
 import {
   calculateCartQuantity,
   clearReviews,
@@ -19,15 +24,15 @@ export default {
   },
   data: function () {
     var store = createStorefrontStore(readStorefrontState());
-
-    store.subscribe(function (state) {
+    var unsubscribe = store.subscribe(function (state) {
       saveStorefrontState(state);
     });
 
     return {
       cartBumpTimer: null,
       isCartBumping: false,
-      store: store
+      store: store,
+      storeSubscription: unsubscribe
     };
   },
   computed: {
@@ -43,9 +48,21 @@ export default {
   },
   created: function () {
     this.syncSearchQueryFromRoute(this.$route.query.q);
+
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('storage', this.handleStorageEvent);
+    }
   },
   beforeUnmount: function () {
     clearTimeout(this.cartBumpTimer);
+
+    if (typeof window !== 'undefined' && typeof window.removeEventListener === 'function') {
+      window.removeEventListener('storage', this.handleStorageEvent);
+    }
+
+    if (typeof this.storeSubscription === 'function') {
+      this.storeSubscription();
+    }
   },
   methods: {
     addToCart: function (product) {
@@ -85,6 +102,30 @@ export default {
 
       if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
         this.$refs.toast.show('Saved demo data has been cleared.');
+      }
+    },
+    handleStorageEvent: function (event) {
+      if (!event || event.key !== STOREFRONT_STORAGE_KEY || !this.store) {
+        return;
+      }
+
+      if (event.newValue === null) {
+        this.store.replaceState({});
+        return;
+      }
+
+      if (typeof event.newValue !== 'string') {
+        return;
+      }
+
+      var nextState = readStorefrontState({
+        getItem: function () {
+          return event.newValue;
+        }
+      });
+
+      if (Object.prototype.hasOwnProperty.call(nextState, 'cart')) {
+        this.store.replaceState(nextState);
       }
     },
     completeOrder: function (details) {
