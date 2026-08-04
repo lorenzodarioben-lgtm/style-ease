@@ -65,6 +65,16 @@ describe('product detail accessibility state', function () {
     expect(ProductDetailPage.template).not.toContain("'Rate ' + star + ' star'");
   });
 
+  it('describes browser-local review summaries and offers accessible ordering', function () {
+    expect(ProductDetailPage.template).toContain('Reviews are browser-local demo entries');
+    expect(ProductDetailPage.template).toContain('Order reviews');
+    expect(ProductDetailPage.template).toContain('value="highest-rating"');
+    expect(ProductDetailPage.computed.reviewSummary.call({ reviews: [{ rating: 4 }] })).toEqual({
+      average: 4,
+      count: 1
+    });
+  });
+
   it('updates selected size through the button handler', function () {
     var context = {
       selectedSize: 'S'

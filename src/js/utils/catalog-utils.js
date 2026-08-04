@@ -71,19 +71,37 @@ function sanitizeReview(review) {
     return null;
   }
 
-  return {
+  var sanitizedReview = {
     rating: rating,
     comment:
       typeof review.comment === 'string'
         ? review.comment.trim().slice(0, MAX_REVIEW_COMMENT_LENGTH)
         : ''
   };
+
+  var createdAt = normalizeReviewTimestamp(review.createdAt);
+
+  if (createdAt) {
+    sanitizedReview.createdAt = createdAt;
+  }
+
+  return sanitizedReview;
 }
 
 function sanitizeReviews(reviews) {
   return Array.isArray(reviews)
     ? reviews.map(sanitizeReview).filter(Boolean).slice(-MAX_REVIEWS_PER_PRODUCT)
     : [];
+}
+
+function normalizeReviewTimestamp(value) {
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  var timestamp = new Date(value);
+
+  return Number.isNaN(timestamp.getTime()) ? '' : timestamp.toISOString();
 }
 
 export function createSelectedCartItem(product, selectedSize, selectedColor) {
@@ -140,6 +158,18 @@ export function getProductStock(product) {
   var stock = Math.floor(Number(product && product.stock));
 
   return Number.isFinite(stock) && stock > 0 ? stock : 0;
+}
+
+export function getReviewSummary(reviews) {
+  var safeReviews = sanitizeReviews(reviews);
+  var totalRating = safeReviews.reduce(function (total, review) {
+    return total + review.rating;
+  }, 0);
+
+  return {
+    average: safeReviews.length ? totalRating / safeReviews.length : 0,
+    count: safeReviews.length
+  };
 }
 
 export function filterProducts(productList, searchQuery, filters) {
@@ -323,6 +353,26 @@ export function saveReviews(productId, reviews, storage) {
   }
 
   return safeReviews;
+}
+
+export function sortReviews(reviews, sortBy) {
+  return sanitizeReviews(reviews)
+    .map(function (review, index) {
+      return { index: index, review: review };
+    })
+    .sort(function (first, second) {
+      if (sortBy === 'highest-rating') {
+        return second.review.rating - first.review.rating || second.index - first.index;
+      }
+
+      var firstTimestamp = first.review.createdAt ? Date.parse(first.review.createdAt) : 0;
+      var secondTimestamp = second.review.createdAt ? Date.parse(second.review.createdAt) : 0;
+
+      return secondTimestamp - firstTimestamp || second.index - first.index;
+    })
+    .map(function (entry) {
+      return entry.review;
+    });
 }
 
 export function clearReviews(storage) {

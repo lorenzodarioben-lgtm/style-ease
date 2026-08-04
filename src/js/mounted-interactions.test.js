@@ -38,6 +38,7 @@ function mountWithRoute(component, options) {
 
 afterEach(function () {
   document.body.innerHTML = '';
+  localStorage.clear();
 });
 
 describe('mounted storefront interactions', function () {
@@ -144,6 +145,29 @@ describe('mounted storefront interactions', function () {
     await wrapper.get('[aria-label="Save Angular Jacket for later"]').trigger('click');
     expect(wrapper.emitted('save-cart-item-for-later')).toEqual([[0]]);
     expect(wrapper.findAll('.cart-item')).toHaveLength(1);
+
+    wrapper.unmount();
+  });
+
+  it('renders local review summaries and changes mounted review ordering', async function () {
+    var product = products[1];
+
+    localStorage.setItem(
+      'reviews-product-' + product.id,
+      JSON.stringify([
+        { rating: 5, comment: 'Earlier', createdAt: '2026-08-03T10:00:00.000Z' },
+        { rating: 4, comment: 'Latest', createdAt: '2026-08-04T10:00:00.000Z' }
+      ])
+    );
+    var wrapper = mountWithRoute(ProductDetailPage, {
+      route: createRoute('/product/' + product.id, {}, { id: String(product.id) })
+    });
+
+    expect(wrapper.text()).toContain('2 reviews');
+    expect(wrapper.text()).toContain('Average 4.5 / 5');
+    expect(wrapper.findAll('.review-comment')[0].text()).toBe('Latest');
+    await wrapper.get('#review-sort-' + product.id).setValue('highest-rating');
+    expect(wrapper.findAll('.review-comment')[0].text()).toBe('Earlier');
 
     wrapper.unmount();
   });

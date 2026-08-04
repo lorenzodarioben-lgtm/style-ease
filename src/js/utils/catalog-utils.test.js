@@ -15,12 +15,14 @@ import {
   getCartItemVariantKey,
   getCartProductQuantity,
   getProductStock,
+  getReviewSummary,
   normalizeSearchQuery,
   parseProductId,
   productMatchesFilters,
   productMatchesSearch,
   readReviews,
   saveReviews,
+  sortReviews,
   sortProducts,
   toggleListValue,
   truncateText
@@ -285,6 +287,43 @@ describe('catalog utilities', function () {
     ]);
     expect(saveReviews(1, manyReviews, storage)).toHaveLength(50);
     expect(JSON.parse(storage.values['reviews-product-1'])).toHaveLength(50);
+  });
+
+  it('preserves legacy reviews and validates timestamps for local review summaries', function () {
+    var storage = createStorage({
+      'reviews-product-1': JSON.stringify([
+        { rating: 5, comment: 'New', createdAt: '2026-08-04T10:00:00.000Z' },
+        { rating: 3, comment: 'Legacy' },
+        { rating: 4, comment: 'Invalid timestamp', createdAt: 'not-a-date' }
+      ])
+    });
+    var reviews = readReviews(1, storage);
+
+    expect(reviews).toEqual([
+      { rating: 5, comment: 'New', createdAt: '2026-08-04T10:00:00.000Z' },
+      { rating: 3, comment: 'Legacy' },
+      { rating: 4, comment: 'Invalid timestamp' }
+    ]);
+    expect(getReviewSummary(reviews)).toEqual({ average: 4, count: 3 });
+  });
+
+  it('orders reviews by newest timestamp or highest rating without exceeding the local cap', function () {
+    var reviews = [
+      { rating: 3, comment: 'Legacy' },
+      { rating: 5, comment: 'Earlier', createdAt: '2026-08-03T10:00:00.000Z' },
+      { rating: 4, comment: 'Latest', createdAt: '2026-08-04T10:00:00.000Z' }
+    ];
+
+    expect(
+      sortReviews(reviews, 'newest').map(function (review) {
+        return review.comment;
+      })
+    ).toEqual(['Latest', 'Earlier', 'Legacy']);
+    expect(
+      sortReviews(reviews, 'highest-rating').map(function (review) {
+        return review.comment;
+      })
+    ).toEqual(['Earlier', 'Latest', 'Legacy']);
   });
 
   it('removes reviews for every catalogue product without clearing other storage', function () {

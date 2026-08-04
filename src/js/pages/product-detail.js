@@ -6,9 +6,11 @@ import {
   getCartProductQuantity,
   getDefaultSize,
   getProductStock,
+  getReviewSummary,
   parseProductId,
   readReviews,
-  saveReviews
+  saveReviews,
+  sortReviews
 } from '../utils/catalog-utils.js';
 import RecentlyViewed from '../components/recently-viewed.js';
 import ProductImage from '../components/product-image.js';
@@ -58,6 +60,7 @@ export default {
       product: null,
       reviewStatus: '',
       reviews: [],
+      reviewSort: 'newest',
       selectedColor: '',
       selectedQuantity: 1,
       selectedSize: '',
@@ -103,6 +106,12 @@ export default {
       return this.recentlyViewed.filter(function (item) {
         return item.id !== currentProductId;
       });
+    },
+    orderedReviews: function () {
+      return sortReviews(this.reviews, this.reviewSort);
+    },
+    reviewSummary: function () {
+      return getReviewSummary(this.reviews);
     },
     quantityOptions: function () {
       return Array.from({ length: this.availableStock }, function (_, index) {
@@ -183,7 +192,8 @@ export default {
         this.product.id,
         this.reviews.concat({
           rating: this.newReview.rating,
-          comment: this.newReview.comment
+          comment: this.newReview.comment,
+          createdAt: new Date().toISOString()
         })
       );
       this.newReview = createEmptyReview();
@@ -416,7 +426,18 @@ export default {
 
             <div class="reviews-display" v-if="reviews.length > 0">
               <h2>Reviews</h2>
-              <div class="review" v-for="(review, index) in reviews" :key="index">
+              <p class="review-summary" :aria-label="'Average rating ' + reviewSummary.average.toFixed(1) + ' out of 5 stars from ' + reviewSummary.count + ' reviews'">
+                {{ reviewSummary.count }} review{{ reviewSummary.count === 1 ? '' : 's' }} · Average {{ reviewSummary.average.toFixed(1) }} / 5
+              </p>
+              <p class="review-local-note">Reviews are browser-local demo entries and are not verified purchases.</p>
+              <label :for="'review-sort-' + product.id">
+                Order reviews
+                <select :id="'review-sort-' + product.id" v-model="reviewSort">
+                  <option value="newest">Newest first</option>
+                  <option value="highest-rating">Highest rating</option>
+                </select>
+              </label>
+              <div class="review" v-for="(review, index) in orderedReviews" :key="review.createdAt || index">
                 <p class="sr-only">{{ review.rating }} out of 5 stars</p>
                 <div class="review-rating">
                   <span
