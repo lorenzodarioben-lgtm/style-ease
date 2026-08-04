@@ -48,6 +48,19 @@ describe('products page options', function () {
     });
   });
 
+  it('persists the in-stock filter and resets its pagination', function () {
+    var context = createProductsContext();
+
+    ProductsPage.methods.toggleInStockFilter.call(context);
+
+    expect(context.filters.inStock).toBe(true);
+    expect(context.currentPage).toBe(1);
+    expect(context.$router.replace).toHaveBeenCalledWith({
+      path: '/products',
+      query: { inStock: '1' }
+    });
+  });
+
   it('filters processed products using the production computed property', function () {
     var context = createProductsContext({
       searchQuery: 'shirt'
@@ -123,6 +136,7 @@ describe('products page options', function () {
         size: ['M'],
         color: [],
         category: ['Jackets'],
+        inStock: false,
         priceRange: null
       }
     });

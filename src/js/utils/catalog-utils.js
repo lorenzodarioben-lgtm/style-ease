@@ -36,6 +36,7 @@ export function createEmptyFilters() {
     size: [],
     color: [],
     category: [],
+    inStock: false,
     priceRange: null
   };
 }
@@ -70,19 +71,37 @@ function sanitizeReview(review) {
     return null;
   }
 
-  return {
+  var sanitizedReview = {
     rating: rating,
     comment:
       typeof review.comment === 'string'
         ? review.comment.trim().slice(0, MAX_REVIEW_COMMENT_LENGTH)
         : ''
   };
+
+  var createdAt = normalizeReviewTimestamp(review.createdAt);
+
+  if (createdAt) {
+    sanitizedReview.createdAt = createdAt;
+  }
+
+  return sanitizedReview;
 }
 
 function sanitizeReviews(reviews) {
   return Array.isArray(reviews)
     ? reviews.map(sanitizeReview).filter(Boolean).slice(-MAX_REVIEWS_PER_PRODUCT)
     : [];
+}
+
+function normalizeReviewTimestamp(value) {
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  var timestamp = new Date(value);
+
+  return Number.isNaN(timestamp.getTime()) ? '' : timestamp.toISOString();
 }
 
 export function createSelectedCartItem(product, selectedSize, selectedColor) {
@@ -141,6 +160,18 @@ export function getProductStock(product) {
   return Number.isFinite(stock) && stock > 0 ? stock : 0;
 }
 
+export function getReviewSummary(reviews) {
+  var safeReviews = sanitizeReviews(reviews);
+  var totalRating = safeReviews.reduce(function (total, review) {
+    return total + review.rating;
+  }, 0);
+
+  return {
+    average: safeReviews.length ? totalRating / safeReviews.length : 0,
+    count: safeReviews.length
+  };
+}
+
 export function filterProducts(productList, searchQuery, filters) {
   if (!Array.isArray(productList)) {
     return [];
@@ -178,7 +209,9 @@ export function getDefaultSize(product) {
 }
 
 export function normalizeSearchQuery(searchQuery) {
-  return typeof searchQuery === 'string' ? searchQuery.trim().toLowerCase() : '';
+  return typeof searchQuery === 'string'
+    ? searchQuery.trim().toLowerCase().replace(/\s+/g, ' ')
+    : '';
 }
 
 export function parseProductId(value) {
@@ -198,6 +231,7 @@ export function productMatchesFilters(product, filters) {
   var selectedSizes = Array.isArray(activeFilters.size) ? activeFilters.size : [];
   var selectedColors = Array.isArray(activeFilters.color) ? activeFilters.color : [];
   var selectedCategories = Array.isArray(activeFilters.category) ? activeFilters.category : [];
+  var inStockOnly = activeFilters.inStock === true;
   var priceRange = activeFilters.priceRange;
 
   var matchesSize =
@@ -218,8 +252,9 @@ export function productMatchesFilters(product, filters) {
   var minPrice = priceRange && Number.isFinite(priceRange.min) ? priceRange.min : -Infinity;
   var maxPrice = priceRange && Number.isFinite(priceRange.max) ? priceRange.max : Infinity;
   var matchesPrice = !priceRange || (product.price >= minPrice && product.price <= maxPrice);
+  var matchesAvailability = !inStockOnly || getProductStock(product) > 0;
 
-  return matchesSize && matchesColor && matchesCategory && matchesPrice;
+  return matchesSize && matchesColor && matchesCategory && matchesPrice && matchesAvailability;
 }
 
 export function productMatchesSearch(product, searchQuery) {
@@ -233,10 +268,24 @@ export function productMatchesSearch(product, searchQuery) {
     return true;
   }
 
-  return (
-    product.name.toLowerCase().indexOf(normalizedQuery) > -1 ||
-    product.description.toLowerCase().indexOf(normalizedQuery) > -1
-  );
+  var searchableValues = [
+    product.name,
+    product.description,
+    product.details,
+    product.category,
+    product.material
+  ]
+    .concat(Array.isArray(product.colors) ? product.colors : [])
+    .concat(Array.isArray(product.sizes) ? product.sizes : [])
+    .filter(function (value) {
+      return typeof value === 'string';
+    })
+    .map(normalizeSearchQuery)
+    .join(' ');
+
+  return normalizedQuery.split(' ').every(function (term) {
+    return searchableValues.indexOf(term) > -1;
+  });
 }
 
 export function sortProducts(productList, sortBy) {
@@ -304,6 +353,26 @@ export function saveReviews(productId, reviews, storage) {
   }
 
   return safeReviews;
+}
+
+export function sortReviews(reviews, sortBy) {
+  return sanitizeReviews(reviews)
+    .map(function (review, index) {
+      return { index: index, review: review };
+    })
+    .sort(function (first, second) {
+      if (sortBy === 'highest-rating') {
+        return second.review.rating - first.review.rating || second.index - first.index;
+      }
+
+      var firstTimestamp = first.review.createdAt ? Date.parse(first.review.createdAt) : 0;
+      var secondTimestamp = second.review.createdAt ? Date.parse(second.review.createdAt) : 0;
+
+      return secondTimestamp - firstTimestamp || second.index - first.index;
+    })
+    .map(function (entry) {
+      return entry.review;
+    });
 }
 
 export function clearReviews(storage) {

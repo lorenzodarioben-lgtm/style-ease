@@ -6,9 +6,11 @@ import {
   getCartProductQuantity,
   getDefaultSize,
   getProductStock,
+  getReviewSummary,
   parseProductId,
   readReviews,
-  saveReviews
+  saveReviews,
+  sortReviews
 } from '../utils/catalog-utils.js';
 import RecentlyViewed from '../components/recently-viewed.js';
 import ProductImage from '../components/product-image.js';
@@ -19,9 +21,21 @@ export default {
     ProductImage,
     RecentlyViewed
   },
-  emits: ['add-to-cart', 'add-to-wishlist', 'remove-from-wishlist', 'view-product'],
+  emits: [
+    'add-to-cart',
+    'add-to-wishlist',
+    'remove-from-wishlist',
+    'toggle-comparison',
+    'view-product'
+  ],
   props: {
     cart: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    },
+    comparison: {
       type: Array,
       default: function () {
         return [];
@@ -46,6 +60,7 @@ export default {
       product: null,
       reviewStatus: '',
       reviews: [],
+      reviewSort: 'newest',
       selectedColor: '',
       selectedQuantity: 1,
       selectedSize: '',
@@ -75,12 +90,28 @@ export default {
         })
       );
     },
+    isCompared: function () {
+      var product = this.product;
+
+      return (
+        Boolean(product) &&
+        this.comparison.some(function (item) {
+          return item.id === product.id;
+        })
+      );
+    },
     recentAlternatives: function () {
       var currentProductId = this.product && this.product.id;
 
       return this.recentlyViewed.filter(function (item) {
         return item.id !== currentProductId;
       });
+    },
+    orderedReviews: function () {
+      return sortReviews(this.reviews, this.reviewSort);
+    },
+    reviewSummary: function () {
+      return getReviewSummary(this.reviews);
     },
     quantityOptions: function () {
       return Array.from({ length: this.availableStock }, function (_, index) {
@@ -89,6 +120,15 @@ export default {
     },
     wishlistLabel: function () {
       return this.isWishlisted ? 'Remove from wishlist' : 'Add to wishlist';
+    },
+    comparisonLabel: function () {
+      if (!this.product) {
+        return 'Compare style';
+      }
+
+      return this.isCompared
+        ? 'Remove ' + this.product.name + ' from comparison'
+        : 'Add ' + this.product.name + ' to comparison';
     },
     stockLabel: function () {
       return this.availableStock > 0
@@ -152,7 +192,8 @@ export default {
         this.product.id,
         this.reviews.concat({
           rating: this.newReview.rating,
-          comment: this.newReview.comment
+          comment: this.newReview.comment,
+          createdAt: new Date().toISOString()
         })
       );
       this.newReview = createEmptyReview();
@@ -166,6 +207,11 @@ export default {
 
       if (section === 'care') {
         this.showCare = !this.showCare;
+      }
+    },
+    toggleComparison: function () {
+      if (this.product) {
+        this.$emit('toggle-comparison', this.product);
       }
     },
     toggleWishlist: function () {
@@ -275,6 +321,16 @@ export default {
                   />
                 </svg>
               </button>
+
+              <button
+                class="compare-toggle"
+                type="button"
+                :aria-label="comparisonLabel"
+                :aria-pressed="String(isCompared)"
+                @click="toggleComparison"
+              >
+                {{ isCompared ? 'Remove from Compare' : 'Compare' }}
+              </button>
             </div>
 
             <div class="product-description">
@@ -331,16 +387,26 @@ export default {
                 <fieldset class="star-rating" aria-describedby="review-rating-help">
                   <legend>Your rating</legend>
                   <p id="review-rating-help" class="sr-only">Choose a rating from 1 to 5 stars.</p>
-                  <button
-                  v-for="star in 5"
-                  :key="star"
-                  type="button"
-                  class="star"
-                  :class="{ filled: star <= newReview.rating }"
-                  :aria-label="'Rate ' + star + ' star'"
-                  :aria-pressed="String(star === newReview.rating)"
-                  @click="setRating(star)"
-                >&#9733;</button>
+                  <div class="star-rating-controls">
+                    <template v-for="star in 5" :key="star">
+                      <input
+                        :id="'review-rating-' + product.id + '-' + star"
+                        v-model.number="newReview.rating"
+                        class="sr-only rating-radio"
+                        type="radio"
+                        :name="'review-rating-' + product.id"
+                        :value="star"
+                        :aria-label="star + ' out of 5 stars'"
+                        @change="setRating(star)"
+                      >
+                      <label
+                        :for="'review-rating-' + product.id + '-' + star"
+                        class="star"
+                        :class="{ filled: star <= newReview.rating }"
+                        aria-hidden="true"
+                      >&#9733;</label>
+                    </template>
+                  </div>
                 </fieldset>
 
                 <label class="sr-only" :for="'review-comment-' + product.id">Review comment</label>
@@ -360,7 +426,18 @@ export default {
 
             <div class="reviews-display" v-if="reviews.length > 0">
               <h2>Reviews</h2>
-              <div class="review" v-for="(review, index) in reviews" :key="index">
+              <p class="review-summary" :aria-label="'Average rating ' + reviewSummary.average.toFixed(1) + ' out of 5 stars from ' + reviewSummary.count + ' reviews'">
+                {{ reviewSummary.count }} review{{ reviewSummary.count === 1 ? '' : 's' }} · Average {{ reviewSummary.average.toFixed(1) }} / 5
+              </p>
+              <p class="review-local-note">Reviews are browser-local demo entries and are not verified purchases.</p>
+              <label :for="'review-sort-' + product.id">
+                Order reviews
+                <select :id="'review-sort-' + product.id" v-model="reviewSort">
+                  <option value="newest">Newest first</option>
+                  <option value="highest-rating">Highest rating</option>
+                </select>
+              </label>
+              <div class="review" v-for="(review, index) in orderedReviews" :key="review.createdAt || index">
                 <p class="sr-only">{{ review.rating }} out of 5 stars</p>
                 <div class="review-rating">
                   <span

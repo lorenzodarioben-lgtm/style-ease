@@ -69,7 +69,8 @@ test('has no automated accessibility violations on primary routes and navigation
     '/#/compare',
     '/#/wishlist',
     '/#/orders',
-    '/#/checkout'
+    '/#/checkout',
+    '/#/not-a-page'
   ];
 
   for (var index = 0; index < routes.length; index += 1) {
@@ -85,6 +86,21 @@ test('has no automated accessibility violations on primary routes and navigation
   await page.goto('/');
   await page.getByRole('button', { name: 'Open navigation' }).click();
   await expectNoAccessibilityViolations(page);
+});
+
+test('renders an accessible not-found recovery route without changing product not-found handling', async ({
+  page
+}) => {
+  await page.goto('/#/not-a-page');
+
+  await expect(page).toHaveTitle('Page Not Found - Style Ease');
+  await expect(page.getByRole('heading', { name: 'Page Not Found' })).toBeVisible();
+  await expect(page.locator('#main-content')).toBeFocused();
+  await page.getByRole('link', { name: 'Browse the Catalogue' }).click();
+  await expect(page.getByRole('heading', { name: 'Product Catalogue' })).toBeVisible();
+
+  await page.goto('/#/product/9999');
+  await expect(page.getByRole('heading', { name: 'Product Not Found' })).toBeVisible();
 });
 
 test('keeps the catalogue within a mobile viewport', async ({ page }) => {

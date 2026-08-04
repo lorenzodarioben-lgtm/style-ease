@@ -10,12 +10,13 @@ describe('catalogue URL state', function () {
         color: 'Black,Blue',
         size: 'M,Invalid',
         price: 'Over $100',
+        inStock: '1',
         sort: 'price-desc',
         page: '3'
       })
     ).toMatchObject({
       currentPage: 3,
-      filters: { category: ['Tops'], color: ['Black', 'Blue'], size: ['M'] },
+      filters: { category: ['Tops'], color: ['Black', 'Blue'], inStock: true, size: ['M'] },
       searchQuery: 'jacket',
       sortBy: 'price-desc'
     });
@@ -25,11 +26,18 @@ describe('catalogue URL state', function () {
     expect(
       createCatalogueQuery({
         currentPage: 2,
-        filters: { category: ['Jackets'], color: [], priceRange: null, size: ['M'] },
+        filters: { category: ['Jackets'], color: [], inStock: true, priceRange: null, size: ['M'] },
         searchQuery: 'jacket',
         sortBy: 'rating'
       })
-    ).toEqual({ category: 'Jackets', page: '2', q: 'jacket', size: 'M', sort: 'rating' });
+    ).toEqual({
+      category: 'Jackets',
+      inStock: '1',
+      page: '2',
+      q: 'jacket',
+      size: 'M',
+      sort: 'rating'
+    });
     expect(
       createCatalogueQuery({ currentPage: 1, filters: {}, searchQuery: '', sortBy: 'featured' })
     ).toEqual({});

@@ -25,17 +25,19 @@ The storefront behaviour is **simulated**: the catalogue is bundled static data 
 ## Key Features
 
 - Product catalogue of 20 items rendered from local data
-- Search, filtering, sorting, and pagination with URL-backed catalogue state that can be bookmarked and restored
-- Product-detail pages with size and colour selection, static demo stock, an "Add to Bag" action, wishlist toggle, and recently viewed styles
-- Cart lines that preserve selected variants, merge matching quantities, and enforce static stock limits
-- Persisted cart, wishlist, comparison, recently viewed, and demo-receipt state with defensive browser-storage validation
-- Dedicated accessible wishlist and side-by-side comparison workspaces
+- Attribute-aware search across names, descriptions, categories, materials, colours, and sizes; URL-backed filters, sorting, pagination, and an in-stock-only filter can be bookmarked and restored
+- Product-detail pages with size and colour selection, static demo stock, add-to-bag, variant-aware wishlist, and comparison controls
+- Cart lines that preserve selected variants, merge matching quantities, enforce static stock limits, and can be saved for later without losing the cart line when saving fails
+- Persisted cart, wishlist, comparison, recently viewed, and demo-receipt state with defensive browser-storage validation and cross-tab synchronization; delivery details are never persisted
+- Dedicated accessible wishlist and side-by-side comparison workspaces, including a labelled header count for selected comparison styles
+- Home-page recently viewed and explicitly curated featured-style sections that reuse the responsive product cards
 - Expandable shipping and care sections on product pages
-- Star-rating review form with submitted reviews saved per product in the browser's `localStorage`
+- Native-radio star-rating review form with browser-local, non-verified review summaries and newest/highest-rating ordering
 - Two-step checkout with inline validation, accessible error announcements, review navigation, and an explicit demo-order confirmation
-- Browser-local demo order history and expandable receipts; delivery details are kept only for the current session
+- Browser-local demo order history and expandable, print-friendly demo receipts; delivery details are kept only for the current session
 - Responsive product images with lazy loading, `srcset`, intrinsic sizing, and a visual fallback
-- Route-level lazy loading for non-initial pages
+- Route-level lazy loading with a retry UI and a one-time session-guarded recovery reload for failed route chunks
+- Dedicated Page Not Found recovery route, while invalid product IDs retain their product-specific recovery screen
 - Toast feedback when an item is added to the bag
 - Mobile navigation menu and a route-aware header
 
@@ -50,6 +52,7 @@ Accessibility work that is implemented in the source includes:
 - `aria-expanded`, `aria-controls`, `aria-pressed`, and `aria-current` on interactive elements
 - Polite live-region messages for cart, review, checkout validation, and empty states
 - Keyboard-operable quantity, comparison, filter, and checkout controls
+- Native keyboard-operable review radio controls, labelled comparison navigation state, and print-safe receipt actions
 
 The layout is responsive and was checked across mobile, tablet, and desktop widths (approximately 320–1440px) without horizontal overflow. These are deliberate accessibility improvements rather than a claim of full WCAG conformance, and they have not been validated with assistive-technology screen-reader testing.
 
@@ -88,11 +91,11 @@ The layout is responsive and was checked across mobile, tablet, and desktop widt
 
 ## Automated Testing and Quality Checks
 
-The unit suite has **84 tests across 18 test files**, covering catalogue filtering, sorting and URL state; session-storage fallbacks; cart variants, quantities, and stock limits; wishlist, comparison, recently viewed, checkout, receipt, header, router, and image-delivery behaviour; plus a persisted shopping-flow integration path. Three Playwright checks exercise the production build's demo purchase flow, automated accessibility, and mobile overflow.
+The unit suite has **130 tests across 20 test files**, including mounted Vue component interactions through Vue Test Utils. It covers attribute search, URL state, availability filtering, defensive browser storage and cross-tab updates, variants and save-for-later, comparisons, review migration/summaries/order, receipt printing, router recovery, checkout, and image delivery. **Five Playwright scenarios** exercise the production build's purchase flow, direct URL state, accessible primary and not-found routes, and mobile overflow.
 
 The tests focus on logic and component behaviour. They do not claim full coverage, and they do not cover visual rendering, real payments, or backend behaviour. Browser smoke testing is still useful after layout-sensitive changes.
 
-`npm run validate` runs the full quality gate in sequence — formatting check, lint, tests, and production build — and is the same command used in continuous integration.
+`npm run validate` runs formatting, lint, unit tests, a production build, and the initial JavaScript/CSS gzip budgets. CI then runs the Playwright production-build suite separately.
 
 ## Local Development
 

@@ -185,6 +185,10 @@ export default {
       this.filters.priceRange = null;
       this.resetPageAndSync();
     },
+    toggleInStockFilter: function () {
+      this.filters.inStock = !this.filters.inStock;
+      this.resetPageAndSync();
+    },
     setSort: function (sortBy) {
       this.sortBy = sortBy;
       this.resetPageAndSync();
@@ -375,11 +379,22 @@ export default {
             </div>
           </div>
 
+          <button
+            class="filter-button"
+            type="button"
+            :class="{ active: filters.inStock }"
+            :aria-label="filters.inStock ? 'In-stock filter, active' : 'In-stock filter, inactive'"
+            :aria-pressed="String(filters.inStock)"
+            @click="toggleInStockFilter"
+          >
+            In stock
+          </button>
+
           <button class="clear-filters-btn" type="button" @click="clearFilters">Clear All</button>
         </div>
 
         <div
-          v-if="filters.size.length || filters.color.length || filters.priceRange || filters.category.length"
+          v-if="filters.size.length || filters.color.length || filters.priceRange || filters.category.length || filters.inStock"
           class="active-filters"
         >
           <span>Active Filters:</span>
@@ -408,6 +423,13 @@ export default {
           <div v-for="category in filters.category" :key="'category-' + category" class="filter-tag">
             Category: {{ category }}
             <button type="button" :aria-label="'Remove category filter ' + category" @click="toggleCategoryFilter(category)">
+              &times;
+            </button>
+          </div>
+
+          <div v-if="filters.inStock" class="filter-tag">
+            Availability: In stock
+            <button type="button" aria-label="Remove in-stock filter" @click="toggleInStockFilter">
               &times;
             </button>
           </div>

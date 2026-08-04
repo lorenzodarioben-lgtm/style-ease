@@ -23,6 +23,26 @@ describe('product detail accessibility state', function () {
     );
   });
 
+  it('exposes add and remove comparison controls for the current product', function () {
+    var emit = vi.fn();
+    var product = products[0];
+
+    expect(
+      ProductDetailPage.computed.isCompared.call({ comparison: [product], product: product })
+    ).toBe(true);
+    expect(
+      ProductDetailPage.computed.comparisonLabel.call({
+        isCompared: false,
+        product: product
+      })
+    ).toBe('Add Geometric T-Shirt to comparison');
+
+    ProductDetailPage.methods.toggleComparison.call({ $emit: emit, product: product });
+
+    expect(emit).toHaveBeenCalledWith('toggle-comparison', product);
+    expect(ProductDetailPage.template).toContain(':aria-pressed="String(isCompared)"');
+  });
+
   it('updates selected rating and review status through production methods', function () {
     var context = {
       newReview: {
@@ -36,6 +56,23 @@ describe('product detail accessibility state', function () {
 
     expect(context.newReview.rating).toBe(4);
     expect(context.reviewStatus).toBe('Selected 4 out of 5 stars.');
+  });
+
+  it('uses native labelled rating radios rather than toggle buttons', function () {
+    expect(ProductDetailPage.template).toContain('type="radio"');
+    expect(ProductDetailPage.template).toContain("star + ' out of 5 stars'");
+    expect(ProductDetailPage.template).toContain('v-model.number="newReview.rating"');
+    expect(ProductDetailPage.template).not.toContain("'Rate ' + star + ' star'");
+  });
+
+  it('describes browser-local review summaries and offers accessible ordering', function () {
+    expect(ProductDetailPage.template).toContain('Reviews are browser-local demo entries');
+    expect(ProductDetailPage.template).toContain('Order reviews');
+    expect(ProductDetailPage.template).toContain('value="highest-rating"');
+    expect(ProductDetailPage.computed.reviewSummary.call({ reviews: [{ rating: 4 }] })).toEqual({
+      average: 4,
+      count: 1
+    });
   });
 
   it('updates selected size through the button handler', function () {

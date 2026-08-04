@@ -3,6 +3,7 @@ import {
   calculateCartTotal,
   cloneProduct,
   createCartItem,
+  findProductById,
   getCartProductQuantity,
   getCartItemVariantKey,
   getCartItemQuantity,
@@ -17,30 +18,39 @@ function cloneItems(items) {
     : [];
 }
 
-export function createStorefrontStore(initialState) {
-  var initial = initialState || {};
-  var listeners = [];
-  var state = reactive({
-    cart: [],
-    comparison: cloneItems(initial.comparison).slice(0, 3),
-    orders: Array.isArray(initial.orders) ? initial.orders.slice(0, 12) : [],
-    recentlyViewed: cloneItems(initial.recentlyViewed),
-    searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
-    searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
-    wishlist: cloneItems(initial.wishlist)
-  });
+function createWishlistItem(item) {
+  var productId = Number(item && item.id);
+  var product = Number.isInteger(productId) ? findProductById(productId) : null;
 
-  function notify() {
-    listeners.forEach(function (listener) {
-      listener(state);
-    });
+  if (!product) {
+    return null;
   }
 
-  cloneItems(initial.cart).forEach(function (item) {
-    var availableQuantity = getProductStock(item) - getCartProductQuantity(state.cart, item.id);
+  var wishlistItem = cloneProduct(product);
+
+  if (Array.isArray(product.sizes) && product.sizes.indexOf(item.selectedSize) > -1) {
+    wishlistItem.selectedSize = item.selectedSize;
+  }
+
+  if (Array.isArray(product.colors) && product.colors.indexOf(item.selectedColor) > -1) {
+    wishlistItem.selectedColor = item.selectedColor;
+  }
+
+  return wishlistItem;
+}
+
+function getWishlistItemKey(item) {
+  return getCartItemVariantKey(item);
+}
+
+function restoreCartItems(items) {
+  var cart = [];
+
+  cloneItems(items).forEach(function (item) {
+    var availableQuantity = getProductStock(item) - getCartProductQuantity(cart, item.id);
 
     if (availableQuantity > 0) {
-      state.cart.push(
+      cart.push(
         createCartItem(
           item,
           item.selectedSize,
@@ -50,6 +60,34 @@ export function createStorefrontStore(initialState) {
       );
     }
   });
+
+  return cart;
+}
+
+function replaceCollection(collection, nextItems) {
+  collection.splice.apply(collection, [0, collection.length].concat(nextItems));
+}
+
+export function createStorefrontStore(initialState) {
+  var initial = initialState || {};
+  var listeners = [];
+  var state = reactive({
+    cart: restoreCartItems(initial.cart),
+    comparison: cloneItems(initial.comparison).slice(0, 3),
+    orders: Array.isArray(initial.orders) ? initial.orders.slice(0, 12) : [],
+    recentlyViewed: cloneItems(initial.recentlyViewed),
+    searchInput: typeof initial.searchInput === 'string' ? initial.searchInput : '',
+    searchQuery: typeof initial.searchQuery === 'string' ? initial.searchQuery : '',
+    wishlist: Array.isArray(initial.wishlist)
+      ? initial.wishlist.map(createWishlistItem).filter(Boolean)
+      : []
+  });
+
+  function notify() {
+    listeners.forEach(function (listener) {
+      listener(state);
+    });
+  }
 
   return {
     state: state,
@@ -86,19 +124,23 @@ export function createStorefrontStore(initialState) {
       return true;
     },
     addWishlistItem: function (item) {
-      if (!item || !Number.isFinite(Number(item.id))) {
+      var wishlistItem = createWishlistItem(item);
+
+      if (!wishlistItem) {
         return false;
       }
 
+      var itemKey = getWishlistItemKey(wishlistItem);
+
       var exists = state.wishlist.some(function (wishlistItem) {
-        return wishlistItem.id === item.id;
+        return getWishlistItemKey(wishlistItem) === itemKey;
       });
 
       if (exists) {
         return false;
       }
 
-      state.wishlist.push(cloneProduct(item));
+      state.wishlist.push(wishlistItem);
       notify();
       return true;
     },
@@ -119,9 +161,11 @@ export function createStorefrontStore(initialState) {
       notify();
       return true;
     },
-    removeWishlistItem: function (productId) {
+    removeWishlistItem: function (item) {
+      var productId = Number(item && item.id ? item.id : item);
+      var itemKey = item && typeof item === 'object' ? getWishlistItemKey(item) : '';
       var index = state.wishlist.findIndex(function (item) {
-        return item.id === productId;
+        return itemKey ? getWishlistItemKey(item) === itemKey : item.id === productId;
       });
 
       if (index === -1) {
@@ -148,6 +192,19 @@ export function createStorefrontStore(initialState) {
       state.recentlyViewed.unshift(cloneProduct(product));
       state.recentlyViewed.splice(6);
       notify();
+      return true;
+    },
+    replaceState: function (nextState) {
+      var next = nextState || {};
+      var nextWishlist = Array.isArray(next.wishlist)
+        ? next.wishlist.map(createWishlistItem).filter(Boolean)
+        : [];
+
+      replaceCollection(state.cart, restoreCartItems(next.cart));
+      replaceCollection(state.comparison, cloneItems(next.comparison).slice(0, 3));
+      replaceCollection(state.orders, Array.isArray(next.orders) ? next.orders.slice(0, 12) : []);
+      replaceCollection(state.recentlyViewed, cloneItems(next.recentlyViewed).slice(0, 6));
+      replaceCollection(state.wishlist, nextWishlist);
       return true;
     },
     reset: function () {

@@ -23,7 +23,7 @@ export default {
       }
     }
   },
-  emits: ['remove-from-cart', 'update-cart-quantity'],
+  emits: ['remove-from-cart', 'save-cart-item-for-later', 'update-cart-quantity'],
   data: function () {
     return {
       cartStatus: ''
@@ -52,6 +52,13 @@ export default {
       }
 
       this.$emit('remove-from-cart', index);
+    },
+    saveForLater: function (index) {
+      var item = this.cart[index];
+
+      if (item) {
+        this.$emit('save-cart-item-for-later', index);
+      }
     },
     removeButtonLabel: function (item) {
       return 'Remove ' + item.name + ' from cart';
@@ -157,6 +164,14 @@ export default {
                 @click="removeFromCart(index)"
               >
                 Remove
+              </button>
+              <button
+                class="save-for-later"
+                type="button"
+                :aria-label="'Save ' + item.name + ' for later'"
+                @click="saveForLater(index)"
+              >
+                Save for later
               </button>
             </div>
           </div>

@@ -1,9 +1,19 @@
 import AppHeader from './components/app-header.js';
 import Toast from './components/toast.js';
 import { createStorefrontStore } from './store/storefront.js';
-import { clearStorefrontState, readStorefrontState, saveStorefrontState } from './store/storage.js';
-import { calculateCartQuantity, clearReviews } from './utils/catalog-utils.js';
+import {
+  clearStorefrontState,
+  readStorefrontState,
+  saveStorefrontState,
+  STOREFRONT_STORAGE_KEY
+} from './store/storage.js';
+import {
+  calculateCartQuantity,
+  clearReviews,
+  getCartItemVariantKey
+} from './utils/catalog-utils.js';
 import { createCatalogueQuery, readCatalogueQuery } from './utils/catalogue-state.js';
+import { retryFailedRoute, routeRecoveryState } from './router.js';
 
 const CART_BUMP_DURATION_MS = 300;
 
@@ -15,20 +25,24 @@ export default {
   },
   data: function () {
     var store = createStorefrontStore(readStorefrontState());
-
-    store.subscribe(function (state) {
+    var unsubscribe = store.subscribe(function (state) {
       saveStorefrontState(state);
     });
 
     return {
       cartBumpTimer: null,
       isCartBumping: false,
-      store: store
+      routeRecovery: routeRecoveryState,
+      store: store,
+      storeSubscription: unsubscribe
     };
   },
   computed: {
     cartCount: function () {
       return calculateCartQuantity(this.store.state.cart);
+    },
+    comparisonCount: function () {
+      return this.store.state.comparison.length;
     },
     wishlistCount: function () {
       return this.store.state.wishlist.length;
@@ -36,9 +50,21 @@ export default {
   },
   created: function () {
     this.syncSearchQueryFromRoute(this.$route.query.q);
+
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('storage', this.handleStorageEvent);
+    }
   },
   beforeUnmount: function () {
     clearTimeout(this.cartBumpTimer);
+
+    if (typeof window !== 'undefined' && typeof window.removeEventListener === 'function') {
+      window.removeEventListener('storage', this.handleStorageEvent);
+    }
+
+    if (typeof this.storeSubscription === 'function') {
+      this.storeSubscription();
+    }
   },
   methods: {
     addToCart: function (product) {
@@ -80,6 +106,30 @@ export default {
         this.$refs.toast.show('Saved demo data has been cleared.');
       }
     },
+    handleStorageEvent: function (event) {
+      if (!event || event.key !== STOREFRONT_STORAGE_KEY || !this.store) {
+        return;
+      }
+
+      if (event.newValue === null) {
+        this.store.replaceState({});
+        return;
+      }
+
+      if (typeof event.newValue !== 'string') {
+        return;
+      }
+
+      var nextState = readStorefrontState({
+        getItem: function () {
+          return event.newValue;
+        }
+      });
+
+      if (Object.prototype.hasOwnProperty.call(nextState, 'cart')) {
+        this.store.replaceState(nextState);
+      }
+    },
     completeOrder: function (details) {
       if (this.store.createOrder(details)) {
         this.store.clearCart();
@@ -119,6 +169,38 @@ export default {
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
     },
+    saveCartItemForLater: function (index) {
+      var item = this.store.state.cart[index];
+
+      if (!item) {
+        return false;
+      }
+
+      var itemKey = getCartItemVariantKey(item);
+      var alreadySaved = this.store.state.wishlist.some(function (wishlistItem) {
+        return getCartItemVariantKey(wishlistItem) === itemKey;
+      });
+      var saved = alreadySaved || this.store.addWishlistItem(item);
+
+      if (!saved) {
+        if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+          this.$refs.toast.show(
+            'We could not save ' + item.name + ' for later. Your bag is unchanged.'
+          );
+        }
+        return false;
+      }
+
+      if (!this.store.removeCartItem(index)) {
+        return false;
+      }
+
+      if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+        this.$refs.toast.show(item.name + ' saved for later.');
+      }
+
+      return true;
+    },
     moveWishlistItemToCart: function (product) {
       if (!this.store.addCartItem(product)) {
         if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
@@ -127,7 +209,7 @@ export default {
         return false;
       }
 
-      this.store.removeWishlistItem(product.id);
+      this.store.removeWishlistItem(product);
       this.bumpCartCount();
 
       if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
@@ -152,6 +234,9 @@ export default {
     recordRecentlyViewed: function (product) {
       this.store.recordRecentlyViewed(product);
     },
+    retryRouteLoad: function () {
+      retryFailedRoute(this.$router);
+    },
     updateCartQuantity: function (index, quantity) {
       this.store.setCartItemQuantity(index, quantity);
     },
@@ -170,6 +255,7 @@ export default {
 
       <app-header
         :cart-count="cartCount"
+        :comparison-count="comparisonCount"
         :is-cart-bumping="isCartBumping"
         :search-value="store.state.searchInput"
         :wishlist-count="wishlistCount"
@@ -181,8 +267,14 @@ export default {
       <toast ref="toast"></toast>
 
       <main id="main-content" tabindex="-1">
+        <section v-if="routeRecovery.hasError" class="container empty-cart" role="alert" aria-labelledby="route-recovery-title">
+          <h1 id="route-recovery-title" class="page-title">We could not load this page</h1>
+          <p>A browser update or connection problem may have interrupted this route.</p>
+          <button class="hero-cta" type="button" @click="retryRouteLoad">Retry</button>
+        </section>
         <router-view v-slot="{ Component }">
           <component
+            v-if="!routeRecovery.hasError"
             :is="Component"
             :cart="store.state.cart"
             :comparison="store.state.comparison"
@@ -199,6 +291,7 @@ export default {
             @remove-from-cart="removeFromCart"
             @remove-from-wishlist="removeFromWishlist"
             @move-wishlist-item-to-cart="moveWishlistItemToCart"
+            @save-cart-item-for-later="saveCartItemForLater"
             @update-cart-quantity="updateCartQuantity"
             @view-product="recordRecentlyViewed"
           />

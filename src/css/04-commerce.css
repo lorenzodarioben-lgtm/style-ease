@@ -34,6 +34,11 @@
   color: #f5b301; /* Golden/yellow for filled stars */
 }
 
+.rating-radio:focus-visible + .star {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
 /*===================
   Review Input & Display
 ===================*/
@@ -366,6 +371,40 @@ textarea {
   padding-left: 20px;
 }
 
+.print-receipt {
+  background: var(--text-color);
+  border: 0;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 10px 14px;
+}
+
+@media print {
+  body.printing-receipt .skip-link,
+  body.printing-receipt .top-bar,
+  body.printing-receipt .back-button,
+  body.printing-receipt .page-title,
+  body.printing-receipt .order-history-note,
+  body.printing-receipt .clear-demo-data,
+  body.printing-receipt .order-receipt:not(.is-printing),
+  body.printing-receipt .print-receipt {
+    display: none !important;
+  }
+
+  body.printing-receipt .order-receipt.is-printing {
+    border: 0;
+    display: block;
+  }
+
+  body.printing-receipt .order-receipt.is-printing summary {
+    display: none;
+  }
+
+  body.printing-receipt .order-receipt.is-printing .receipt-content {
+    border: 0;
+  }
+}
+
 .quantity-control {
   align-items: center;
   display: flex;
@@ -405,6 +444,19 @@ textarea {
   cursor: pointer;
   transition: all 0.3s ease;
   height: fit-content; /* Size based on content */
+}
+
+.save-for-later {
+  background: transparent;
+  border: 1px solid var(--secondary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.save-for-later:hover,
+.save-for-later:focus-visible {
+  border-color: var(--text-color);
 }
 
 /* Hover effect for remove button */

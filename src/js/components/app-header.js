@@ -5,6 +5,10 @@ export default {
       type: Number,
       default: 0
     },
+    comparisonCount: {
+      type: Number,
+      default: 0
+    },
     isCartBumping: {
       type: Boolean,
       default: false
@@ -29,6 +33,13 @@ export default {
       var itemLabel = this.cartCount === 1 ? 'item' : 'items';
 
       return 'View shopping cart, ' + this.cartCount + ' ' + itemLabel;
+    },
+    comparisonLinkLabel: function () {
+      var itemLabel = this.comparisonCount === 1 ? 'style selected' : 'styles selected';
+
+      return this.comparisonCount
+        ? 'Compare styles, ' + this.comparisonCount + ' ' + itemLabel
+        : 'Compare styles';
     },
     menuButtonLabel: function () {
       return this.isMenuOpen ? 'Close navigation' : 'Open navigation';
@@ -118,9 +129,10 @@ export default {
               <router-link
                 to="/compare"
                 :aria-current="isCurrentRoute('/compare') ? 'page' : null"
+                :aria-label="comparisonLinkLabel"
                 @click="closeMenu"
               >
-                Compare
+                Compare <span v-if="comparisonCount" aria-hidden="true">({{ comparisonCount }})</span>
               </router-link>
             </li>
             <li>
