@@ -10,6 +10,9 @@ describe('route titles', function () {
     expect(getRouteTitle({ path: '/wishlist' })).toBe('Wishlist - Style Ease');
     expect(getRouteTitle({ path: '/orders' })).toBe('Demo Order History - Style Ease');
     expect(getRouteTitle({ path: '/checkout' })).toBe('Checkout - Style Ease');
+    expect(getRouteTitle({ name: 'not-found', path: '/missing' })).toBe(
+      'Page Not Found - Style Ease'
+    );
   });
 
   it('includes category and product context when available', function () {
@@ -32,11 +35,16 @@ describe('route titles', function () {
       return route.component;
     });
 
-    expect(pageRoutes).toHaveLength(8);
+    expect(pageRoutes).toHaveLength(9);
     expect(
       pageRoutes.every(function (route) {
         return typeof route.component === 'function';
       })
     ).toBe(true);
+    expect(
+      routes.find(function (route) {
+        return route.name === 'not-found';
+      })
+    ).toMatchObject({ path: '/:pathMatch(.*)*' });
   });
 });

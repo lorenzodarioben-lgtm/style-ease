@@ -4,6 +4,10 @@ import { findProductById, parseProductId } from './utils/catalog-utils.js';
 const APP_TITLE = 'Style Ease';
 
 export function getRouteTitle(route) {
+  if (route && route.name === 'not-found') {
+    return 'Page Not Found - ' + APP_TITLE;
+  }
+
   if (!route || route.path === '/') {
     return APP_TITLE + ' - Modern Fashion';
   }
@@ -100,7 +104,13 @@ export const routes = [
       return import('./pages/checkout.js');
     }
   },
-  { path: '/:pathMatch(.*)*', redirect: '/' }
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: function () {
+      return import('./pages/not-found.js');
+    }
+  }
 ];
 
 const router = createRouter({
