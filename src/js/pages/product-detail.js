@@ -12,6 +12,7 @@ import {
   saveReviews,
   sortReviews
 } from '../utils/catalog-utils.js';
+import { products } from '../data/catalog.js';
 import RecentlyViewed from '../components/recently-viewed.js';
 import ProductImage from '../components/product-image.js';
 
@@ -64,8 +65,10 @@ export default {
       selectedColor: '',
       selectedQuantity: 1,
       selectedSize: '',
+      shareStatus: '',
       showCare: false,
-      showShipping: false
+      showShipping: false,
+      showSizeGuide: false
     };
   },
   created: function () {
@@ -106,6 +109,22 @@ export default {
       return this.recentlyViewed.filter(function (item) {
         return item.id !== currentProductId;
       });
+    },
+    relatedStyles: function () {
+      var product = this.product;
+
+      if (!product) {
+        return [];
+      }
+
+      var related = products.filter(function (candidate) {
+        return candidate.id !== product.id && candidate.category === product.category;
+      });
+      var complementary = products.filter(function (candidate) {
+        return candidate.id !== product.id && candidate.category !== product.category;
+      });
+
+      return related.concat(complementary).slice(0, 4);
     },
     orderedReviews: function () {
       return sortReviews(this.reviews, this.reviewSort);
@@ -160,8 +179,10 @@ export default {
       this.product = product || null;
       this.showCare = false;
       this.showShipping = false;
+      this.showSizeGuide = false;
       this.newReview = createEmptyReview();
       this.reviewStatus = '';
+      this.shareStatus = '';
       this.selectedQuantity = 1;
 
       if (!product) {
@@ -182,6 +203,50 @@ export default {
     },
     setSelectedSize: function (size) {
       this.selectedSize = size;
+    },
+    closeSizeGuide: function () {
+      this.showSizeGuide = false;
+    },
+    copyProductLink: function () {
+      var browserWindow = typeof window === 'undefined' ? null : window;
+      var clipboard =
+        typeof navigator !== 'undefined' && navigator.clipboard ? navigator.clipboard : null;
+
+      if (!browserWindow || !clipboard || typeof clipboard.writeText !== 'function') {
+        this.shareStatus = 'Copying links is not available in this browser.';
+        return Promise.resolve(false);
+      }
+
+      return clipboard.writeText(browserWindow.location.href).then(
+        function () {
+          this.shareStatus = 'Product link copied to your clipboard.';
+          return true;
+        }.bind(this),
+        function () {
+          this.shareStatus =
+            'We could not copy the link. Please copy it from your browser address bar.';
+          return false;
+        }.bind(this)
+      );
+    },
+    openSizeGuide: function () {
+      this.showSizeGuide = true;
+
+      this.$nextTick(
+        function () {
+          var dialog = this.$refs.sizeGuide;
+
+          if (!dialog || dialog.open) {
+            return;
+          }
+
+          if (typeof dialog.showModal === 'function') {
+            dialog.showModal();
+          } else {
+            dialog.setAttribute('open', '');
+          }
+        }.bind(this)
+      );
     },
     submitReview: function () {
       if (!this.product || !this.newReview.rating) {
@@ -268,6 +333,14 @@ export default {
                     {{ size }}
                   </button>
                 </div>
+                <button
+                  class="size-guide-button"
+                  type="button"
+                  aria-haspopup="dialog"
+                  @click="openSizeGuide"
+                >
+                  Find your size
+                </button>
               </fieldset>
 
               <div class="option-group">
@@ -331,7 +404,37 @@ export default {
               >
                 {{ isCompared ? 'Remove from Compare' : 'Compare' }}
               </button>
+              <button class="share-product" type="button" @click="copyProductLink">Copy product link</button>
             </div>
+            <p class="sr-only" role="status" aria-live="polite">{{ shareStatus }}</p>
+
+            <dialog
+              v-if="showSizeGuide"
+              ref="sizeGuide"
+              class="size-guide-dialog"
+              aria-labelledby="size-guide-title"
+              @cancel.prevent="closeSizeGuide"
+            >
+              <div class="size-guide-content">
+                <div class="size-guide-heading">
+                  <h2 id="size-guide-title">Size guide</h2>
+                  <button class="quick-shop-close" type="button" aria-label="Close size guide" @click="closeSizeGuide">&times;</button>
+                </div>
+                <p>Start with your usual size. If you are between sizes or prefer a more relaxed drape, choose the next size up.</p>
+                <dl class="size-guide-notes">
+                  <div>
+                    <dt>Fitted layers</dt>
+                    <dd>Choose your usual size for a close, structured fit.</dd>
+                  </div>
+                  <div>
+                    <dt>Outerwear</dt>
+                    <dd>Allow room for a knit or base layer when choosing your size.</dd>
+                  </div>
+                </dl>
+                <p><strong>Available for this style:</strong> {{ product.sizes.join(', ') }}</p>
+                <button class="back-checkout-btn" type="button" @click="closeSizeGuide">Done</button>
+              </div>
+            </dialog>
 
             <div class="product-description">
               <h2>Description</h2>
@@ -455,7 +558,17 @@ export default {
           </div>
         </div>
 
-        <recently-viewed :products="recentAlternatives"></recently-viewed>
+        <recently-viewed
+          :products="relatedStyles"
+          section-id="related-styles-title"
+          title="You may also like"
+        ></recently-viewed>
+
+        <recently-viewed
+          :products="recentAlternatives"
+          section-id="recently-viewed-title"
+          title="Recently viewed"
+        ></recently-viewed>
       </div>
 
       <div class="container" v-else>

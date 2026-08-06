@@ -73,7 +73,9 @@ describe('root app state methods', function () {
   it('delegates cart and wishlist changes to the storefront store', function () {
     var context = createAppContext();
 
-    App.methods.removeFromCart.call(context, 0);
+    context.store.state.cart = [products[0]];
+
+    expect(App.methods.removeFromCart.call(context, 0)).toBe(true);
     App.methods.addToWishlist.call(context, products[0]);
     App.methods.removeFromWishlist.call(context, products[0].id);
     App.methods.clearCart.call(context);
@@ -82,6 +84,27 @@ describe('root app state methods', function () {
     expect(context.store.addWishlistItem).toHaveBeenCalledWith(products[0]);
     expect(context.store.removeWishlistItem).toHaveBeenCalledWith(products[0].id);
     expect(context.store.clearCart).toHaveBeenCalled();
+  });
+
+  it('offers an undo action when a cart item is removed', function () {
+    var context = createAppContext();
+
+    context.store.state.cart = [products[0]];
+    App.methods.removeFromCart.call(context, 0);
+
+    expect(context.$refs.toast.show).toHaveBeenCalledWith(
+      'Geometric T-Shirt removed from your bag.',
+      expect.objectContaining({ actionLabel: 'Undo' })
+    );
+
+    var undo = context.$refs.toast.show.mock.calls[0][1].onAction;
+    undo();
+
+    expect(context.store.addCartItem).toHaveBeenCalledWith(products[0]);
+    expect(context.bumpCartCount).toHaveBeenCalledOnce();
+    expect(context.$refs.toast.show).toHaveBeenLastCalledWith(
+      'Geometric T-Shirt restored to your bag.'
+    );
   });
 
   it('moves a wishlist item only after the cart accepts it', function () {

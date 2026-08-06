@@ -8,11 +8,13 @@ import {
   getProductStock,
   truncateText
 } from '../utils/catalog-utils.js';
+import DeliveryProgress from '../components/delivery-progress.js';
 import ProductImage from '../components/product-image.js';
 
 export default {
   name: 'CartPage',
   components: {
+    DeliveryProgress,
     ProductImage
   },
   props: {
@@ -180,6 +182,7 @@ export default {
             <h2 id="cart-summary-title">Order Summary</h2>
             <p>Total Items: {{ cartItemCount }}</p>
             <p>Total Price: {{ formatPrice(totalPrice) }}</p>
+            <delivery-progress :current-step="1"></delivery-progress>
             <button class="checkout-btn" type="button" @click="goToCheckout">Proceed to Checkout</button>
           </section>
         </div>

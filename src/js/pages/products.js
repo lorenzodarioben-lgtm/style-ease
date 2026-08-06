@@ -9,6 +9,7 @@ import {
 } from '../utils/catalog-utils.js';
 import { createCatalogueQuery, readCatalogueQuery } from '../utils/catalogue-state.js';
 import ProductImage from '../components/product-image.js';
+import QuickShop from '../components/quick-shop.js';
 
 function getTotalPages(searchQuery, filters, itemsPerPage) {
   return Math.max(
@@ -32,10 +33,17 @@ function queriesMatch(source, target) {
 export default {
   name: 'ProductsPage',
   components: {
-    ProductImage
+    ProductImage,
+    QuickShop
   },
   emits: ['add-to-cart', 'toggle-comparison'],
   props: {
+    cart: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    },
     comparison: {
       type: Array,
       default: function () {
@@ -50,6 +58,7 @@ export default {
       filterOptions: filterOptions,
       filters: createEmptyFilters(),
       itemsPerPage: 6,
+      quickShopProduct: null,
       searchQuery: '',
       sortBy: 'featured'
     };
@@ -174,6 +183,9 @@ export default {
         this.currentPage += 1;
         this.syncRoute();
       }
+    },
+    openQuickShop: function (product) {
+      this.quickShopProduct = cloneProduct(product);
     },
     previousPage: function () {
       if (this.currentPage > 1) {
@@ -450,7 +462,7 @@ export default {
                 type="button"
                 :aria-label="'Quick add ' + product.name + ' to cart'"
                 :disabled="product.stock === 0"
-                @click.stop="addToCart(product)"
+                @click.stop="openQuickShop(product)"
               >
                 {{ product.stock === 0 ? 'Unavailable' : '+ Quick Add' }}
               </button>
@@ -481,6 +493,14 @@ export default {
           <p>{{ noResultsMessage }}</p>
           <button class="clear-all-btn" type="button" @click="clearFilters">Clear All Filters</button>
         </div>
+
+        <quick-shop
+          v-if="quickShopProduct"
+          :cart="cart"
+          :product="quickShopProduct"
+          @add-to-cart="addToCart"
+          @close="quickShopProduct = null"
+        ></quick-shop>
 
         <nav class="pagination" v-if="totalPages > 1" aria-label="Product pages">
           <a href="#" aria-label="Previous page" @click.prevent="previousPage" v-if="currentPage > 1">&larr;</a>

@@ -65,6 +65,56 @@ describe('mounted storefront interactions', function () {
     wrapper.unmount();
   });
 
+  it('opens a product size guide with fit notes and closes it from the dialog', async function () {
+    var product = products[0];
+    var wrapper = mountWithRoute(ProductDetailPage, {
+      route: createRoute('/product/' + product.id, {}, { id: String(product.id) })
+    });
+
+    await wrapper.get('.size-guide-button').trigger('click');
+    expect(wrapper.get('dialog.size-guide-dialog').text()).toContain('Start with your usual size');
+    await wrapper.get('[aria-label="Close size guide"]').trigger('click');
+    expect(wrapper.find('dialog.size-guide-dialog').exists()).toBe(false);
+    wrapper.unmount();
+  });
+
+  it('copies a product link and announces the feedback in the detail page', async function () {
+    var product = products[0];
+    var originalClipboard = navigator.clipboard;
+    var writeText = vi.fn().mockResolvedValue();
+    var wrapper = mountWithRoute(ProductDetailPage, {
+      route: createRoute('/product/' + product.id, {}, { id: String(product.id) })
+    });
+
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: writeText }
+    });
+    await wrapper.get('.share-product').trigger('click');
+    await Promise.resolve();
+
+    expect(writeText).toHaveBeenCalledWith(window.location.href);
+    expect(wrapper.text()).toContain('Product link copied to your clipboard.');
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: originalClipboard
+    });
+    wrapper.unmount();
+  });
+
+  it('shows direct product suggestions while a shopper types in search', async function () {
+    var wrapper = mountWithRoute(AppHeader);
+
+    await wrapper.get('#site-search').setValue('shirt');
+    await wrapper.setProps({ searchValue: 'shirt' });
+
+    expect(wrapper.get('[aria-label="Search suggestions"]').text()).toContain('Geometric T-Shirt');
+    expect(wrapper.get('[aria-label="Search suggestions"] a').attributes('href')).toBe(
+      '/product/1'
+    );
+    wrapper.unmount();
+  });
+
   it('renders a reactive, labelled comparison count in the navigation', function () {
     var wrapper = mountWithRoute(AppHeader, {
       props: {
@@ -98,6 +148,25 @@ describe('mounted storefront interactions', function () {
         path: '/products'
       })
     );
+    wrapper.unmount();
+  });
+
+  it('opens quick shop from a product card and emits the selected variant', async function () {
+    var wrapper = mountWithRoute(ProductsPage, {
+      route: createRoute('/products'),
+      props: { cart: [] }
+    });
+
+    await wrapper.get('.quick-add-overlay').trigger('click');
+    expect(wrapper.get('dialog.quick-shop-dialog').attributes('open')).toBeDefined();
+
+    await wrapper.get('#quick-shop-quantity-1').setValue('2');
+    await wrapper.get('dialog .add-to-cart-detail').trigger('click');
+    expect(wrapper.emitted('add-to-cart')[0][0]).toMatchObject({
+      id: 1,
+      quantity: 2
+    });
+    expect(wrapper.find('dialog.quick-shop-dialog').exists()).toBe(false);
     wrapper.unmount();
   });
 

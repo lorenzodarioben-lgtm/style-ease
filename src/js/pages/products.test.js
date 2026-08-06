@@ -160,4 +160,14 @@ describe('products page options', function () {
     );
     expect(ProductsPage.methods.isCompared.call({ comparison: [] }, products[0])).toBe(false);
   });
+
+  it('opens quick shop with a standalone product copy', function () {
+    var context = { quickShopProduct: null };
+
+    ProductsPage.methods.openQuickShop.call(context, products[0]);
+
+    expect(context.quickShopProduct).toEqual(products[0]);
+    expect(context.quickShopProduct).not.toBe(products[0]);
+    expect(ProductsPage.template).toContain('<quick-shop');
+  });
 });

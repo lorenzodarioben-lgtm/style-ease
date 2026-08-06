@@ -85,6 +85,50 @@ describe('product detail accessibility state', function () {
     expect(context.selectedSize).toBe('L');
   });
 
+  it('opens and closes the size guide with a native dialog fallback', function () {
+    var dialog = {
+      open: false,
+      setAttribute: vi.fn()
+    };
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { sizeGuide: dialog },
+      showSizeGuide: false
+    };
+
+    ProductDetailPage.methods.openSizeGuide.call(context);
+
+    expect(context.showSizeGuide).toBe(true);
+    expect(dialog.setAttribute).toHaveBeenCalledWith('open', '');
+    ProductDetailPage.methods.closeSizeGuide.call(context);
+    expect(context.showSizeGuide).toBe(false);
+    expect(ProductDetailPage.template).toContain('aria-haspopup="dialog"');
+  });
+
+  it('copies the current product URL and announces the result', async function () {
+    var originalClipboard = navigator.clipboard;
+    var writeText = vi.fn().mockResolvedValue();
+    var context = { shareStatus: '' };
+
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: writeText }
+    });
+
+    await ProductDetailPage.methods.copyProductLink.call(context);
+
+    expect(writeText).toHaveBeenCalledWith(window.location.href);
+    expect(context.shareStatus).toBe('Product link copied to your clipboard.');
+    expect(ProductDetailPage.template).toContain('Copy product link');
+
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: originalClipboard
+    });
+  });
+
   it('reports available product stock after accounting for the cart', function () {
     var product = Object.assign({}, products[0], { stock: 3 });
 
@@ -152,5 +196,19 @@ describe('product detail accessibility state', function () {
   it('keeps product page section headings in order', function () {
     expect(ProductDetailPage.template).toContain('<h2>Description</h2>');
     expect(ProductDetailPage.template).not.toContain('<h3>Description</h3>');
+  });
+
+  it('suggests other styles from the current product category', function () {
+    var product = products[0];
+    var relatedStyles = ProductDetailPage.computed.relatedStyles.call({ product: product });
+
+    expect(relatedStyles).toHaveLength(4);
+    expect(relatedStyles).not.toContainEqual(product);
+    expect(
+      relatedStyles.slice(0, 2).every(function (item) {
+        return item.category === product.category;
+      })
+    ).toBe(true);
+    expect(ProductDetailPage.template).toContain('title="You may also like"');
   });
 });

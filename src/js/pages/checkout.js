@@ -1,7 +1,11 @@
 import { calculateCartTotal, formatPrice } from '../utils/catalog-utils.js';
+import DeliveryProgress from '../components/delivery-progress.js';
 
 export default {
   name: 'CheckoutPage',
+  components: {
+    DeliveryProgress
+  },
   props: {
     cart: {
       type: Array,
@@ -175,6 +179,8 @@ export default {
           <li :class="{ active: step === 1 }" :aria-current="step === 1 ? 'step' : null">1. Shipping</li>
           <li :class="{ active: step === 2 }" :aria-current="step === 2 ? 'step' : null">2. Review</li>
         </ol>
+
+        <delivery-progress :current-step="step + 1"></delivery-progress>
 
         <p v-if="validationError" id="checkout-error" class="form-error" role="alert">{{ validationError }}</p>
 

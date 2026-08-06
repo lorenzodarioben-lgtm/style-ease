@@ -157,6 +157,60 @@ textarea {
   font-size: 1.17em;
 }
 
+.delivery-progress {
+  border-top: 1px solid #555;
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  text-align: left;
+}
+
+.delivery-progress-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.delivery-progress-note {
+  color: #d0d0d0;
+  font-size: 0.9rem;
+}
+
+.delivery-progress ol {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.delivery-progress li {
+  align-items: center;
+  color: #bdbdbd;
+  display: flex;
+  gap: 10px;
+}
+
+.delivery-progress li > span:first-child {
+  align-items: center;
+  border: 1px solid currentColor;
+  display: inline-flex;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.delivery-progress li.active,
+.delivery-progress li.complete {
+  color: #fff;
+  font-weight: 700;
+}
+
+.delivery-progress li.complete > span:first-child {
+  background: #fff;
+  color: #111;
+}
+
 /* Total section styling */
 .cart-summary .total {
   display: flex;

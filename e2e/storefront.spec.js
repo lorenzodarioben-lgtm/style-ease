@@ -13,6 +13,8 @@ test('completes the demo purchase flow through its saved receipt', async ({ page
   await expect(page.getByRole('heading', { name: 'Product Catalogue' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Quick add Geometric T-Shirt to cart' }).click();
+  await expect(page.getByRole('dialog', { name: 'Geometric T-Shirt' })).toBeVisible();
+  await page.getByRole('dialog').getByRole('button', { name: 'Add to Bag' }).click();
   await page.getByRole('button', { name: /View shopping cart, 1 item/ }).click();
   await page.getByRole('button', { name: 'Proceed to Checkout' }).click();
 
