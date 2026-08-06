@@ -12,6 +12,7 @@ import {
   saveReviews,
   sortReviews
 } from '../utils/catalog-utils.js';
+import { products } from '../data/catalog.js';
 import RecentlyViewed from '../components/recently-viewed.js';
 import ProductImage from '../components/product-image.js';
 
@@ -106,6 +107,23 @@ export default {
       return this.recentlyViewed.filter(function (item) {
         return item.id !== currentProductId;
       });
+    },
+    relatedStyles: function () {
+      var product = this.product;
+
+      if (!product) {
+        return [];
+      }
+
+      var related = products
+        .filter(function (candidate) {
+          return candidate.id !== product.id && candidate.category === product.category;
+        });
+      var complementary = products.filter(function (candidate) {
+        return candidate.id !== product.id && candidate.category !== product.category;
+      });
+
+      return related.concat(complementary).slice(0, 4);
     },
     orderedReviews: function () {
       return sortReviews(this.reviews, this.reviewSort);
@@ -455,7 +473,17 @@ export default {
           </div>
         </div>
 
-        <recently-viewed :products="recentAlternatives"></recently-viewed>
+        <recently-viewed
+          :products="relatedStyles"
+          section-id="related-styles-title"
+          title="You may also like"
+        ></recently-viewed>
+
+        <recently-viewed
+          :products="recentAlternatives"
+          section-id="recently-viewed-title"
+          title="Recently viewed"
+        ></recently-viewed>
       </div>
 
       <div class="container" v-else>

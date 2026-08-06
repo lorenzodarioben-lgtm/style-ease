@@ -153,4 +153,16 @@ describe('product detail accessibility state', function () {
     expect(ProductDetailPage.template).toContain('<h2>Description</h2>');
     expect(ProductDetailPage.template).not.toContain('<h3>Description</h3>');
   });
+
+  it('suggests other styles from the current product category', function () {
+    var product = products[0];
+    var relatedStyles = ProductDetailPage.computed.relatedStyles.call({ product: product });
+
+    expect(relatedStyles).toHaveLength(4);
+    expect(relatedStyles).not.toContainEqual(product);
+    expect(relatedStyles.slice(0, 2).every(function (item) {
+      return item.category === product.category;
+    })).toBe(true);
+    expect(ProductDetailPage.template).toContain('title="You may also like"');
+  });
 });
