@@ -65,6 +65,7 @@ export default {
       selectedColor: '',
       selectedQuantity: 1,
       selectedSize: '',
+      shareStatus: '',
       showCare: false,
       showShipping: false,
       showSizeGuide: false
@@ -181,6 +182,7 @@ export default {
       this.showSizeGuide = false;
       this.newReview = createEmptyReview();
       this.reviewStatus = '';
+      this.shareStatus = '';
       this.selectedQuantity = 1;
 
       if (!product) {
@@ -204,6 +206,28 @@ export default {
     },
     closeSizeGuide: function () {
       this.showSizeGuide = false;
+    },
+    copyProductLink: function () {
+      var browserWindow = typeof window === 'undefined' ? null : window;
+      var clipboard =
+        typeof navigator !== 'undefined' && navigator.clipboard ? navigator.clipboard : null;
+
+      if (!browserWindow || !clipboard || typeof clipboard.writeText !== 'function') {
+        this.shareStatus = 'Copying links is not available in this browser.';
+        return Promise.resolve(false);
+      }
+
+      return clipboard.writeText(browserWindow.location.href).then(
+        function () {
+          this.shareStatus = 'Product link copied to your clipboard.';
+          return true;
+        }.bind(this),
+        function () {
+          this.shareStatus =
+            'We could not copy the link. Please copy it from your browser address bar.';
+          return false;
+        }.bind(this)
+      );
     },
     openSizeGuide: function () {
       this.showSizeGuide = true;
@@ -380,7 +404,9 @@ export default {
               >
                 {{ isCompared ? 'Remove from Compare' : 'Compare' }}
               </button>
+              <button class="share-product" type="button" @click="copyProductLink">Copy product link</button>
             </div>
+            <p class="sr-only" role="status" aria-live="polite">{{ shareStatus }}</p>
 
             <dialog
               v-if="showSizeGuide"

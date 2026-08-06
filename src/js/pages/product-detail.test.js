@@ -107,6 +107,28 @@ describe('product detail accessibility state', function () {
     expect(ProductDetailPage.template).toContain('aria-haspopup="dialog"');
   });
 
+  it('copies the current product URL and announces the result', async function () {
+    var originalClipboard = navigator.clipboard;
+    var writeText = vi.fn().mockResolvedValue();
+    var context = { shareStatus: '' };
+
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: writeText }
+    });
+
+    await ProductDetailPage.methods.copyProductLink.call(context);
+
+    expect(writeText).toHaveBeenCalledWith(window.location.href);
+    expect(context.shareStatus).toBe('Product link copied to your clipboard.');
+    expect(ProductDetailPage.template).toContain('Copy product link');
+
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: originalClipboard
+    });
+  });
+
   it('reports available product stock after accounting for the cart', function () {
     var product = Object.assign({}, products[0], { stock: 3 });
 

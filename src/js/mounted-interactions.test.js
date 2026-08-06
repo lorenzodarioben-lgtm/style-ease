@@ -78,6 +78,30 @@ describe('mounted storefront interactions', function () {
     wrapper.unmount();
   });
 
+  it('copies a product link and announces the feedback in the detail page', async function () {
+    var product = products[0];
+    var originalClipboard = navigator.clipboard;
+    var writeText = vi.fn().mockResolvedValue();
+    var wrapper = mountWithRoute(ProductDetailPage, {
+      route: createRoute('/product/' + product.id, {}, { id: String(product.id) })
+    });
+
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: writeText }
+    });
+    await wrapper.get('.share-product').trigger('click');
+    await Promise.resolve();
+
+    expect(writeText).toHaveBeenCalledWith(window.location.href);
+    expect(wrapper.text()).toContain('Product link copied to your clipboard.');
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: originalClipboard
+    });
+    wrapper.unmount();
+  });
+
   it('shows direct product suggestions while a shopper types in search', async function () {
     var wrapper = mountWithRoute(AppHeader);
 
