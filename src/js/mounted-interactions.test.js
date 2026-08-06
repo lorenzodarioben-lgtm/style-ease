@@ -101,6 +101,25 @@ describe('mounted storefront interactions', function () {
     wrapper.unmount();
   });
 
+  it('opens quick shop from a product card and emits the selected variant', async function () {
+    var wrapper = mountWithRoute(ProductsPage, {
+      route: createRoute('/products'),
+      props: { cart: [] }
+    });
+
+    await wrapper.get('.quick-add-overlay').trigger('click');
+    expect(wrapper.get('dialog.quick-shop-dialog').attributes('open')).toBeDefined();
+
+    await wrapper.get('#quick-shop-quantity-1').setValue('2');
+    await wrapper.get('dialog .add-to-cart-detail').trigger('click');
+    expect(wrapper.emitted('add-to-cart')[0][0]).toMatchObject({
+      id: 1,
+      quantity: 2
+    });
+    expect(wrapper.find('dialog.quick-shop-dialog').exists()).toBe(false);
+    wrapper.unmount();
+  });
+
   it('selects product variants, adds them to the cart, and submits a rating', async function () {
     var product = products[0];
     var wrapper = mountWithRoute(ProductDetailPage, {
