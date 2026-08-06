@@ -59,4 +59,8 @@ describe('cart page options', function () {
     expect(context.$emit).toHaveBeenCalledTimes(1);
     expect(context.$emit).toHaveBeenCalledWith('save-cart-item-for-later', 0);
   });
+
+  it('shows delivery progress before a shopper checks out', function () {
+    expect(CartPage.template).toContain('<delivery-progress :current-step="1"');
+  });
 });

@@ -37,6 +37,10 @@ describe('checkout page options', function () {
     expect(CheckoutPage.template).toContain('query: { receipt: latestOrder.id }');
   });
 
+  it('keeps the delivery-progress status in sync with checkout steps', function () {
+    expect(CheckoutPage.template).toContain('<delivery-progress :current-step="step + 1"');
+  });
+
   it('keeps shoppers on shipping when required fields are invalid', function () {
     var context = createCheckoutContext();
     context.getShippingErrors = CheckoutPage.methods.getShippingErrors;
