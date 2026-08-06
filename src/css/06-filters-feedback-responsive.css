@@ -253,8 +253,12 @@
 
 /* Individual toast message box */
 .toast {
+  align-items: center;
   background: #111;
   color: #fff;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
   padding: 12px 20px;
   border-radius: 5px;
   font-weight: 600;
@@ -263,6 +267,22 @@
   max-width: 300px; /* limit width for readability */
   word-break: break-word; /* break long words */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* subtle shadow */
+}
+
+.toast-action {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 6px 10px;
+}
+
+.toast-action:hover,
+.toast-action:focus-visible {
+  background: #fff;
+  color: #111;
 }
 
 /* Animations for entering/leaving toasts */

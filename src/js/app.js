@@ -164,7 +164,27 @@ export default {
       });
     },
     removeFromCart: function (index) {
-      this.store.removeCartItem(index);
+      var item = this.store.state.cart[index];
+
+      if (!item || !this.store.removeCartItem(index)) {
+        return false;
+      }
+
+      if (this.$refs.toast && typeof this.$refs.toast.show === 'function') {
+        this.$refs.toast.show(item.name + ' removed from your bag.', {
+          actionLabel: 'Undo',
+          onAction: function () {
+            if (!this.store.addCartItem(item)) {
+              return;
+            }
+
+            this.bumpCartCount();
+            this.$refs.toast.show(item.name + ' restored to your bag.');
+          }.bind(this)
+        });
+      }
+
+      return true;
     },
     removeFromWishlist: function (productId) {
       this.store.removeWishlistItem(productId);
