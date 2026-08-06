@@ -66,7 +66,8 @@ export default {
       selectedQuantity: 1,
       selectedSize: '',
       showCare: false,
-      showShipping: false
+      showShipping: false,
+      showSizeGuide: false
     };
   },
   created: function () {
@@ -115,10 +116,9 @@ export default {
         return [];
       }
 
-      var related = products
-        .filter(function (candidate) {
-          return candidate.id !== product.id && candidate.category === product.category;
-        });
+      var related = products.filter(function (candidate) {
+        return candidate.id !== product.id && candidate.category === product.category;
+      });
       var complementary = products.filter(function (candidate) {
         return candidate.id !== product.id && candidate.category !== product.category;
       });
@@ -178,6 +178,7 @@ export default {
       this.product = product || null;
       this.showCare = false;
       this.showShipping = false;
+      this.showSizeGuide = false;
       this.newReview = createEmptyReview();
       this.reviewStatus = '';
       this.selectedQuantity = 1;
@@ -200,6 +201,28 @@ export default {
     },
     setSelectedSize: function (size) {
       this.selectedSize = size;
+    },
+    closeSizeGuide: function () {
+      this.showSizeGuide = false;
+    },
+    openSizeGuide: function () {
+      this.showSizeGuide = true;
+
+      this.$nextTick(
+        function () {
+          var dialog = this.$refs.sizeGuide;
+
+          if (!dialog || dialog.open) {
+            return;
+          }
+
+          if (typeof dialog.showModal === 'function') {
+            dialog.showModal();
+          } else {
+            dialog.setAttribute('open', '');
+          }
+        }.bind(this)
+      );
     },
     submitReview: function () {
       if (!this.product || !this.newReview.rating) {
@@ -286,6 +309,14 @@ export default {
                     {{ size }}
                   </button>
                 </div>
+                <button
+                  class="size-guide-button"
+                  type="button"
+                  aria-haspopup="dialog"
+                  @click="openSizeGuide"
+                >
+                  Find your size
+                </button>
               </fieldset>
 
               <div class="option-group">
@@ -350,6 +381,34 @@ export default {
                 {{ isCompared ? 'Remove from Compare' : 'Compare' }}
               </button>
             </div>
+
+            <dialog
+              v-if="showSizeGuide"
+              ref="sizeGuide"
+              class="size-guide-dialog"
+              aria-labelledby="size-guide-title"
+              @cancel.prevent="closeSizeGuide"
+            >
+              <div class="size-guide-content">
+                <div class="size-guide-heading">
+                  <h2 id="size-guide-title">Size guide</h2>
+                  <button class="quick-shop-close" type="button" aria-label="Close size guide" @click="closeSizeGuide">&times;</button>
+                </div>
+                <p>Start with your usual size. If you are between sizes or prefer a more relaxed drape, choose the next size up.</p>
+                <dl class="size-guide-notes">
+                  <div>
+                    <dt>Fitted layers</dt>
+                    <dd>Choose your usual size for a close, structured fit.</dd>
+                  </div>
+                  <div>
+                    <dt>Outerwear</dt>
+                    <dd>Allow room for a knit or base layer when choosing your size.</dd>
+                  </div>
+                </dl>
+                <p><strong>Available for this style:</strong> {{ product.sizes.join(', ') }}</p>
+                <button class="back-checkout-btn" type="button" @click="closeSizeGuide">Done</button>
+              </div>
+            </dialog>
 
             <div class="product-description">
               <h2>Description</h2>

@@ -368,6 +368,69 @@
   border: none;
 }
 
+.size-guide-button {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 12px;
+  padding: 8px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.size-guide-dialog {
+  background: #111;
+  border: 1px solid #555;
+  color: #fff;
+  max-width: min(520px, calc(100vw - 32px));
+  padding: 0;
+}
+
+.size-guide-dialog::backdrop {
+  background: rgb(0 0 0 / 78%);
+}
+
+.size-guide-content {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.size-guide-content > p {
+  color: #d0d0d0;
+}
+
+.size-guide-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.size-guide-heading h2 {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.size-guide-notes {
+  display: grid;
+  gap: 12px;
+}
+
+.size-guide-notes div {
+  border-top: 1px solid #444;
+  padding-top: 12px;
+}
+
+.size-guide-notes dt {
+  font-weight: 700;
+}
+
+.size-guide-notes dd {
+  color: #d0d0d0;
+  margin: 4px 0 0;
+}
+
 /* Dropdown for selecting color or other options */
 .option-select {
   max-width: 200px;

@@ -65,6 +65,19 @@ describe('mounted storefront interactions', function () {
     wrapper.unmount();
   });
 
+  it('opens a product size guide with fit notes and closes it from the dialog', async function () {
+    var product = products[0];
+    var wrapper = mountWithRoute(ProductDetailPage, {
+      route: createRoute('/product/' + product.id, {}, { id: String(product.id) })
+    });
+
+    await wrapper.get('.size-guide-button').trigger('click');
+    expect(wrapper.get('dialog.size-guide-dialog').text()).toContain('Start with your usual size');
+    await wrapper.get('[aria-label="Close size guide"]').trigger('click');
+    expect(wrapper.find('dialog.size-guide-dialog').exists()).toBe(false);
+    wrapper.unmount();
+  });
+
   it('shows direct product suggestions while a shopper types in search', async function () {
     var wrapper = mountWithRoute(AppHeader);
 
@@ -72,7 +85,9 @@ describe('mounted storefront interactions', function () {
     await wrapper.setProps({ searchValue: 'shirt' });
 
     expect(wrapper.get('[aria-label="Search suggestions"]').text()).toContain('Geometric T-Shirt');
-    expect(wrapper.get('[aria-label="Search suggestions"] a').attributes('href')).toBe('/product/1');
+    expect(wrapper.get('[aria-label="Search suggestions"] a').attributes('href')).toBe(
+      '/product/1'
+    );
     wrapper.unmount();
   });
 
