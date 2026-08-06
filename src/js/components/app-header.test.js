@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { products } from '../data/catalog.js';
 import AppHeader from './app-header.js';
 
 describe('app header accessibility behavior', function () {
@@ -64,5 +65,21 @@ describe('app header accessibility behavior', function () {
     expect(AppHeader.methods.isCurrentRoute.call({ $route: { path: '/cart' } }, '/products')).toBe(
       false
     );
+  });
+
+  it('returns product suggestions only after a shopper starts searching', function () {
+    var context = { searchValue: 'shirt' };
+    var suggestions = AppHeader.computed.searchSuggestions.call(context);
+
+    expect(AppHeader.computed.searchSuggestions.call({ searchValue: ' ' })).toEqual([]);
+    expect(suggestions).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ id: products[0].id, name: 'Geometric T-Shirt' })
+      ])
+    );
+    expect(AppHeader.computed.hasSearchSuggestions.call({ searchSuggestions: suggestions })).toBe(
+      true
+    );
+    expect(AppHeader.template).toContain('aria-autocomplete="list"');
   });
 });

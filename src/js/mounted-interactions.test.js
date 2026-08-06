@@ -65,6 +65,17 @@ describe('mounted storefront interactions', function () {
     wrapper.unmount();
   });
 
+  it('shows direct product suggestions while a shopper types in search', async function () {
+    var wrapper = mountWithRoute(AppHeader);
+
+    await wrapper.get('#site-search').setValue('shirt');
+    await wrapper.setProps({ searchValue: 'shirt' });
+
+    expect(wrapper.get('[aria-label="Search suggestions"]').text()).toContain('Geometric T-Shirt');
+    expect(wrapper.get('[aria-label="Search suggestions"] a').attributes('href')).toBe('/product/1');
+    wrapper.unmount();
+  });
+
   it('renders a reactive, labelled comparison count in the navigation', function () {
     var wrapper = mountWithRoute(AppHeader, {
       props: {

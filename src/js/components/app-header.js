@@ -1,3 +1,6 @@
+import { products } from '../data/catalog.js';
+import { createEmptyFilters, filterProducts, formatPrice } from '../utils/catalog-utils.js';
+
 export default {
   name: 'AppHeader',
   props: {
@@ -41,8 +44,16 @@ export default {
         ? 'Compare styles, ' + this.comparisonCount + ' ' + itemLabel
         : 'Compare styles';
     },
+    hasSearchSuggestions: function () {
+      return this.searchSuggestions.length > 0;
+    },
     menuButtonLabel: function () {
       return this.isMenuOpen ? 'Close navigation' : 'Open navigation';
+    },
+    searchSuggestions: function () {
+      var query = this.searchValue.trim();
+
+      return query ? filterProducts(products, query, createEmptyFilters()).slice(0, 5) : [];
     }
   },
   watch: {
@@ -67,6 +78,9 @@ export default {
           }.bind(this)
         );
       }
+    },
+    formatPrice: function (price) {
+      return formatPrice(price);
     },
     openCart: function () {
       this.$emit('open-cart');
@@ -169,6 +183,9 @@ export default {
             placeholder="Search Style Ease"
             class="search-input"
             autocomplete="off"
+            aria-autocomplete="list"
+            aria-controls="search-suggestions"
+            :aria-expanded="String(hasSearchSuggestions)"
             :value="searchValue"
             @input="updateSearch"
           >
@@ -178,6 +195,19 @@ export default {
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </button>
+          <ul
+            v-if="hasSearchSuggestions"
+            id="search-suggestions"
+            class="search-suggestions"
+            aria-label="Search suggestions"
+          >
+            <li v-for="product in searchSuggestions" :key="product.id">
+              <router-link :to="'/product/' + product.id" @click="closeMenu">
+                <span>{{ product.name }}</span>
+                <strong>{{ formatPrice(product.price) }}</strong>
+              </router-link>
+            </li>
+          </ul>
         </form>
 
         <button
