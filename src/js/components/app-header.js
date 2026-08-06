@@ -184,8 +184,6 @@ export default {
             class="search-input"
             autocomplete="off"
             aria-autocomplete="list"
-            aria-controls="search-suggestions"
-            :aria-expanded="String(hasSearchSuggestions)"
             :value="searchValue"
             @input="updateSearch"
           >
