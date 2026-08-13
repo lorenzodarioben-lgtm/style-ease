@@ -96,7 +96,7 @@ describe('app header accessibility behavior', function () {
         callback();
       },
       $refs: {
-        'search-suggestion-1': { focus: focusSuggestion },
+        'search-suggestion-1': { $el: { focus: focusSuggestion } },
         searchInput: { focus: focusInput }
       },
       focusSearchInput: AppHeader.methods.focusSearchInput,

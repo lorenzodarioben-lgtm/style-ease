@@ -108,10 +108,7 @@ export default {
       var itemLabel = quantityLimit === 1 ? 'item' : 'items';
 
       return (
-        quantityLimit +
-        ' demo ' +
-        itemLabel +
-        ' can be held across all selections of this style.'
+        quantityLimit + ' demo ' + itemLabel + ' can be held across all selections of this style.'
       );
     }
   },

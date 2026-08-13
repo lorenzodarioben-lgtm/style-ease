@@ -54,7 +54,7 @@ test('preserves direct catalogue state and moves a wishlisted style into the bag
   await page.goto('/#/product/1');
   await page.getByRole('button', { name: 'Add to wishlist' }).click();
   await page.goto('/#/wishlist');
-  await page.getByRole('button', { name: 'Move to Bag' }).click();
+  await page.getByRole('button', { name: /Move Geometric T-Shirt, M .* Black to bag/ }).click();
 
   await expect(page.getByRole('button', { name: 'View shopping cart, 1 item' })).toBeVisible();
   await expect(page.getByText('Your wishlist is ready for inspiration.')).toBeVisible();
@@ -114,4 +114,20 @@ test('keeps the catalogue within a mobile viewport', async ({ page }) => {
       return document.documentElement.scrollWidth <= window.innerWidth;
     })
   ).toBe(true);
+});
+
+test('supports keyboard navigation through search suggestions and opened filters', async ({
+  page
+}) => {
+  await page.goto('/#/products');
+
+  var search = page.getByLabel('Search Style Ease');
+  await search.fill('shirt');
+  await search.press('ArrowDown');
+  await expect(page.locator('#search-suggestions a').first()).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(search).toBeFocused();
+
+  await page.getByRole('button', { name: 'Category filter' }).click();
+  await expect(page.getByRole('button', { name: 'Tops' })).toBeFocused();
 });

@@ -28,6 +28,6 @@ describe('wishlist page actions', function () {
     expect(WishlistPage.methods.wishlistItemKey(selectedProduct)).toBe('1:M:Black');
     expect(WishlistPage.methods.variantLabel(selectedProduct)).toBe('M · Black');
     expect(WishlistPage.template).toContain('Saved selection: {{ variantLabel(product) }}');
-    expect(WishlistPage.template).toContain("@click=\"removeFromWishlist(product)\"");
+    expect(WishlistPage.template).toContain('@click="removeFromWishlist(product)"');
   });
 });

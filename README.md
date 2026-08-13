@@ -26,14 +26,14 @@ The storefront behaviour is **simulated**: the catalogue is bundled static data 
 
 - Product catalogue of 20 items rendered from local data
 - Attribute-aware search across names, descriptions, categories, materials, colours, and sizes; URL-backed filters, sorting, pagination, and an in-stock-only filter can be bookmarked and restored
-- Product-detail pages with size and colour selection, static demo stock, add-to-bag, variant-aware wishlist, and comparison controls
-- Cart lines that preserve selected variants, merge matching quantities, enforce static stock limits, and can be saved for later without losing the cart line when saving fails
+- Product-detail pages with size and colour selection, static demo stock, add-to-bag, variant-aware wishlist selections, and comparison controls
+- Cart lines that preserve selected variants, link back to product details, expose their shared demo-stock capacity, merge matching quantities, enforce static stock limits, and can be saved for later without losing the cart line when saving fails
 - Persisted cart, wishlist, comparison, recently viewed, and demo-receipt state with defensive browser-storage validation and cross-tab synchronization; delivery details are never persisted
 - Dedicated accessible wishlist and side-by-side comparison workspaces, including a labelled header count for selected comparison styles
 - Home-page recently viewed and explicitly curated featured-style sections that reuse the responsive product cards
 - Expandable shipping and care sections on product pages
 - Native-radio star-rating review form with browser-local, non-verified review summaries and newest/highest-rating ordering
-- Two-step checkout with inline validation, accessible error announcements, review navigation, and an explicit demo-order confirmation
+- Two-step checkout with inline validation, accessible error announcements, a delivery-details review, and an explicit demo-order confirmation
 - Browser-local demo order history and expandable, print-friendly demo receipts; delivery details are kept only for the current session
 - Responsive product images with lazy loading, `srcset`, intrinsic sizing, and a visual fallback
 - Route-level lazy loading with a retry UI and a one-time session-guarded recovery reload for failed route chunks
@@ -51,7 +51,8 @@ Accessibility work that is implemented in the source includes:
 - Semantic buttons, forms, fieldsets, and labelled controls
 - `aria-expanded`, `aria-controls`, `aria-pressed`, and `aria-current` on interactive elements
 - Polite live-region messages for cart, review, checkout validation, and empty states
-- Keyboard-operable quantity, comparison, filter, and checkout controls
+- Keyboard-operable quantity, comparison, filter, checkout, and search-suggestion controls
+- Predictable focus movement for opened filter panels and closed Quick Shop and size-guide dialogs
 - Native keyboard-operable review radio controls, labelled comparison navigation state, and print-safe receipt actions
 
 The layout is responsive and was checked across mobile, tablet, and desktop widths (approximately 320–1440px) without horizontal overflow. These are deliberate accessibility improvements rather than a claim of full WCAG conformance, and they have not been validated with assistive-technology screen-reader testing.
@@ -91,7 +92,7 @@ The layout is responsive and was checked across mobile, tablet, and desktop widt
 
 ## Automated Testing and Quality Checks
 
-The unit suite has **130 tests across 20 test files**, including mounted Vue component interactions through Vue Test Utils. It covers attribute search, URL state, availability filtering, defensive browser storage and cross-tab updates, variants and save-for-later, comparisons, review migration/summaries/order, receipt printing, router recovery, checkout, and image delivery. **Five Playwright scenarios** exercise the production build's purchase flow, direct URL state, accessible primary and not-found routes, and mobile overflow.
+The unit suite has **156 tests across 23 test files**, including mounted Vue component interactions through Vue Test Utils. It covers attribute search, URL state, availability filtering, defensive browser storage and cross-tab updates, variants and save-for-later, comparisons, review migration/summaries/order, receipt printing, router recovery, checkout, and image delivery. **Six Playwright scenarios** exercise the production build's purchase flow, direct URL state, accessible primary and not-found routes, keyboard shopping controls, and mobile overflow.
 
 The tests focus on logic and component behaviour. They do not claim full coverage, and they do not cover visual rendering, real payments, or backend behaviour. Browser smoke testing is still useful after layout-sensitive changes.
 

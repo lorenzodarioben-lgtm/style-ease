@@ -110,6 +110,10 @@ export default {
             suggestion = suggestion[0];
           }
 
+          if (suggestion && suggestion.$el) {
+            suggestion = suggestion.$el;
+          }
+
           if (suggestion && typeof suggestion.focus === 'function') {
             suggestion.focus();
           }
@@ -219,6 +223,7 @@ export default {
           <input
             id="site-search"
             type="text"
+            role="combobox"
             placeholder="Search Style Ease"
             class="search-input"
             autocomplete="off"

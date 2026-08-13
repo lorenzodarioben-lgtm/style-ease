@@ -13,7 +13,7 @@ Style Ease is a static Vue storefront designed for GitHub Pages. It is intention
 
 ## Storefront data rules
 
-Cart lines are identified by product, size, and colour. Matching variants merge quantities, while the central store caps quantities across all variants at the static product stock value. Product prices are copied onto cart lines so a demo receipt keeps the price shown at the time of selection.
+Cart and wishlist entries are identified by product, size, and colour. Matching cart variants merge quantities, while the central store caps quantities across all variants at the static product stock value. Product prices are copied onto cart lines so a demo receipt keeps the price shown at the time of selection. The UI retains those selected options in the wishlist, cart, and the product-page toggle state, so removing one saved variant never affects another.
 
 Browser storage is a convenience, not a user account. A saved snapshot may contain cart, compact wishlist variants, comparison, recently viewed, and receipt data, but never checkout delivery details; legacy receipts are rewritten without them when read. Reading the snapshot is defensive: invalid JSON, obsolete versions, unknown products, and unsupported product options are ignored safely. A `storage` event updates those synchronized collections in other tabs without causing write loops. Reviews are separate browser-local records, capped at 50 per product and explicitly described as non-verified demo entries.
 
@@ -25,4 +25,4 @@ GitHub Actions installs with `npm ci`, runs `npm run validate` (including the in
 
 ## Verification approach
 
-The suite contains 130 unit tests across 20 files, including mounted Vue component interactions through Vue Test Utils. Five Playwright scenarios cover the production build's purchase, deep-link, route accessibility, and mobile flows. `npm run validate` is the local and CI quality gate: formatting, linting, tests, a production build, and bundle budgets; CI follows it with the Playwright suite.
+The suite contains 156 unit tests across 23 files, including mounted Vue component interactions through Vue Test Utils. Six Playwright scenarios cover the production build's purchase, deep-link, route accessibility, keyboard shopping controls, and mobile flows. `npm run validate` is the local and CI quality gate: formatting, linting, tests, a production build, and bundle budgets; CI follows it with the Playwright suite.
