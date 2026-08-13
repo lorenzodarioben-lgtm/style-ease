@@ -304,6 +304,11 @@ textarea {
   text-transform: uppercase;
 }
 
+.wishlist-variant {
+  color: #d0d0d0;
+  font-size: 0.9rem;
+}
+
 .wishlist-card-content a {
   color: inherit;
 }
