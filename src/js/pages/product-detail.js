@@ -4,6 +4,7 @@ import {
   createSelectedCartItem,
   findProductById,
   getCartProductQuantity,
+  getCartItemVariantKey,
   getDefaultSize,
   getProductStock,
   getReviewSummary,
@@ -85,11 +86,14 @@ export default {
     },
     isWishlisted: function () {
       var product = this.product;
+      var selectedVariant = product
+        ? createSelectedCartItem(product, this.selectedSize, this.selectedColor)
+        : null;
 
       return (
-        Boolean(product) &&
+        Boolean(selectedVariant) &&
         this.wishlist.some(function (item) {
-          return item.id === product.id;
+          return getCartItemVariantKey(item) === getCartItemVariantKey(selectedVariant);
         })
       );
     },
@@ -284,15 +288,18 @@ export default {
         return;
       }
 
+      var selectedVariant = createSelectedCartItem(
+        this.product,
+        this.selectedSize,
+        this.selectedColor
+      );
+
       if (this.isWishlisted) {
-        this.$emit('remove-from-wishlist', this.product.id);
+        this.$emit('remove-from-wishlist', selectedVariant);
         return;
       }
 
-      this.$emit(
-        'add-to-wishlist',
-        createSelectedCartItem(this.product, this.selectedSize, this.selectedColor)
-      );
+      this.$emit('add-to-wishlist', selectedVariant);
     }
   },
   template: `

@@ -5,9 +5,12 @@ import ProductDetailPage from './product-detail.js';
 describe('product detail accessibility state', function () {
   it('reports wishlist state and accessible button text', function () {
     var product = products[0];
+    var savedVariant = Object.assign({}, product, { selectedColor: 'Black', selectedSize: 'M' });
     var context = {
       product: product,
-      wishlist: [product]
+      selectedColor: 'Black',
+      selectedSize: 'M',
+      wishlist: [savedVariant]
     };
 
     expect(ProductDetailPage.computed.isWishlisted.call(context)).toBe(true);
@@ -20,6 +23,27 @@ describe('product detail accessibility state', function () {
     expect(ProductDetailPage.computed.isWishlisted.call(context)).toBe(false);
     expect(ProductDetailPage.computed.wishlistLabel.call({ isWishlisted: false })).toBe(
       'Add to wishlist'
+    );
+  });
+
+  it('treats different size or colour selections as distinct wishlist variants', function () {
+    var product = products[0];
+    var context = {
+      product: product,
+      selectedColor: 'White',
+      selectedSize: 'L',
+      wishlist: [Object.assign({}, product, { selectedColor: 'Black', selectedSize: 'M' })]
+    };
+
+    expect(ProductDetailPage.computed.isWishlisted.call(context)).toBe(false);
+
+    context.$emit = vi.fn();
+    context.isWishlisted = true;
+    ProductDetailPage.methods.toggleWishlist.call(context);
+
+    expect(context.$emit).toHaveBeenCalledWith(
+      'remove-from-wishlist',
+      expect.objectContaining({ selectedColor: 'White', selectedSize: 'L' })
     );
   });
 
