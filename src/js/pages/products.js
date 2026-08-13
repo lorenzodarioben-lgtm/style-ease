@@ -228,10 +228,34 @@ export default {
       this.resetPageAndSync();
     },
     toggleFilterDropdown: function (type) {
-      this.activeFilterDropdown = this.activeFilterDropdown === type ? null : type;
+      var isOpening = this.activeFilterDropdown !== type;
+
+      this.activeFilterDropdown = isOpening ? type : null;
+
+      if (isOpening) {
+        this.$nextTick(
+          function () {
+            this.focusFirstFilterOption(type);
+          }.bind(this)
+        );
+      }
     },
     filterButtonLabel: function (label, selectedCount) {
       return selectedCount ? label + ', ' + selectedCount + ' selected' : label;
+    },
+    filterOptionRef: function (type, index) {
+      return index === 0 ? 'filter-option-' + type : null;
+    },
+    focusFirstFilterOption: function (type) {
+      var option = this.$refs && this.$refs['filter-option-' + type];
+
+      if (Array.isArray(option)) {
+        option = option[0];
+      }
+
+      if (option && typeof option.focus === 'function') {
+        option.focus();
+      }
     },
     isFilterValueActive: function (type, value) {
       return this.filters[type].indexOf(value) > -1;
@@ -301,8 +325,9 @@ export default {
               <h2>Category</h2>
               <div class="filter-options-grid">
                 <button
-                  v-for="category in filterOptions.categories"
+                  v-for="(category, index) in filterOptions.categories"
                   :key="category"
+                  :ref="filterOptionRef('category', index)"
                   type="button"
                   class="filter-checkbox"
                   :class="{ active: isFilterValueActive('category', category) }"
@@ -331,8 +356,9 @@ export default {
               <h2>Size</h2>
               <div class="filter-options-grid">
                 <button
-                  v-for="size in filterOptions.sizes"
+                  v-for="(size, index) in filterOptions.sizes"
                   :key="size"
+                  :ref="filterOptionRef('size', index)"
                   type="button"
                   class="filter-checkbox"
                   :class="{ active: isFilterValueActive('size', size) }"
@@ -361,8 +387,9 @@ export default {
               <h2>Color</h2>
               <div class="filter-options-grid">
                 <button
-                  v-for="color in filterOptions.colors"
+                  v-for="(color, index) in filterOptions.colors"
                   :key="color"
+                  :ref="filterOptionRef('color', index)"
                   type="button"
                   class="filter-checkbox"
                   :class="{ active: isFilterValueActive('color', color) }"
@@ -391,8 +418,9 @@ export default {
               <h2>Price</h2>
               <div class="filter-options-list">
                 <button
-                  v-for="range in filterOptions.priceRanges"
+                  v-for="(range, index) in filterOptions.priceRanges"
                   :key="range.label"
+                  :ref="filterOptionRef('price', index)"
                   type="button"
                   class="filter-radio"
                   :class="{ active: filters.priceRange && filters.priceRange.label === range.label }"

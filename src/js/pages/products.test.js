@@ -103,6 +103,25 @@ describe('products page options', function () {
     );
   });
 
+  it('moves focus into an opened filter panel', function () {
+    var focus = vi.fn();
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { 'filter-option-category': { focus: focus } },
+      activeFilterDropdown: null,
+      focusFirstFilterOption: ProductsPage.methods.focusFirstFilterOption
+    };
+
+    ProductsPage.methods.toggleFilterDropdown.call(context, 'category');
+
+    expect(context.activeFilterDropdown).toBe('category');
+    expect(focus).toHaveBeenCalledOnce();
+    expect(ProductsPage.methods.filterOptionRef('size', 0)).toBe('filter-option-size');
+    expect(ProductsPage.methods.filterOptionRef('size', 1)).toBeNull();
+  });
+
   it('uses ordered headings when a filter panel is expanded', function () {
     expect(ProductsPage.template).toContain('<h2>Category</h2>');
     expect(ProductsPage.template).not.toContain('<h3>Category</h3>');
