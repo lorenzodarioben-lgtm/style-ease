@@ -130,11 +130,13 @@ export default {
           <div class="cart-items" role="list" aria-label="Cart items">
             <div class="cart-item" role="listitem" v-for="(item, index) in cart" :key="cartItemKey(item, index)">
               <div class="cart-item-image-container">
-                <product-image :src="item.image" :alt="item.name" image-class="cart-item-image"></product-image>
+                <router-link :to="'/product/' + item.id" :aria-label="'View ' + item.name + ' details'">
+                  <product-image :src="item.image" :alt="item.name" image-class="cart-item-image"></product-image>
+                </router-link>
               </div>
 
               <div class="cart-item-info">
-                <h3>{{ truncate(item.name, 20) }}</h3>
+                <h2><router-link :to="'/product/' + item.id">{{ truncate(item.name, 20) }}</router-link></h2>
                 <p v-if="item.selectedColor">Color: {{ item.selectedColor }}</p>
                 <p v-if="item.selectedSize">Size: {{ item.selectedSize }}</p>
                 <p class="cart-item-price">{{ formatPrice(item.price) }} each</p>

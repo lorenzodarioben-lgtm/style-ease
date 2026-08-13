@@ -76,4 +76,10 @@ describe('cart page options', function () {
   it('shows delivery progress before a shopper checks out', function () {
     expect(CartPage.template).toContain('<delivery-progress :current-step="1"');
   });
+
+  it('links each cart line back to an appropriately ordered product detail heading', function () {
+    expect(CartPage.template).toContain(":to=\"'/product/' + item.id\"");
+    expect(CartPage.template).toContain('<h2><router-link');
+    expect(CartPage.template).not.toContain('<h3>{{ truncate(item.name, 20) }}</h3>');
+  });
 });

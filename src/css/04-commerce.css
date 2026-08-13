@@ -253,6 +253,22 @@ textarea {
   gap: 5px;
 }
 
+.cart-item-image-container a,
+.cart-item-info a {
+  color: inherit;
+  display: block;
+}
+
+.cart-item-info a {
+  text-decoration: none;
+}
+
+.cart-item-info a:hover,
+.cart-item-info a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 /* Price of individual item */
 .cart-item-price {
   font-weight: bold;
