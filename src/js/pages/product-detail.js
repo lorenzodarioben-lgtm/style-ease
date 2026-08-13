@@ -69,7 +69,8 @@ export default {
       shareStatus: '',
       showCare: false,
       showShipping: false,
-      showSizeGuide: false
+      showSizeGuide: false,
+      sizeGuideTrigger: null
     };
   },
   created: function () {
@@ -190,6 +191,7 @@ export default {
       this.showCare = false;
       this.showShipping = false;
       this.showSizeGuide = false;
+      this.sizeGuideTrigger = null;
       this.newReview = createEmptyReview();
       this.reviewStatus = '';
       this.shareStatus = '';
@@ -215,7 +217,16 @@ export default {
       this.selectedSize = size;
     },
     closeSizeGuide: function () {
+      var trigger = this.sizeGuideTrigger;
+
       this.showSizeGuide = false;
+      this.sizeGuideTrigger = null;
+
+      if (trigger && typeof trigger.focus === 'function') {
+        this.$nextTick(function () {
+          trigger.focus();
+        });
+      }
     },
     copyProductLink: function () {
       var browserWindow = typeof window === 'undefined' ? null : window;
@@ -239,8 +250,9 @@ export default {
         }.bind(this)
       );
     },
-    openSizeGuide: function () {
+    openSizeGuide: function (event) {
       this.showSizeGuide = true;
+      this.sizeGuideTrigger = event && event.currentTarget ? event.currentTarget : null;
 
       this.$nextTick(
         function () {
@@ -350,7 +362,7 @@ export default {
                   class="size-guide-button"
                   type="button"
                   aria-haspopup="dialog"
-                  @click="openSizeGuide"
+                  @click="openSizeGuide($event)"
                 >
                   Find your size
                 </button>

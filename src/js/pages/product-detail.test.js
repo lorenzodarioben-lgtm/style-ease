@@ -125,20 +125,25 @@ describe('product detail accessibility state', function () {
       open: false,
       setAttribute: vi.fn()
     };
+    var trigger = { focus: vi.fn() };
     var context = {
       $nextTick: function (callback) {
         callback();
       },
       $refs: { sizeGuide: dialog },
-      showSizeGuide: false
+      showSizeGuide: false,
+      sizeGuideTrigger: null
     };
 
-    ProductDetailPage.methods.openSizeGuide.call(context);
+    ProductDetailPage.methods.openSizeGuide.call(context, { currentTarget: trigger });
 
     expect(context.showSizeGuide).toBe(true);
+    expect(context.sizeGuideTrigger).toBe(trigger);
     expect(dialog.setAttribute).toHaveBeenCalledWith('open', '');
     ProductDetailPage.methods.closeSizeGuide.call(context);
     expect(context.showSizeGuide).toBe(false);
+    expect(context.sizeGuideTrigger).toBeNull();
+    expect(trigger.focus).toHaveBeenCalledOnce();
     expect(ProductDetailPage.template).toContain('aria-haspopup="dialog"');
   });
 
