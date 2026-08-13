@@ -102,6 +102,17 @@ export default {
     },
     quantityLimit: function (item, index) {
       return getProductStock(item) - getCartProductQuantity(this.cart, item.id, index);
+    },
+    availabilityLabel: function (item, index) {
+      var quantityLimit = this.quantityLimit(item, index);
+      var itemLabel = quantityLimit === 1 ? 'item' : 'items';
+
+      return (
+        quantityLimit +
+        ' demo ' +
+        itemLabel +
+        ' can be held across all selections of this style.'
+      );
     }
   },
   template: `
@@ -127,6 +138,7 @@ export default {
                 <p v-if="item.selectedColor">Color: {{ item.selectedColor }}</p>
                 <p v-if="item.selectedSize">Size: {{ item.selectedSize }}</p>
                 <p class="cart-item-price">{{ formatPrice(item.price) }} each</p>
+                <p class="cart-item-availability">{{ availabilityLabel(item, index) }}</p>
               </div>
 
               <div class="quantity-control">

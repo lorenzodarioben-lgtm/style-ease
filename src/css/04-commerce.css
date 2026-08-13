@@ -259,6 +259,11 @@ textarea {
   color: var(--accent-color);
 }
 
+.cart-item-availability {
+  color: #d0d0d0;
+  font-size: 0.82rem;
+}
+
 .cart-item-total {
   color: var(--accent-color);
   font-weight: 700;

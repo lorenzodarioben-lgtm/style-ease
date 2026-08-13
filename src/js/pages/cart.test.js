@@ -34,6 +34,19 @@ describe('cart page options', function () {
     expect(context.cartStatus).toBe('Geometric T-Shirt quantity updated to 8. Cart total $600.00.');
   });
 
+  it('explains the remaining shared stock capacity for a cart line', function () {
+    var product = Object.assign({}, products[0], { stock: 4, quantity: 1 });
+    var context = {
+      cart: [product, Object.assign({}, product, { selectedColor: 'White', quantity: 2 })],
+      quantityLimit: CartPage.methods.quantityLimit
+    };
+
+    expect(CartPage.methods.availabilityLabel.call(context, product, 0)).toBe(
+      '2 demo items can be held across all selections of this style.'
+    );
+    expect(CartPage.template).toContain('class="cart-item-availability"');
+  });
+
   it('announces the name of a removed cart item', function () {
     var context = {
       $emit: vi.fn(),
