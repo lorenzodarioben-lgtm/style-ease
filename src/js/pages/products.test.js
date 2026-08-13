@@ -162,12 +162,32 @@ describe('products page options', function () {
   });
 
   it('opens quick shop with a standalone product copy', function () {
-    var context = { quickShopProduct: null };
+    var trigger = { focus: vi.fn() };
+    var context = { quickShopProduct: null, quickShopTrigger: null };
 
-    ProductsPage.methods.openQuickShop.call(context, products[0]);
+    ProductsPage.methods.openQuickShop.call(context, products[0], { currentTarget: trigger });
 
     expect(context.quickShopProduct).toEqual(products[0]);
     expect(context.quickShopProduct).not.toBe(products[0]);
+    expect(context.quickShopTrigger).toBe(trigger);
     expect(ProductsPage.template).toContain('<quick-shop');
+  });
+
+  it('returns focus to the quick-shop trigger after closing the dialog', function () {
+    var focus = vi.fn();
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      quickShopProduct: products[0],
+      quickShopTrigger: { focus: focus }
+    };
+
+    ProductsPage.methods.closeQuickShop.call(context);
+
+    expect(context.quickShopProduct).toBeNull();
+    expect(context.quickShopTrigger).toBeNull();
+    expect(focus).toHaveBeenCalledOnce();
+    expect(ProductsPage.template).toContain('@close="closeQuickShop"');
   });
 });

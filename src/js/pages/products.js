@@ -59,6 +59,7 @@ export default {
       filters: createEmptyFilters(),
       itemsPerPage: 6,
       quickShopProduct: null,
+      quickShopTrigger: null,
       searchQuery: '',
       sortBy: 'featured'
     };
@@ -184,8 +185,21 @@ export default {
         this.syncRoute();
       }
     },
-    openQuickShop: function (product) {
+    closeQuickShop: function () {
+      var trigger = this.quickShopTrigger;
+
+      this.quickShopProduct = null;
+      this.quickShopTrigger = null;
+
+      if (trigger && typeof trigger.focus === 'function') {
+        this.$nextTick(function () {
+          trigger.focus();
+        });
+      }
+    },
+    openQuickShop: function (product, event) {
       this.quickShopProduct = cloneProduct(product);
+      this.quickShopTrigger = event && event.currentTarget ? event.currentTarget : null;
     },
     previousPage: function () {
       if (this.currentPage > 1) {
@@ -462,7 +476,7 @@ export default {
                 type="button"
                 :aria-label="'Quick add ' + product.name + ' to cart'"
                 :disabled="product.stock === 0"
-                @click.stop="openQuickShop(product)"
+                @click.stop="openQuickShop(product, $event)"
               >
                 {{ product.stock === 0 ? 'Unavailable' : '+ Quick Add' }}
               </button>
@@ -499,7 +513,7 @@ export default {
           :cart="cart"
           :product="quickShopProduct"
           @add-to-cart="addToCart"
-          @close="quickShopProduct = null"
+          @close="closeQuickShop"
         ></quick-shop>
 
         <nav class="pagination" v-if="totalPages > 1" aria-label="Product pages">
