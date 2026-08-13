@@ -157,6 +157,12 @@ export default {
       return this.availableStock > 0
         ? this.availableStock + ' available in this demo'
         : 'Out of stock in this demo';
+    },
+    selectedVariantStatus: function () {
+      var size = this.selectedSize || 'not selected';
+      var color = this.selectedColor || 'not selected';
+
+      return 'Selected size ' + size + ', colour ' + color + '.';
     }
   },
   watch: {
@@ -372,7 +378,10 @@ export default {
                   </option>
                 </select>
               </div>
-            </div>
+              </div>
+              <p class="selected-variant-status" role="status" aria-live="polite" aria-atomic="true">
+                {{ selectedVariantStatus }}
+              </p>
 
             <div class="action-buttons">
               <button

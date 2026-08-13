@@ -460,6 +460,12 @@
   margin-bottom: 28px;
 }
 
+.selected-variant-status {
+  color: #d0d0d0;
+  font-size: 0.9rem;
+  margin: -12px 0 20px;
+}
+
 /* Add to cart button on product detail */
 .add-to-cart-detail {
   background-color: var(--accent-color);

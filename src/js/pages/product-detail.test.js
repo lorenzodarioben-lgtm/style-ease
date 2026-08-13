@@ -109,6 +109,17 @@ describe('product detail accessibility state', function () {
     expect(context.selectedSize).toBe('L');
   });
 
+  it('announces the size and colour currently selected for the product', function () {
+    expect(
+      ProductDetailPage.computed.selectedVariantStatus.call({
+        selectedColor: 'Black',
+        selectedSize: 'M'
+      })
+    ).toBe('Selected size M, colour Black.');
+    expect(ProductDetailPage.template).toContain('class="selected-variant-status"');
+    expect(ProductDetailPage.template).toContain('aria-live="polite"');
+  });
+
   it('opens and closes the size guide with a native dialog fallback', function () {
     var dialog = {
       open: false,
