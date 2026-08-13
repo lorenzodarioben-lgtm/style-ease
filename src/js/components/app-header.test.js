@@ -49,12 +49,14 @@ describe('app header accessibility behavior', function () {
     var context = {
       $emit: emit,
       closeMenu: vi.fn(),
+      closeSearchSuggestions: vi.fn(),
       isMenuOpen: true
     };
 
     AppHeader.methods.submitSearch.call(context);
 
     expect(context.closeMenu).toHaveBeenCalledOnce();
+    expect(context.closeSearchSuggestions).toHaveBeenCalledOnce();
     expect(emit).toHaveBeenCalledWith('submit-search');
   });
 
@@ -77,9 +79,36 @@ describe('app header accessibility behavior', function () {
         expect.objectContaining({ id: products[0].id, name: 'Geometric T-Shirt' })
       ])
     );
-    expect(AppHeader.computed.hasSearchSuggestions.call({ searchSuggestions: suggestions })).toBe(
-      true
-    );
+    expect(
+      AppHeader.computed.hasSearchSuggestions.call({
+        isSearchSuggestionsOpen: true,
+        searchSuggestions: suggestions
+      })
+    ).toBe(true);
     expect(AppHeader.template).toContain('aria-autocomplete="list"');
+  });
+
+  it('moves keyboard focus between search suggestions and the search input', function () {
+    var focusSuggestion = vi.fn();
+    var focusInput = vi.fn();
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: {
+        'search-suggestion-1': { focus: focusSuggestion },
+        searchInput: { focus: focusInput }
+      },
+      focusSearchInput: AppHeader.methods.focusSearchInput,
+      searchSuggestions: [products[0], products[1]]
+    };
+
+    AppHeader.methods.focusSuggestion.call(context, 1);
+    AppHeader.methods.focusSuggestion.call(context, -1);
+
+    expect(focusSuggestion).toHaveBeenCalledOnce();
+    expect(focusInput).toHaveBeenCalledOnce();
+    expect(AppHeader.template).toContain('@keydown.down.prevent="focusSuggestion(0)"');
+    expect(AppHeader.template).toContain('@keydown.up.prevent="focusSuggestion(index - 1)"');
   });
 });

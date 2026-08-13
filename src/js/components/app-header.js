@@ -28,7 +28,8 @@ export default {
   emits: ['open-cart', 'submit-search', 'update-search-input'],
   data: function () {
     return {
-      isMenuOpen: false
+      isMenuOpen: false,
+      isSearchSuggestionsOpen: true
     };
   },
   computed: {
@@ -45,7 +46,7 @@ export default {
         : 'Compare styles';
     },
     hasSearchSuggestions: function () {
-      return this.searchSuggestions.length > 0;
+      return this.isSearchSuggestionsOpen && this.searchSuggestions.length > 0;
     },
     menuButtonLabel: function () {
       return this.isMenuOpen ? 'Close navigation' : 'Open navigation';
@@ -79,6 +80,42 @@ export default {
         );
       }
     },
+    closeSearchSuggestions: function () {
+      this.isSearchSuggestionsOpen = false;
+    },
+    focusSearchInput: function () {
+      var searchInput = this.$refs && this.$refs.searchInput;
+
+      if (searchInput && typeof searchInput.focus === 'function') {
+        searchInput.focus();
+      }
+    },
+    focusSuggestion: function (index) {
+      if (!this.searchSuggestions.length) {
+        return;
+      }
+
+      if (index < 0) {
+        this.focusSearchInput();
+        return;
+      }
+
+      var suggestionIndex = Math.min(index, this.searchSuggestions.length - 1);
+
+      this.$nextTick(
+        function () {
+          var suggestion = this.$refs && this.$refs['search-suggestion-' + suggestionIndex];
+
+          if (Array.isArray(suggestion)) {
+            suggestion = suggestion[0];
+          }
+
+          if (suggestion && typeof suggestion.focus === 'function') {
+            suggestion.focus();
+          }
+        }.bind(this)
+      );
+    },
     formatPrice: function (price) {
       return formatPrice(price);
     },
@@ -90,12 +127,14 @@ export default {
     },
     submitSearch: function () {
       this.closeMenu();
+      this.closeSearchSuggestions();
       this.$emit('submit-search');
     },
     toggleMenu: function () {
       this.isMenuOpen = !this.isMenuOpen;
     },
     updateSearch: function (event) {
+      this.isSearchSuggestionsOpen = true;
       this.$emit('update-search-input', event.target.value);
     }
   },
@@ -184,8 +223,13 @@ export default {
             class="search-input"
             autocomplete="off"
             aria-autocomplete="list"
+            :aria-controls="hasSearchSuggestions ? 'search-suggestions' : null"
+            :aria-expanded="String(hasSearchSuggestions)"
             :value="searchValue"
+            ref="searchInput"
             @input="updateSearch"
+            @keydown.down.prevent="focusSuggestion(0)"
+            @keydown.escape.prevent="closeSearchSuggestions"
           >
           <button class="search-button" type="submit" aria-label="Search">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -199,8 +243,15 @@ export default {
             class="search-suggestions"
             aria-label="Search suggestions"
           >
-            <li v-for="product in searchSuggestions" :key="product.id">
-              <router-link :to="'/product/' + product.id" @click="closeMenu">
+            <li v-for="(product, index) in searchSuggestions" :key="product.id">
+              <router-link
+                :to="'/product/' + product.id"
+                :ref="'search-suggestion-' + index"
+                @click="closeSearchSuggestions"
+                @keydown.down.prevent="focusSuggestion(index + 1)"
+                @keydown.escape.prevent="focusSearchInput"
+                @keydown.up.prevent="focusSuggestion(index - 1)"
+              >
                 <span>{{ product.name }}</span>
                 <strong>{{ formatPrice(product.price) }}</strong>
               </router-link>
