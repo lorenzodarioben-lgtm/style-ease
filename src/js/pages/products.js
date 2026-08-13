@@ -92,6 +92,13 @@ export default {
         ? 'No products match your search or selected filters'
         : 'No products match your selected filters';
     },
+    paginationStatus: function () {
+      if (!this.processedProducts.length) {
+        return 'No matching styles.';
+      }
+
+      return 'Page ' + this.currentPage + ' of ' + this.totalPages + '.';
+    },
     totalPages: function () {
       return Math.ceil(this.processedProducts.length / this.itemsPerPage);
     }
@@ -200,6 +207,9 @@ export default {
     openQuickShop: function (product, event) {
       this.quickShopProduct = cloneProduct(product);
       this.quickShopTrigger = event && event.currentTarget ? event.currentTarget : null;
+    },
+    paginationButtonLabel: function (page) {
+      return page === this.currentPage ? 'Page ' + page + ', current page' : 'Page ' + page;
     },
     previousPage: function () {
       if (this.currentPage > 1) {
@@ -544,7 +554,8 @@ export default {
           @close="closeQuickShop"
         ></quick-shop>
 
-        <nav class="pagination" v-if="totalPages > 1" aria-label="Product pages">
+        <p class="sr-only" role="status" aria-live="polite">{{ paginationStatus }}</p>
+        <nav class="pagination" v-if="totalPages > 1" :aria-label="'Product pages. ' + paginationStatus">
           <a href="#" aria-label="Previous page" @click.prevent="previousPage" v-if="currentPage > 1">&larr;</a>
           <a
             href="#"
@@ -552,7 +563,7 @@ export default {
             :key="page"
             :class="{ active: currentPage === page }"
             :aria-current="currentPage === page ? 'page' : null"
-            :aria-label="'Page ' + page"
+            :aria-label="paginationButtonLabel(page)"
             @click.prevent="goToPage(page)"
           >
             {{ page }}

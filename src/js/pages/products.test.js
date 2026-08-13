@@ -84,6 +84,26 @@ describe('products page options', function () {
     );
   });
 
+  it('describes the current pagination position and page button state', function () {
+    expect(
+      ProductsPage.computed.paginationStatus.call({
+        currentPage: 2,
+        processedProducts: [products[0]],
+        totalPages: 4
+      })
+    ).toBe('Page 2 of 4.');
+    expect(
+      ProductsPage.computed.paginationStatus.call({
+        currentPage: 1,
+        processedProducts: [],
+        totalPages: 0
+      })
+    ).toBe('No matching styles.');
+    expect(ProductsPage.methods.paginationButtonLabel.call({ currentPage: 2 }, 2)).toBe(
+      'Page 2, current page'
+    );
+  });
+
   it('paginates processed products without mutating the catalogue', function () {
     var context = createProductsContext({
       currentPage: 2,
