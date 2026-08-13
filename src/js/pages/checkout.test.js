@@ -26,6 +26,18 @@ describe('checkout page options', function () {
     expect(CheckoutPage.computed.totalPrice.call({ cart: [{ price: 75, quantity: 2 }] })).toBe(150);
   });
 
+  it('summarizes delivery details before a shopper confirms the demo order', function () {
+    expect(
+      CheckoutPage.computed.deliveryAddress.call({
+        address: '1 Test Street',
+        city: 'Sydney',
+        postcode: '2000'
+      })
+    ).toBe('1 Test Street, Sydney, 2000');
+    expect(CheckoutPage.template).toContain('id="delivery-review-title"');
+    expect(CheckoutPage.template).toContain('Edit shipping details');
+  });
+
   it('uses the newest saved order as the confirmation receipt', function () {
     expect(CheckoutPage.computed.latestOrder.call({ orders: [] })).toBeNull();
     expect(

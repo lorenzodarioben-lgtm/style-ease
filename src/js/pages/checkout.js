@@ -36,6 +36,14 @@ export default {
     };
   },
   computed: {
+    deliveryAddress: function () {
+      return [this.address, this.city, this.postcode]
+        .map(function (value) {
+          return typeof value === 'string' ? value.trim() : '';
+        })
+        .filter(Boolean)
+        .join(', ');
+    },
     latestOrder: function () {
       return this.orders[0] || null;
     },
@@ -232,6 +240,23 @@ export default {
               <option value="applepay">Apple Pay</option>
             </select>
           </div>
+          <section class="delivery-review" aria-labelledby="delivery-review-title">
+            <h3 id="delivery-review-title">Delivery details</h3>
+            <dl>
+              <div>
+                <dt>Recipient</dt>
+                <dd>{{ name }}</dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>{{ email }}</dd>
+              </div>
+              <div>
+                <dt>Address</dt>
+                <dd>{{ deliveryAddress }}</dd>
+              </div>
+            </dl>
+          </section>
           <div class="order-summary">
             <h3>Order Summary</h3>
             <ul>
@@ -242,7 +267,7 @@ export default {
             <p><strong>Total: {{ formatPrice(totalPrice) }}</strong></p>
           </div>
           <div class="checkout-navigation">
-            <button class="back-checkout-btn" type="button" @click="returnToShipping">Back</button>
+            <button class="back-checkout-btn" type="button" @click="returnToShipping">Edit shipping details</button>
             <button class="checkout-btn" type="submit">Confirm Demo Order</button>
           </div>
         </section>

@@ -625,6 +625,35 @@ textarea {
   margin-bottom: 16px;
 }
 
+.delivery-review {
+  border-top: 1px solid #444;
+  display: grid;
+  gap: 12px;
+  padding-top: 18px;
+}
+
+.delivery-review h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.delivery-review dl {
+  display: grid;
+  gap: 10px;
+}
+
+.delivery-review div {
+  display: grid;
+  gap: 2px;
+}
+
+.delivery-review dt {
+  color: #d0d0d0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .checkout-steps {
   display: flex;
   gap: 20px;
