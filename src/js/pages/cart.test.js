@@ -45,6 +45,8 @@ describe('cart page options', function () {
       '2 demo items can be held across all selections of this style.'
     );
     expect(CartPage.template).toContain('class="cart-item-availability"');
+    expect(CartPage.template).toContain(':aria-describedby="\'cart-availability-\' + index"');
+    expect(CartPage.template).toContain('inputmode="numeric"');
   });
 
   it('announces the name of a removed cart item', function () {

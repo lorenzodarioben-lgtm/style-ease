@@ -137,7 +137,7 @@ export default {
                 <p v-if="item.selectedColor">Color: {{ item.selectedColor }}</p>
                 <p v-if="item.selectedSize">Size: {{ item.selectedSize }}</p>
                 <p class="cart-item-price">{{ formatPrice(item.price) }} each</p>
-                <p class="cart-item-availability">{{ availabilityLabel(item, index) }}</p>
+                <p :id="'cart-availability-' + index" class="cart-item-availability">{{ availabilityLabel(item, index) }}</p>
               </div>
 
               <div class="quantity-control">
@@ -156,6 +156,8 @@ export default {
                   min="1"
                   :max="quantityLimit(item, index)"
                   :value="item.quantity"
+                  inputmode="numeric"
+                  :aria-describedby="'cart-availability-' + index"
                   @change="updateQuantity(index, $event.target.value)"
                 >
                 <button
