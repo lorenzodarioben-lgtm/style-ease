@@ -161,6 +161,7 @@ export default {
     placeOrder: function () {
       if (!this.cart.length) {
         this.validationError = 'Your bag is empty. Add a product before checking out.';
+        this.focusPanel('checkoutError');
         return false;
       }
 
@@ -207,7 +208,7 @@ export default {
 
         <delivery-progress :current-step="step + 1"></delivery-progress>
 
-        <p v-if="validationError" id="checkout-error" class="form-error" role="alert">{{ validationError }}</p>
+        <p v-if="validationError" id="checkout-error" ref="checkoutError" class="form-error" role="alert" tabindex="-1">{{ validationError }}</p>
 
         <fieldset v-if="step === 1" class="checkout-fieldset">
           <legend>Shipping details</legend>

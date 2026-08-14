@@ -135,6 +135,7 @@ describe('checkout page options', function () {
     var orderContext = createCheckoutContext();
 
     expect(CheckoutPage.methods.placeOrder.call(emptyContext)).toBe(false);
+    expect(emptyContext.focusPanel).toHaveBeenCalledWith('checkoutError');
     expect(CheckoutPage.methods.placeOrder.call(orderContext)).toBe(true);
     expect(orderContext.orderPlaced).toBe(true);
     expect(orderContext.focusPanel).toHaveBeenCalledWith('confirmationHeading');
@@ -146,5 +147,6 @@ describe('checkout page options', function () {
         paymentMethod: undefined
       })
     );
+    expect(CheckoutPage.template).toContain('ref="checkoutError"');
   });
 });
