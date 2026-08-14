@@ -53,13 +53,31 @@ describe('cart page options', function () {
     var context = {
       $emit: vi.fn(),
       cart: [products[0]],
-      cartStatus: ''
+      cartStatus: '',
+      focusAfterRemoval: vi.fn()
     };
 
     CartPage.methods.removeFromCart.call(context, 0);
 
     expect(context.$emit).toHaveBeenCalledWith('remove-from-cart', 0);
     expect(context.cartStatus).toBe('Geometric T-Shirt removed from your cart.');
+    expect(context.focusAfterRemoval).toHaveBeenCalledWith(0);
+  });
+
+  it('moves focus to the next removal control after a cart item is removed', function () {
+    var focus = vi.fn();
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { 'remove-cart-item-0': [{ focus: focus }] },
+      cart: [products[1]]
+    };
+
+    CartPage.methods.focusAfterRemoval.call(context, 0);
+
+    expect(focus).toHaveBeenCalledOnce();
+    expect(CartPage.template).toContain(':ref="\'remove-cart-item-\' + index"');
   });
 
   it('emits a save-for-later action for the selected cart line', function () {

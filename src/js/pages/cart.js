@@ -54,6 +54,7 @@ export default {
       }
 
       this.$emit('remove-from-cart', index);
+      this.focusAfterRemoval(index);
     },
     saveForLater: function (index) {
       var item = this.cart[index];
@@ -67,6 +68,25 @@ export default {
     },
     formatPrice: function (price) {
       return formatPrice(price);
+    },
+    focusAfterRemoval: function (removedIndex) {
+      this.$nextTick(
+        function () {
+          var targetIndex = Math.min(removedIndex, this.cart.length - 1);
+          var nextAction =
+            targetIndex >= 0 && this.$refs
+              ? this.$refs['remove-cart-item-' + targetIndex]
+              : this.$refs && this.$refs.emptyCart;
+
+          if (Array.isArray(nextAction)) {
+            nextAction = nextAction[0];
+          }
+
+          if (nextAction && typeof nextAction.focus === 'function') {
+            nextAction.focus();
+          }
+        }.bind(this)
+      );
     },
     truncate: function (text, length) {
       return truncateText(text, length);
@@ -118,7 +138,7 @@ export default {
         <h1 class="page-title">Shopping Cart</h1>
         <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">{{ cartStatus }}</p>
 
-        <div v-if="cart.length === 0" class="empty-cart" role="status">
+        <div v-if="cart.length === 0" ref="emptyCart" class="empty-cart" role="status" tabindex="-1">
           <p>Your cart is empty</p>
           <router-link to="/products" class="hero-cta">Continue Shopping</router-link>
         </div>
@@ -175,6 +195,7 @@ export default {
               <button
                 class="remove-item"
                 type="button"
+                :ref="'remove-cart-item-' + index"
                 :aria-label="removeButtonLabel(item)"
                 @click="removeFromCart(index)"
               >
