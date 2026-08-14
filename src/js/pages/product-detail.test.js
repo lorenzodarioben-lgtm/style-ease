@@ -82,6 +82,16 @@ describe('product detail accessibility state', function () {
     expect(context.reviewStatus).toBe('Selected 4 out of 5 stars.');
   });
 
+  it('reports review length as the shopper types', function () {
+    expect(
+      ProductDetailPage.computed.reviewCharacterCount.call({
+        newReview: { comment: 'Structured and comfortable.' }
+      })
+    ).toBe(27);
+    expect(ProductDetailPage.template).toContain('review-character-count-');
+    expect(ProductDetailPage.template).toContain('of 500 characters used');
+  });
+
   it('uses native labelled rating radios rather than toggle buttons', function () {
     expect(ProductDetailPage.template).toContain('type="radio"');
     expect(ProductDetailPage.template).toContain("star + ' out of 5 stars'");

@@ -142,6 +142,9 @@ export default {
         return index + 1;
       });
     },
+    reviewCharacterCount: function () {
+      return String((this.newReview && this.newReview.comment) || '').length;
+    },
     wishlistLabel: function () {
       return this.isWishlisted ? 'Remove from wishlist' : 'Add to wishlist';
     },
@@ -551,9 +554,13 @@ export default {
                   :id="'review-comment-' + product.id"
                   v-model="newReview.comment"
                   maxlength="500"
+                  :aria-describedby="'review-character-count-' + product.id"
                   placeholder="Write your review here (optional)"
                   rows="3"
                 ></textarea>
+                <p :id="'review-character-count-' + product.id" class="review-character-count">
+                  {{ reviewCharacterCount }} of 500 characters used
+                </p>
 
                 <button class="submit-review-btn" type="submit" :disabled="!newReview.rating">Submit</button>
               </form>
