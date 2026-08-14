@@ -179,8 +179,8 @@
   margin-top: 2rem; /* space above pagination */
 }
 
-/* Styles for individual pagination links */
-.pagination a {
+/* Styles for individual pagination controls */
+.pagination button {
   color: #ccc;
   background-color: #222;
   padding: 0.5rem 0.8rem;
@@ -192,24 +192,34 @@
   min-width: 32px; /* ensure equal width */
   text-align: center;
   user-select: none; /* prevent text selection */
+  font: inherit;
+  cursor: pointer;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
   border: none; /* remove border */
 }
 
-/* Hover effect for pagination links */
-.pagination a:hover {
+/* Hover effect for enabled pagination controls */
+.pagination button:hover:not(:disabled) {
   background-color: #444;
   color: #fff;
 }
 
 /* Active page style */
-.pagination a.active {
+.pagination button.active {
   background-color: #fff; /* white background */
   color: #222; /* dark text for contrast */
   font-weight: bold;
-  cursor: default; /* show default cursor (not clickable) */
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.pagination button.active:disabled {
+  opacity: 1;
 }
 
 /* Message when no results are found */

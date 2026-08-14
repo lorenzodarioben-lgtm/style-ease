@@ -574,19 +574,20 @@ export default {
 
         <p class="sr-only" role="status" aria-live="polite">{{ paginationStatus }}</p>
         <nav class="pagination" v-if="totalPages > 1" :aria-label="'Product pages. ' + paginationStatus">
-          <a href="#" aria-label="Previous page" @click.prevent="previousPage" v-if="currentPage > 1">&larr;</a>
-          <a
-            href="#"
+          <button type="button" aria-label="Previous page" :disabled="currentPage === 1" @click="previousPage">&larr;</button>
+          <button
+            type="button"
             v-for="page in pages"
             :key="page"
             :class="{ active: currentPage === page }"
             :aria-current="currentPage === page ? 'page' : null"
             :aria-label="paginationButtonLabel(page)"
-            @click.prevent="goToPage(page)"
+            :disabled="currentPage === page"
+            @click="goToPage(page)"
           >
             {{ page }}
-          </a>
-          <a href="#" aria-label="Next page" @click.prevent="nextPage" v-if="currentPage < totalPages">&rarr;</a>
+          </button>
+          <button type="button" aria-label="Next page" :disabled="currentPage === totalPages" @click="nextPage">&rarr;</button>
         </nav>
       </div>
     `

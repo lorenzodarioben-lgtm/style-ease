@@ -102,6 +102,9 @@ describe('products page options', function () {
     expect(ProductsPage.methods.paginationButtonLabel.call({ currentPage: 2 }, 2)).toBe(
       'Page 2, current page'
     );
+    expect(ProductsPage.template).toContain(':disabled="currentPage === 1"');
+    expect(ProductsPage.template).toContain(':disabled="currentPage === page"');
+    expect(ProductsPage.template).toContain(':disabled="currentPage === totalPages"');
   });
 
   it('announces the visible result range for the current catalogue page', function () {
