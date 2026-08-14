@@ -191,8 +191,13 @@ export default {
       this.resetPageAndSync();
     },
     goToPage: function (page) {
+      if (page === this.currentPage) {
+        return;
+      }
+
       this.currentPage = page;
       this.syncRoute();
+      this.focusProductResults();
     },
     goToProduct: function (productId) {
       this.$router.push('/product/' + productId);
@@ -206,8 +211,7 @@ export default {
     },
     nextPage: function () {
       if (this.currentPage < this.totalPages) {
-        this.currentPage += 1;
-        this.syncRoute();
+        this.goToPage(this.currentPage + 1);
       }
     },
     closeQuickShop: function () {
@@ -231,8 +235,7 @@ export default {
     },
     previousPage: function () {
       if (this.currentPage > 1) {
-        this.currentPage -= 1;
-        this.syncRoute();
+        this.goToPage(this.currentPage - 1);
       }
     },
     removePriceFilter: function () {
@@ -284,6 +287,17 @@ export default {
       if (option && typeof option.focus === 'function') {
         option.focus();
       }
+    },
+    focusProductResults: function () {
+      this.$nextTick(
+        function () {
+          var results = this.$refs && this.$refs.productResults;
+
+          if (results && typeof results.focus === 'function') {
+            results.focus();
+          }
+        }.bind(this)
+      );
     },
     isFilterValueActive: function (type, value) {
       return this.filters[type].indexOf(value) > -1;
@@ -517,7 +531,7 @@ export default {
           </div>
         </div>
 
-        <div class="product-grid">
+        <div ref="productResults" class="product-grid" tabindex="-1">
           <article class="product-item" v-for="product in paginatedProducts" :key="product.id">
             <div class="product-image-container">
               <router-link

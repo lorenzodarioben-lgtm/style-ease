@@ -137,6 +137,24 @@ describe('products page options', function () {
     expect(products).toHaveLength(20);
   });
 
+  it('moves focus to refreshed catalogue results after changing pages', function () {
+    var focus = vi.fn();
+    var context = createProductsContext({
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { productResults: { focus: focus } },
+      focusProductResults: ProductsPage.methods.focusProductResults
+    });
+
+    ProductsPage.methods.goToPage.call(context, 3);
+
+    expect(context.currentPage).toBe(3);
+    expect(context.$router.replace).toHaveBeenCalledOnce();
+    expect(focus).toHaveBeenCalledOnce();
+    expect(ProductsPage.template).toContain('ref="productResults"');
+  });
+
   it('describes filter button state for assistive technology', function () {
     expect(ProductsPage.methods.filterButtonLabel('Category filter', 0)).toBe('Category filter');
     expect(ProductsPage.methods.filterButtonLabel('Category filter', 2)).toBe(
