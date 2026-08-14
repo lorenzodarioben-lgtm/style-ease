@@ -104,6 +104,24 @@ describe('products page options', function () {
     );
   });
 
+  it('announces the visible result range for the current catalogue page', function () {
+    expect(
+      ProductsPage.computed.catalogueStatus.call({
+        currentPage: 2,
+        itemsPerPage: 6,
+        processedProducts: products
+      })
+    ).toBe('Showing styles 7 to 12 of 20.');
+    expect(
+      ProductsPage.computed.catalogueStatus.call({
+        currentPage: 1,
+        itemsPerPage: 6,
+        processedProducts: []
+      })
+    ).toBe('No matching styles.');
+    expect(ProductsPage.template).toContain('{{ catalogueStatus }}');
+  });
+
   it('paginates processed products without mutating the catalogue', function () {
     var context = createProductsContext({
       currentPage: 2,

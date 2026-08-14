@@ -74,6 +74,24 @@ export default {
     document.removeEventListener('click', this.handleDocumentClick);
   },
   computed: {
+    catalogueStatus: function () {
+      if (!this.processedProducts.length) {
+        return 'No matching styles.';
+      }
+
+      var firstStyle = (this.currentPage - 1) * this.itemsPerPage + 1;
+      var lastStyle = Math.min(firstStyle + this.itemsPerPage - 1, this.processedProducts.length);
+
+      return (
+        'Showing styles ' +
+        firstStyle +
+        ' to ' +
+        lastStyle +
+        ' of ' +
+        this.processedProducts.length +
+        '.'
+      );
+    },
     pages: function () {
       return Array.from({ length: this.totalPages }, function (_, index) {
         return index + 1;
@@ -304,7 +322,7 @@ export default {
         <h1 class="page-title">Product Catalogue</h1>
 
         <div class="catalogue-toolbar">
-          <p role="status" aria-live="polite">{{ processedProducts.length }} styles available</p>
+          <p role="status" aria-live="polite">{{ catalogueStatus }}</p>
           <label for="catalogue-sort">
             Sort by
             <select id="catalogue-sort" :value="sortBy" @change="setSort($event.target.value)">
