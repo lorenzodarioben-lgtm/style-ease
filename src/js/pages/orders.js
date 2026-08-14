@@ -48,6 +48,19 @@ export default {
     formatPrice: function (price) {
       return formatPrice(price);
     },
+    openClearDemoData: function () {
+      this.isClearConfirmationVisible = true;
+
+      this.$nextTick(
+        function () {
+          var cancelButton = this.$refs && this.$refs.cancelClearDemoData;
+
+          if (cancelButton && typeof cancelButton.focus === 'function') {
+            cancelButton.focus();
+          }
+        }.bind(this)
+      );
+    },
     formatDate: function (dateValue) {
       var date = new Date(dateValue);
 
@@ -157,10 +170,10 @@ export default {
       <section class="clear-demo-data" aria-labelledby="clear-demo-data-title">
         <h2 id="clear-demo-data-title">Clear saved demo data</h2>
         <p>Remove your cart, wishlist, comparisons, reviews, receipts, and current-session delivery details.</p>
-        <button class="remove-item" type="button" @click="isClearConfirmationVisible = true">Clear saved data</button>
+        <button class="remove-item" type="button" @click="openClearDemoData">Clear saved data</button>
         <div v-if="isClearConfirmationVisible" class="form-error" role="alert">
           <p>This cannot be undone.</p>
-          <button class="back-checkout-btn" type="button" @click="cancelClearDemoData">Cancel</button>
+          <button ref="cancelClearDemoData" class="back-checkout-btn" type="button" @click="cancelClearDemoData">Cancel</button>
           <button class="remove-item" type="button" @click="confirmClearDemoData">Clear data</button>
         </div>
       </section>

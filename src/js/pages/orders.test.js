@@ -71,4 +71,21 @@ describe('order history page', function () {
     expect(context.$emit).toHaveBeenCalledWith('clear-demo-data');
     expect(context.isClearConfirmationVisible).toBe(false);
   });
+
+  it('focuses the cancellation action after revealing the clear-data confirmation', function () {
+    var focus = vi.fn();
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: { cancelClearDemoData: { focus: focus } },
+      isClearConfirmationVisible: false
+    };
+
+    OrdersPage.methods.openClearDemoData.call(context);
+
+    expect(context.isClearConfirmationVisible).toBe(true);
+    expect(focus).toHaveBeenCalledOnce();
+    expect(OrdersPage.template).toContain('@click="openClearDemoData"');
+  });
 });
