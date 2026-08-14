@@ -380,6 +380,16 @@ textarea {
   text-transform: uppercase;
 }
 
+.comparison-product a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.comparison-product h2 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .comparison-actions {
   display: grid;
   gap: 8px;

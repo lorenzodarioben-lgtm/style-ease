@@ -35,8 +35,10 @@ export default {
         <p id="comparison-title">Compare up to three saved styles side by side.</p>
         <div class="comparison-products">
           <article v-for="product in comparison" :key="product.id" class="comparison-product">
-            <product-image :src="product.image" :alt="product.name" image-class="comparison-image"></product-image>
-            <h2>{{ product.name }}</h2>
+            <router-link :to="'/product/' + product.id" :aria-label="'View ' + product.name + ' details'">
+              <product-image :src="product.image" :alt="product.name" image-class="comparison-image"></product-image>
+            </router-link>
+            <h2><router-link :to="'/product/' + product.id">{{ product.name }}</router-link></h2>
             <div class="comparison-actions">
               <button class="add-to-cart-detail" type="button" :disabled="product.stock === 0" @click="$emit('add-to-cart', product)">
                 {{ product.stock === 0 ? 'Unavailable' : 'Add to Bag' }}

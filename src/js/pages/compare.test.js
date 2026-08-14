@@ -18,4 +18,10 @@ describe('comparison page', function () {
     expect(ComparePage.template).toContain('scope="col"');
     expect(ComparePage.template).toContain("'name-' + product.id");
   });
+
+  it('links comparison images and names to the corresponding product detail page', function () {
+    expect(ComparePage.template).toContain(':to="\'/product/\' + product.id"');
+    expect(ComparePage.template).toContain("'View ' + product.name + ' details'");
+    expect(ComparePage.template).toContain('<h2><router-link');
+  });
 });
