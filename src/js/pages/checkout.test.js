@@ -26,6 +26,19 @@ describe('checkout page options', function () {
     expect(CheckoutPage.computed.totalPrice.call({ cart: [{ price: 75, quantity: 2 }] })).toBe(150);
   });
 
+  it('includes selected product variants in the order summary', function () {
+    expect(
+      CheckoutPage.methods.orderItemDescription({
+        name: 'T-Shirt',
+        price: 75,
+        quantity: 2,
+        selectedColor: 'Black',
+        selectedSize: 'M'
+      })
+    ).toBe('2 × T-Shirt (Size M, Colour Black) — $150.00');
+    expect(CheckoutPage.template).toContain('{{ orderItemDescription(item) }}');
+  });
+
   it('summarizes delivery details before a shopper confirms the demo order', function () {
     expect(
       CheckoutPage.computed.deliveryAddress.call({

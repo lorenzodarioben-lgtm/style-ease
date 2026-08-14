@@ -55,6 +55,23 @@ export default {
     formatPrice: function (price) {
       return formatPrice(price);
     },
+    orderItemDescription: function (item) {
+      var selection = [
+        item && item.selectedSize ? 'Size ' + item.selectedSize : '',
+        item && item.selectedColor ? 'Colour ' + item.selectedColor : ''
+      ]
+        .filter(Boolean)
+        .join(', ');
+
+      return (
+        item.quantity +
+        ' × ' +
+        item.name +
+        (selection ? ' (' + selection + ')' : '') +
+        ' — ' +
+        formatPrice(item.price * item.quantity)
+      );
+    },
     clearFieldError: function (field) {
       if (!this.fieldErrors[field]) {
         return;
@@ -261,7 +278,7 @@ export default {
             <h3>Order Summary</h3>
             <ul>
               <li v-for="item in cart" :key="item.id + item.selectedSize + item.selectedColor">
-                {{ item.quantity }} × {{ item.name }} — {{ formatPrice(item.price * item.quantity) }}
+                {{ orderItemDescription(item) }}
               </li>
             </ul>
             <p><strong>Total: {{ formatPrice(totalPrice) }}</strong></p>
