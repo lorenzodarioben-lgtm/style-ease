@@ -40,6 +40,9 @@ describe('route titles', function () {
   });
 
   it('includes category and product context when available', function () {
+    expect(getRouteTitle({ path: '/products', query: { q: '  shirt ' } })).toBe(
+      'Search: shirt - Style Ease'
+    );
     expect(getRouteTitle({ path: '/products', query: { category: 'Jackets' } })).toBe(
       'Jackets - Style Ease'
     );

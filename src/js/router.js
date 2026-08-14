@@ -93,6 +93,10 @@ export function getRouteTitle(route) {
   }
 
   if (route.path === '/products') {
+    if (route.query && typeof route.query.q === 'string' && route.query.q.trim()) {
+      return 'Search: ' + route.query.q.trim() + ' - ' + APP_TITLE;
+    }
+
     return route.query && route.query.category
       ? route.query.category + ' - ' + APP_TITLE
       : 'Product Catalogue - ' + APP_TITLE;
