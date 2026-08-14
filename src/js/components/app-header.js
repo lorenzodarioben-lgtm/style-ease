@@ -90,6 +90,21 @@ export default {
         searchInput.focus();
       }
     },
+    handleSearchFocusOut: function () {
+      var searchContainer = this.$refs && this.$refs.searchContainer;
+
+      this.$nextTick(
+        function () {
+          if (
+            typeof document !== 'undefined' &&
+            searchContainer &&
+            !searchContainer.contains(document.activeElement)
+          ) {
+            this.closeSearchSuggestions();
+          }
+        }.bind(this)
+      );
+    },
     focusSuggestion: function (index) {
       if (!this.searchSuggestions.length) {
         return;
@@ -218,7 +233,13 @@ export default {
           </ul>
         </nav>
 
-        <form class="search-container" role="search" @submit.prevent="submitSearch">
+        <form
+          ref="searchContainer"
+          class="search-container"
+          role="search"
+          @submit.prevent="submitSearch"
+          @focusout="handleSearchFocusOut"
+        >
           <label class="sr-only" for="site-search">Search Style Ease</label>
           <input
             id="site-search"
@@ -232,6 +253,7 @@ export default {
             :aria-expanded="String(hasSearchSuggestions)"
             :value="searchValue"
             ref="searchInput"
+            @focus="isSearchSuggestionsOpen = true"
             @input="updateSearch"
             @keydown.down.prevent="focusSuggestion(0)"
             @keydown.escape.prevent="closeSearchSuggestions"

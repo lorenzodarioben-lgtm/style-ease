@@ -111,4 +111,25 @@ describe('app header accessibility behavior', function () {
     expect(AppHeader.template).toContain('@keydown.down.prevent="focusSuggestion(0)"');
     expect(AppHeader.template).toContain('@keydown.up.prevent="focusSuggestion(index - 1)"');
   });
+
+  it('closes search suggestions after focus leaves the search controls', function () {
+    var context = {
+      $nextTick: function (callback) {
+        callback();
+      },
+      $refs: {
+        searchContainer: {
+          contains: vi.fn(function () {
+            return false;
+          })
+        }
+      },
+      closeSearchSuggestions: vi.fn()
+    };
+
+    AppHeader.methods.handleSearchFocusOut.call(context);
+
+    expect(context.closeSearchSuggestions).toHaveBeenCalledOnce();
+    expect(AppHeader.template).toContain('@focusout="handleSearchFocusOut"');
+  });
 });
