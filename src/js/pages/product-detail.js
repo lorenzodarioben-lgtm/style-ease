@@ -344,7 +344,7 @@ export default {
             </div>
 
             <div class="product-options">
-              <fieldset class="option-group">
+              <fieldset class="option-group" :aria-describedby="'selected-variant-status-' + product.id">
                 <legend>Size</legend>
                 <div class="size-buttons">
                   <button
@@ -370,7 +370,12 @@ export default {
 
               <div class="option-group">
                 <label :for="'product-color-' + product.id">Color:</label>
-                <select :id="'product-color-' + product.id" v-model="selectedColor" class="option-select">
+                <select
+                  :id="'product-color-' + product.id"
+                  v-model="selectedColor"
+                  class="option-select"
+                  :aria-describedby="'selected-variant-status-' + product.id"
+                >
                   <option v-for="color in product.colors" :key="color" :value="color">
                     {{ color }}
                   </option>
@@ -384,6 +389,7 @@ export default {
                   v-model.number="selectedQuantity"
                   class="option-select"
                   :disabled="availableStock === 0"
+                  :aria-describedby="'selected-variant-status-' + product.id"
                 >
                   <option v-for="quantity in quantityOptions" :key="quantity" :value="quantity">
                     {{ quantity }}
@@ -391,7 +397,7 @@ export default {
                 </select>
               </div>
               </div>
-              <p class="selected-variant-status" role="status" aria-live="polite" aria-atomic="true">
+              <p :id="'selected-variant-status-' + product.id" class="selected-variant-status" role="status" aria-live="polite" aria-atomic="true">
                 {{ selectedVariantStatus }}
               </p>
 

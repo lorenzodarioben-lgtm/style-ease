@@ -120,6 +120,13 @@ describe('product detail accessibility state', function () {
     expect(ProductDetailPage.template).toContain('aria-live="polite"');
   });
 
+  it('connects every product option to the selected-variant description', function () {
+    expect(ProductDetailPage.template).toContain("'selected-variant-status-' + product.id");
+    expect(ProductDetailPage.template).toContain(
+      ':aria-describedby="\'selected-variant-status-\' + product.id"'
+    );
+  });
+
   it('opens and closes the size guide with a native dialog fallback', function () {
     var dialog = {
       open: false,
