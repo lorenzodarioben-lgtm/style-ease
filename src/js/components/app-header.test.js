@@ -88,6 +88,26 @@ describe('app header accessibility behavior', function () {
     expect(AppHeader.template).toContain('aria-autocomplete="list"');
   });
 
+  it('announces the number of available search suggestions', function () {
+    var context = {
+      searchResultCount: 8,
+      searchSuggestions: products.slice(0, 5),
+      searchValue: 'shirt'
+    };
+
+    expect(AppHeader.computed.searchSuggestionStatus.call(context)).toBe(
+      'Showing 5 of 8 suggestions. Use the Down Arrow key to browse them.'
+    );
+    expect(
+      AppHeader.computed.searchSuggestionStatus.call({
+        searchResultCount: 0,
+        searchSuggestions: [],
+        searchValue: 'not-a-style'
+      })
+    ).toBe('No matching styles in the catalogue.');
+    expect(AppHeader.template).toContain('id="search-suggestions-status"');
+  });
+
   it('moves keyboard focus between search suggestions and the search input', function () {
     var focusSuggestion = vi.fn();
     var focusInput = vi.fn();

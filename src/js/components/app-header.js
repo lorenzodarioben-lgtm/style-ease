@@ -51,6 +51,28 @@ export default {
     menuButtonLabel: function () {
       return this.isMenuOpen ? 'Close navigation' : 'Open navigation';
     },
+    searchResultCount: function () {
+      return this.searchValue.trim()
+        ? filterProducts(products, this.searchValue, createEmptyFilters()).length
+        : 0;
+    },
+    searchSuggestionStatus: function () {
+      if (!this.searchValue.trim()) {
+        return '';
+      }
+
+      if (!this.searchResultCount) {
+        return 'No matching styles in the catalogue.';
+      }
+
+      return (
+        'Showing ' +
+        this.searchSuggestions.length +
+        ' of ' +
+        this.searchResultCount +
+        ' suggestions. Use the Down Arrow key to browse them.'
+      );
+    },
     searchSuggestions: function () {
       var query = this.searchValue.trim();
 
@@ -250,6 +272,7 @@ export default {
             autocomplete="off"
             aria-autocomplete="list"
             :aria-controls="hasSearchSuggestions ? 'search-suggestions' : null"
+            :aria-describedby="searchValue.trim() ? 'search-suggestions-status' : null"
             :aria-expanded="String(hasSearchSuggestions)"
             :value="searchValue"
             ref="searchInput"
@@ -264,6 +287,9 @@ export default {
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </button>
+          <p id="search-suggestions-status" class="sr-only" role="status" aria-live="polite">
+            {{ searchSuggestionStatus }}
+          </p>
           <ul
             v-if="hasSearchSuggestions"
             id="search-suggestions"
