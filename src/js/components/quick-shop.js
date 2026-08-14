@@ -154,6 +154,7 @@ export default {
           class="add-to-cart-detail"
           type="button"
           :disabled="availableStock === 0"
+          :aria-describedby="'quick-shop-selection-' + product.id"
           @click="handleAddToCart"
         >
           {{ availableStock === 0 ? 'Unavailable' : 'Add to Bag' }}

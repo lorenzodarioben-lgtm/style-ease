@@ -51,4 +51,13 @@ describe('quick shop', function () {
     expect(QuickShop.template).toContain('id="\'quick-shop-selection-\' + product.id"');
     expect(QuickShop.template).toContain('aria-live="polite"');
   });
+
+  it('keeps the add action concise while describing its selected variant', function () {
+    expect(QuickShop.template).toContain(
+      ':aria-describedby="\'quick-shop-selection-\' + product.id"'
+    );
+    expect(QuickShop.template).toContain(
+      "{{ availableStock === 0 ? 'Unavailable' : 'Add to Bag' }}"
+    );
+  });
 });
