@@ -16,6 +16,15 @@ export default {
     }
   },
   methods: {
+    addToBagLabel: function (product) {
+      if (!product) {
+        return 'Add style to bag';
+      }
+
+      return product.stock === 0
+        ? product.name + ' is unavailable in this demo.'
+        : 'Add ' + product.name + ' to bag.';
+    },
     formatPrice: function (price) {
       return formatPrice(price);
     },
@@ -40,7 +49,7 @@ export default {
             </router-link>
             <h2><router-link :to="'/product/' + product.id">{{ product.name }}</router-link></h2>
             <div class="comparison-actions">
-              <button class="add-to-cart-detail" type="button" :disabled="product.stock === 0" @click="$emit('add-to-cart', product)">
+              <button class="add-to-cart-detail" type="button" :disabled="product.stock === 0" :aria-label="addToBagLabel(product)" @click="$emit('add-to-cart', product)">
                 {{ product.stock === 0 ? 'Unavailable' : 'Add to Bag' }}
               </button>
               <button class="remove-item" type="button" :aria-label="'Remove ' + product.name + ' from comparison'" @click="removeProduct(product)">
