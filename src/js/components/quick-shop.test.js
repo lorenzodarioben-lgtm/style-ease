@@ -39,4 +39,16 @@ describe('quick shop', function () {
       })
     ).toBe(1);
   });
+
+  it('announces the currently selected quick-shop variant', function () {
+    expect(
+      QuickShop.computed.selectedVariantStatus.call({
+        product: products[0],
+        selectedColor: 'Black',
+        selectedSize: 'M'
+      })
+    ).toBe('Selected size M, colour Black.');
+    expect(QuickShop.template).toContain('id="\'quick-shop-selection-\' + product.id"');
+    expect(QuickShop.template).toContain('aria-live="polite"');
+  });
 });

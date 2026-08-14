@@ -40,6 +40,13 @@ export default {
       return Array.from({ length: this.availableStock }, function (_, index) {
         return index + 1;
       });
+    },
+    selectedVariantStatus: function () {
+      if (!this.product) {
+        return '';
+      }
+
+      return 'Selected size ' + this.selectedSize + ', colour ' + this.selectedColor + '.';
     }
   },
   created: function () {
@@ -103,7 +110,7 @@ export default {
           {{ availableStock > 0 ? availableStock + ' available in this demo' : 'Out of stock in this demo' }}
         </p>
 
-        <fieldset class="quick-shop-options">
+        <fieldset class="quick-shop-options" :aria-describedby="'quick-shop-selection-' + product.id">
           <legend>Size</legend>
           <div class="size-buttons">
             <button
@@ -120,7 +127,12 @@ export default {
         </fieldset>
 
         <label :for="'quick-shop-color-' + product.id">Color</label>
-        <select :id="'quick-shop-color-' + product.id" v-model="selectedColor" class="option-select">
+        <select
+          :id="'quick-shop-color-' + product.id"
+          v-model="selectedColor"
+          class="option-select"
+          :aria-describedby="'quick-shop-selection-' + product.id"
+        >
           <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
         </select>
 
@@ -133,6 +145,10 @@ export default {
         >
           <option v-for="quantity in quantityOptions" :key="quantity" :value="quantity">{{ quantity }}</option>
         </select>
+
+        <p :id="'quick-shop-selection-' + product.id" class="selected-variant-status" role="status" aria-live="polite" aria-atomic="true">
+          {{ selectedVariantStatus }}
+        </p>
 
         <button
           class="add-to-cart-detail"
