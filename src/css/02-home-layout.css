@@ -1,8 +1,7 @@
-﻿/*===================
+/*===================
   Mobile Menu
 ===================*/
 
-/* Hidden by default, shown when menu is open */
 .mobile-menu {
   display: none;
 }
@@ -15,206 +14,216 @@
   Hero Section
 ====================*/
 
-/* Grid layout for hero banner */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 50px;
-  padding: 100px 0;
-  border-bottom: 1px solid var(--secondary-color);
+  gap: 60px;
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* Hero text container */
 .hero-content {
-  max-width: 500px;
+  max-width: 520px;
 }
 
-/* Large hero title text */
 .hero-title {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.2;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  line-height: 1.1;
   text-transform: uppercase;
-  letter-spacing: -2px;
+  letter-spacing: -1.5px;
 }
 
-/* Description text used across sections */
 .hero-description,
 .product-detail-description,
 .product-description,
 .product-material {
-  font-size: 16px;
-  color: #aaa;
-  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 36px;
 }
 
-/* Container for the hero image */
 .hero-image {
   overflow: hidden;
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-color);
 }
 
-/* Hero image effects */
 .hero-image img {
   width: 100%;
-  height: auto;
-  filter: grayscale(100%) contrast(120%);
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(110%);
   transition:
-    transform 0.5s ease,
-    filter 0.5s ease;
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.6s ease;
 }
 
 .hero-image:hover img {
-  transform: scale(1.05);
-  filter: grayscale(50%) contrast(110%);
+  transform: scale(1.04);
+  filter: grayscale(40%) contrast(105%);
 }
 
-/* CTA and buttons shared styles */
+/* CTA and Buttons Shared Styles */
 .hero-cta,
 .add-to-cart,
 .add-to-cart-detail,
 .checkout-btn {
-  display: inline-block;
-  background-color: var(--text-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
   color: var(--primary-color);
-  padding: 12px 30px;
+  border: 1px solid var(--accent-color);
+  padding: 14px 36px;
   text-decoration: none;
   text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  transition: all 0.25s ease;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-/* Hover overlay animation */
-.hero-cta:before,
-.add-to-cart:before,
-.add-to-cart-detail:before,
-.checkout-btn:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background-color: var(--secondary-color);
-  transition: all 0.3s ease;
-  z-index: -1;
-}
-
-/* Hover effect: dark background, light text */
 .hero-cta:hover,
 .add-to-cart:hover,
 .add-to-cart-detail:hover,
 .checkout-btn:hover {
-  background-color: #000000 !important;
+  background-color: transparent !important;
   color: var(--text-color) !important;
+  border-color: var(--accent-color) !important;
 }
 
-.hero-cta:hover:before,
-.add-to-cart:hover:before,
-.add-to-cart-detail:hover:before,
-.checkout-btn:hover:before {
-  left: 0;
-}
-
-/* Add-to-cart full-width variant */
 .add-to-cart {
   width: 100%;
-  padding: 10px 0;
-  font-size: 14px;
+  padding: 12px 0;
+  font-size: 0.8rem;
 }
 
-/* Back button styling */
 .back-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--text-color);
-  padding: 12px 30px;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  padding: 10px 24px;
   text-transform: uppercase;
   font-weight: 600;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   cursor: pointer;
-  margin-bottom: 40px;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  margin-bottom: 32px;
+  transition: all 0.2s ease;
 }
 
 .back-button:hover {
-  background-color: var(--text-color);
+  background-color: var(--accent-color);
   color: var(--primary-color);
+  border-color: var(--accent-color);
 }
 
 /*===================
   Categories & Brands
 ===================*/
 
-/* Section layout */
 .categories,
 .brands {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--secondary-color);
+  padding: 72px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* Grid layout for categories/brands */
-.categories-grid,
-.brands-grid {
+.categories-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
 }
 
-/* Item box style for categories/brands */
-.category-item,
-.brand-item {
-  background-color: #1a1a1a;
-  padding: 20px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: transform 0.3s ease;
+.category-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
 }
 
-/* Hover animation for category items */
 .category-item:hover {
+  border-color: var(--border-light);
+  transform: translateY(-4px);
+}
+
+.category-item img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
+  margin-bottom: 0;
+}
+
+.category-item:hover img {
+  filter: grayscale(20%);
   transform: scale(1.05);
 }
 
-/* Consistent image styles for items */
-.category-item img,
-.brand-item img,
-.product-image,
-.product-detail-image img {
-  width: 100%;
-  object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
+.category-item h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.6) 70%,
+    transparent 100%
+  );
+  color: var(--text-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+  padding: 24px 12px 16px;
+  margin: 0;
 }
 
-/* Category icons with spacing */
-.category-item img {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 15px;
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
 }
 
-/* On hover: remove grayscale filter */
-.category-item:hover img,
-.product-item:hover .product-image,
-.product-detail-image:hover img {
-  filter: grayscale(0%);
-}
-
-/* Brand name styling */
 .brand-item {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-color);
+  padding: 24px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.brand-item:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border-color: var(--accent-color);
 }
