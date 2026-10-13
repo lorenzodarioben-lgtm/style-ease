@@ -181,42 +181,42 @@ export default {
   },
   template: `
       <header class="top-bar container" :class="{ 'menu-open': isMenuOpen }">
-        <button
-          class="menu-icon"
-          type="button"
-          :aria-label="menuButtonLabel"
-          :aria-expanded="String(isMenuOpen)"
-          aria-controls="primary-navigation"
-          ref="menuButton"
-          @click="toggleMenu"
-          @keydown.escape.prevent="closeMenu(true)"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
+        <div class="header-branding">
+          <button
+            class="menu-icon"
+            type="button"
+            :aria-label="menuButtonLabel"
+            :aria-expanded="String(isMenuOpen)"
+            aria-controls="primary-navigation"
+            ref="menuButton"
+            @click="toggleMenu"
+            @keydown.escape.prevent="closeMenu(true)"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
 
-        <nav
-          id="primary-navigation"
-          class="mobile-menu"
-          aria-label="Primary navigation"
-          v-show="isMenuOpen"
-          @click.stop
-          @keydown.escape.prevent="closeMenu(true)"
-        >
+          <router-link to="/" class="brand-logo" aria-label="Style Ease Home">
+            STYLE EASE
+          </router-link>
+        </div>
+
+        <nav class="desktop-nav" aria-label="Primary desktop navigation">
           <ul>
             <li>
-              <router-link to="/" :aria-current="isCurrentRoute('/') ? 'page' : null" @click="closeMenu">
+              <router-link to="/" :aria-current="isCurrentRoute('/') ? 'page' : null">
                 Home
               </router-link>
             </li>
             <li>
-              <router-link
-                to="/orders"
-                :aria-current="isCurrentRoute('/orders') ? 'page' : null"
-                @click="closeMenu"
-              >
-                Receipts
+              <router-link to="/products" :aria-current="isCurrentRoute('/products') ? 'page' : null">
+                Products
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/wishlist" :aria-current="isCurrentRoute('/wishlist') ? 'page' : null">
+                Wishlist <span v-if="wishlistCount" class="nav-count">({{ wishlistCount }})</span>
               </router-link>
             </li>
             <li>
@@ -224,32 +224,13 @@ export default {
                 to="/compare"
                 :aria-current="isCurrentRoute('/compare') ? 'page' : null"
                 :aria-label="comparisonLinkLabel"
-                @click="closeMenu"
               >
-                Compare <span v-if="comparisonCount" aria-hidden="true">({{ comparisonCount }})</span>
+                Compare <span v-if="comparisonCount" class="nav-count">({{ comparisonCount }})</span>
               </router-link>
             </li>
             <li>
-              <router-link
-                to="/products"
-                :aria-current="isCurrentRoute('/products') ? 'page' : null"
-                @click="closeMenu"
-              >
-                Products
-              </router-link>
-            </li>
-            <li>
-              <router-link
-                to="/wishlist"
-                :aria-current="isCurrentRoute('/wishlist') ? 'page' : null"
-                @click="closeMenu"
-              >
-                Wishlist <span v-if="wishlistCount" aria-label="saved items">({{ wishlistCount }})</span>
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/cart" :aria-current="isCurrentRoute('/cart') ? 'page' : null" @click="closeMenu">
-                Cart
+              <router-link to="/orders" :aria-current="isCurrentRoute('/orders') ? 'page' : null">
+                Receipts
               </router-link>
             </li>
           </ul>
@@ -331,6 +312,65 @@ export default {
             {{ cartCount }}
           </span>
         </button>
+
+        <nav
+          id="primary-navigation"
+          class="mobile-menu"
+          aria-label="Primary navigation"
+          v-show="isMenuOpen"
+          @click.stop
+          @keydown.escape.prevent="closeMenu(true)"
+        >
+          <ul>
+            <li>
+              <router-link to="/" :aria-current="isCurrentRoute('/') ? 'page' : null" @click="closeMenu">
+                Home
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                to="/products"
+                :aria-current="isCurrentRoute('/products') ? 'page' : null"
+                @click="closeMenu"
+              >
+                Products
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                to="/wishlist"
+                :aria-current="isCurrentRoute('/wishlist') ? 'page' : null"
+                @click="closeMenu"
+              >
+                Wishlist <span v-if="wishlistCount" aria-label="saved items">({{ wishlistCount }})</span>
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                to="/compare"
+                :aria-current="isCurrentRoute('/compare') ? 'page' : null"
+                :aria-label="comparisonLinkLabel"
+                @click="closeMenu"
+              >
+                Compare <span v-if="comparisonCount" aria-hidden="true">({{ comparisonCount }})</span>
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                to="/orders"
+                :aria-current="isCurrentRoute('/orders') ? 'page' : null"
+                @click="closeMenu"
+              >
+                Receipts
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/cart" :aria-current="isCurrentRoute('/cart') ? 'page' : null" @click="closeMenu">
+                Cart
+              </router-link>
+            </li>
+          </ul>
+        </nav>
       </header>
     `
 };
