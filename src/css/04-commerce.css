@@ -1,36 +1,37 @@
-/*===================
+﻿/*===================
   Star Rating
 ===================*/
 
+/* Container for the star rating widget */
 .star-rating {
-  font-size: 1.6rem;
-  color: var(--text-subtle);
-  user-select: none;
-  margin-bottom: 12px;
+  font-size: 1.8rem; /* Large font size for stars */
+  color: #ddd; /* Default gray color for unselected stars */
+  user-select: none; /* Prevents text selection */
+  margin-bottom: 0.5rem; /* Space below the rating */
   border: 0;
   padding: 0;
 }
 
 .star-rating legend {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  margin-bottom: 0.25rem;
 }
 
+/* Individual star style */
 .star {
-  cursor: pointer;
-  font-size: 1.4rem;
-  color: var(--border-light);
-  transition: color 0.2s ease;
+  cursor: pointer; /* Indicates clickable element */
+  font-size: 1.5rem; /* Size of each star */
+  color: #ccc; /* Default unfilled color */
+  transition: color 0.2s; /* Smooth color transition */
   background: transparent;
   border: 0;
-  padding: 2px 4px;
+  padding: 0.15rem;
 }
 
+/* Filled star (active rating) */
 .star.filled {
-  color: #ffffff;
+  color: #f5b301; /* Golden/yellow for filled stars */
 }
 
 .rating-radio:focus-visible + .star {
@@ -42,174 +43,122 @@
   Review Input & Display
 ===================*/
 
+/* Review textarea styling */
 textarea {
-  width: 100%;
-  resize: vertical;
-  margin-bottom: 8px;
-  padding: 12px 16px;
-  font-family: inherit;
-  font-size: 0.9rem;
-  background-color: var(--secondary-color);
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
+  width: 100%; /* Full width */
+  resize: vertical; /* Vertical resizing only */
+  margin-bottom: 0.5rem; /* Spacing below */
+  padding: 8px; /* Inner spacing */
+  font-family: inherit; /* Inherits font from parent */
+  font-size: 1rem; /* Standard font size */
 }
 
+/* Submit review button */
 .submit-review-btn {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  padding: 12px 28px;
-  border: 1px solid var(--accent-color);
-  cursor: pointer;
+  background-color: #333; /* Dark background */
+  color: white; /* White text */
+  padding: 8px 16px; /* Padding for button */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer on hover */
   border-radius: 0;
-  font-weight: 800;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
+  font-weight: bold; /* Bold text */
 }
 
-.submit-review-btn:hover:not(:disabled) {
-  background-color: transparent;
-  color: var(--text-color);
-}
-
+/* Disabled state of review button */
 .submit-review-btn:disabled {
-  background-color: var(--secondary-color);
-  border-color: var(--border-color);
-  color: var(--text-subtle);
-  cursor: not-allowed;
+  background-color: #666; /* Dim background */
+  cursor: not-allowed; /* Indicate disabled */
 }
 
+/* Container for displaying submitted reviews */
 .reviews-display {
-  margin-top: 40px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border-color);
+  margin-top: 2rem; /* Space above */
 }
 
 .recently-viewed {
-  border-top: 1px solid var(--border-color);
-  margin-top: 56px;
-  padding: 40px 0 56px;
+  border-top: 1px solid #333;
+  margin-top: 48px;
+  padding: 32px 0 56px;
 }
 
 .recently-viewed h2 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  margin-bottom: 24px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
 }
 
 .recently-viewed-grid {
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .recently-viewed-card {
   color: inherit;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  font-size: 0.85rem;
+  gap: 6px;
   text-decoration: none;
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-color);
-  padding: 12px;
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.recently-viewed-card:hover {
-  border-color: var(--border-light);
-  transform: translateY(-3px);
 }
 
 .recently-viewed-card img {
   aspect-ratio: 4 / 5;
   object-fit: cover;
   width: 100%;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
 }
 
-.recently-viewed-card:hover img {
-  filter: grayscale(20%);
-}
-
-.recently-viewed-card span {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 1.3;
-}
-
-.recently-viewed-card strong {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--accent-color);
-  margin-top: auto;
-}
-
+/* Star rating in review display */
 .review-rating {
-  font-size: 1.1rem;
-  color: #ffffff;
+  font-size: 1.2rem; /* Smaller than input stars */
+  color: gold; /* Golden color */
 }
 
+/* Review comment text */
 .review-comment {
-  margin: 8px 0 16px;
-  font-style: italic;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  margin: 0.3rem 0 1rem 0; /* Vertical spacing */
+  font-style: italic; /* Italic text */
+  color: #eee; /* Light gray text */
 }
 
+/* Horizontal line between reviews */
 .review hr {
-  border: 0;
-  border-top: 1px solid var(--border-color);
-  margin: 16px 0;
+  border: 0; /* No default border */
+  border-top: 1px solid #444; /* Custom horizontal line */
+  margin: 0.5rem 0; /* Spacing above/below */
 }
 
 /*===================
   Cart Styles
 ===================*/
 
+/* Grid layout for cart content */
 .cart-content {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 40px;
-  align-items: start;
+  grid-template-columns: 2fr 1fr; /* Main and summary columns */
+  gap: 40px; /* Space between columns */
 }
 
+/* Summary box on the side */
 .cart-summary {
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-color);
-  padding: 32px 28px;
-  margin-top: 0;
-  text-align: left;
-  border-radius: 0;
-  position: sticky;
-  top: 24px;
+  background-color: var(--secondary-color);
+  padding: 40px 30px;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 10px; /* Rounded corners */
 }
 
-.cart-summary h3,
+/* Heading inside cart summary */
+.cart-summary h3 {
+  margin-bottom: 20px;
+}
+
 .cart-summary h2 {
   margin-bottom: 20px;
-  font-size: 1.1rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.cart-summary p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
+  font-size: 1.17em;
 }
 
 .delivery-progress {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid #555;
   display: grid;
   gap: 12px;
   margin-top: 24px;
@@ -219,14 +168,12 @@ textarea {
 
 .delivery-progress-title {
   font-weight: 700;
-  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .delivery-progress-note {
-  color: var(--text-muted);
-  font-size: 0.85rem;
+  color: #d0d0d0;
+  font-size: 0.9rem;
 }
 
 .delivery-progress ol {
@@ -239,146 +186,125 @@ textarea {
 
 .delivery-progress li {
   align-items: center;
-  color: var(--text-subtle);
+  color: #bdbdbd;
   display: flex;
-  gap: 12px;
-  font-size: 0.85rem;
+  gap: 10px;
 }
 
 .delivery-progress li > span:first-child {
   align-items: center;
   border: 1px solid currentColor;
   display: inline-flex;
-  height: 22px;
+  height: 24px;
   justify-content: center;
-  width: 22px;
-  font-size: 0.75rem;
-  font-weight: 700;
+  width: 24px;
 }
 
 .delivery-progress li.active,
 .delivery-progress li.complete {
-  color: var(--text-color);
+  color: #fff;
   font-weight: 700;
 }
 
 .delivery-progress li.complete > span:first-child {
-  background: var(--accent-color);
-  color: var(--primary-color);
-  border-color: var(--accent-color);
+  background: #fff;
+  color: #111;
 }
 
+/* Total section styling */
 .cart-summary .total {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.25rem;
-  margin: 24px 0 20px;
-  font-weight: 800;
-  color: var(--accent-color);
-  border-top: 1px solid var(--border-color);
-  padding-top: 20px;
+  font-size: 20px;
+  margin: 20px 0;
+  font-weight: bold;
+  color: var(--accent-color); /* Uses theme accent */
 }
 
+/* Checkout button wrapper */
 .checkout-btn {
   margin-top: 20px;
   width: 100%;
   text-align: center;
 }
 
-.cart-items {
-  display: flex;
-  flex-direction: column;
-}
-
+/* Individual cart item layout */
 .cart-item {
   display: grid;
   grid-template-columns: 100px minmax(0, 1fr) auto auto auto;
   gap: 20px;
   align-items: center;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
-.cart-item-image-container {
-  width: 100px;
-  height: 120px;
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-color);
-  overflow: hidden;
-}
-
+/* Product image in cart */
 .cart-item-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(100%);
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
+/* Container for product info */
 .cart-item-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
-.cart-item-info h2 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-transform: uppercase;
+.cart-item-image-container a,
+.cart-item-info a {
+  color: inherit;
+  display: block;
 }
 
-.cart-item-info p {
-  color: var(--text-muted);
-  font-size: 0.85rem;
+.cart-item-info a {
+  text-decoration: none;
 }
 
+.cart-item-info a:hover,
+.cart-item-info a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Price of individual item */
 .cart-item-price {
-  font-weight: 800;
-  color: var(--accent-color) !important;
+  font-weight: bold;
+  color: var(--accent-color);
 }
 
 .cart-item-availability {
-  color: var(--text-subtle) !important;
-  font-size: 0.8rem !important;
+  color: #d0d0d0;
+  font-size: 0.82rem;
 }
 
 .cart-item-total {
   color: var(--accent-color);
-  font-weight: 800;
-  min-width: 80px;
+  font-weight: 700;
+  min-width: 76px;
   text-align: right;
-  font-size: 1rem;
 }
 
 .wishlist-intro {
-  color: var(--text-muted);
-  margin-bottom: 32px;
+  color: #ccc;
+  margin-bottom: 24px;
   text-align: center;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .wishlist-grid {
   display: grid;
-  gap: 28px;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   padding-bottom: 48px;
 }
 
 .wishlist-card {
-  background: var(--surface-card);
-  border: 1px solid var(--border-color);
+  background: #111;
+  border: 1px solid #333;
   display: flex;
   flex-direction: column;
-  transition:
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.wishlist-card:hover {
-  border-color: var(--border-light);
-  transform: translateY(-4px);
 }
 
 .wishlist-image {
@@ -386,37 +312,31 @@ textarea {
   display: block;
   object-fit: cover;
   width: 100%;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
-}
-
-.wishlist-card:hover .wishlist-image {
-  filter: grayscale(20%);
 }
 
 .wishlist-card-content {
   display: grid;
   gap: 12px;
-  padding: 20px;
-  flex-grow: 1;
+  padding: 18px;
 }
 
 .wishlist-card-content h2 {
   font-size: 1rem;
-  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .wishlist-variant {
-  color: var(--text-muted);
-  font-size: 0.85rem;
+  color: #d0d0d0;
+  font-size: 0.9rem;
+}
+
+.wishlist-card-content a {
+  color: inherit;
 }
 
 .wishlist-actions {
   display: grid;
   gap: 8px;
-  margin-top: auto;
 }
 
 .wishlist-actions .add-to-cart-detail {
@@ -424,63 +344,50 @@ textarea {
   max-width: none;
 }
 
-.wishlist-empty,
-.empty-cart {
-  margin: 48px auto;
-  max-width: 520px;
-  text-align: center;
-  padding: 48px 24px;
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-color);
-}
-
-.empty-cart p {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  margin-bottom: 24px;
+.wishlist-empty {
+  margin: 0 auto;
+  max-width: 500px;
 }
 
 .comparison-workspace > p {
-  color: var(--text-muted);
-  margin-bottom: 28px;
+  color: #ccc;
+  margin-bottom: 24px;
 }
 
 .comparison-products {
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  margin-bottom: 40px;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-bottom: 32px;
 }
 
 .comparison-product {
-  background: var(--surface-card);
-  border: 1px solid var(--border-color);
+  background: #111;
+  border: 1px solid #333;
   display: grid;
-  gap: 14px;
-  padding: 16px;
-  transition: border-color 0.2s ease;
-}
-
-.comparison-product:hover {
-  border-color: var(--border-light);
+  gap: 12px;
+  padding: 12px;
 }
 
 .comparison-product img {
   aspect-ratio: 4 / 5;
   object-fit: cover;
   width: 100%;
-  filter: grayscale(100%);
 }
 
 .comparison-product h2 {
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 1rem;
   text-transform: uppercase;
 }
 
 .comparison-product a {
   color: inherit;
   text-decoration: none;
+}
+
+.comparison-product h2 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .comparison-actions {
@@ -495,8 +402,6 @@ textarea {
 
 .comparison-table-wrap {
   overflow-x: auto;
-  border: 1px solid var(--border-color);
-  background-color: var(--surface-card);
 }
 
 .comparison-table {
@@ -507,93 +412,61 @@ textarea {
 
 .comparison-table th,
 .comparison-table td {
-  border: 1px solid var(--border-color);
-  padding: 14px 18px;
+  border: 1px solid #444;
+  padding: 12px;
   text-align: left;
   vertical-align: top;
-  font-size: 0.9rem;
 }
 
 .comparison-table th {
-  background: var(--secondary-color);
+  background: #222;
   min-width: 140px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.8rem;
 }
 
 .order-history-note {
-  color: var(--text-muted);
-  margin: -16px auto 32px;
+  color: #ccc;
+  margin: -20px auto 28px;
   max-width: 640px;
   text-align: center;
-  font-size: 0.9rem;
 }
 
 .order-history {
   display: grid;
-  gap: 16px;
+  gap: 12px;
   padding-bottom: 48px;
 }
 
 .order-receipt {
-  background: var(--surface-card);
-  border: 1px solid var(--border-color);
-  transition: border-color 0.2s ease;
-}
-
-.order-receipt:hover {
-  border-color: var(--border-light);
+  background: #111;
+  border: 1px solid #333;
 }
 
 .order-receipt summary {
   align-items: center;
   cursor: pointer;
   display: grid;
-  gap: 16px;
+  gap: 12px;
   grid-template-columns: 1fr auto auto;
-  padding: 20px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  padding: 16px;
 }
 
 .receipt-content {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid #333;
   display: grid;
-  gap: 16px;
-  padding: 24px;
-}
-
-.receipt-content h2 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  text-transform: uppercase;
+  gap: 12px;
+  padding: 16px;
 }
 
 .receipt-content ul {
   padding-left: 20px;
-  color: var(--text-muted);
-  line-height: 1.8;
 }
 
 .print-receipt {
-  background: var(--accent-color);
-  border: 1px solid var(--accent-color);
+  background: var(--text-color);
+  border: 0;
   color: var(--primary-color);
   cursor: pointer;
-  padding: 10px 20px;
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
-  justify-self: start;
-}
-
-.print-receipt:hover {
-  background: transparent;
-  color: var(--text-color);
+  padding: 10px 14px;
 }
 
 @media print {
@@ -630,145 +503,123 @@ textarea {
 
 .quantity-control button,
 .quantity-control input {
-  background: var(--secondary-color);
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
+  background: #1a1a1a;
+  border: 1px solid #555;
+  color: #fff;
   font: inherit;
-  min-height: 38px;
+  min-height: 36px;
   text-align: center;
 }
 
 .quantity-control button {
   cursor: pointer;
-  min-width: 38px;
-  font-weight: 700;
-  transition: border-color 0.2s ease;
-}
-
-.quantity-control button:hover:not(:disabled) {
-  border-color: var(--border-light);
+  min-width: 36px;
 }
 
 .quantity-control button:disabled {
   cursor: not-allowed;
-  opacity: 0.35;
+  opacity: 0.45;
 }
 
 .quantity-control input {
   width: 48px;
 }
 
+/* Remove item button */
 .remove-item {
   background-color: transparent;
-  color: var(--text-muted);
-  border: 1px solid var(--border-color);
-  padding: 8px 14px;
-  font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: #ff4444; /* Red text */
+  border: 1px solid #ff4444; /* Red border */
+  padding: 5px 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  height: fit-content;
-}
-
-.remove-item:hover {
-  background-color: var(--surface-hover);
-  color: var(--text-color);
-  border-color: var(--border-light);
+  transition: all 0.3s ease;
+  height: fit-content; /* Size based on content */
 }
 
 .save-for-later {
   background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
+  border: 1px solid var(--secondary-color);
+  color: var(--text-color);
   cursor: pointer;
-  padding: 8px 14px;
-  font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
+  padding: 8px 12px;
 }
 
 .save-for-later:hover,
 .save-for-later:focus-visible {
-  border-color: var(--border-light);
-  color: var(--text-color);
+  border-color: var(--text-color);
+}
+
+/* Hover effect for remove button */
+.remove-item:hover {
+  background-color: #ff4444; /* Red background */
+  color: white; /* White text */
 }
 
 /*===================
   Checkout Page Styles
 ====================*/
 
+/* Main container for checkout form */
 .checkout-container {
-  max-width: 640px;
+  max-width: 600px;
   margin: 2rem auto;
-  padding: 2.5rem;
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
+  padding: 2rem;
+  background-color: #121212; /* Dark background */
+  color: #eee; /* Light text */
+  font-family: 'Inter', sans-serif;
   box-sizing: border-box;
 }
 
+/* Checkout title */
 .checkout-container h1 {
-  font-weight: 800;
+  font-weight: 700;
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: -0.5px;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.5rem;
 }
 
+/* Layout of checkout form */
 .checkout-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
+/* Label styling */
 .checkout-form label {
-  font-weight: 700;
-  margin-bottom: 0.4rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
   display: block;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
+/* Input, select, and textarea fields */
 .checkout-form input,
 .checkout-form select,
 .checkout-form textarea {
   width: 100%;
-  padding: 0.85rem 1rem;
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  background-color: #1e1e1e;
+  color: #eee;
+  font-size: 1rem;
   box-sizing: border-box;
   outline: none;
-  border: 1px solid var(--border-color);
+  border: none;
   border-radius: 0;
-  transition: border-color 0.2s ease;
-}
-
-.checkout-form input:focus,
-.checkout-form select:focus,
-.checkout-form textarea:focus {
-  border-color: var(--accent-color);
+  transition: background-color 0.3s ease;
 }
 
 .form-error {
-  border: 1px solid var(--border-light);
-  color: var(--text-color);
-  background: #241010;
-  padding: 1rem 1.25rem;
+  border: 1px solid #ff7777;
+  color: #ffffff;
+  background: #3a0f0f;
+  padding: 0.75rem 1rem;
   font-weight: 600;
-  font-size: 0.9rem;
 }
 
 .field-error {
-  color: #ffaaaa;
-  font-size: 0.85rem;
+  color: #ff9999;
+  font-size: 0.9rem;
   margin-top: 6px;
 }
 
@@ -780,29 +631,25 @@ textarea {
 .checkout-fieldset legend,
 .checkout-form h2 {
   font-size: 1.25rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
 .delivery-review {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid #444;
   display: grid;
   gap: 12px;
-  padding-top: 20px;
+  padding-top: 18px;
 }
 
 .delivery-review h3 {
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .delivery-review dl {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .delivery-review div {
@@ -811,39 +658,34 @@ textarea {
 }
 
 .delivery-review dt {
-  color: var(--text-muted);
-  font-size: 0.8rem;
+  color: #d0d0d0;
+  font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .checkout-steps {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   list-style: none;
-  margin: 0 0 28px;
-  padding: 0 0 16px;
-  border-bottom: 1px solid var(--border-color);
+  margin: 0 0 24px;
+  padding: 0;
 }
 
 .checkout-steps li {
-  color: var(--text-muted);
+  color: #aaa;
   font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .checkout-steps li.active {
-  color: var(--text-color);
+  color: #fff;
   text-decoration: underline;
-  text-underline-offset: 8px;
+  text-underline-offset: 6px;
 }
 
 .checkout-note {
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 16px;
 }
 
 .checkout-location-grid,
@@ -855,40 +697,40 @@ textarea {
 
 .back-checkout-btn {
   background: transparent;
-  border: 1px solid var(--border-light);
-  color: var(--text-color);
+  border: 1px solid #777;
+  color: #fff;
   cursor: pointer;
   font: inherit;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   margin-top: 20px;
-  padding: 14px;
-  transition: all 0.2s ease;
+  padding: 12px;
 }
 
-.back-checkout-btn:hover {
-  border-color: var(--accent-color);
+/* Focus effect for form elements */
+.checkout-form input:focus,
+.checkout-form select:focus,
+.checkout-form textarea:focus {
+  background-color: #272727;
 }
 
+/* Checkout button style */
 .checkout-submit-btn {
-  padding: 16px 32px;
-  font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  border: 1px solid var(--accent-color);
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background-color: #00bcd4; /* Cyan shade */
+  color: #121212; /* Dark text */
+  border: none;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
   border-radius: 0;
   margin-top: 1rem;
+  box-shadow: none;
 }
 
+/* Hover effect on checkout button */
 .checkout-submit-btn:hover {
-  background-color: transparent !important;
-  color: var(--text-color) !important;
-  border-color: var(--accent-color) !important;
+  background-color: #0097a7; /* Darker cyan */
+  transform: translateX(6px); /* Slide effect */
 }

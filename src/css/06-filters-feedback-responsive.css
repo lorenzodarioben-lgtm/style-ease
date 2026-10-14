@@ -1,426 +1,364 @@
-/*===================
+﻿/*===================
   Filter UI
 ====================*/
-
+/* Filter bar layout and spacing */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
   align-items: center;
 }
 
+/* Individual filter button */
 .filter-button {
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  padding: 10px 18px;
-  border: 1px solid var(--border-color);
+  background-color: #222;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
   border-radius: 0;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 0.95rem;
 }
-
 .filter-button:hover {
-  background-color: var(--surface-hover);
-  border-color: var(--border-light);
+  background-color: #333;
 }
 
-.filter-button.active {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  border-color: var(--accent-color);
-}
-
+/* Badge that shows number of active filters */
 .filter-badge {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
+  background-color: #e63946;
+  color: white;
   font-size: 0.75rem;
-  font-weight: 800;
-  padding: 2px 6px;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 0;
+  padding: 0.2rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-left: 0.5rem;
   line-height: 1;
 }
 
-.filter-button.active .filter-badge {
-  background-color: var(--primary-color);
-  color: var(--accent-color);
-}
-
+/* Dropdown positioning wrapper */
 .filter-dropdown-container {
   position: relative;
 }
 
+/* Dropdown content box */
 .filter-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 110%;
   left: 0;
-  background-color: #141414;
-  padding: 20px;
-  border: 1px solid var(--border-light);
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border: none;
   border-radius: 0;
-  z-index: 50;
-  min-width: 240px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85);
+  z-index: 10;
+  min-width: 200px;
 }
 
-.filter-dropdown h2 {
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-color);
-}
-
+/* Layout for filter option buttons */
 .filter-options-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
+/* Checkbox style filters */
 .filter-checkbox {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 14px;
-  min-width: 72px;
-  border: 1px solid var(--border-color);
+  padding: 10px 16px;
+  min-width: 100px;
+  border: none;
   border-radius: 0;
   cursor: pointer;
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
   font-family: inherit;
 }
 
+/* Active checkbox filter */
 .filter-checkbox.active {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  border-color: var(--accent-color);
-  font-weight: 800;
+  background-color: #333;
+  transform: scale(1.05);
 }
 
-.filter-checkbox:hover:not(.active) {
-  background-color: var(--surface-hover);
-  border-color: var(--border-light);
+/* Hover effect for checkboxes */
+.filter-checkbox:hover {
+  background-color: #2a2a2a;
 }
 
+/* Radio-style filters layout */
 .filter-options-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
+/* Radio-style filter button */
 .filter-radio {
-  padding: 8px 12px;
-  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.6rem;
+  border: none;
   border-radius: 0;
   cursor: pointer;
-  background-color: var(--secondary-color);
-  color: var(--text-muted);
+  background-color: #1a1a1a;
+  color: #ccc;
   font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: left;
-  transition: all 0.2s ease;
 }
-
 .filter-radio:hover,
 .filter-radio.active {
-  background-color: var(--surface-hover);
-  color: var(--text-color);
-  border-color: var(--border-light);
+  background-color: #444;
+  color: #fff;
 }
 
-.filter-radio.active {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  border-color: var(--accent-color);
-  font-weight: 800;
-}
-
+/* Clear all filters button */
 .clear-filters-btn {
   background: none;
   border: none;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: #aaa;
+  font-size: 0.9rem;
   cursor: pointer;
   text-decoration: underline;
-  text-underline-offset: 4px;
-  transition: color 0.2s ease;
-  margin-left: auto;
 }
-
 .clear-filters-btn:hover {
-  color: var(--text-color);
+  color: #fff;
 }
 
+/* Active filters display bar */
 .active-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
   align-items: center;
 }
 
+/* Label for active filters */
 .active-filters span {
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-right: 4px;
-  color: var(--text-muted);
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 
+/* Individual active filter tag */
 .filter-tag {
-  background-color: var(--secondary-color);
-  border: 1px solid var(--border-color);
+  background-color: #333;
   border-radius: 0;
-  padding: 6px 12px;
+  padding: 0.3rem 0.8rem;
   font-size: 0.8rem;
-  font-weight: 600;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--text-color);
+  gap: 0.4rem;
 }
 
+/* Remove filter button inside tag */
 .filter-tag button {
   background: none;
   border: none;
-  color: var(--text-color);
-  font-size: 1.1rem;
+  color: #f88;
+  font-size: 1rem;
   cursor: pointer;
-  line-height: 1;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.filter-tag button:hover {
-  opacity: 1;
 }
 
 /*===================
   Pagination & Empty State
 ====================*/
 
+/* Container for pagination controls */
 .pagination {
   display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 48px;
+  justify-content: center; /* center horizontally */
+  gap: 0.4rem; /* space between page links */
+  margin-top: 2rem; /* space above pagination */
 }
 
+/* Styles for individual pagination controls */
 .pagination button {
-  color: var(--text-muted);
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-color);
-  padding: 10px 16px;
-  border-radius: 0;
-  font-size: 0.85rem;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
+  color: #ccc;
+  background-color: #222;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0; /* square corners */
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+  display: inline-block;
+  min-width: 32px; /* ensure equal width */
   text-align: center;
-  user-select: none;
+  user-select: none; /* prevent text selection */
   font: inherit;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  border: none; /* remove border */
 }
 
+/* Hover effect for enabled pagination controls */
 .pagination button:hover:not(:disabled) {
-  background-color: var(--surface-hover);
-  border-color: var(--border-light);
-  color: var(--text-color);
+  background-color: #444;
+  color: #fff;
 }
 
+/* Active page style */
 .pagination button.active {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  border-color: var(--accent-color);
-  font-weight: 800;
+  background-color: #fff; /* white background */
+  color: #222; /* dark text for contrast */
+  font-weight: bold;
 }
 
 .pagination button:disabled {
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: 0.55;
 }
 
 .pagination button.active:disabled {
   opacity: 1;
 }
 
+/* Message when no results are found */
 .no-results {
   text-align: center;
-  padding: 48px 0;
-  color: var(--text-muted);
-  font-size: 1rem;
+  padding: 2rem 0;
+  color: #aaa;
 }
 
+/* "Clear All Filters" button */
 .clear-all-btn {
-  margin-top: 16px;
-  background: transparent;
-  border: 1px solid var(--border-light);
-  color: var(--text-color);
-  padding: 10px 24px;
-  border-radius: 0;
+  margin-top: 1rem;
+  background: none;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 6px; /* slightly rounded corners */
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
 }
 
+/* Hover effect for the clear button */
 .clear-all-btn:hover {
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  border-color: var(--accent-color);
+  background-color: #333;
 }
 
 /*===================
   Toast Notifications
 ====================*/
 
+/* Container for holding all toast messages */
 .toast-container {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9999;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999; /* ensures it's on top of other content */
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
+  flex-direction: column; /* stack toasts vertically */
+  align-items: flex-end; /* align to the right side */
+  gap: 10px; /* spacing between toasts */
 }
 
+/* Individual toast message box */
 .toast {
   align-items: center;
-  background: #141414;
-  border: 1px solid var(--border-light);
-  color: var(--text-color);
+  background: #111;
+  color: #fff;
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: space-between;
-  padding: 14px 20px;
-  border-radius: 0;
+  padding: 12px 20px;
+  border-radius: 5px;
   font-weight: 600;
-  font-family: inherit;
-  font-size: 0.9rem;
-  max-width: 360px;
-  word-break: break-word;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  max-width: 300px; /* limit width for readability */
+  word-break: break-word; /* break long words */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* subtle shadow */
 }
 
 .toast-action {
-  background: var(--accent-color);
-  border: 1px solid var(--accent-color);
-  color: var(--primary-color);
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
   cursor: pointer;
   font: inherit;
-  font-size: 0.8rem;
-  font-weight: 800;
-  padding: 6px 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  padding: 6px 10px;
 }
 
 .toast-action:hover,
 .toast-action:focus-visible {
-  background: transparent;
-  color: var(--text-color);
+  background: #fff;
+  color: #111;
 }
 
+/* Animations for entering/leaving toasts */
 .toast-enter-active,
 .toast-leave-active {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s ease;
 }
 
+/* Toast entering animation */
 .toast-enter {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(20px); /* slide up from bottom */
 }
 
+/* Toast leaving animation */
 .toast-leave-to {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(20px);
 }
 
 /*===================
   Responsive Design
 ====================*/
 
+/* Adjust layout and font sizes for smaller screens */
 @media (max-width: 768px) {
+  /* Stack hero section vertically */
   .hero {
     grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 48px 0;
     text-align: center;
   }
 
-  .hero-content {
-    max-width: none;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
+  /* Show fewer columns for categories and brands */
   .categories-grid,
   .brands-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Adjust product title font size */
   .product-detail-title {
-    font-size: 1.8rem;
+    font-size: 28px;
   }
 
+  /* Adjust product price font size */
   .product-detail-price {
-    font-size: 1.35rem;
+    font-size: 24px;
   }
 
+  /* Stack cart content vertically */
   .cart-content {
     grid-template-columns: 1fr;
   }
 
   .product-detail {
     grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 24px 0;
-  }
-
-  .product-detail-image {
-    position: static;
+    gap: 24px;
   }
 
   .size-buttons {
     flex-wrap: wrap;
   }
 
+  /* Reduce image and spacing size in cart items */
   .cart-item {
     grid-template-columns: 80px minmax(0, 1fr) auto auto;
-    gap: 12px;
+    gap: 10px;
   }
 
   .cart-item-image-container {
@@ -428,20 +366,16 @@
     height: 80px;
   }
 
+  /* Adjust page title spacing and size */
   .page-title {
-    font-size: 1.8rem;
-    padding: 32px 0 20px;
+    margin-top: 60px !important;
+    font-size: 28px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 16px;
-  }
-
-  .categories-grid,
-  .brands-grid {
-    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
   }
 
   .top-bar {
@@ -477,13 +411,12 @@
   .filter-dropdown {
     position: static;
     width: 100%;
-    margin-top: 8px;
+    margin-top: 0.5rem;
   }
 
   .filter-button {
     width: 100%;
     min-height: 44px;
-    justify-content: space-between;
   }
 
   .cart-item {
