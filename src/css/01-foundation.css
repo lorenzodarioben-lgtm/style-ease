@@ -1,35 +1,30 @@
+﻿/*===========================
+  Variables and Global Reset
+===========================*/
+
+/* Define global theme color variables */
 :root {
-  --primary-color: #000;
+  --primary-color: #000000;
   --secondary-color: #1a1a1a;
-  --border-color: #262626;
-  --border-light: #404040;
-  --accent-color: #fff;
-  --text-color: #fff;
-  --text-muted: #aaa;
-  --text-subtle: #888;
-  --background-color: #000;
-  --surface-color: #0c0c0c;
-  --surface-card: #141414;
-  --surface-hover: #1f1f1f;
+  --accent-color: #ffffff;
+  --text-color: #ffffff;
+  --background-color: #000000;
 }
 
+/* Reset margin/padding and enable border-box sizing for all elements */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Base styling for the body */
 body {
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
 }
 
 .sr-only {
@@ -53,8 +48,6 @@ body {
   color: var(--primary-color);
   padding: 10px 16px;
   font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
   transform: translateY(-160%);
@@ -66,7 +59,7 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid #fff;
+  outline: 3px solid #ffffff;
   outline-offset: 3px;
 }
 
@@ -74,36 +67,53 @@ main:focus {
   outline: none;
 }
 
+/*===========================
+  Buttons and Action Styling
+===========================*/
+
+/* Container for grouped action buttons */
 .action-buttons {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin: 20px 0;
 }
 
+/* Style for wishlist icon button */
 .wishlist-button {
   font-size: 24px;
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: #999;
   cursor: pointer;
   transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
-.wishlist-button:hover,
+/* Hover effect for wishlist icon */
+.wishlist-button:hover {
+  transform: scale(1.2);
+}
+
+/* Style for liked wishlist state */
 .wishlist-button.liked {
-  color: #fff;
-  transform: scale(1.1);
+  color: red;
+  transform: scale(1.2);
 }
 
+/*==================
+  Utility Classes
+==================*/
+
+/* Central container for consistent page padding */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 15px;
 }
 
+/* Title alignment and text styling */
 .section-title,
 .page-title {
   text-align: center;
@@ -111,109 +121,33 @@ main:focus {
   letter-spacing: 2px;
 }
 
+/* Spacing under section title */
 .section-title {
-  font-size: 1.5rem;
-  font-weight: 700;
   margin-bottom: 40px;
 }
 
+/* Page title styling */
 .page-title {
-  font-size: 2.25rem;
-  font-weight: 800;
-  padding: 48px 0 32px;
-  letter-spacing: -0.5px;
+  font-size: 36px;
+  padding: 60px 0 40px;
+  letter-spacing: -1px;
 }
 
+/*===================
+  Header Styling
+===================*/
+
+/* Top bar with logo, nav, and icons */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
-.header-branding {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.brand-logo {
-  font-size: 1.25rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  color: var(--text-color);
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
-}
-
-.brand-logo:hover {
-  opacity: 0.85;
-}
-
-.desktop-nav {
-  display: none;
-}
-
-@media (min-width: 769px) {
-  .menu-icon {
-    display: none !important;
-  }
-
-  .desktop-nav {
-    display: block;
-  }
-
-  .desktop-nav ul {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .desktop-nav a {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 6px 0;
-    position: relative;
-    transition: color 0.2s ease;
-  }
-
-  .desktop-nav a:hover,
-  .desktop-nav a:focus-visible,
-  .desktop-nav a[aria-current='page'] {
-    color: var(--text-color);
-  }
-
-  .desktop-nav a[aria-current='page'] {
-    font-weight: 700;
-  }
-
-  .desktop-nav a[aria-current='page']::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--accent-color);
-  }
-
-  .nav-count {
-    font-size: 0.85em;
-    opacity: 0.8;
-  }
-}
-
+/* Hamburger menu icon */
 .menu-icon {
   display: flex;
   flex-direction: column;
@@ -227,44 +161,39 @@ main:focus {
   cursor: pointer;
 }
 
+/* Bars of the hamburger icon */
 .menu-icon span {
   width: 100%;
   height: 2px;
   background-color: var(--text-color);
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
+/* Container for search input and filters */
 .search-container {
   display: flex;
   align-items: center;
   flex-grow: 1;
-  max-width: 440px;
-  margin: 0 24px;
+  max-width: 500px;
+  margin: 0 30px;
   position: relative;
 }
 
+/* Style for input fields and dropdowns */
 .search-input,
 .option-select {
   width: 100%;
-  padding: 10px 16px;
+  padding: 10px 15px;
   color: var(--text-color);
   outline: none;
-  background-color: var(--secondary-color) !important;
-  border: 1px solid var(--border-color) !important;
-  font-family: inherit;
-  font-size: 0.9rem;
-  transition: border-color 0.2s ease;
+  background-color: #1a1a1a !important;
+  border: 1px solid #1a1a1a !important;
 }
 
 .search-input::placeholder,
 textarea::placeholder {
-  color: var(--text-subtle);
+  color: #bdbdbd;
   opacity: 1;
-}
-
-.search-input:hover,
-.option-select:hover {
-  border-color: var(--border-light) !important;
 }
 
 .search-input:focus-visible,
@@ -272,66 +201,56 @@ textarea::placeholder {
 textarea:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  border-color: var(--accent-color) !important;
-  outline: 3px solid var(--accent-color);
+  border-color: #ffffff !important;
+  outline: 3px solid #ffffff;
   outline-offset: 2px;
 }
 
+/* Search button appearance */
 .search-button {
-  background-color: #242424 !important;
-  border: 1px solid var(--border-color) !important;
-  border-left: none !important;
-  padding: 10px 14px;
+  background-color: #292929 !important;
+  border: 1px solid #1a1a1a !important;
+  padding: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
   cursor: pointer;
   min-width: 44px;
   min-height: 44px;
-  transition: background-color 0.2s ease;
-}
-
-.search-button:hover {
-  background-color: #333 !important;
 }
 
 .search-suggestions {
-  background: #121212;
-  border: 1px solid var(--border-light);
+  background: #151515;
+  border: 1px solid #555;
   left: 0;
   list-style: none;
   margin: 0;
-  padding: 6px;
+  padding: 4px;
   position: absolute;
   right: 44px;
   top: calc(100% + 6px);
-  z-index: 100;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  z-index: 20;
 }
 
 .search-suggestions a {
   align-items: center;
-  color: var(--text-color);
+  color: #fff;
   display: flex;
   gap: 16px;
   justify-content: space-between;
-  padding: 10px 14px;
+  padding: 10px 12px;
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: background 0.15s ease;
 }
 
 .search-suggestions a:hover,
 .search-suggestions a:focus-visible {
-  background: #242424;
+  background: #2b2b2b;
 }
 
 .search-suggestions strong {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--accent-color);
+  font-size: 0.9rem;
 }
 
+/* Icon styling for buttons */
 .search-button svg,
 .shopping-bag svg {
   stroke: var(--text-color);
@@ -339,38 +258,36 @@ select:focus-visible {
   height: 20px;
 }
 
+/* Cart icon size adjustment */
 .shopping-bag svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
+/* Cart icon container */
 .shopping-bag {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 8px;
-  border: 1px solid transparent;
+  padding: 0;
+  border: 0;
   background: transparent;
   color: inherit;
   cursor: pointer;
-  transition: border-color 0.2s ease;
 }
 
-.shopping-bag:hover {
-  border-color: var(--border-light);
-}
-
+/* Cart item count badge */
 .bag-count {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  background-color: var(--accent-color);
-  color: var(--primary-color);
-  width: 18px;
-  height: 18px;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 10px;
-  font-weight: 800;
 }
