@@ -52,10 +52,15 @@ func (d *DB) Review(ctx context.Context, key string, id, rating int, comment str
 	})
 }
 func (d *DB) SaveLook(ctx context.Context, key, name string, variants []int) error {
+	_, e := d.SaveLookID(ctx, key, name, variants)
+	return e
+}
+func (d *DB) SaveLookID(ctx context.Context, key, name string, variants []int) (string, error) {
 	if len([]rune(name)) < 1 || len([]rune(name)) > 60 || len(variants) < 1 || len(variants) > 8 {
-		return domain.ErrInvalid
+		return "", domain.ErrInvalid
 	}
-	return d.locked(ctx, key, func(tx pgx.Tx) error {
+	id := Token()[:24]
+	e := d.locked(ctx, key, func(tx pgx.Tx) error {
 		var count int
 		if e := tx.QueryRow(ctx, `SELECT count(*) FROM saved_looks WHERE session_id=$1`, key).Scan(&count); e != nil {
 			return e
@@ -63,7 +68,6 @@ func (d *DB) SaveLook(ctx context.Context, key, name string, variants []int) err
 		if count >= 12 {
 			return domain.ErrLimit
 		}
-		id := Token()[:24]
 		if _, e := tx.Exec(ctx, `INSERT INTO saved_looks(id,session_id,name) VALUES($1,$2,$3)`, id, key, name); e != nil {
 			return e
 		}
@@ -83,6 +87,7 @@ func (d *DB) SaveLook(ctx context.Context, key, name string, variants []int) err
 		}
 		return nil
 	})
+	return id, e
 }
 func (d *DB) LookAction(ctx context.Context, key, id, action, name string) error {
 	return d.locked(ctx, key, func(tx pgx.Tx) error {

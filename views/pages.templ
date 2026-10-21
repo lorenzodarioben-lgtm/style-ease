@@ -192,15 +192,19 @@ templ Shop(m Model) {
 				<summary>Filter &amp; sort</summary>
 				<div class="filter-grid">
 					for _,kind:=range []string{"category","size","color","material"} {
-						<label>
-							{ map[string]string{"category":"Category","size":"Size","color":"Colour","material":"Material"}[kind] }
-							<select name={ kind } aria-label={ map[string]string{"category": "Category", "size": "Size", "color": "Colour", "material": "Material"}[kind] }>
-								<option value="">All</option>
-								for _,v:=range options(m.Products,kind) {
-									<option value={ v } selected?={ isSelected(map[string]string{"category":m.Query.Category,"size":m.Query.Size,"color":m.Query.Color,"material":m.Query.Material}[kind],v) }>{ v }</option>
-								}
-							</select>
-						</label>
+						if kind!="material" {
+							@FilterChoices(m, kind)
+						} else {
+							<label>
+								{ map[string]string{"category":"Category","size":"Size","color":"Colour","material":"Material"}[kind] }
+								<select name={ kind } aria-label={ map[string]string{"category": "Category", "size": "Size", "color": "Colour", "material": "Material"}[kind] }>
+									<option value="">All</option>
+									for _,v:=range options(m.Products,kind) {
+										<option value={ v } selected?={ isSelected(map[string]string{"category":m.Query.Category,"size":m.Query.Size,"color":m.Query.Color,"material":m.Query.Material}[kind],v) }>{ v }</option>
+									}
+								</select>
+							</label>
+						}
 					}
 					<label>
 						Price (USD)
@@ -405,12 +409,18 @@ templ LineActions(m Model, l domain.Line, wishlist bool) {
 		<input type="hidden" name="variant" value={ n(l.Variant.ID) }/>
 		if wishlist {
 			<input type="hidden" name="quantity" value="1"/>
-			<button class="button ink" name="action" value="move" disabled?={ remaining(m,l.Product)==0 }>
+			<button class="button ink" name="action" value="move" disabled?={ !l.Variant.Active || remaining(m,l.Product)==0 }>
 				Move to bag 
 				@Arrow()
 			</button><button class="link-button" name="action" value="unwish">Remove</button>
 		} else {
-			<label for={ "line-qty-" + n(l.Variant.ID) }>Quantity</label><input id={ "line-qty-" + n(l.Variant.ID) } type="number" name="quantity" value={ n(l.Quantity) } min="1" max={ n(l.Product.Stock) } required/><button class="link-button" name="action" value="update">Update</button><button class="link-button" name="action" value="save">Save for later</button><button class="link-button" name="action" value="remove">Remove</button>
+			if l.Variant.Active && l.Product.Stock>0 {
+				<label for={ "line-qty-" + n(l.Variant.ID) }>Quantity</label><input id={ "line-qty-" + n(l.Variant.ID) } type="number" name="quantity" value={ n(l.Quantity) } min="1" max={ n(l.Product.Stock) } required/><button class="link-button" name="action" value="update">Update</button>
+			}
+			if l.Variant.Active {
+				<button class="link-button" name="action" value="save" formnovalidate>Save for later</button>
+			}
+			<button class="link-button" name="action" value="remove" formnovalidate>Remove</button>
 		}
 	</form>
 }
@@ -425,6 +435,9 @@ templ ShoppingLine(m Model, l domain.Line, wishlist bool) {
 			<h2><a href={ templ.SafeURL(productPath(l.Product)) }>{ l.Product.Name }</a></h2>
 			<p>{ l.Variant.Size } / { l.Variant.Color }</p>
 			<p class="muted">Editorial reference / sample variant</p>
+			if unavailable([]domain.Line{l}) {
+				<p role="status">This selection needs attention. Adjust its quantity or remove it before checkout.</p>
+			}
 			@LineActions(m, l, wishlist)
 		</div><strong class="line-price">{ money(l.Product.Price*l.Quantity) }</strong>
 	</article>
@@ -578,6 +591,8 @@ templ Checkout(m Model, review bool) {
 		</div>
 		if len(m.State.Bag)==0 {
 			@Empty("Your bag is waiting.", "Add a piece before starting a demo order.", "/shop", "Explore the collection")
+		} else if unavailable(m.State.Bag) {
+			@Empty("A selection needs attention.", "An item is unavailable or exceeds its current demo capacity. Return to your bag to adjust or remove it.", "/bag", "Adjust your bag")
 		} else {
 			<div class="checkout-grid">
 				<section>
@@ -755,7 +770,7 @@ templ Studio(m Model) {
 	<div class="wrap studio-page">
 		<div class="page-heading"><h1>Compose the look.</h1><p>Your pieces. Your proportions. A composition all your own.</p></div>
 		<div class="studio-layout">
-			<section class="composition-board"><div class="board-heading"><h2>Style Studio</h2><span>Private outfit board</span></div><div class="board-preview" id="board-preview"><p>Choose sample variants in the panel to see your composition here.</p></div><p class="catalogue-note">Editorial photographs are arranged as references. They are not a photograph of the garments together.</p></section>
+			@StudioBoard(m)
 			<form class="studio-picker" action="/studio/save" method="post">
 				@CSRF(m)
 				<h2>Select your pieces</h2>
@@ -770,7 +785,7 @@ templ Studio(m Model) {
 									<optgroup label={ p.Name + " / " + money(p.Price) }>
 										for _,v:=range p.Variants {
 											if v.Active {
-												<option value={ n(v.ID) } disabled?={ p.Stock==0 } data-price={ n(p.Price) } data-image={ p.Image } data-name={ p.Name }>{ p.Name+" / "+v.Size+" / "+v.Color+map[bool]string{true:" / unavailable",false:""}[p.Stock==0] }</option>
+												<option value={ n(v.ID) } selected?={ studioSelected(m,v.ID) } disabled?={ p.Stock==0 } data-price={ n(p.Price) } data-image={ p.Image } data-name={ p.Name }>{ p.Name+" / "+v.Size+" / "+v.Color+map[bool]string{true:" / unavailable",false:""}[p.Stock==0] }</option>
 											}
 										}
 									</optgroup>
@@ -779,8 +794,14 @@ templ Studio(m Model) {
 						</select>
 					</label>
 				}
-				<label>Look name<input name="name" required maxlength="60" placeholder="My considered wardrobe"/></label>
-				<p class="studio-total" id="studio-total">Choose pieces to build a look.</p>
+				<label>Look name<input name="name" value={ m.ActiveLook.Name } required maxlength="60" placeholder="My considered wardrobe"/></label>
+				<p class="studio-total" id="studio-total">
+					if len(m.ActiveLook.Lines)>0 {
+						{ money(m.ActiveLook.Total) } USD / saved composition
+					} else {
+						Choose pieces to build a look.
+					}
+				</p>
 				<button class="button ink">
 					Save private look 
 					@Arrow()
@@ -804,11 +825,15 @@ templ Studio(m Model) {
 							</a>
 						}
 					</div>
+					if unavailable(look.Lines) {
+						<p role="status">A piece in this composition is unavailable. Save a new composition or remove this look.</p>
+					}
 					<div class="look-actions">
+						<a class="text-link" href={ templ.SafeURL("/studio?look=" + look.ID) } aria-label={ "Open in Studio: " + look.Name }>Open in Studio @Arrow()</a>
 						<form method="post" action="/studio/bag">
 							@CSRF(m)
 							<input type="hidden" name="look" value={ look.ID }/>
-							<button class="button ink">
+							<button class="button ink" disabled?={ unavailable(look.Lines)||len(look.Lines)==0 }>
 								Add outfit to bag 
 								@Arrow()
 							</button>

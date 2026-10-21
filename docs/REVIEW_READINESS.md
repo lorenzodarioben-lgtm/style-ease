@@ -1,19 +1,25 @@
-# Review readiness — active checkpoint
+# Review readiness
 
-The new application is ready for local product review: 20 new desktop/mobile browser cases pass against actual Go/PostgreSQL, including checkout, private receipts, variant wishlist, comparison, HTMX history, Studio, mobile keyboard/dialogs, reduced motion, responsive/axe sweeps and no-JavaScript checkout. New domain/SQL/HTTP tests pass; the Go vulnerability scan and initial race/image checks pass. Main/Pages remain untouched.
+**READY FOR REVIEW. No merge or production cutover authorized.**
 
-Final release-style evidence is still being collected: container restart persistence, consolidated legacy browser accessibility rerun, final performance reports and final race/container checks. Until those are recorded, this checkpoint is NOT READY FOR MERGE. This is a feature branch review, not permission to merge or deploy.
+The integrated application passes all 22 new desktop/mobile browser cases on a real nonroot Go container with PostgreSQL. The retained Vue reference passes 168 unit tests, lint/format/build/bundle gates and all six browser cases. Real SQL/domain/HTTP/asset tests, race checks, Go vulnerability scan, npm audit, Docker build, fresh database setup and receipt persistence across runtime restarts pass. Local evidence is in QUALITY_SCORECARD.md and docs/evidence; remote CI must be assessed independently.
 
-## Review walkthrough
+## Five-minute product review
 
-1. Open http://127.0.0.1:8080 and compare home-1440/home-390 with baseline captures.
-2. Shop: search cotton, filter category/size/colour/stock, change sort, remove an active filter, use back/forward and reload.
-3. Quick shop: choose a size/colour; Tab/Escape returns to the trigger. Product page shows honest editorial/sample boundaries.
-4. Add/save/move a variant. Bag supports bounded quantity, save for later, remove and undo. Compare up to three pieces.
-5. Choose a checkout scenario, review and confirm. Receipt is private, durable, printable and explicitly DEMO. No payment or address is requested.
-6. Style Studio: select variants, save, reload, rename and add the outfit. Review ownership/transaction evidence in tests.
-7. Repeat on a phone width, with reduced motion and without JavaScript. Inspect error/empty/privacy/clear-data states.
+1. Open http://127.0.0.1:8080; compare home first folds/full pages against baseline at desktop and phone widths.
+2. Shop: search cotton, select multiple categories/sizes/colours, availability and price; apply, remove a filter, sort, go back/forward and reload.
+3. Quick shop: choose a variant. Tab/Escape returns to the trigger. Product pages distinguish editorial photographs/sample options from exact physical products.
+4. Save/move a variant, update bag quantity, save for later, remove/undo. Compare at most three pieces; narrow-screen comparison scrolls within its labelled region.
+5. Choose a sample checkout scenario, review and confirm. Receipt is private, persistent, printable and clearly DEMO. No payment or address is requested.
+6. Style Studio: choose variants, save, reload, rename/delete and add the outfit atomically. Cross-tab changes refresh on focus when not typing.
+7. Inspect error/empty/privacy/clear-data states. Repeat the basic purchase without JavaScript and with reduced motion.
 
-Material limitations: inherited photographs illustrate a mood instead of exact products; original catalogue material/variant values are sample data. Guest cookies are bearer access, not accounts/cross-device identity. Hosting, backups, scheduled cleanup, domain cutover and real customer/payment operations are not configured. Advanced Studio drag/reorder/export/public sharing is not exposed.
+## Remaining work and boundaries
 
-The single next action is maintained in HANDOFF.md. Any future live hosting/cutover needs explicit human approval and the operations checklist on a separate origin.
+- **Performance target open:** homepage simulated mobile LCP is 3.5s; target ≤2.5s. Trace files identify the LCP image and rendering path. Shop/product/bag are 1.8/2.3/1.4s in the same lab. No field Web Vitals are available.
+- Photography is inherited, licensed editorial reference, not a verified garment photography library. Sample facts are labelled, unsupported claims/brands/ratings removed.
+- Guest cookies are bearer access, not accounts; old origin-local data does not automatically transfer. No public look sharing/export, admin/auth/uploads or real financial/fulfilment integrations are exposed.
+- Hosting, actual backups, retention scheduling, TLS/secrets and URL cutover still need an approved separate preview deployment and explicit human signoff. The old Pages origin/deploy remains unchanged.
+- Screen-reader hardware/manual AT and real-device checks were not performed. Passing axe is not WCAG certification.
+
+**Single next action:** use the saved final homepage Lighthouse trace to reduce simulated mobile LCP from 3.5s to ≤2.5s while preserving campaign image quality and all passing journeys.

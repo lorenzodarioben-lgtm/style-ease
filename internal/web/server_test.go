@@ -13,7 +13,18 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+	"time"
 )
+
+func TestGuestIssuanceCapBeforeDatabase(t *testing.T) {
+	s, _ := New(nil, "http://127.0.0.1:8080", false)
+	s.limits["issue:192.0.2.1"] = bucket{Start: time.Now(), Count: 90}
+	w := httptest.NewRecorder()
+	s.Handler().ServeHTTP(w, httptest.NewRequest("GET", "http://127.0.0.1:8080/shop", nil))
+	if w.Code != 429 || len(w.Result().Cookies()) != 0 {
+		t.Fatal("new guest rate cap did not apply before DB allocation", w.Code)
+	}
+}
 
 func TestCompressionAndQuality(t *testing.T) {
 	for value, want := range map[string]bool{"gzip": true, "br, gzip;q=0.5": true, "gzip;q=0": false, "br": false} {
@@ -226,6 +237,39 @@ func TestDatabaseOutage(t *testing.T) {
 		}
 		if strings.Contains(w.Body.String(), "postgres://") {
 			t.Fatal("secret in error")
+		}
+	}
+}
+func TestArchivedSelectionRecoveryHTTP(t *testing.T) {
+	db := testsupport.DB(t)
+	token := database.Token()
+	session, e := db.CreateSession(context.Background(), Hash(token))
+	if e != nil {
+		t.Fatal(e)
+	}
+	ps, e := db.Catalog(context.Background())
+	if e != nil {
+		t.Fatal(e)
+	}
+	variant := ps[0].Variants[0].ID
+	if e = db.Mutate(context.Background(), session.Key, "add", variant, 1); e != nil {
+		t.Fatal(e)
+	}
+	if _, e = db.Pool.Exec(context.Background(), `UPDATE products SET active=false WHERE id=1`); e != nil {
+		t.Fatal(e)
+	}
+	s, _ := New(db, "http://127.0.0.1:8080", false)
+	h := s.Handler()
+	for _, path := range []string{"/bag", "/checkout"} {
+		r := httptest.NewRequest("GET", path, nil)
+		r.AddCookie(&http.Cookie{Name: "style_guest", Value: token})
+		w := httptest.NewRecorder()
+		h.ServeHTTP(w, r)
+		if w.Code != 200 || !strings.Contains(strings.ToLower(w.Body.String()), "selection needs attention") {
+			t.Fatal(path, w.Code, "missing recovery guidance")
+		}
+		if path == "/bag" && !strings.Contains(w.Body.String(), `value="remove" formnovalidate`) {
+			t.Fatal("inactive selection has no validation-independent remove action")
 		}
 	}
 }

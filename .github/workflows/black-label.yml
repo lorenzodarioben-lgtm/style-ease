@@ -36,13 +36,16 @@ jobs:
           cache: npm
       - run: go tool templ generate
       - run: git diff --exit-code -- views/*_templ.go
-      - run: test -z "$(gofmt -l cmd internal views/model.go resources.go)"
+      - run: test -z "$(gofmt -l cmd internal views resources.go)"
       - run: go vet ./cmd/... ./internal/... ./views/...
       - run: go test -race -count=1 ./cmd/... ./internal/... ./views/...
+      - run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./cmd/web
+      - run: node scripts/check-black-label-assets.mjs
       - run: go run ./cmd/web migrate
       - run: go run ./cmd/web seed
       - run: go build -trimpath -o bin/style-ease ./cmd/web
       - run: npm ci
+      - run: npm audit --audit-level=high
       - run: npx playwright install --with-deps chromium
       - name: Browser journeys against real Go and PostgreSQL
         run: |

@@ -11,6 +11,7 @@ import (
 )
 
 type Model struct {
+	ActiveLook                                      domain.Look
 	Title, Path, Return, Notice, OrderKey, Scenario string
 	Session                                         domain.Session
 	State                                           domain.Snapshot

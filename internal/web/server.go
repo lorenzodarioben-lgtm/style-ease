@@ -38,6 +38,8 @@ type bucket struct {
 	Count int
 }
 
+var errSessionRate = errors.New("Too many new guest sessions. Wait one minute and try again.")
+
 func New(db *database.DB, origin string, production bool) (*Server, error) {
 	u, e := url.Parse(origin)
 	if e != nil || u.Host == "" || u.Path != "" || u.User != nil || u.RawQuery != "" || u.Fragment != "" {
@@ -114,6 +116,10 @@ func (s *Server) session(w http.ResponseWriter, r *http.Request) (domain.Session
 				return session, e
 			}
 		}
+	}
+	host, _, _ := net.SplitHostPort(r.RemoteAddr)
+	if !s.allowed("issue:" + host) {
+		return domain.Session{}, errSessionRate
 	}
 	token := database.Token()
 	session, e := s.DB.CreateSession(r.Context(), Hash(token))
@@ -192,6 +198,11 @@ func (s *Server) problem(w http.ResponseWriter, r *http.Request, status int, tit
 	s.render(w, r, status, views.Problem(title, message, status))
 }
 func (s *Server) failure(w http.ResponseWriter, r *http.Request, e error) {
+	if errors.Is(e, errSessionRate) {
+		w.Header().Set("Retry-After", "60")
+		s.problem(w, r, 429, "A moment, please", e.Error())
+		return
+	}
 	if errors.Is(e, domain.ErrInvalid) || errors.Is(e, domain.ErrCapacity) || errors.Is(e, domain.ErrLimit) {
 		s.problem(w, r, 422, "Let's adjust that selection", e.Error())
 		return
@@ -381,6 +392,17 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		vm.Title = "About the project"
 		s.render(w, r, 200, views.Page(vm, views.About(vm)))
 	case r.URL.Path == "/studio":
+		if wanted := r.URL.Query().Get("look"); wanted != "" {
+			for _, look := range vm.State.Looks {
+				if look.ID == wanted {
+					vm.ActiveLook = look
+				}
+			}
+			if vm.ActiveLook.ID == "" {
+				s.problem(w, r, 404, "Composition not found", "Open one of your saved compositions from Style Studio.")
+				return
+			}
+		}
 		vm.Title = "Style Studio"
 		s.render(w, r, 200, views.Page(vm, views.Studio(vm)))
 	default:
@@ -446,11 +468,16 @@ func (s *Server) post(w http.ResponseWriter, r *http.Request, session domain.Ses
 		return
 	}
 	if strings.HasPrefix(path, "/studio/") {
-		if e := s.studioPost(ctx, session.Key, path, f, products); e != nil {
+		destination, e := s.studioPost(ctx, session.Key, path, f)
+		if e != nil {
 			s.failure(w, r, e)
 			return
 		}
-		s.redirect(w, r, "/studio", "Look updated.")
+		message := "Look updated."
+		if path == "/studio/bag" {
+			message = "Outfit added to your bag."
+		}
+		s.redirect(w, r, destination, message)
 		return
 	}
 	if path != "/actions" {

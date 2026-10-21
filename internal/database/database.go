@@ -229,6 +229,26 @@ func (d *DB) Snapshot(ctx context.Context, key string, products []domain.Product
 			byVariant[v.ID] = domain.Line{Product: p, Variant: v, Quantity: 1}
 		}
 	}
+	// Keep owned inactive references visible so the guest can remove them.
+	private, e := d.Pool.Query(ctx, `SELECT v.id,v.product_id,v.size,v.color,(v.active AND p.active),p.slug,p.name,p.category,p.price_minor,p.demo_stock,coalesce(m.path,'/assets/image-unavailable.svg') FROM product_variants v JOIN products p ON p.id=v.product_id LEFT JOIN product_media m ON m.product_id=p.id WHERE (NOT v.active OR NOT p.active) AND v.id IN (SELECT variant_id FROM cart_items WHERE session_id=$1 UNION SELECT variant_id FROM wishlist_items WHERE session_id=$1 UNION SELECT i.variant_id FROM saved_look_items i JOIN saved_looks l ON l.id=i.look_id WHERE l.session_id=$1)`, key)
+	if e != nil {
+		return s, e
+	}
+	for private.Next() {
+		var l domain.Line
+		l.Quantity = 1
+		if e = private.Scan(&l.Variant.ID, &l.Variant.ProductID, &l.Variant.Size, &l.Variant.Color, &l.Variant.Active, &l.Product.Slug, &l.Product.Name, &l.Product.Category, &l.Product.Price, &l.Product.Stock, &l.Product.Image); e != nil {
+			private.Close()
+			return s, e
+		}
+		l.Product.ID = l.Variant.ProductID
+		byVariant[l.Variant.ID] = l
+	}
+	e = private.Err()
+	private.Close()
+	if e != nil {
+		return s, e
+	}
 	rows, e := d.Pool.Query(ctx, `SELECT 'bag',variant_id,quantity FROM cart_items WHERE session_id=$1 UNION ALL SELECT 'wishlist',variant_id,1 FROM wishlist_items WHERE session_id=$1`, key)
 	if e != nil {
 		return s, e

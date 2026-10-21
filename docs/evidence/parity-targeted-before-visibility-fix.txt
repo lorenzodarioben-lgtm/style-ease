@@ -1,0 +1,114 @@
+
+Running 4 tests using 3 workers
+
+(node:20116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › e2e-black-label\commerce.spec.js:115:1 › guest changes synchronize between tabs after a committed mutation (6.5s)
+(node:27380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [mobile] › e2e-black-label\commerce.spec.js:115:1 › guest changes synchronize between tabs after a committed mutation (4.1s)
+  x  2 [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (15.8s)
+  x  3 [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (36.6s)
+
+
+  1) [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Apply filters' })
+        - locator resolved to <button type="submit" class="button ink">Apply filters</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <label class="check">…</label> from <details open="" class="choice-filter" data-filter="category">…</details> subtree intercepts pointer events
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <label class="check">…</label> from <details open="" class="choice-filter" data-filter="category">…</details> subtree intercepts pointer events
+        - retrying click action
+          - waiting 100ms
+        50 × waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <label class="check">…</label> from <details open="" class="choice-filter" data-filter="category">…</details> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+        - waiting for element to be visible, enabled and stable
+
+
+      92 |   await page.locator('details[data-filter="category"] summary').click();
+      93 |   await page.getByRole('checkbox', { name: 'Tops', exact: true }).check();
+    > 94 |   await page.getByRole('button', { name: 'Apply filters' }).click();
+         |                                                             ^
+      95 |   await expect(page).toHaveURL(/category=Tops/);
+      96 |   await page.reload();
+      97 |   await expect(page.getByRole('checkbox', { name: 'Tops', exact: true })).toBeChecked();
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:94:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+
+    Error: expect(locator).toBeChecked() failed
+
+    Locator: getByRole('checkbox', { name: 'Tops', exact: true })
+    Expected: checked
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeChecked" getByRole('checkbox', { name: 'Tops', exact: true }) with timeout 5000ms
+      - waiting for getByRole('checkbox', { name: 'Tops', exact: true })
+
+
+       95 |   await expect(page).toHaveURL(/category=Tops/);
+       96 |   await page.reload();
+    >  97 |   await expect(page.getByRole('checkbox', { name: 'Tops', exact: true })).toBeChecked();
+          |                                                                           ^
+       98 |   await page.goBack();
+       99 |   await expect(page).toHaveURL(/q=cotton/);
+      100 |   await page.goForward();
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:97:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+    [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+  2 passed (48.9s)

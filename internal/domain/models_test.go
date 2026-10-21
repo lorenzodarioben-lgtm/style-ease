@@ -7,6 +7,10 @@ import (
 )
 
 func TestQueryContract(t *testing.T) {
+	combined := ParseQuery(url.Values{"category": {"T-Shirts", "Jackets"}, "color": {"Black,White", "Gray"}})
+	if combined.Category != "Tops,Jackets" || combined.Color != "Black,White,Gray" {
+		t.Fatal("multi-value URL contract", combined)
+	}
 	q := ParseQuery(url.Values{"q": {"  cotton black  "}, "category": {"T-Shirts"}, "sort": {"DROP TABLE products"}, "page": {"-90"}, "inStock": {"1"}})
 	if q.Search != "cotton black" || q.Category != "Tops" || q.Sort != "featured" || q.Page != 1 || !q.InStock {
 		t.Fatalf("bad normalization: %+v", q)

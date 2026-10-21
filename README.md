@@ -4,7 +4,7 @@
 
 An editorial fashion concept store by **Lorenzo Ben**, rebuilt as a Go + templ + HTMX 4 + PostgreSQL application. Explore 20 sample pieces, compare their details, keep exact variants, compose an outfit and complete a private demo order.
 
-![Black Label desktop homepage](docs/screenshots/overhaul/home-1440.png)
+![Black Label desktop homepage](docs/screenshots/overhaul/home-1440-first-fold.png)
 
 This feature branch is a separate application. The [existing GitHub Pages storefront](https://lorenzodarioben-lgtm.github.io/style-ease/) and its deployment remain unchanged. Current verification and remaining boundaries are in [Review readiness](docs/REVIEW_READINESS.md) and [HANDOFF.md](HANDOFF.md).
 

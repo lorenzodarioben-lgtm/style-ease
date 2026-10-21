@@ -32,3 +32,13 @@
 - Initialized a fresh Compose PostgreSQL 18.6 volume and reran migrations/seed/integration checks. Portable DB stopped; data directory preserved.
 - First Lighthouse mobile lab: performance 80, LCP 4s, CLS 0. Removed LCP photo animation, added 400px image, compressed campaign sources, added gzip and content fingerprints. Before report retained; final rerun pending.
 - Sixteen additional filled-state/dialog/receipt/Studio screenshots captured. Preparing Windows-process→Linux-container persistence check with cookie state in ignored tmp/ only.
+
+## Final parity and hardening
+
+- Committed verified migration checkpoint faf88933159c41f181975f1b0557e597769e4e25.
+- Nonroot Compose app replaced native Windows process; private receipt and immutable total survived with the same PostgreSQL volume. Container image measured 10,721,988 bytes at that checkpoint.
+- Restored multi-selection category/size/colour forms, accepting repeated and legacy comma-list keys. Browser test initially tried hidden checkbox assertions, then exposed an overlay covering Apply. Native panels now expand in-flow, and the test waits for HTMX history completion. Four targeted cases passed; cross-tab notifications/refetch passed on both viewports.
+- Full expanded new suite: 22/22 PASS (1.6m). Legacy six browser scenarios and 168 unit tests pass; original budgets unchanged. Design detector returned [] with exit 0; full master text hash matches extracted source.
+- Added pre-allocation guest issuance cap and its test. CI Node 24, exact govulncheck, asset budgets and build cache prepared; Pages deploy workflow unchanged.
+- Isolated Lighthouse checkpoint: 87/99/83/100 performance for home/shop/product/bag; all four automated accessibility 100. Homepage forced-reflow trace identified immediate focus; moved route focus until after initial rendering without stealing active interaction. No field metrics claimed.
+- Final archive-state review: preserve unavailable owner references, recovery/removal guidance, no invalid quantity blocking Remove, checkout/outfit gating. Added PostgreSQL and HTTP regression coverage. Final consolidated verification running.

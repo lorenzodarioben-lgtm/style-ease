@@ -10,4 +10,4 @@ Orders have high-entropy codes but still require ownership. The unique (session_
 
 All SQL values are bound parameters. Dynamic SQL is restricted to fixed internal allowlisted query shapes; integration test schema identifiers use pgx.Identifier and generated namespace checks. FK, unique and CHECK constraints complement application bounds. The seed is repeatable INSERT ON CONFLICT DO NOTHING and refuses APP_ENV=production; application startup never migrates/seeds. Never invoke seed against a production database by changing that environment guard.
 
-The collection seed stores validated product relationships; current public discovery uses deterministic category rules corresponding to those relationships. No behavioral analytics or AI ranking is claimed.
+The collection seed stores validated product relationships; public discovery reads those memberships and collection titles from PostgreSQL. No behavioral analytics or AI ranking is claimed.

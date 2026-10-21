@@ -114,7 +114,7 @@ type Query struct {
 var Sorts = []string{"featured", "newest", "price-asc", "price-desc", "name"}
 
 func ParseQuery(v url.Values) Query {
-	q := Query{Search: strings.TrimSpace(v.Get("q")), Category: v.Get("category"), Size: v.Get("size"), Color: v.Get("color"), Material: v.Get("material"), Collection: v.Get("collection"), Price: v.Get("price"), Sort: v.Get("sort"), InStock: v.Get("inStock") == "1", Page: 1}
+	q := Query{Search: strings.TrimSpace(v.Get("q")), Category: listQuery(v, "category"), Size: listQuery(v, "size"), Color: listQuery(v, "color"), Material: v.Get("material"), Collection: v.Get("collection"), Price: v.Get("price"), Sort: v.Get("sort"), InStock: v.Get("inStock") == "1", Page: 1}
 	if len(q.Search) > 100 {
 		q.Search = string([]rune(q.Search)[:min(100, len([]rune(q.Search)))])
 	}
@@ -124,10 +124,28 @@ func ParseQuery(v url.Values) Query {
 	if n, e := strconv.Atoi(v.Get("page")); e == nil {
 		q.Page = max(1, min(1000, n))
 	}
-	if q.Category == "T-Shirts" {
-		q.Category = "Tops"
-	}
+	q.Category = strings.Join(replaceCategoryAlias(strings.Split(q.Category, ",")), ",")
 	return q
+}
+func replaceCategoryAlias(values []string) []string {
+	for i, v := range values {
+		if v == "T-Shirts" {
+			values[i] = "Tops"
+		}
+	}
+	return values
+}
+func listQuery(v url.Values, key string) string {
+	out := []string{}
+	for _, raw := range v[key] {
+		for _, value := range strings.Split(raw, ",") {
+			value = strings.TrimSpace(value)
+			if value != "" && len(value) <= 40 && !slices.Contains(out, value) && len(out) < 32 {
+				out = append(out, value)
+			}
+		}
+	}
+	return strings.Join(out, ",")
 }
 func matchesList(value, filter string) bool {
 	return filter == "" || slices.Contains(strings.Split(filter, ","), value)

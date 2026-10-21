@@ -1,8 +1,20 @@
 'use strict';
 (() => {
   document.documentElement.classList.add('has-js');
-  if (document.activeElement === document.body)
-    document.getElementById('main-content')?.focus({ preventScroll: true });
+  // Let the initial style/font/image layout finish before moving route focus.
+  // Immediate focus here forced layout on the critical rendering path.
+  window.addEventListener(
+    'load',
+    () => {
+      window.requestAnimationFrame(() =>
+        window.requestAnimationFrame(() => {
+          if (document.activeElement === document.body)
+            document.getElementById('main-content')?.focus({ preventScroll: true });
+        })
+      );
+    },
+    { once: true }
+  );
   let quickOpener = null;
   const openers = new WeakMap();
   let dirty = false;
@@ -55,6 +67,9 @@
       openDialog(document.getElementById('quick-shop'), quickOpener);
     const results = document.getElementById('shop-results');
     if (results && target?.id === 'shop-results') {
+      document
+        .querySelectorAll('.choice-filter[open]')
+        .forEach((filter) => filter.removeAttribute('open'));
       results.focus({ preventScroll: true });
       announce(results.querySelector('[role=status]')?.textContent || 'Collection updated.');
     }
@@ -112,6 +127,11 @@
   );
   try {
     const channel = new window.BroadcastChannel('style-ease-guest');
+    if (
+      document.querySelector('.notice') &&
+      window.performance.getEntriesByType('navigation')[0]?.type !== 'reload'
+    )
+      channel.postMessage('changed');
     channel.onmessage = () => {
       dirty = true;
     };
@@ -129,4 +149,7 @@
   } catch {
     /* Ordinary navigation always refreshes authoritative server state. */
   }
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) window.location.reload();
+  });
 })();

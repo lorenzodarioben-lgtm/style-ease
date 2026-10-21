@@ -1,6 +1,9 @@
 package views
 
-import "net/url"
+import (
+	"net/url"
+	"strings"
+)
 
 type filterChip struct{ Label, URL string }
 
@@ -12,7 +15,7 @@ func filterChips(m Model) []filterChip {
 	q := u.Query()
 	out := []filterChip{}
 	for _, key := range []string{"q", "category", "size", "color", "material", "collection", "price", "inStock"} {
-		if value := q.Get(key); value != "" {
+		if value := strings.Join(q[key], ","); value != "" {
 			label := value
 			if key == "inStock" {
 				label = "Available in demo"

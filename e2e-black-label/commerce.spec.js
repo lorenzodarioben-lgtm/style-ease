@@ -89,20 +89,46 @@ test('query filters, HTMX partial, back/forward and reload', async ({ page }) =>
   await expect(page).toHaveURL(/q=cotton/);
   await expect(page.locator('#shop-results')).toContainText('pieces found');
   expect(headers).toContain('partial');
-  await page.getByLabel('Category', { exact: true }).selectOption('Tops');
+  await page.locator('details[data-filter="category"] summary').click();
+  await page.getByRole('checkbox', { name: 'Tops', exact: true }).check();
   await page.getByRole('button', { name: 'Apply filters' }).click();
   await expect(page).toHaveURL(/category=Tops/);
   await page.reload();
-  await expect(page.getByLabel('Category', { exact: true })).toHaveValue('Tops');
+  await page.locator('details[data-filter="category"] summary').click();
+  await expect(page.getByRole('checkbox', { name: 'Tops', exact: true })).toBeChecked();
   await page.goBack();
   await expect(page).toHaveURL(/q=cotton/);
   await page.goForward();
   await expect(page).toHaveURL(/category=Tops/);
+  await page.locator('details[data-filter="category"] summary').click();
+  await page.getByRole('checkbox', { name: 'Jackets', exact: true }).check();
+  await page.getByRole('button', { name: 'Apply filters' }).click();
+  await expect
+    .poll(() => new URL(page.url()).searchParams.getAll('category'))
+    .toEqual(['Tops', 'Jackets']);
+  await page.reload();
+  await page.locator('details[data-filter="category"] summary').click();
+  await expect(page.getByRole('checkbox', { name: 'Tops', exact: true })).toBeChecked();
+  await expect(page.getByRole('checkbox', { name: 'Jackets', exact: true })).toBeChecked();
   await axe(page);
   await page.goto('/shop?q=impossible-piece');
   await expect(
     page.getByRole('heading', { name: 'Nothing in this composition yet.' })
   ).toBeVisible();
+});
+test('guest changes synchronize between tabs after a committed mutation', async ({
+  context,
+  page
+}) => {
+  await page.goto('/bag');
+  const other = await context.newPage();
+  await other.goto('http://127.0.0.1:8080/products/geometric-t-shirt');
+  await other.getByRole('button', { name: 'Add to bag', exact: true }).click();
+  await expect(other.getByRole('status').first()).toContainText('Added');
+  await page.bringToFront();
+  await page.evaluate(() => globalThis.dispatchEvent(new Event('focus')));
+  await expect(page.locator('.shopping-line')).toHaveCount(1);
+  await other.close();
 });
 test('comparison attributes, bounded membership and mobile scrolling', async ({ page }) => {
   for (const slug of ['geometric-t-shirt', 'angular-jacket', 'precision-jeans']) {
@@ -121,7 +147,10 @@ test('comparison attributes, bounded membership and mobile scrolling', async ({ 
   await page.getByRole('button', { name: 'Remove Angular Jacket' }).click();
   await expect(page.locator('thead th')).toHaveCount(3);
 });
-test('studio saves, renames, reloads and transactionally adds an outfit', async ({ page }) => {
+test('studio saves, renames, reloads and transactionally adds an outfit', async ({
+  page,
+  browser
+}) => {
   await page.goto('/studio');
   const jacket = page.locator('select[data-category="Jackets"]');
   const top = page.locator('select[data-category="Tops"]');
@@ -133,6 +162,20 @@ test('studio saves, renames, reloads and transactionally adds an outfit', async 
   await expect(page.locator('.saved-look')).toContainText('Monochrome composition');
   await expect(page.locator('.saved-look')).toContainText('$295.00');
   await page.reload();
+  await expect(page.locator('#board-preview figure')).toHaveCount(2);
+  const savedURL = page.url();
+  const noJS = await browser.newContext({
+    javaScriptEnabled: false,
+    storageState: await page.context().storageState()
+  });
+  const staticPage = await noJS.newPage();
+  await staticPage.goto(savedURL);
+  await expect(staticPage.locator('#board-preview figure')).toHaveCount(2);
+  await noJS.close();
+  const stranger = await browser.newContext();
+  const strangerPage = await stranger.newPage();
+  expect((await strangerPage.goto(savedURL)).status()).toBe(404);
+  await stranger.close();
   await page.getByLabel('Rename look').fill('Reconsidered');
   await page.getByRole('button', { name: 'Save name' }).click();
   await expect(page.locator('.saved-look h3')).toHaveText('Reconsidered');

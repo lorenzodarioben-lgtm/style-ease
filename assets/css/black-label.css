@@ -2774,3 +2774,55 @@ img {
 .fragment-error p {
   margin-top: 20px;
 }
+/* Native multi-choice filters preserve the original comma-list query semantics. */
+.choice-filter {
+  position: relative;
+  min-width: 0;
+  align-self: start;
+  padding-top: 27px;
+}
+.choice-filter > summary {
+  cursor: pointer;
+  border: 1px solid #9b9790;
+  min-height: 48px;
+  padding: 12px;
+  font-size: 14px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.choice-filter > summary::after {
+  content: '+';
+  font-size: 18px;
+  line-height: 1.2;
+}
+.choice-filter[open] > summary::after {
+  content: '−';
+}
+.choice-panel {
+  position: static;
+  width: 100%;
+  max-height: 250px;
+  overflow: auto;
+  background: var(--paper);
+  border: 1px solid #9b9790;
+  padding: 10px;
+  z-index: 2;
+}
+.choice-panel .check {
+  min-height: 44px;
+  font-size: 13px;
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .choice-panel {
+    position: static;
+  }
+  .choice-filter > summary {
+    font-size: 12px;
+  }
+  .choice-panel .check {
+    font-size: 12px;
+  }
+}
