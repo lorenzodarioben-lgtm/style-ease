@@ -6,7 +6,7 @@ An editorial fashion concept store by **Lorenzo Ben**, rebuilt as a Go + templ +
 
 ![Black Label desktop homepage](docs/screenshots/overhaul/home-1440-first-fold.png)
 
-This feature branch is a separate application. The [existing GitHub Pages storefront](https://lorenzodarioben-lgtm.github.io/style-ease/) and its deployment remain unchanged. Current verification and remaining boundaries are in [Review readiness](docs/REVIEW_READINESS.md) and [HANDOFF.md](HANDOFF.md).
+This feature branch is a separate application. The [existing GitHub Pages storefront](https://lorenzodarioben-lgtm.github.io/style-ease/) and its deployment remain unchanged. Start with the [morning report and gallery](docs/MORNING_REPORT.md), [Review readiness](docs/REVIEW_READINESS.md) and [HANDOFF.md](HANDOFF.md).
 
 ## Explore
 

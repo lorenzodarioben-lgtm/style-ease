@@ -34,6 +34,10 @@ Final performance.json records 20 warm complete-response samples per home/shop/p
 
 An additional measurement with all final image-recovery/readiness fixes and Compose stop settings present scored 98 performance / 100 accessibility / LCP 2.271s / CLS 0.0018 / TBT 0ms. See lighthouse-home-runtime-final.json. This fourth measurement corroborates the three-run delivery sample without replacing it with a selected score.
 
+## Remote CI
+
+Remote verification of application checkpoint `a3363b47ea42ddcaacd6d718e34832792624ea90`: [legacy CI #68](https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570154) and [Go/PostgreSQL #3](https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570151) completed SUCCESS. The Linux run includes reproducible generation, format/vet/race, vulnerability scan, actual migrations/seed, binary, npm audit, full browser journeys and Docker build. Evidence is retained in github-ci-source-checkpoint.json; later documentation-envelope checks are separate.
+
 ## Limits
 
 Photographs are explicitly editorial references; all catalogue facts/prices/options are demonstration data. No physical stock, payments, fulfilment, accounts or verified public reviews. Guest data has a 30-day cookie boundary, not cross-device identity. Advanced public Studio sharing/export/drag editing is deferred and unexposed. Manual assistive-technology/real-device testing, production telemetry, hosting, backups and scheduled cleanup are not configured. Earlier failed attempts are preserved alongside final evidence.

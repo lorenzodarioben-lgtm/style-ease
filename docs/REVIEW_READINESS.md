@@ -4,6 +4,10 @@
 
 The integrated application passes all 24 new desktop/mobile browser cases on a real nonroot Go container with PostgreSQL. The retained Vue reference passes 168 unit tests, lint/format/build/bundle gates and all six browser cases. Real SQL/domain/HTTP/asset tests, race checks, Go vulnerability scan, npm audit, Docker build, fresh database setup and receipt persistence across runtime restarts pass. Local evidence is in QUALITY_SCORECARD.md and docs/evidence; remote CI must be assessed independently.
 
+## Remote CI
+
+Both source-checkpoint remote workflows completed SUCCESS at `a3363b47ea42ddcaacd6d718e34832792624ea90`: [legacy CI](https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570154), [Go/PostgreSQL](https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570151). The branch remains a [draft PR](https://github.com/lorenzodarioben-lgtm/style-ease/pull/34); subsequent documentation-envelope checks are assessed separately.
+
 ## Five-minute product review
 
 1. Open http://127.0.0.1:8080; compare home first folds/full pages against baseline at desktop and phone widths.

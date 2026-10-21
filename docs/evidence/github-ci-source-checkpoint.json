@@ -1,0 +1,23 @@
+{
+  "observedAt": "2026-10-21T12:47:20Z",
+  "repository": "lorenzodarioben-lgtm/style-ease",
+  "commit": "a3363b47ea42ddcaacd6d718e34832792624ea90",
+  "pullRequest": "https://github.com/lorenzodarioben-lgtm/style-ease/pull/34",
+  "source": "Connected GitHub workflow-run and job results; actual completed remote runs",
+  "workflows": [
+    {
+      "id": 39601570154,
+      "name": "CI",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570154"
+    },
+    {
+      "id": 39601570151,
+      "name": "Black Label Go and PostgreSQL",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570151"
+    }
+  ]
+}

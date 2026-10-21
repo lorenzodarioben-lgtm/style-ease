@@ -60,3 +60,11 @@
 - Final 50-screen capture has no overflow, axe findings or JS errors; desktop/mobile first folds refreshed and visually inspected with saved Studio board. Private immutable receipt remains available through final rebuilds. No owner-token headers remain in sanitized retained Lighthouse trace/protocol logs.
 - Final code checkpoint/push and draft PR follow. Remaining high-impact verification: manual screen-reader review. No production operations authorized or performed.
 - Additional final-runtime Lighthouse after image recovery/readiness/stop settings: 98 performance, 100 accessibility, LCP 2.271s, CLS 0.0018, TBT 0ms. Retained separately; all four post-AVIF home runs meet the local target. CI concurrency now cancels superseded runs on the same feature branch.
+
+## 2026-10-21 23:47 +11 — source checkpoint and remote review proof
+
+- Application checkpoint a3363b47ea42ddcaacd6d718e34832792624ea90 committed/pushed only on overhaul/black-label-go; tree clean at the boundary. Remote main remains ae12cd35dbfd8b8f4b0ff985718b502bc81bda01.
+- Created draft PR #34 and attached it to the chat. Did not merge or deploy. Local browser panel requested at http://127.0.0.1:8080.
+- Remote CI #68 / 39601570154 and Black Label Go and PostgreSQL #3 / 39601570151 both completed SUCCESS on that application SHA. All Linux job steps passed, including 24-case browser gate and production Docker build. Recorded actual connector results in github-ci-source-checkpoint.json.
+- Added the requested eleven-part morning report with gallery, exact code checkpoint, commands, tested boundaries and deferred scope. All 26 local report links checked and present. Report/HANDOFF/README/scorecard updates are documentation only; final delivery SHA is provided in the chat after this envelope is committed.
+- Single next action after delivery: manual screen-reader review of purchase and saved Studio; no new production operations authorized.

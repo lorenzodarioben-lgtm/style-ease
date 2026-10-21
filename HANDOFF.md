@@ -1,11 +1,12 @@
 # PROJECT BLACK LABEL — morning handoff
 
-Status: **READY FOR REVIEW; DELIVERY CHECKPOINT IN PROGRESS**. All 24 browser cases, saved-Studio, lifecycle/readiness and final format/legacy gates PASS; three homepage lab runs meet LCP. No merge or live deployment authorized. Preparing checkpoint and draft PR.
+Status: **READY FOR REVIEW**. All 24 browser cases and local gates PASS. Both remote CI workflows PASS at the verified application checkpoint. Four final homepage lab runs meet LCP. [Draft PR #34](https://github.com/lorenzodarioben-lgtm/style-ease/pull/34) is open/attached; no merge or live deployment authorized. See [the morning report](docs/MORNING_REPORT.md).
 
 ## Git and recovery
 
 - Branch: `overhaul/black-label-go`.
-- Latest committed and pushed checkpoint: `94beeacbf28450c039df78d4046543b5a7c6b83a` (parity/recovery/Studio). Shutdown, AVIF delivery and final evidence/docs are dirty awaiting the next verified checkpoint.
+- Verified application checkpoint: `a3363b47ea42ddcaacd6d718e34832792624ea90`, committed/pushed with a clean tree. This report envelope follows it with documentation/evidence only; no application changes remain uncommitted. Final delivery HEAD is recorded in the chat and reproducible with `git rev-parse HEAD` / `git status --short`.
+- Source CI: [legacy CI #68](https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570154) and [Go/PostgreSQL #3](https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39601570151) completed SUCCESS. Linux verifies generation/gofmt/vet/race/vulns/migrate/seed/build/npm audit/all browser cases/container build; docs-only envelope checks run separately after push.
 - Baseline: `ae12cd35dbfd8b8f4b0ff985718b502bc81bda01`, local tag `black-label-baseline-2026-10-21`.
 - Original checkout was clean on revert/pr30-ui-redesign at df89d53. Local main remains fecf0cab47eee3a7a123f4d74d3d4ab2090a783d. No main writes, merge, rebase, force-push, Pages/DNS change, deployment or paid service creation.
 - Master read completely (599 lines). `docs/PROJECT_BLACK_LABEL_MASTER.txt` is byte-identical to extracted source; SHA256 49d3b1c855545183cbe12d022be26856cc03feb47b8643f932bab9ab596e187b.
@@ -51,4 +52,4 @@ Fresh setup: start DB with `docker compose -p styleease-blacklabel up -d --wait 
 
 Licensed photographs are editorial references, not verified garment images; sample facts/options are labelled. No invented brands, discounts, ratings or delivery promises. Old origin-local data/hash URLs are not silently migrated; old Pages stays live. Advanced drag/reorder/export/public Studio sharing, accounts/admin/uploads, real payment/delivery integrations are deferred and unexposed. Hosting/secrets/backups/scheduled retention/field telemetry require a separately approved preview/cutover; none was provisioned.
 
-NEXT ACTION: Finish the in-progress final browser/screenshot gate, checkpoint/push the verified branch and attach a draft PR with the morning report. After delivery, the highest-impact verification gap is manual screen-reader review.
+NEXT ACTION: Perform a manual screen-reader review of purchase and saved-Studio journeys, record focus/announcement/validation findings, and repair failures. This closes the highest-impact remaining verification gap after the automated and local performance gates.
