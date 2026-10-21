@@ -13,3 +13,7 @@ Top defects: intrinsic HTML image heights stretched the outfit invitation and di
 The repaired composition maintains clear brand/navigation and aligned shopping surfaces; full-page 1440 and 390 captures were inspected. The second 50-screen sweep recorded no overflow, axe findings on scanned routes or JS errors. The next functional critique exposed HTMX v4's event.detail.ctx contract and dynamic filter label addressing; both repaired and their four affected browser cases passed. This is verification of named fixes, not a claim of perfect design.
 
 Intentionally omitted: disconnected brand logo wall, manufactured review ratings, badges/discounts, sustainability or shipping promises, ornamental gradients, cursor effects, scroll hijacking and invented product angles. Remaining constraint: the seed catalogue's photographs are editorial references rather than a verified product photography library.
+
+## Final critique and delivery pass
+
+The saved Studio initially showed a blank composition area after saving. Reopening now restores the exact variant selections, name, total and server-rendered photographs, including without JavaScript; foreign guests receive 404. Targeted and full desktop/mobile checks verify this. The campaign now uses composition-preserving responsive AVIF sources with WebP fallback; final first-fold captures are reviewed for sharpness and tonal consistency. Three isolated mobile lab runs meet LCP at 2.26–2.33s without hiding the photograph or changing the budget.

@@ -17,6 +17,7 @@ services:
   app:
     build: .
     profiles: ["app"]
+    stop_grace_period: 15s
     environment:
       APP_ENV: development
       APP_ORIGIN: http://127.0.0.1:8080

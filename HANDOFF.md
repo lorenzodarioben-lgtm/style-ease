@@ -1,11 +1,11 @@
 # PROJECT BLACK LABEL — morning handoff
 
-Status: **READY FOR LOCAL REVIEW**; final saved-Studio reopening regression gates PASS. No merge or live deployment authorized. Homepage synthetic mobile LCP remains an open performance target.
+Status: **READY FOR REVIEW; DELIVERY CHECKPOINT IN PROGRESS**. All 24 browser cases, saved-Studio, lifecycle/readiness and final format/legacy gates PASS; three homepage lab runs meet LCP. No merge or live deployment authorized. Preparing checkpoint and draft PR.
 
 ## Git and recovery
 
 - Branch: `overhaul/black-label-go`.
-- Last committed migration: `faf88933159c41f181975f1b0557e597769e4e25`; final hardening/docs/evidence currently dirty awaiting the checkpoint.
+- Latest committed and pushed checkpoint: `94beeacbf28450c039df78d4046543b5a7c6b83a` (parity/recovery/Studio). Shutdown, AVIF delivery and final evidence/docs are dirty awaiting the next verified checkpoint.
 - Baseline: `ae12cd35dbfd8b8f4b0ff985718b502bc81bda01`, local tag `black-label-baseline-2026-10-21`.
 - Original checkout was clean on revert/pr30-ui-redesign at df89d53. Local main remains fecf0cab47eee3a7a123f4d74d3d4ab2090a783d. No main writes, merge, rebase, force-push, Pages/DNS change, deployment or paid service creation.
 - Master read completely (599 lines). `docs/PROJECT_BLACK_LABEL_MASTER.txt` is byte-identical to extracted source; SHA256 49d3b1c855545183cbe12d022be26856cc03feb47b8643f932bab9ab596e187b.
@@ -23,13 +23,13 @@ Status: **READY FOR LOCAL REVIEW**; final saved-Studio reopening regression gate
 ## Verification
 
 - Reference: **168 unit tests / 23 files**, format/lint/build/original budgets PASS; **6/6 legacy browser cases PASS**. Updated axe found a redundant legacy Compare aria-label conflict; removed the attribute without changing tests.
-- New browser: **22/22 PASS** on container/PostgreSQL on the final build, including reopen/owner rejection/no-JS board. Targeted reopening tests also PASS. See black-label-e2e.txt and studio-reopen.txt.
-- Complete Go module integration/race/vet PASS (19 top-level tests plus subcases); real PostgreSQL constraints/concurrency/rollback/idempotency/snapshots/ownership/archived recovery, HTTP limits/CSRF/outage and official HTMX integrity covered. Latest saved-look changes are included in the passing final race gate.
+- New browser: **24/24 PASS** on container/PostgreSQL on the final build, including reopen/owner rejection/no-JS board and missing-picture recovery before deferred script load. The new image test reproduced two failures against the prior build, then both passed after repair. See black-label-e2e.txt, studio-reopen.txt and image-recovery*.txt.
+- Complete Go integration/race/vet PASS (21 top-level tests plus subcases after lifecycle/readiness repairs); real PostgreSQL constraints/concurrency/rollback/idempotency/snapshots/ownership/archived recovery, HTTP limits/CSRF/outage and official HTMX integrity covered. Shutdown waits for active handlers before closing the DB pool; an actual slow-request regression passes. Readiness tests cover success, unavailable DB response, redirect rejection and invalid ports. See go-race-lifecycle.txt.
 - npm audit: **10 advisories → zero**. Installed npm 10 updater errored; compatible updates via npm 11.21.1 succeeded. Go govulncheck 1.9.0: no production vulnerabilities. Node host 22.19 emitted engine warnings; CI uses Node 24.
-- Fresh Compose database bootstrap and Docker build PASS. Private receipt survived Windows-process→Linux-container restart. Nonroot image last measured 10,727,916 bytes. No fake persistence fallback.
+- Fresh Compose database bootstrap and Docker build PASS. Private receipt survived Windows-process→Linux-container restart and final rebuilds. Final nonroot image measured 11,365,687 bytes. Both containers report healthy; app health uses actual /readyz through its own binary. No fake persistence fallback.
 - **35 baseline + 50 final route/viewport + 16 filled/dialog/Studio + 2 first-fold screenshots**. Final 50-screen sweep: zero overflow, axe findings or JS errors; real 320–1920 browser matrix and no-JS purchase pass. Design detector: [] / exit 0. Manual AT/real-device checks NOT RUN.
-- Lighthouse 13.5.0 isolated mobile lab: home **88 / LCP 3.5s / CLS 0**; shop **99 / 1.8s / 0**; product **98 / 2.3s / 0.001**; empty bag **100 / 1.4s / 0**. Automated accessibility 100 on each. These are lab data, not field Web Vitals. Homepage target ≤2.5s is NOT MET.
-- New JS **14.68KiB gzip**, CSS **8.94KiB gzip**; budgets 70/35. Container loopback warm complete-response medians ~8.6–12.9ms over 20 samples/route; not internet TTFB/cold-start evidence.
+- Lighthouse 13.5.0 isolated mobile lab: home final three runs **99/98/98 performance, LCP 2.264/2.325/2.310s, CLS 0.0018 each**, accessibility 100; shop **99 / 1.8s / 0**; product **98 / 2.3s / 0.001**; empty bag **100 / 1.4s / 0**, accessibility 100 each. Responsive AVIF lowered the tested campaign resource from 144,670 to 55,315 bytes, with WebP fallback. All measured routes meet the local LCP target. These are lab data, not field Web Vitals.
+- New JS **14.82KiB gzip**, CSS **8.94KiB gzip**; budgets 70/35. Latest container loopback warm complete-response medians ~6.6–10.8ms over 20 samples/route; not internet TTFB/cold-start evidence.
 - Earlier failed attempts and before-focus/performance reports remain in docs/evidence. QUALITY_SCORECARD.md, FEATURE_PARITY.md and REVIEW_READINESS.md describe boundaries.
 
 ## Running and resuming
@@ -51,4 +51,4 @@ Fresh setup: start DB with `docker compose -p styleease-blacklabel up -d --wait 
 
 Licensed photographs are editorial references, not verified garment images; sample facts/options are labelled. No invented brands, discounts, ratings or delivery promises. Old origin-local data/hash URLs are not silently migrated; old Pages stays live. Advanced drag/reorder/export/public Studio sharing, accounts/admin/uploads, real payment/delivery integrations are deferred and unexposed. Hosting/secrets/backups/scheduled retention/field telemetry require a separately approved preview/cutover; none was provisioned.
 
-NEXT ACTION: Reduce homepage simulated mobile LCP from 3.5s to ≤2.5s using the saved final trace, preserving campaign image quality and all passing journeys.
+NEXT ACTION: Finish the in-progress final browser/screenshot gate, checkpoint/push the verified branch and attach a draft PR with the morning report. After delivery, the highest-impact verification gap is manual screen-reader review.

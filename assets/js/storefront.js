@@ -111,20 +111,28 @@
   document.addEventListener('change', (event) => {
     if (event.target.matches('.studio-select')) renderBoard();
   });
+  const recoverImage = (img) => {
+    if (img.dataset.failed) return;
+    img.dataset.failed = 'true';
+    img
+      .closest('picture')
+      ?.querySelectorAll('source')
+      .forEach((source) => source.remove());
+    img.removeAttribute('srcset');
+    img.alt = `Image unavailable. ${img.alt}`;
+    img.src = '/assets/image-unavailable.svg';
+  };
   document.addEventListener(
     'error',
     (event) => {
-      if (event.target.tagName === 'IMG') {
-        const img = event.target;
-        if (!img.dataset.failed) {
-          img.dataset.failed = 'true';
-          img.removeAttribute('srcset');
-          img.src = '/assets/image-unavailable.svg';
-        }
-      }
+      if (event.target.tagName === 'IMG') recoverImage(event.target);
     },
     true
   );
+  // Eager images can fail before this deferred enhancement has executed.
+  Array.from(document.images)
+    .filter((img) => img.complete && img.naturalWidth === 0)
+    .forEach(recoverImage);
   try {
     const channel = new window.BroadcastChannel('style-ease-guest');
     if (

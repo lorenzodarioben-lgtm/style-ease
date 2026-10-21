@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 )
@@ -20,6 +21,9 @@ func main() {
 	}
 }
 func run() error {
+	if len(os.Args) == 2 && os.Args[1] == "healthcheck" {
+		return healthcheck(web.Env("PORT", "8080"))
+	}
 	environment := web.Env("APP_ENV", "development")
 	if environment != "development" && environment != "test" && environment != "production" {
 		return errors.New("APP_ENV must be development, test or production")
@@ -44,7 +48,7 @@ func run() error {
 			_, e = db.Pool.Exec(ctx, `DELETE FROM guest_sessions WHERE expires_at<now()`)
 			return e
 		default:
-			return errors.New("expected migrate, seed, cleanup or no argument")
+			return errors.New("expected migrate, seed, cleanup, healthcheck or no argument")
 		}
 	}
 	srv, e := web.New(db, web.Env("APP_ORIGIN", "http://127.0.0.1:8080"), os.Getenv("APP_ENV") == "production")
@@ -54,16 +58,50 @@ func run() error {
 	server := &http.Server{Addr: web.Env("BIND_ADDR", "127.0.0.1") + ":" + web.Env("PORT", "8080"), Handler: srv.Handler(), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 20 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 * 1024}
 	stop, done := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer done()
+	slog.Info("Style Ease listening", "address", server.Addr, "demo", true)
+	return serve(stop, server)
+}
+
+// Distroless has no shell or curl: use the same binary to check actual readiness.
+func healthcheck(port string) error {
+	n, err := strconv.Atoi(port)
+	if err != nil || n < 1 || n > 65535 {
+		return errors.New("invalid readiness port")
+	}
+	client := &http.Client{Timeout: 3 * time.Second, CheckRedirect: func(_ *http.Request, _ []*http.Request) error {
+		return http.ErrUseLastResponse
+	}}
+	response, err := client.Get("http://127.0.0.1:" + strconv.Itoa(n) + "/readyz")
+	if err != nil {
+		return errors.New("application readiness unavailable")
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		return errors.New("application is not ready")
+	}
+	return nil
+}
+
+// Wait for active handlers before run closes the database pool and main exits.
+func serve(ctx context.Context, server *http.Server) error {
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	drained := make(chan error, 1)
 	go func() {
-		<-stop.Done()
+		<-ctx.Done()
 		shutdown, c := context.WithTimeout(context.Background(), 10*time.Second)
 		defer c()
-		server.Shutdown(shutdown)
+		err := server.Shutdown(shutdown)
+		if err != nil {
+			_ = server.Close()
+		}
+		drained <- err
 	}()
-	slog.Info("Style Ease listening", "address", server.Addr, "demo", true)
-	e = server.ListenAndServe()
+	e := server.ListenAndServe()
+	cancel()
+	shutdownErr := <-drained
 	if errors.Is(e, http.ErrServerClosed) {
-		return nil
+		return shutdownErr
 	}
 	return e
 }

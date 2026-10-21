@@ -42,3 +42,21 @@
 - Added pre-allocation guest issuance cap and its test. CI Node 24, exact govulncheck, asset budgets and build cache prepared; Pages deploy workflow unchanged.
 - Isolated Lighthouse checkpoint: 87/99/83/100 performance for home/shop/product/bag; all four automated accessibility 100. Homepage forced-reflow trace identified immediate focus; moved route focus until after initial rendering without stealing active interaction. No field metrics claimed.
 - Final archive-state review: preserve unavailable owner references, recovery/removal guidance, no invalid quantity blocking Remove, checkout/outfit gating. Added PostgreSQL and HTTP regression coverage. Final consolidated verification running.
+
+## 2026-10-21 23:25 +11 — delivery refinement
+
+- Parity/recovery/Studio checkpoint 94beeacbf28450c039df78d4046543b5a7c6b83a pushed only to overhaul/black-label-go. Remote main still ae12cd35dbfd8b8f4b0ff985718b502bc81bda01; local main still fecf0cab47eee3a7a123f4d74d3d4ab2090a783d. Deploy workflow has zero diff.
+- Saved Studio reopening now restores actual canvas photographs, name, variants and total on server HTML as well as JS; foreign owners 404. Full 22 cases/race passed before delivery changes.
+- Found process lifecycle bug: ListenAndServe returned before the shutdown goroutine drained active handlers. Main now waits for bounded shutdown before closing its DB pool. Actual in-flight-request test and Go race/vet gates pass (go-race-lifecycle.txt).
+- Built/restarted local nonroot Compose app with the repair and new responsive campaign AVIF; containers healthy. No named volume removal. Selected mobile photo fell from 144,670 to 55,315 bytes with the same composition, 65-quality AVIF and WebP fallback.
+- Three isolated Lighthouse 13.5.0 mobile final runs: performance 99/98/98, accessibility 100 each, LCP 2.264/2.325/2.310s, CLS 0.0018 each, TBT 35/9/45.5ms. Local LCP target met; no field claim. Sanitized/gzipped trace and protocol evidence remove bearer-cookie headers before retention.
+- Final 22-case browser/screenshot refresh in progress; no new result claimed yet. Next checkpoint will contain results, draft PR and morning report.
+
+## 2026-10-21 23:38 +11 — final local gates passed
+
+- Expanded image-failure regression deliberately holds deferred JS until the campaign picture has failed. Prior container failed both desktop/mobile cases; fixed source removal, accessible unavailable text and pre-execution failure sweep. Both targeted cases pass. Full expanded browser gate: 24/24 PASS in 1.6m.
+- Added binary readiness probe for the distroless image: no curl/shell dependency, bounded local request, non-200/redirect/invalid-port rejection tested. App and DB both report healthy. Compose has 15s stop grace for the ten-second active-request drain. Final image 11,365,687 bytes.
+- Final Go race/vet pass (21 top-level cases plus subcases), actual PostgreSQL. Repository validate passes format/lint/168 legacy unit tests/build/original 85/7KiB budgets; legacy six browser cases previously passed with unchanged legacy code. New budgets are 14.82KiB JS / 8.94KiB CSS gzip.
+- Final 50-screen capture has no overflow, axe findings or JS errors; desktop/mobile first folds refreshed and visually inspected with saved Studio board. Private immutable receipt remains available through final rebuilds. No owner-token headers remain in sanitized retained Lighthouse trace/protocol logs.
+- Final code checkpoint/push and draft PR follow. Remaining high-impact verification: manual screen-reader review. No production operations authorized or performed.
+- Additional final-runtime Lighthouse after image recovery/readiness/stop settings: 98 performance, 100 accessibility, LCP 2.271s, CLS 0.0018, TBT 0ms. Retained separately; all four post-AVIF home runs meet the local target. CI concurrency now cancels superseded runs on the same feature branch.

@@ -10,11 +10,11 @@ This feature branch is a separate application. The [existing GitHub Pages storef
 
 ## Explore
 
-- An architectural monochrome identity, cinematic campaign, self-hosted DM Sans/Bodoni typography, responsive local WebP imagery and coherent shopping/receipt/error layouts.
+- An architectural monochrome identity, cinematic campaign, self-hosted DM Sans/Bodoni typography, responsive local AVIF/WebP imagery and coherent shopping/receipt/error layouts.
 - Database-backed catalogue, original numeric IDs, stable product slugs, search over attributes, shareable filters, sorting, pagination and real collection relationships.
 - Required size/colour choices, quick shop, shared per-product demo capacity, exact-variant wishlist, save for later, undo removal and comparison of up to three pieces.
 - Guest-owned PostgreSQL state, private demo reviews, recently viewed history and immutable receipts. Checkout is transactional, server-priced and idempotent.
-- **Style Studio:** compose a photographic outfit board, choose valid variants, save/rename/delete private looks and add an entire outfit atomically.
+- **Style Studio:** compose a photographic outfit board, choose valid variants, save/reopen/rename/delete private looks and add an entire outfit atomically. Saved boards also reopen without JavaScript.
 - Ordinary HTML forms, a complete no-JavaScript purchase path, keyboard-operable dialogs, visible focus, reduced motion and ink-friendly receipt printing.
 
 This is a **demonstration**. No payments, real addresses, emails or shipment are collected/processed. Prices, materials, sizes and colours are sample catalogue data; unchanged original dollar values are explicitly designated USD. Unsplash photographs are editorial references, not exact product/variant photographs or brand affiliations. Reviews are private, unverified guest records, not customer testimonials.
@@ -54,7 +54,7 @@ The named database volume survives process/container restarts. Do not remove it 
 ```sh
 go vet ./cmd/... ./internal/... ./views/...
 go test -count=1 ./cmd/... ./internal/... ./views/...
-go test -race ./internal/...
+go test -race ./cmd/... ./internal/... ./views/...
 go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./cmd/web
 npm ci
 npx playwright install chromium
@@ -72,7 +72,7 @@ Home → Shop → search/filter → quick shop → choose a variant → save or 
 
 ## Engineering notes
 
-The production image runs a nonroot Go binary with embedded assets. PostgreSQL transactions, owner-scoped reads, 256-bit guest tokens hashed at rest, session CSRF, Origin/Referer checks, request limits, a restrictive local-only CSP, gzip and content-fingerprinted CSS/JS form the core. There is no SPA, admin, payment gateway, external tracking or fictional recommendation service.
+The production image runs a nonroot Go binary with embedded assets and an actual readiness healthcheck. Shutdown drains active requests before closing the database pool. PostgreSQL transactions, owner-scoped reads, 256-bit guest tokens hashed at rest, session CSRF, Origin/Referer checks, request limits, a restrictive local-only CSP, gzip and content-fingerprinted CSS/JS form the core. There is no SPA, admin, payment gateway, external tracking or fictional recommendation service.
 
 [Architecture](docs/ARCHITECTURE.md) · [Data model](docs/DATA_MODEL.md) · [Feature parity](docs/FEATURE_PARITY.md) · [Design system](docs/DESIGN_SYSTEM.md) · [Art direction](docs/ART_DIRECTION.md) · [Threat model](docs/THREAT_MODEL.md) · [Testing](docs/TESTING.md) · [Performance](docs/PERFORMANCE.md) · [Operations](docs/OPERATIONS.md)
 

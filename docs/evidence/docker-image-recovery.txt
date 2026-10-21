@@ -1,0 +1,89 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 596B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 500B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/golang:1.27.3-alpine
+#3 ...
+
+#4 [auth] library/golang:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for gcr.io/distroless/static-debian12:nonroot
+#5 DONE 0.9s
+
+#3 [internal] load metadata for docker.io/library/golang:1.27.3-alpine
+#3 DONE 1.7s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 134B done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 DONE 0.0s
+
+#8 [build 1/6] FROM docker.io/library/golang:1.27.3-alpine@sha256:f2c872bcee949b7be9c490efd02b48a8a2fbf947cdf533f1c58525ec9d8170fd
+#8 resolve docker.io/library/golang:1.27.3-alpine@sha256:f2c872bcee949b7be9c490efd02b48a8a2fbf947cdf533f1c58525ec9d8170fd 0.1s done
+#8 DONE 0.1s
+
+#9 [stage-1 1/2] FROM gcr.io/distroless/static-debian12:nonroot@sha256:afa5c872c891853ca7fcf1f12c3edb23f7eeef36189728842dd51042ff57f7ab
+#9 resolve gcr.io/distroless/static-debian12:nonroot@sha256:afa5c872c891853ca7fcf1f12c3edb23f7eeef36189728842dd51042ff57f7ab 0.1s done
+#9 DONE 0.1s
+
+#7 [internal] load build context
+#7 transferring context: 43.23kB 0.0s done
+#7 DONE 0.0s
+
+#10 [build 3/6] COPY go.mod go.sum ./
+#10 CACHED
+
+#11 [build 2/6] WORKDIR /src
+#11 CACHED
+
+#12 [build 4/6] RUN go mod download
+#12 CACHED
+
+#13 [build 5/6] COPY . .
+#13 DONE 0.2s
+
+#14 [build 6/6] RUN --mount=type=cache,target=/root/.cache/go-build go tool templ generate && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/style-ease ./cmd/web
+#14 0.811 (✓) Post-generation event received, processing... [ updates=0 needsRestart=true needsBrowserReload=true ]
+#14 0.953 (✓) Complete [ updates=0 duration=245.001372ms ]
+#14 DONE 3.7s
+
+#9 [stage-1 1/2] FROM gcr.io/distroless/static-debian12:nonroot@sha256:afa5c872c891853ca7fcf1f12c3edb23f7eeef36189728842dd51042ff57f7ab
+#9 CACHED
+
+#15 [stage-1 2/2] COPY --from=build /out/style-ease /style-ease
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 1.7s done
+#16 exporting manifest sha256:4ae1c620c943433e483ec8e8835a9c65139f48f6586fbe874946246b9a278afa 0.0s done
+#16 exporting config sha256:8117c83f1c5069ae0633b94192b38308c40f17db23b4fe3e086ea05430f0e789 0.0s done
+#16 exporting attestation manifest sha256:80e8d1f09ef56ea1ee494bba5a7bdde5324dbee180862a6032fb9ee99d40690e
+#16 exporting attestation manifest sha256:80e8d1f09ef56ea1ee494bba5a7bdde5324dbee180862a6032fb9ee99d40690e 0.1s done
+#16 exporting manifest list sha256:380dfa650854603b41cac11c1d22a4fc2464ef1c43b51b4fcea312cbdf728770 0.0s done
+#16 naming to docker.io/library/styleease-blacklabel-app:latest
+#16 naming to docker.io/library/styleease-blacklabel-app:latest done
+#16 unpacking to docker.io/library/styleease-blacklabel-app:latest 0.1s done
+#16 DONE 2.1s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ styleease-blacklabel-app  Built
+ Container styleease-blacklabel-db-1  Running
+ Container styleease-blacklabel-app-1  Recreate
+ Container styleease-blacklabel-app-1  Recreated
+ Container styleease-blacklabel-db-1  Waiting
+ Container styleease-blacklabel-db-1  Healthy
+ Container styleease-blacklabel-app-1  Starting
+ Container styleease-blacklabel-app-1  Started
+ Container styleease-blacklabel-db-1  Waiting
+ Container styleease-blacklabel-app-1  Waiting
+ Container styleease-blacklabel-app-1  Healthy
+ Container styleease-blacklabel-db-1  Healthy

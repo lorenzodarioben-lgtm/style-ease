@@ -22,8 +22,8 @@ All matched files use Prettier code style!
 
  Test Files  23 passed (23)
       Tests  168 passed (168)
-   Start at  22:57:29
-   Duration  28.10s (transform 3.71s, setup 0ms, import 10.06s, tests 2.75s, environment 147.17s)
+   Start at  23:37:21
+   Duration  22.20s (transform 5.63s, setup 0ms, import 12.83s, tests 2.12s, environment 106.00s)
 
 
 > style-ease@1.0.0 build
@@ -58,7 +58,7 @@ dist/assets/product-detail-DBnDSeew.js              17.54 kB │ gzip:  4.64 kB
 dist/assets/products-C81WhshG.js                    21.44 kB │ gzip:  4.81 kB
 dist/assets/index-DjVz5gsg.js                      248.29 kB │ gzip: 87.41 kB
 
-✓ built in 1.46s
+✓ built in 906ms
 
 > style-ease@1.0.0 check:bundle
 > node scripts/check-bundle-size.mjs

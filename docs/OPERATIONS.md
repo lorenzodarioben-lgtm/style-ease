@@ -21,3 +21,5 @@ Cutover requires explicit human signoff after TLS/secrets, persistence/ownership
 ## Session tools
 
 Portable, SHA256-verified Go is in sibling _blacklabel_tools/go/bin. The initial portable PostgreSQL 18.6 data directory _blacklabel_tools/pgdata was stopped and preserved when Docker became available. Current verification uses Compose. Never start both databases on 54329. These runtimes/data directories are not committed.
+
+The distroless image uses its own healthcheck command to probe /readyz without a shell or curl. Compose --wait now checks actual seeded application readiness. On SIGTERM, active requests drain for up to ten seconds before the database pool closes; Compose stop_grace_period is 15s. Allow at least 15 seconds for direct docker stop or a future platform termination window. Liveness (/healthz) alone does not establish database readiness.

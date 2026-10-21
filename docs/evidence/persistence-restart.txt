@@ -1,2 +1,1 @@
-Prepared a private demo receipt and browser session for restart. Token stays in ignored tmp/.
 PASS: owned receipt and immutable total survived web runtime restart with the same PostgreSQL volume.

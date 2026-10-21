@@ -230,6 +230,50 @@ test('ordinary forms complete checkout with JavaScript disabled', async ({ brows
   await expect(page.locator('.receipt-total')).toContainText('$75.00');
   await context.close();
 });
+test('missing picture assets recover even before enhancement script loads', async ({ page }) => {
+  let resume;
+  let requested;
+  const releaseScript = new Promise((resolve) => {
+    resume = resolve;
+  });
+  const scriptRequested = new Promise((resolve) => {
+    requested = resolve;
+  });
+  await page.route('**/assets/js/storefront.js*', async (route) => {
+    requested();
+    await releaseScript;
+    await route.continue();
+  });
+  await page.route('**/assets/images/campaign-*', (route) =>
+    route.fulfill({ status: 404, contentType: 'text/plain', body: 'Test image unavailable' })
+  );
+  try {
+    await page.goto('/', { waitUntil: 'commit' });
+    await scriptRequested;
+    const photo = page.locator('.campaign-image img');
+    await expect
+      .poll(() => photo.evaluate((img) => img.complete && img.naturalWidth === 0))
+      .toBe(true);
+    resume();
+    await page.waitForLoadState('load');
+    await expect(photo).toHaveAttribute('src', '/assets/image-unavailable.svg');
+    await expect(photo).toHaveAttribute('alt', /^Image unavailable\./);
+    await expect
+      .poll(() =>
+        photo.evaluate(
+          (img) =>
+            img.complete &&
+            img.naturalWidth > 0 &&
+            img.currentSrc.endsWith('/assets/image-unavailable.svg')
+        )
+      )
+      .toBe(true);
+    await axe(page);
+  } finally {
+    resume();
+  }
+});
+
 test('viewport matrix has no overflow and primary routes pass axe', async ({ page }) => {
   // This scenario deliberately visits 54 route/viewport combinations and runs 12 axe scans.
   test.setTimeout(90000);

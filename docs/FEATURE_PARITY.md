@@ -1,6 +1,6 @@
 # Feature parity
 
-Baseline: ae12cd35dbfd8b8f4b0ff985718b502bc81bda01, locally tagged black-label-baseline-2026-10-21. Original tests remain intact. Final evidence: go-tests-final.txt/go-race.txt, black-label-e2e.txt and parity-targeted.txt in docs/evidence. All 22 expanded desktop/mobile browser scenarios pass on the real nonroot Go container and PostgreSQL, including multi-filter and cross-tab behavior. Archived owner-state recovery has additional SQL/HTTP regressions.
+Baseline: ae12cd35dbfd8b8f4b0ff985718b502bc81bda01, locally tagged black-label-baseline-2026-10-21. Original tests remain intact. Final evidence: go-tests-final.txt/go-race.txt, black-label-e2e.txt and parity-targeted.txt in docs/evidence. All 24 expanded desktop/mobile browser scenarios pass on the real nonroot Go container and PostgreSQL, including multi-filter and cross-tab behavior. Archived owner-state recovery has additional SQL/HTTP regressions.
 
 | Journey / semantic                                    | Old path             | New path                                             | Implementation and proof                                                                                                                                          |
 | ----------------------------------------------------- | -------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -1,0 +1,11 @@
+
+Running 2 tests using 2 workers
+
+(node:28016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (3.9s)
+  ok 1 [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (4.5s)
+
+  2 passed (7.4s)

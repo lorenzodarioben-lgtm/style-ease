@@ -6,6 +6,9 @@ on:
     paths: ['**.go', '**.templ', 'go.mod', 'go.sum', 'assets/**', 'migrations/**', 'seeds/**', 'e2e-black-label/**', 'Dockerfile', '.github/workflows/black-label.yml']
 permissions:
   contents: read
+concurrency:
+  group: black-label-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
   verify:
     runs-on: ubuntu-latest

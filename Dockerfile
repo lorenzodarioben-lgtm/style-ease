@@ -10,4 +10,5 @@ COPY --from=build /out/style-ease /style-ease
 USER nonroot:nonroot
 ENV BIND_ADDR=0.0.0.0 PORT=8080 APP_ENV=production
 EXPOSE 8080
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 CMD ["/style-ease", "healthcheck"]
 ENTRYPOINT ["/style-ease"]
