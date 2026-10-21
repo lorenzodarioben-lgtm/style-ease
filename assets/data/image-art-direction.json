@@ -1,0 +1,4491 @@
+[
+  {
+    "id": "campaign",
+    "src": "/assets/images/campaign-1600.webp",
+    "width": 1600,
+    "height": 2293,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1615222443417-6d76586644a9",
+    "license": "Unsplash License",
+    "alt": "Three complete walking figures",
+    "subject": "Three complete walking figures; preserve heads, hands and all footwear. Text belongs outside the photograph.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/campaign-1600.webp",
+        "width": 1600,
+        "height": 2293
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p1",
+    "src": "/assets/images/p1-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1616006897093-5e4635c0de35",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Red-haired portrait in a white T-shirt",
+    "subject": "Red-haired portrait in a white T-shirt; preserve hair, face and visible shirt. Original frame ends at the upper thighs.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p1-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p1-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p2",
+    "src": "/assets/images/p2-960.webp",
+    "width": 960,
+    "height": 1434,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1532332248682-206cc786359f",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Jacket portrait from hair to thighs",
+    "subject": "Jacket portrait from hair to thighs; preserve head, lapels and hands. Source itself is a three-quarter portrait.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p2-480.webp",
+        "width": 480,
+        "height": 717
+      },
+      {
+        "path": "/assets/images/p2-960.webp",
+        "width": 960,
+        "height": 1434
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p3",
+    "src": "/assets/images/p3-960.webp",
+    "width": 960,
+    "height": 1344,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1578693082747-50c396cacd81",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Denim styling from midriff to feet",
+    "subject": "Denim styling from midriff to feet; the original intentionally excludes the head. Preserve both feet and denim silhouette.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p3-480.webp",
+        "width": 480,
+        "height": 672
+      },
+      {
+        "path": "/assets/images/p3-960.webp",
+        "width": 960,
+        "height": 1344
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p4",
+    "src": "/assets/images/p4-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1579121162206-f447748edb50",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Seated fashion portrait on steps",
+    "subject": "Seated fashion portrait on steps; preserve head, hands and boots.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p4-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p4-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p5",
+    "src": "/assets/images/p5-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1517941823-815bea90d291",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Cap portrait",
+    "subject": "Cap portrait; cap intentionally shades the eyes. Preserve cap, mouth, hair and shoulder bounds.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p5-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p5-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p6",
+    "src": "/assets/images/p6-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1580331451062-99ff652288d7",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Green knitwear portrait against blue sky",
+    "subject": "Green knitwear portrait against blue sky; preserve hair, raised arm and knit silhouette.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p6-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p6-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p7",
+    "src": "/assets/images/p7-960.webp",
+    "width": 960,
+    "height": 1200,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1607033948035-8bc42d817252",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Full-length blazer reference against a mural",
+    "subject": "Full-length blazer reference against a mural; preserve head, long trousers and feet.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p7-480.webp",
+        "width": 480,
+        "height": 600
+      },
+      {
+        "path": "/assets/images/p7-960.webp",
+        "width": 960,
+        "height": 1200
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p8",
+    "src": "/assets/images/p8-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1604695573706-53170668f6a6",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Shirt portrait against coloured architectural lines",
+    "subject": "Shirt portrait against coloured architectural lines; preserve head and hands; source ends at hips.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p8-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p8-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p9",
+    "src": "/assets/images/p9-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1606585924795-60ed8d435741",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Complete backpack still life",
+    "subject": "Complete backpack still life; preserve handle and base.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p9-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p9-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p10",
+    "src": "/assets/images/p10-960.webp",
+    "width": 960,
+    "height": 1467,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1584036553516-bf83210aa16c",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Monochrome sunglasses still life",
+    "subject": "Monochrome sunglasses still life; source has no meaningful colour to invent.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "natural monochrome",
+    "sources": [
+      {
+        "path": "/assets/images/p10-480.webp",
+        "width": 480,
+        "height": 734
+      },
+      {
+        "path": "/assets/images/p10-960.webp",
+        "width": 960,
+        "height": 1467
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p11",
+    "src": "/assets/images/p11-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1607198463850-1b682798e6ea",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Scarf portrait in snow",
+    "subject": "Scarf portrait in snow; preserve head, scarf and hand.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p11-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p11-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p12",
+    "src": "/assets/images/p12-960.webp",
+    "width": 960,
+    "height": 1200,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1546868871-7041f2a55e12",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Watch still life",
+    "subject": "Watch still life; preserve full band and face.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p12-480.webp",
+        "width": 480,
+        "height": 600
+      },
+      {
+        "path": "/assets/images/p12-960.webp",
+        "width": 960,
+        "height": 1200
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p13",
+    "src": "/assets/images/p13-960.webp",
+    "width": 960,
+    "height": 768,
+    "orientation": "landscape",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1631160246898-58192f971b5f",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Landscape belt/watch still life",
+    "subject": "Landscape belt/watch still life; never force-cover into a portrait. Preserve the whole landscape source.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p13-480.webp",
+        "width": 480,
+        "height": 384
+      },
+      {
+        "path": "/assets/images/p13-960.webp",
+        "width": 960,
+        "height": 768
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p14",
+    "src": "/assets/images/p14-960.webp",
+    "width": 960,
+    "height": 1438,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1640087976001-2416cbbdfdf6",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Close knitwear portrait",
+    "subject": "Close knitwear portrait; the source intentionally frames a face partially behind a raised sleeve. No further crop.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p14-480.webp",
+        "width": 480,
+        "height": 719
+      },
+      {
+        "path": "/assets/images/p14-960.webp",
+        "width": 960,
+        "height": 1438
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p15",
+    "src": "/assets/images/p15-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1582898967731-b5834427fd66",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Boots still life on a ledge",
+    "subject": "Boots still life on a ledge; preserve complete soles and shafts.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p15-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p15-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p16",
+    "src": "/assets/images/p16-960.webp",
+    "width": 960,
+    "height": 1440,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1627123424574-724758594e93",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Floating wallet still life",
+    "subject": "Floating wallet still life; preserve all object corners and negative space.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p16-480.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "path": "/assets/images/p16-960.webp",
+        "width": 960,
+        "height": 1440
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p17",
+    "src": "/assets/images/p17-960.webp",
+    "width": 960,
+    "height": 1249,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1630019852942-f89202989a59",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Earrings on fabric",
+    "subject": "Earrings on fabric; preserve both earrings and chains.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p17-480.webp",
+        "width": 480,
+        "height": 625
+      },
+      {
+        "path": "/assets/images/p17-960.webp",
+        "width": 960,
+        "height": 1249
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p18",
+    "src": "/assets/images/p18-960.webp",
+    "width": 960,
+    "height": 1203,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Woven bag still life",
+    "subject": "Woven bag still life; preserve full bag and handles.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p18-480.webp",
+        "width": 480,
+        "height": 602
+      },
+      {
+        "path": "/assets/images/p18-960.webp",
+        "width": 960,
+        "height": 1203
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p19",
+    "src": "/assets/images/p19-960.webp",
+    "width": 960,
+    "height": 1282,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1602173574767-37ac01994b2a",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Bracelet still life",
+    "subject": "Bracelet still life; preserve the full object and source depth.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p19-480.webp",
+        "width": 480,
+        "height": 641
+      },
+      {
+        "path": "/assets/images/p19-960.webp",
+        "width": 960,
+        "height": 1282
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  },
+  {
+    "id": "p20",
+    "src": "/assets/images/p20-960.webp",
+    "width": 960,
+    "height": 1443,
+    "orientation": "portrait",
+    "format": "webp",
+    "source": "https://images.unsplash.com/photo-1609493259716-612a700a8d16",
+    "license": "Unsplash License; inherited licensed editorial reference",
+    "alt": "Blouse portrait at a green doorway",
+    "subject": "Blouse portrait at a green doorway; preserve head, hands and visible blouse. The source intentionally ends at the skirt.",
+    "minimumVisibleBounds": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "mobileCropRequired": false,
+    "treatment": "original colour; grayscale is CSS-only and reversible",
+    "sources": [
+      {
+        "path": "/assets/images/p20-480.webp",
+        "width": 480,
+        "height": 722
+      },
+      {
+        "path": "/assets/images/p20-960.webp",
+        "width": 960,
+        "height": 1443
+      }
+    ],
+    "contexts": {
+      "card": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "2 / 3 frame; complete source contained",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "detail": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      },
+      "quick": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "line": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "compare": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "studio": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "saved": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "collection": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "editorial": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "lazy"
+      },
+      "hero": {
+        "fit": "contain",
+        "desktopFocal": [
+          50,
+          50
+        ],
+        "tabletFocal": [
+          50,
+          50
+        ],
+        "mobileFocal": [
+          50,
+          50
+        ],
+        "ratio": "intrinsic source ratio",
+        "maxZoom": 1,
+        "loading": "eager"
+      }
+    }
+  }
+]

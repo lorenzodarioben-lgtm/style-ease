@@ -4,6 +4,8 @@ Kinetic monochrome editorialism is the user's chosen world. The code-led prototy
 
 ## Direction contract
 
+SEED KEY: user-pinned-black-label-creative-v2. Code-led; existing house and explicit user brief govern the direction.
+
 THESIS: clothing as spatial composition, with restrained monochrome opening into genuine photographic colour. Replace repeated beige grids and arbitrary portrait-to-landscape crops with an intentional fashion publication and visual atelier.
 
 OWN-WORLD: deep ink, ivory, graphite and a restrained mineral tonal family. A custom typographic identity; proportion-led media frames; oversized but legible editorial lettering, quiet shopping typography and square, sliding-fill controls.

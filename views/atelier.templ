@@ -1,0 +1,23 @@
+package views
+
+templ AtelierLibrary(m Model) {
+ <aside class="atelier-library js-only" aria-labelledby="library-title"><div class="library-heading"><p class="eyebrow">01 / Discover</p><h2 id="library-title">The wardrobe.</h2><p>Choose a reference, then an exact sample variant.</p></div>
+  <div class="atelier-categories" role="group" aria-label="Discover pieces by category">
+   for i,c:=range []string{"Jackets","Tops","Jeans","Sweaters","Shoes","Accessories"} {
+    <button type="button" data-studio-category={c} aria-pressed={map[bool]string{true:"true",false:"false"}[i==0]}>{c}</button>
+   }
+  </div>
+  <div class="atelier-tiles">
+   for _,p:=range m.Products {
+    <button type="button" class="atelier-tile colour-surface" data-pick-product={n(p.ID)} data-category={p.Category} disabled?={p.Stock==0}>
+     @Picture(p,ImageStudio,false)
+     <span>{p.Name}</span><small>{money(p.Price)}<span>{map[bool]string{true:"Unavailable",false:"Choose piece"}[p.Stock==0]}</span></small>
+    </button>
+   }
+  </div>
+ </aside>
+}
+
+templ AtelierInspector() {
+ <section class="atelier-inspector js-only" id="atelier-inspector" hidden aria-labelledby="inspector-title"><div><p class="eyebrow">Choose the sample variant</p><h3 id="inspector-title"></h3><p id="inspector-price"></p></div><label>Size and colour<select id="active-studio-variant"></select></label><button type="button" id="place-studio-piece" class="button ink">Place in composition @Arrow()</button><a class="text-link" id="inspector-product" href="/shop">View piece @Arrow()</a><p class="catalogue-note">The reference image stays unchanged when you choose a sample colour.</p></section>
+}

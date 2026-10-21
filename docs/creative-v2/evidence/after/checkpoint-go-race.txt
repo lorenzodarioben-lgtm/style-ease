@@ -1,0 +1,7 @@
+?   	github.com/lorenzodarioben-lgtm/style-ease/cmd/dbinit	[no test files]
+ok  	github.com/lorenzodarioben-lgtm/style-ease/cmd/web	3.380s
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/database	9.312s
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/domain	1.608s
+?   	github.com/lorenzodarioben-lgtm/style-ease/internal/testsupport	[no test files]
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/web	7.126s
+ok  	github.com/lorenzodarioben-lgtm/style-ease/views	1.915s

@@ -67,6 +67,9 @@
       openDialog(document.getElementById('quick-shop'), quickOpener);
     const results = document.getElementById('shop-results');
     if (results && target?.id === 'shop-results') {
+      // A submitted search invites further refinement; the initial browse is compact.
+      const filters = document.querySelector('.filters');
+      if (filters && document.getElementById('search')?.value) filters.open = true;
       document
         .querySelectorAll('.choice-filter[open]')
         .forEach((filter) => filter.removeAttribute('open'));
@@ -77,40 +80,6 @@
   document.addEventListener('htmx:error', () =>
     announce('The request did not finish. Try the link again or reload the page.')
   );
-  const board = document.getElementById('board-preview');
-  const renderBoard = () => {
-    if (!board) return;
-    const selected = Array.from(document.querySelectorAll('.studio-select'))
-      .map((select) => select.selectedOptions[0])
-      .filter((option) => option?.value);
-    board.replaceChildren();
-    let sum = 0;
-    for (const option of selected) {
-      const figure = document.createElement('figure');
-      const img = document.createElement('img');
-      img.src = option.dataset.image;
-      img.alt = `Editorial reference for ${option.dataset.name}`;
-      img.width = 480;
-      img.height = 640;
-      const caption = document.createElement('figcaption');
-      caption.textContent = option.textContent;
-      figure.append(img, caption);
-      board.append(figure);
-      sum += Number(option.dataset.price);
-    }
-    if (!selected.length) {
-      const p = document.createElement('p');
-      p.textContent = 'Choose sample variants in the panel to see your composition here.';
-      board.append(p);
-    }
-    document.getElementById('studio-total').textContent = selected.length
-      ? `Preview total: $${(sum / 100).toFixed(2)} USD. Recalculated by the server on save.`
-      : 'Choose pieces to build a look.';
-    announce(`${selected.length} pieces in your composition.`);
-  };
-  document.addEventListener('change', (event) => {
-    if (event.target.matches('.studio-select')) renderBoard();
-  });
   const recoverImage = (img) => {
     if (img.dataset.failed) return;
     img.dataset.failed = 'true';
