@@ -1,0 +1,12 @@
+
+> style-ease@1.0.0 lint
+> eslint .
+
+
+C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\scripts\capture-baseline.mjs
+  18:33   error  'document' is not defined    no-undef
+  20:79   error  'document' is not defined    no-undef
+  20:116  error  'innerWidth' is not defined  no-undef
+
+✖ 3 problems (3 errors, 0 warnings)
+

@@ -1,0 +1,461 @@
+
+Running 20 tests using 3 workers
+
+(node:15004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:21672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  3 [desktop] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (11.6s)
+  ok  2 [desktop] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (11.7s)
+  ok  4 [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (6.4s)
+  ok  5 [desktop] › e2e-black-label\commerce.spec.js:107:1 › comparison attributes, bounded membership and mobile scrolling (8.5s)
+  ok  1 [desktop] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (22.3s)
+  ok  8 [desktop] › e2e-black-label\commerce.spec.js:156:1 › mobile navigation, size dialog and reduced motion keyboard behavior (5.6s)
+  ok  7 [desktop] › e2e-black-label\commerce.spec.js:145:1 › private demo reviews are escaped and sortable (8.5s)
+  ok  6 [desktop] › e2e-black-label\commerce.spec.js:124:1 › studio saves, renames, reloads and transactionally adds an outfit (13.8s)
+(node:8200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  9 [desktop] › e2e-black-label\commerce.spec.js:176:1 › ordinary forms complete checkout with JavaScript disabled (9.9s)
+(node:28948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  11 [mobile] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (10.6s)
+(node:23124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 12 [mobile] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (6.8s)
+  ok 14 [mobile] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (3.9s)
+  x  13 [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (5.9s)
+(node:28924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  15 [mobile] › e2e-black-label\commerce.spec.js:107:1 › comparison attributes, bounded membership and mobile scrolling (8.2s)
+(node:28144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  10 [desktop] › e2e-black-label\commerce.spec.js:190:1 › viewport matrix has no overflow and primary routes pass axe (40.4s)
+(node:28740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  16 [mobile] › e2e-black-label\commerce.spec.js:124:1 › studio saves, renames, reloads and transactionally adds an outfit (11.9s)
+(node:3252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  17 [mobile] › e2e-black-label\commerce.spec.js:145:1 › private demo reviews are escaped and sortable (7.1s)
+  ok 18 [mobile] › e2e-black-label\commerce.spec.js:156:1 › mobile navigation, size dialog and reduced motion keyboard behavior (4.4s)
+(node:24308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 19 [mobile] › e2e-black-label\commerce.spec.js:176:1 › ordinary forms complete checkout with JavaScript disabled (2.8s)
+  ok 20 [mobile] › e2e-black-label\commerce.spec.js:190:1 › viewport matrix has no overflow and primary routes pass axe (27.1s)
+
+
+  1) [desktop] › e2e-black-label\commerce.spec.js:190:1 › viewport matrix has no overflow and primary routes pass axe 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 30000ms exceeded.
+     Please check out https://github.com/dequelabs/axe-core-npm/blob/develop/packages/playwright/error-handling.md
+
+       7 | }
+       8 | async function axe(page) {
+    >  9 |   const result = await new AxeBuilder({ page }).analyze();
+         |                  ^
+      10 |   expect(result.violations).toEqual([]);
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+        at AxeBuilder.analyze (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\node_modules\@axe-core\playwright\dist\index.mjs:219:13)
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:9:18)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:225:5
+    [cause]: Error: page.evaluate: Test timeout of 30000ms exceeded.
+        at AxeBuilder.finishRun (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\node_modules\@axe-core\playwright\dist\index.mjs:320:21)
+        at AxeBuilder.analyze (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\node_modules\@axe-core\playwright\dist\index.mjs:217:14)
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:9:18)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:225:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 40
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"menu-trigger js-only\" type=\"button\" data-open=\"mobile-nav\" aria-label=\"Open navigation\">Menu</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".menu-trigger",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:25:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-variant-to-bag-to-3158a-cluding-forged-owner-access-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-variant-to-bag-to-3158a-cluding-forged-owner-access-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-variant-to-bag-to-3158a-cluding-forged-owner-access-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-variant-to-bag-to-3158a-cluding-forged-owner-access-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 40
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"menu-trigger js-only\" type=\"button\" data-open=\"mobile-nav\" aria-label=\"Open navigation\">Menu</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".menu-trigger",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:101:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile] › e2e-black-label\commerce.spec.js:107:1 › comparison attributes, bounded membership and mobile scrolling 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 40
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"menu-trigger js-only\" type=\"button\" data-open=\"mobile-nav\" aria-label=\"Open navigation\">Menu</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".menu-trigger",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:115:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-comparison-attrib-7a4e6-ership-and-mobile-scrolling-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-comparison-attrib-7a4e6-ership-and-mobile-scrolling-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-comparison-attrib-7a4e6-ership-and-mobile-scrolling-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-comparison-attrib-7a4e6-ership-and-mobile-scrolling-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile] › e2e-black-label\commerce.spec.js:124:1 › studio saves, renames, reloads and transactionally adds an outfit 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 40
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"menu-trigger js-only\" type=\"button\" data-open=\"mobile-nav\" aria-label=\"Open navigation\">Menu</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".menu-trigger",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:139:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile] › e2e-black-label\commerce.spec.js:145:1 › private demo reviews are escaped and sortable 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 40
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"menu-trigger js-only\" type=\"button\" data-open=\"mobile-nav\" aria-label=\"Open navigation\">Menu</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".menu-trigger",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:154:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [desktop] › e2e-black-label\commerce.spec.js:190:1 › viewport matrix has no overflow and primary routes pass axe 
+    [mobile] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access 
+    [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+    [mobile] › e2e-black-label\commerce.spec.js:107:1 › comparison attributes, bounded membership and mobile scrolling 
+    [mobile] › e2e-black-label\commerce.spec.js:124:1 › studio saves, renames, reloads and transactionally adds an outfit 
+    [mobile] › e2e-black-label\commerce.spec.js:145:1 › private demo reviews are escaped and sortable 
+  14 passed (1.9m)

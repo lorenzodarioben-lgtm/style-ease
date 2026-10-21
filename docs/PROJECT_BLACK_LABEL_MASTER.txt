@@ -1,0 +1,599 @@
+# STYLE EASE — PROJECT BLACK LABEL
+## The definitive autonomous Codex mega-brief: flagship fashion commerce platform
+
+**ROLE:** You are the principal engineer, staff-level systems architect, creative director, UX researcher, senior product designer, accessibility lead, performance engineer, security engineer, QA lead, and technical writer responsible for a single coherent outcome. Execute, don't merely describe. You have a substantial uninterrupted session to transform the actual repository into a radically more sophisticated, functional, technically credible and visually extraordinary fashion commerce experience.
+
+**REPOSITORY:** `https://github.com/lorenzodarioben-lgtm/style-ease`
+
+**NEW IMPLEMENTATION:** **Go + templ + HTMX 4 + PostgreSQL + custom CSS**, with a *small, justified* amount of browser JavaScript. No new TypeScript frontend. No Vue/React/Next.js application runtime. This is a genuine architectural migration, not an API bolted onto the current SPA.
+
+**THE MISSION IN ONE SENTENCE:** Turn Style Ease from a relatively small, black-and-white, Vue-powered ecommerce demonstration into an iconic, editorial, design-system-driven, full-stack fashion platform with premium art direction, distinctive and useful features, dependable database-backed user journeys, exemplary interaction quality, rigorous security and accessibility, thoughtful performance engineering, and exceptional presentation as a portfolio case study.
+
+**EXECUTION MODE:** Long autonomous execution. I will be away. Do not stop after an audit, TODO list, scaffolding, visual mockup, or the first passing test. Keep delivering working vertical slices, verifying them, and moving to the next ranked objective. Don't ask minor questions: use the conservative default, record it in `HANDOFF.md`, and continue. Only halt a specific blocked action for credentials, expenditure, destructive operations, domain changes, production deployment, real payment processing, or another explicit approval boundary. Continue locally on other work. If context, time or capability becomes constrained, leave the branch fully recoverable, with exactly one next action documented. **Implementation and verified results outrank plans, lines changed, or commit count.**
+
+---
+
+# 0. IMMUTABLE RULES, REPOSITORY SAFETY & DEFINITION OF SUCCESS
+
+1. **Never edit, force-push, rebase, rewrite, delete, deploy or merge `main`.** Work only on `overhaul/black-label-go` or a uniquely suffixed equivalent created from current `origin/main` after checking `git status`, the remote and any user work. Never discard uncommitted changes. If the working tree is dirty, preserve it without destructive cleanup and document how to continue safely. If branch setup is blocked, stop destructive steps, work in a safe worktree if possible.
+2. **Keep the current GitHub Pages production site intact** as a baseline and rollback. Do not change Pages actions, domain settings, or DNS in a way that affects production. The new Go server will require separate hosting; prepare deployment artifacts, not production cutover. A feature-branch push and draft PR are allowed only if repository credentials/permissions are available and the branch's changes are ready for review; never merge automatically.
+3. **No real financial processing, live card forms, real bank connections, sending emails to customers, fake third-party integrations or purchases.** Make all checkout, payment labels, stock, reviews and order receipts unambiguously a **demonstration**, without turning the interface into an obnoxious wall of warnings. Demo order confirmation is not a real sale.
+4. **No invented product facts, images, endorsements, brand affiliations, verified-review claims, pricing savings, sustainability claims, delivery promises, awards, testimonials, or measured benchmarks.** Correct or remove the existing disconnected famous-brand labels and repetitive unverified product claims. Photography must be legitimately usable and accurately mapped; document source, terms and attribution where required. No deceptive renderings of garments as though they are actual product photos.
+5. **Do not resurrect PR #30's rejected redesign.** Examine PR #30 and rollback PR #32 and note the lesson: superficial reskinning is insufficient and can worsen the site. Preserve the intended monochrome architectural personality but rethink the brand experience comprehensively. Current known baseline from the planning audit: `main` at `ae12cd35dbfd8b8f4b0ff985718b502bc81bda01` (recheck, never assume unchanged). A scheduled dependency audit on 19 Oct 2026 identified 9 advisories (3 moderate, 5 high, 1 critical); verify their present relevance rather than silently ignore them.
+6. **Do not quietly break or remove existing behavior.** Inventory first: 20-product seeded catalogue; text/attribute search; URL-backed category/size/colour/price/stock filters; sorting/pagination; product details with sizes and colours; quick shop; shared stock caps; wishlist preserving exact selected variants; up to 3 comparisons; recently viewed; browser-local reviews; cart with save-for-later and undo; accessible two-step demo checkout; receipt history and printable receipts; responsive layouts; keyboard behavior; focus recovery; route errors; old hash links; cross-tab browser storage. Port all relevant user journeys to the new architecture, marking deliberate changes. Tests must prove parity, not merely claim it.
+7. **Don't chase visual novelty at the expense of usability.** The site should remain obvious to shop in, keyboard navigable, legible and fast. Motion must be purposeful, optional under `prefers-reduced-motion`, and never cause content shifts, hover dependencies or navigation traps. Visual quality must extend to cart, error pages, forms, mobile and print, not merely the hero.
+8. **Never weaken tests, silence audit failures, disable accessibility checks, erase test history, bump budgets without recorded justification, fabricate Lighthouse scores, or mark incomplete code as finished.** Honest partial completion with evidence beats fraudulent completion.
+9. **Respect authorship.** Preserve the project's original creator attribution and configured Git author. Do not insert fictional contributors or gratuitous `Co-authored-by` trailers. Never forge dates, benchmark results or the author's activity. Do not introduce conspicuous AI-attribution prose into public portfolio content.
+10. **Security and privacy are mandatory**, especially once browser-only data moves to a real persistent database. No public admin access without robust authentication/authorization; no seeded production secrets; no admin backdoor, fake authentication, hidden feature bypass, unbounded uploads or request handlers trusting browser prices.
+11. **Work toward a stunning but coherent result.** If all core journeys work early, spend the remaining session improving photographic art direction, content integrity, layout refinement, UX edge cases, motion restraint, accessibility, test depth, performance and the signature experience. Do not stop just because the build is green.
+12. **Don't migrate to a microservices stack.** One maintainable Go monolith, well partitioned by domain, has much better long-term clarity for this project than unnecessary distributed systems.
+
+**Success is simultaneously:** (a) genuinely different and substantially more compelling appearance, (b) deeply useful commerce features, (c) a true Go/PostgreSQL implementation, (d) repeatable reliable build, (e) secure server-authoritative state, (f) accessible responsive journeys, (g) documented measured verification, and (h) easy safe handoff. An impressive screenshot on a broken website is failure. An impeccable API with an average-looking template is also failure.
+
+---
+
+# 1. FIRST 30 MINUTES: REALITY CHECK, VISUAL AUDIT, BASELINE
+
+Before editing application code:
+
+- Inspect `git status --short --branch`, HEAD, remotes, recent commits, workflows, dependency audit, README, `PRODUCT.md`, `docs/ARCHITECTURE.md`, package scripts, all route modules, store/review/storage logic, catalogue contents and all six existing CSS sections. Read the current application, not just its README.
+- Identify what actually runs and test it. If working tools permit: `npm ci`, `npm run validate`, `npm run test:e2e`, recording exact successes/failures and environment issues. Do not delete old toolchain while migrating without preserving its reference and baseline. If tools lack network, say so and use cached assets/builds honestly.
+- Inventory all routes, catalog query contracts, component states, business rules, data invariants, user-facing copy, accessibility semantics, search and option behavior, persistence boundaries and open defects.
+- Use Playwright or a browser (where available) to capture **real old-site** screens: desktop 1440x900 and 1920x1080, tablet 768x1024, mobile 390x844 and 320x700. Home, listing, product page, empty/filled cart, checkout, wishlist, comparison, reviews, interactive states. Capture both first fold and full-page when useful. If no browser is installed, state the limit; don't fake screenshots.
+- Make a named baseline commit reference and record exactly where the current implementation can be retrieved from git, so old features remain auditable even after deleting obsolete SPA build files. Avoid copying the entire Vue repository into the final production artifact if git history is sufficient.
+- Create `docs/BASELINE_AUDIT.md`: concrete flaws with route/file references, baseline passes/failures, current visual limitations, dependency issues, asset inconsistencies, and feature-parity checklist.
+- Create `docs/FEATURE_PARITY.md` with every original user journey and semantics, old/new route map, test IDs, pass/block status. Include legacy `/#/product/:id`, `/#/products?...`, checkout, saved receipts, and invalid routes.
+- Create root `HANDOFF.md` immediately. Update it before every substantial boundary and after each stable checkpoint. If the repository does not already contain an `AGENTS.md`, create a **short** one with durable stack/safety/test/handoff rules for Codex continuation; if it exists, read and respect it, preserving user-authored directives and avoiding contradictory edits.
+- Define new design tokens and a one-page art direction. Establish the actual browser-rendered baseline before redesigning components; no image-generated static mockup may substitute for functioning implementation.
+
+**Baseline gate:** Old app/reference preserved, new branch established, current state documented, realistic scope prioritized, baseline screenshot or explicit browser limitation captured. Then start implementing without waiting for me.
+
+---
+
+# 2. THE DESIGN BRIEF — MUSEUM-GRADE FASHION, NOT A GENERIC STORE TEMPLATE
+
+**Creative territory:** Architectural minimalism, high-fashion editorial direction, editorial print sophistication translated into a tactile digital environment, black / ink / graphite / bone-white / neutral grey. Think gallery, fashion journal, elevated concept boutique and precision product interface. Be visually bold, emotionally arresting, and strategically restrained. Study design principles of high-end fashion editorial sites and premium commerce, but do **not** copy another site's assets, wordmark, layout wholesale, CSS or copyrighted styling.
+
+**Design standard:** Every page must feel like part of an art-directed system. Avoid the familiar small-commerce-template composition with basic blocks, stock grids and badges. Build the layout from typographic rhythm, image composition, negative space, visual hierarchy and deliberate pacing. A premium fashion site has a narrative, not simply sections on a black background.
+
+**Distinctive house identity:** Keep the name **STYLE EASE** and the architectural mood, introduce a clearly visible wordmark/monogram developed in vector/CSS using original geometry. A graphic identity can include recurring line, crop, grid and edition markers, but avoid meaningless decorations. The design must remain recognizable at favicon scale and across mobile/desktop. Define genuine typography hierarchy: display face, body/interface face and optional limited editorial contrast; all appropriately licensed and preferably self-hosted/subset. Avoid default Inter-everywhere blandness; Inter may stay for utility text if paired meaningfully. Documentation must list font licenses.
+
+**Palette:** Near-black core (`#0A0A0A` territory), charcoal layered surfaces, off-white/bone editorial inversions, nuanced grayscale and a single optional subtle warm/metallic editorial accent only when necessary. Design and test text contrast tokens, not just raw hex. Use neutral surfaces rather than decorative colored gradients. Design both dark editorial sections and controlled light-on-dark alternation where it helps narrative clarity. Do not add a generic light/dark mode toggle unless its complete design works equally well.
+
+**Grid and composition:** 12-column or similarly intentional responsive grid on wide screens; purposeful asymmetry and high-impact image crops; varied but systematic section spacing. Use fluid type with `clamp()`, robust container/max-width rules, consistent alignments, meaningful whitespace. Establish layout widths and density modes suitable for catalogue vs editorial story vs checkout. Breakpoints must be based on content, not random conventional numbers.
+
+**Typography:** Oversized, beautiful, legible editorial display; articulate uppercase/letterspacing only where justified; tasteful compact metadata; exact baseline alignment; adequate body line height and button labels. Avoid huge meaningless slogans that push the product below the fold. Contrast should meet WCAG 2.2 AA for applicable text/controls. Do not use display lettering as tiny utility copy.
+
+**Photography/visual asset pipeline:** Treat photographs as first-class product data. Only use real assets with documented permission/source; curate to match the actual listed product, silhouette, cut, material and colour. Prefer a small cohesive collection with strong accurate multi-angle photos to a bigger fake inventory with generic unrelated images. Support AVIF/WebP/responsive fallbacks where tooling supports, `srcset`, `sizes`, object-position, aspect-ratio, blur/dominant-colour placeholders, load-error fallbacks, dimensions, fetch priority and lazy loading. Document remote-image uptime/licensing tradeoffs; avoid critical hero imagery dependent on random third-party URLs. If product media cannot be acquired legally, use clearly designated demo/editorial assets without asserting exact product representation. No unreviewed watermarks or ripped brand photography.
+
+**Motion language:** A quiet choreographed system rather than animation soup: precise hover/focus states, fast drawer movement, card image reveal, controlled page transitions, modest scroll reveals when justified, loading/optimistic feedback. Target roughly 120–280ms utility transitions with calibrated easing; longer hero reveals only if nonblocking. Keep transforms/opacity, respect reduced-motion globally, never delay text/buttons or block initial interaction, avoid scroll-jacking. All animations have functional fallbacks.
+
+**Interaction polish:** Visual changes must be driven by actual state: selection, loading, success, stock exhaustion, empty, error, validation. Buttons and menus must have strong accessible focus. Handle keyboard Escape, outside click, focus return, screen-reader status announcements. Touch hit areas should be large and interactive controls should not depend on hover. The smallest detail — quantity steppers, dropdown focus, selected variants, cart count animation, button disabled states, line separators, responsive footers — must be treated as designed.
+
+**Art direction deliverables:** `docs/DESIGN_SYSTEM.md` covering palette/contrast, typography/fonts/licenses, grids, spacing, corners, borders, motion, image rules, interactive component anatomy and mobile layouts. `docs/ART_DIRECTION.md` with visual rationale, repeated motifs, screenshots and what was deliberately avoided. Provide a real screenshot gallery captured from the running new app, not standalone illustrations.
+
+**Deliberate differentiation:** Invent a consistent editorial framing device that belongs to Style Ease (for example, a numbered collection/edition system and striking crop typography). Make the site feel branded, not like a generic black shopping template. However, never make customers decode where “Products” or “Cart” are.
+
+---
+
+# 3. PUBLIC ROUTES — REBUILD THE ENTIRE EXPERIENCE, INCLUDING EDGE STATES
+
+All routes must work on direct first load, refresh, ordinary GET, browser history and with JavaScript disabled where the basic flow is applicable. HTMX enriches them but is not the only way the website functions.
+
+## 3A. Header / global shell / navigation / footer
+
+- Clear STYLE EASE wordmark; visible, useful desktop navigation: Shop, Collections, Editorial/Lookbook, Studio (when delivered), About, with appropriate utility links. Search should be an immediately discoverable action, not a confusing input crowding out branding. Cart/wishlist counts reflect backend state.
+- Mobile navigation as a thoroughly tested overlay/sheet, correct focus containment/return, Escape, scroll lock and external click behavior; logical tab order. Use actual buttons/links.
+- Optional concise editorial announcement/promo strip only with truthful demo messaging, no fictional discount or delivery promise.
+- Footer feels complete: brand statement, category links, useful demo/help information, accessible social links only if real, copyright and actual author/project credit. No dead placeholder links or fake newsletter capture.
+- Global skip link, visible focus, route navigation focus, meaningful landmarks, helpful 404 and 500, maintenance/database-error views, consistent notice/toast pattern that never acts as the sole announcement.
+
+## 3B. Homepage — flagship visual showcase
+
+- A hero art-directed like a real fashion campaign: outstanding image quality, strong composition, compelling copy, prominent shop CTA and (if available) an editorial secondary CTA. Build responsive art direction for mobile and wide screen; do not display half an image or huge whitespace by accident.
+- Editorial navigation into actual catalogue collections. Alternating image-led and typography-led layouts with spatial rhythm, properly merchandised new arrivals, selected pieces, capsule/seasonal edit and lookbook stories. No made-up availability or endorsements.
+- Thoughtful scroll progression: campaign, discovery, product selection, story, curated outfits, final CTA. Ensure it doesn't become an endless lazy placeholder landing page. All links lead to real routes.
+- Optimized above-the-fold LCP element, font preload only if justified, critical styles and stable aspect-ratio images. Respect reduced-motion.
+
+## 3C. Catalogue / search / discovery
+
+- Full server-side query-backed search over product name, description, category, material, colour, size and relevant curated tags, with sensible normalization and predictable sorting. Parameterized queries; no unsafe string concatenation in SQL.
+- Shareable filters for category, price, size, colour, availability, material, collection, newest/featured/price/rating when ratings are credible. Preserve old URL semantics wherever possible. Independent pagination and active-filter chips, clear/reset behavior, result count and genuine empty state with alternate paths.
+- Product cards: intentional image, name, category, material/piece type as appropriate, clear price, honest demo availability, accurate swatches, wishlist/compare, keyboard-friendly quick shop with chosen variant. Do not offer a direct add that bypasses required variant selection.
+- Responsive desktop filter rail/dropdowns as appropriate, refined mobile filter sheet, accessible ordering and scroll restoration. HTMX partial updates should preserve state and navigable history; ordinary form GET works without JS.
+- Search can include recent/popular demo searches or curated suggestions only when real. No fictional usage metrics. Do not build a fake AI recommender; optionally implement a deterministic, documented discovery/ranking algorithm.
+- Server-side filter validation: clamp page sizes, bounds, unknown values and expensive queries; appropriate indexes for actual seeded volume.
+
+## 3D. Product detail — the page that sells the product
+
+- Strong image composition: multi-angle gallery where real matching assets exist; high-quality responsive images, keyboard-operable thumbnails, optional carefully implemented zoom, meaningful alt text, no dead visual controls. If a product has one legitimate image, show one beautiful image, not fabricated angles.
+- Title, category, product identity, formatted local currency, concise evocative but accurate description, material, size/fit guidance, selectable variant, availability, clear add-to-bag, wishlist, compare, copy/share, related styles based on valid catalogue relations.
+- Colour swatches only if actual available variants; the UI must not imply each swatch has a unique photograph unless that photograph exists. Size guide must make no fabricated precise measurements. Size/colour choices must be announced accessibly and survive relevant navigation when expected.
+- Useful product content: care instructions, composition, genuinely relevant fit information, transparent demo shipping/returns notes, stylized SKU/edition as valid data. Remove generic “premium quality” feature bullets and unsubstantiated sustainability text.
+- Reviews: If user-authored browser-local demo reviews are ported, label them unverified and avoid showing artificial ratings as buyer verification. If storing server-side reviews, restrict abuse, sanitize and moderate appropriately; otherwise keep as local/demo content with clear scope. Do not fabricate customer testimonials.
+
+## 3E. Cart / quick shop / wishlist / comparison
+
+- Cart: exact product and variant identity, accessible steppers, stock/quantity limits, remove + undo if achievable safely, save for later, clear value breakdown, recently viewed/related recommendations without distracting checkout, meaningful empty state, persistent guest session.
+- Quick shop: complete keyboard and mobile support, focus management, required variant/quantity validation, visual feedback and accurate cart count.
+- Wishlist: persist per session, retain size/colour selections, move to cart with stock validation, remove action and meaningful empty state.
+- Compare: maximum 3 products unless deliberately revised, accessible side-by-side product attribute comparison, mobile usability (scroll container with affordance), variant/stock clarity, sensible value even if product dataset is small.
+- Save recently viewed with bounded ordered history, no sensitive analytics tracking; visibility controls should be honest.
+
+## 3F. Demo checkout / order history / receipts
+
+- Build an elegant low-friction two-step or similarly clear demo checkout. It should never ask for a real card number, CVV, bank or PayPal credential. Avoid unnecessary personal data collection; use labeled sample data or minimum necessary demo fields, prominently discourage real addresses/identifying details, and document retention/clearing policy.
+- Server computes totals from trusted product/variant data; client-supplied prices ignored. State changes require valid session + CSRF. Checkout confirmations should be idempotent so accidental double-submit/retry does not generate duplicate orders.
+- Order placement in PostgreSQL transaction; revalidate variants and demo availability, record price/title/variant snapshots, write line items, clear appropriate cart entries atomically, return a durable demo-order ID, and surface robust error/retry states. Make demo-stock strategy explicit (not physical stock/reservation).
+- Receipt history must be strictly scoped to the guest session or authenticated owner; never allow ID enumeration to expose another guest's receipt or any entered personal details. Print output has usable ink-friendly print CSS and a clear DEMO designation.
+- Empty-cart checkout redirects or explains properly; form validation inline + keyboard focus on errors; back button preserves state; reload and new tabs behave coherently.
+
+## 3G. Editorial / lookbook / About
+
+- Make meaningful public editorial routes rather than decorative empty links. A compact lookbook may show a curated campaign with clearly linked products and editorial story, plus accessible alternative listings and real URL navigation.
+- A well-written project About page may explain the design philosophy as a concept/demo, without pretending it is a real trading fashion retailer or misrepresenting production capabilities.
+- Dynamic metadata and safe social previews for public pages, product JSON-LD only for data actually supported. If imagery is available, local correct OG images; accessible breadcrumb semantics.
+
+---
+
+# 4. THE SIGNATURE FEATURE — STYLE STUDIO / OUTFIT ARCHITECT
+
+This is the marquee differentiator **after core shopping parity and visual coherence have passed**. Build a product people remember, not a widget added for an impressive README checkbox.
+
+**Concept:** **STYLE STUDIO — Compose the Look.** A creative, sophisticated, keyboard-accessible outfit builder based on real catalogue product relationships. It bridges the fashion editorial identity and technical full-stack complexity.
+
+**Experience specification:**
+
+- A beautiful studio workspace with one composition/canvas area and one searchable shop-the-look catalogue panel. Visitors pick a jacket/top, trousers, footwear, accessories, etc. Show selections as accurate photographs/cards, not misleading AI-assembled garments on a fabricated person. Arrange as a designed editorial outfit board with distinctive typography and product metadata.
+- Select multiple items with size/colour options; reflect compatible choices. Display exact per-item and total demo prices from authoritative backend data. Show missing categories as suggestions, not errors. Clearly distinguish in-stock/unavailable items.
+- Allow add/remove/reorder with pointer controls **and** complete keyboard alternatives. Drag-and-drop may be an enhancement only; a drag-only editor fails accessibility.
+- Persist a guest's saved looks in PostgreSQL with stable identifiers, finite limits and ownership; load/save/duplicate/rename/remove, where complete. Avoid exposing another guest's private saved look via guessed IDs.
+- Generate shareable look URLs only for explicitly published/public looks with proper authorization and opaque public identifiers. For guest-authored unpublished looks, keep the URL private to the session. Public editorial looks can be curated and seeded with validated product relationships.
+- Offer an **Add Outfit to Bag** action that selects valid variants and applies stock limits transactionally, returning accurate successes/partial failures. No client-side arithmetic as the source of truth.
+- Show a beautiful editorial preview and optional print/export image only if actually generated from legitimate product photos, with correct attribution and no false claim that items were physically photographed together.
+- Add tests for selection, persistence, ownership, invalid variants, deleted/unavailable products, quantity caps, accessibility, back/forward navigation, saved-look reload and mobile layout.
+
+**Implementation rule:** The minimum shippable version is **curated lookbook + shoppable outfit board + server-persisted selections + keyboard controls**. Advanced editor/export/sharing can follow after all core pages are stable. This must not displace parity/security work. If only part of this can be implemented, expose only finished capabilities and document the deferred remainder rather than leaving dead visible buttons.
+
+**Secondary signature opportunities, ordered:**
+
+1. **Collection Stories:** multiple curated editorial chapters with deliberate typographic treatment, curated images, short original copy and actual links to products. Use real collection tables, not a hardcoded fiction disconnected from inventory.
+2. **Style Discovery:** small, explainable, deterministic style-preference quiz using genuine catalogue tags/materials/silhouettes. Show *why* suggestions are relevant. No pretend AI intelligence, undisclosed tracking or impossible universal sizing.
+3. **Product comparison intelligence:** explain notable material/shape/fit differences using data-driven rules, not generated claims. A structured attribute comparison is sufficient if descriptions aren't rich enough.
+4. **Recently viewed / complementary outfit suggestions:** preserve a transparent matching algorithm and test the results, without claiming actual purchase-behavior analytics.
+5. **Wishlisted capsule collections:** let guest users save editorial groupings if storage/ownership is correct and the existing wishlist stays understandable.
+
+**Explicitly deferred unless there is a strong, fully secured reason to proceed:** real payment gateway; real shipping-provider API; consumer login/password reset/email verification; multi-role admin CMS; uploads of arbitrary content; user-to-user messaging; generative virtual try-on; face/body image processing; personalized tracking; real customer reviews; real-time inventory from an imaginary warehouse. These features can be future milestones but are not acceptable to fake or ship insecurely overnight.
+
+---
+
+# 5. GO APPLICATION — REQUIRED ENGINEERING ARCHITECTURE
+
+**Runtime:** Supported patched Go release at execution time (the planning snapshot was Go 1.27.3; verify). Standard-library `net/http` with `ServeMux`, context timeouts, robust middleware. Use `templ` to generate typed server-rendered HTML/components. HTMX **4.x pinned to a verified exact version** and served locally with a documented integrity/update strategy; do not let an unpinned URL unexpectedly load HTMX 2.x. PostgreSQL through `pgx/v5` with `pgxpool`. Use migrations (Goose or comparable proven tool); simple explicit SQL, avoid heavy ORM and many magic abstractions. Bundle licensed self-hosted fonts/assets. Minimal JavaScript for image gallery UX, accessible focus management, drawers, and optional studio interactions; no TypeScript or bundler-required SPA.
+
+**Suggested structure** (adjust only if architecture benefits; document):
+
+```text
+cmd/web/main.go
+internal/app/
+internal/config/
+internal/http/routes.go
+internal/http/handlers/
+internal/http/middleware/
+internal/security/
+internal/domain/catalogue/
+internal/domain/cart/
+internal/domain/wishlist/
+internal/domain/comparison/
+internal/domain/checkout/
+internal/domain/editorial/
+internal/domain/studio/                # once prioritized
+internal/database/
+internal/repository/postgres/
+internal/testsupport/
+views/layouts/
+views/components/
+views/fragments/
+views/pages/
+assets/css/
+assets/js/
+assets/fonts/
+assets/images/
+migrations/
+seeds/
+e2e/
+docs/
+Dockerfile
+compose.yaml
+render.yaml                       # configuration only, no forced deployment
+.env.example
+Makefile or Taskfile
+README.md
+HANDOFF.md
+```
+
+**Architectural constraints:**
+
+- HTTP handlers accept/validate/authorize requests, call domain services, and render complete pages or fragments. Do not bury inventory or price logic in templates or handlers.
+- Services encode checkout, cart, inventory, saved look and recommendation rules. Repositories parameterize database reads/writes. Templates are nearly logic-free, reusable and accept typed view models.
+- All crucial operations are tested at the service and HTTP levels, with integration tests against a real PostgreSQL instance. Do not claim that SQLite is equivalent for PostgreSQL locking, transactions or indexes.
+- Consistent explicit errors: validation, not found, forbidden, conflict, temporarily unavailable, unexpected failure. Good messages, correct status codes, request correlation where useful; avoid exposing stack traces, SQL or secret values to users.
+- Config uses environment variables with validation and safe local defaults, avoiding inadvertent production insecure settings. Establish environment-specific secure cookie settings. Never check real credentials into git.
+- Graceful shutdown and signal handling; deterministic timeouts; bounded DB pools, HTTP request body sizes and form fields; safe `http.Server` timeouts; JSON not required for the primary shopping flow.
+- Use structured, privacy-conscious logging, with request IDs and error categories; redact cookies, tokens, queries containing personal data and address contents.
+- Optionally include a small `internal/clock` or deterministic service seam for testing timestamp-sensitive logic, rather than flaky tests that assume wall-clock times.
+
+## PostgreSQL schema contract
+
+Design migrations with **foreign keys, uniqueness, checks, meaningful indexes, transactional semantics and deterministic sample data**. Prefer UUID or random opaque public IDs for guest/session-facing resources; preserve numeric legacy product IDs in mapping so old product links can be redirected deterministically.
+
+**Core entity set:**
+
+- `categories(id, slug, name, display_order, ...)`
+- `collections(id, slug, title, summary, hero_media_id, published, ...)`
+- `products(id, slug, sku, category_id, name, description, material, care, price_minor, currency, status, release_date, ...)`
+- `product_variants(id, product_id, sku, size, color, available_demo_qty, sort_order, active, ...)`, with uniqueness per product/size/colour SKU where relevant.
+- `product_media(id, product_id, optional_variant_id, path, alt, width, height, sort_order, license/source metadata, ...)`
+- `collection_products(collection_id, product_id, position)`
+- `guest_sessions(id/hashed_token_key, created_at, last_seen_at, expires_at, ...)`
+- `carts(id, guest_session_id, updated_at, ...)`
+- `cart_items(cart_id, variant_id, quantity, ...)` with unique `(cart_id, variant_id)`
+- `wishlist_items(guest_session_id, variant_id, ...)` with unique ownership keys
+- `comparison_items(guest_session_id, product_id, ordinal, ...)` with bounded membership
+- `recently_viewed(guest_session_id, product_id, last_viewed_at, ...)`
+- `demo_orders(id, guest_session_id, public_code, status, subtotal_minor, total_minor, currency, created_at, idempotency_key, ...)`
+- `demo_order_items(order_id, product_id, variant_id, snapshot_title, snapshot_sku, snapshot_size, snapshot_color, snapshot_unit_price_minor, quantity, ...)`
+- `editorial_stories`, `editorial_story_products`, and `saved_looks` / `saved_look_items` only as part of a finished editorial/studio feature.
+
+**Database design guidance:** Use appropriate PostgreSQL data types, UTC timestamps, constraints for nonnegative price and sensible quantity limits, stable slugs, explicit indexes on lookup/search/order columns. Consider text search indexes only when actual measured query workload warrants them. Record the migration strategy for unverified old product images and unverified review data. Do not invent product options when porting 20 products. Use preexisting data to seed and curate, with reproducible seed scripts that are idempotent or reset-safe in development and **never destroy production data by default**.
+
+**Money:** Store in integer minor currency units and explicit ISO currency. Choose and document the display currency (existing site uses `$` ambiguously); don't silently turn USD amounts into AUD without a real conversion. At order creation, store immutable line-item snapshots and server-calculated totals so future product changes do not rewrite receipts.
+
+**Variant semantics:** The original application caps quantities by product stock shared across variants. Make this exact choice explicit: either faithfully emulate original demo-stock rules or move to real per-variant demo stock *with documented UX change and tests*. Never promise physical stock reservation. Concurrency-safe DB mutations are required even if the public store is a demo.
+
+**Session design:** Guest sessions should work without creating login accounts. Issue opaque cryptographically random session tokens; store only safe digests server-side if possible. `HttpOnly`, `SameSite` and `Secure` on HTTPS, appropriate expiry/rotation, CSRF tokens bound to sessions or another robust standard pattern, safe cross-tab behavior, no plain session identifiers in URLs, and a plan for periodic expired-data cleanup. Be explicit that guest data persists according to cookie/session lifetime, not indefinitely across devices.
+
+**Transactional correctness to verify:**
+
+1. Two concurrent adds cannot bypass per-product or per-variant capacity rules in the chosen demo model. Use an appropriate transaction/locking strategy and test with concurrent requests.
+2. Product options are revalidated against active variants on each write.
+3. Guest sessions cannot read another guest's saved items, carts, looks or receipts; missing/forged session cookies don't inherit protected data.
+4. Checkout retries with the same idempotency key cannot create duplicate orders or over-consume demo stock.
+5. Transaction failure rolls back both order and cart operations coherently.
+6. Updates to a product's price do not mutate existing immutable receipt snapshots.
+7. Deleted/deactivated variants and malformed cart payloads are safely handled, with transparent user feedback.
+8. Out-of-stock or unsupported variants cannot be purchased merely by forging a POST request.
+9. A DB outage produces safe error UX, not silently fake successful persistence.
+10. The seed process cannot be invoked accidentally against a production DB through routine application startup.
+
+## Routing and HTTP behavior
+
+Use clean canonical routes, mapping roughly:
+
+```text
+GET  /
+GET  /shop                         # catalogue, query-backed filters/search
+GET  /collections
+GET  /collections/{slug}
+GET  /products/{slug}
+GET  /editorial
+GET  /editorial/{slug}
+GET  /studio                      # only once implemented
+GET  /wishlist
+GET  /compare
+GET  /bag
+GET  /checkout
+POST /checkout                    # demo order creation
+GET  /orders                     # owned demo receipts
+GET  /orders/{public-code}
+GET  /healthz
+GET  /readyz
+```
+
+Provide properly routed state-changing POST/PATCH/DELETE operations for cart, wishlist, compare, reviews (if implemented) and studio. Fall back to HTML forms with POST and hidden `_method` or equivalent if PATCH/DELETE requires JS; avoid undocumented magical browser behavior. Redirect after successful ordinary POST (PRG) so reload doesn't resubmit. Support fragments for HTMX without breaking full-page semantics.
+
+**HTMX 4-specific requirement:** Read **https://four.htmx.org/docs**, not just old `htmx.org` version-2 examples. Version 4 changed attribute inheritance (explicit), events, history (server refetch by default), and response swapping (including some error status behavior). Identify the current request headers and lifecycle APIs in official docs and write tests covering them. Make full HTML available to history restoration requests. Do not use historical request header assumptions, `hx-boost` behavior or stale event names without verifying them. Clearly distinguish full-page and fragment representations, ensure proper caching and correct focus restoration after swaps. Decide when browser history should change and test actual forward/back and refresh behavior.
+
+**URL migration detail:** The old GitHub Pages app used `/#/products`, `/#/product/1`, etc. URL fragments **never reach the server**. Do not claim a Go HTTP redirect can detect them. New server may supply migration landing/help routes; any automated redirect from legacy hash URLs must be implemented in the *old site origin* after separate approval. Meanwhile preserve numeric-product mapping in data and document cutover routes. Hash query-state links to the original Pages site must remain intact while the old deploy stays live.
+
+---
+
+# 6. SECURITY, PRIVACY & OPERATIONS: HIGH BAR WITHOUT THEATER
+
+Before any persistent guest data is exposed publicly:
+
+- **OWASP-aligned input/output handling:** `templ` escaping by default; avoid raw HTML and unvalidated dynamic URLs; use templ's sanctioned safe URL approach with explicit validation. SQL parameters only. Reasonable request limits, string length bounds, strict sort/filter allowlists, safe error messages, no directory traversal from asset handling, safe content types.
+- **CSRF for all mutations**, including HTMX, ordinary HTML forms, checkout, saved looks and review submissions. Session-bound token/standard middleware + origin/referer checks where appropriate, not just a custom header. Ensure `SameSite` alone isn't the only barrier. Test missing/invalid tokens and cross-site requests.
+- **Safe session cookies:** secure HTTPS flags in production, HttpOnly, correct SameSite/domain/path/expiry, safe rotation/expiry handling. No session token/secret in logs. Harden against session fixation and replay within realistic scope.
+- **Authorization:** Guest-owned data must only be available to its owner. A demo order public code is not authorization by itself unless explicitly structured as a revocable, high-entropy secret capability URL with privacy risk evaluated; default to session ownership. No unguarded admin route.
+- **Authentication later:** If administrative publishing/auth is implemented after the core, use proven auth libraries/patterns, secure password hashing or external trusted identity and explicit roles. Do not make a “temporary” admin password or client-side gate live.
+- **Content Security Policy:** Implement a practical CSP that is compatible with the specific pinned HTMX 4 code and any trusted event wiring. Prefer external local scripts/styles with appropriate nonces/hashes if needed; avoid broad `unsafe-inline` and `unsafe-eval` as a convenience. Validate actual functionality under the policy.
+- **Other headers:** Sensible `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, frame protection via CSP, correct cache control for guest-sensitive content, and HTTPS/HSTS only when appropriate to the deployment environment.
+- **Abuse resistance:** Rate-limit mutation-heavy endpoints and especially reviews/auth attempts if those exist. Handle header/IP trust correctly behind a proxy; never trust arbitrary `X-Forwarded-For` from the open internet.
+- **Privacy minimization:** Collect no real payment data and minimize demo customer personal details. Clear, real retention policy for guest records; do not publish sensitive details in logs, link preview, telemetry, screenshots, test artifacts or receipts available to strangers. Consent dialogs only where warranted by actual tracking requirements; no fake cookie banners.
+- **Database resilience:** Connection timeout, pool limits, readiness distinct from liveness, transactions, bounded pagination, indexes and explainable failure UX; prepared migrations and rollback strategy. Backups need actual configured provider mechanisms, not a `BACKUPS_ENABLED=true` fiction.
+- **Deployment hygiene:** `.env.example` only contains placeholders; `.env` gitignored; production credentials stored in host secrets; non-root runtime user; small container image; pinned dependencies; reproducible `go.sum`; no private tokens exposed in Docker build args/layers. `govulncheck` or comparable Go advisories, secret scanning, Docker security checks when available. Report warnings rather than disabling them.
+- **Accessibility is also safety:** Proper live announcements for order confirmation, error focus, mobile dialogs, dangerous remove actions, loading feedback and complete keyboard path. Never hide essential controls behind mouse-hover animations.
+
+Generate `docs/THREAT_MODEL.md` using a concise assets/entry-points/attacker-goals/mitigations table plus abuse-case tests. Do not claim certification or regulatory compliance simply because checks pass.
+
+---
+
+# 7. QUALITY ENGINEERING — PROVE THE REDESIGN IS BETTER
+
+**Required automated layers:**
+
+1. Go unit tests for filter/query parsing, money/totals, product/variant rules, slug redirects, recommendations, stock and cart domain logic, session management, validation, output behavior and order idempotency.
+2. Real PostgreSQL integration tests for migrations, seed integrity, repository CRUD, foreign keys, ownership, transaction rollback, concurrent stock/cart mutations, checkout idempotency and receipt price snapshots. Use Docker Compose CI service or testcontainers if feasible; mark tests requiring DB clearly, but include them in CI when possible.
+3. `httptest` route tests for full documents, HTMX fragments, correct status codes, invalid form data, CSRF, session boundaries, caching, timeouts and error handling.
+4. Playwright browser tests against the **actual Go production-like server and real seeded PostgreSQL**, not mocked frontend responses. Cover complete shop-to-demo-receipt, search/filters/history, quick shop, wishlist variants, comparison, product gallery, studio (if delivered), mobile navigation, tab/keyboard use, reduced motion, accessibility, empty states, invalid URLs and database failure recovery where practical.
+5. Visual regression/reference screenshots with clear baseline/new pairings. Avoid overly brittle pixel assertions for remotely hosted imagery; stabilize fonts/images and compare intentional screenshots meaningfully.
+6. Automated `axe-core` scanning on key routes and interactive states. Manual keyboard testing and screen-reader spot checks if possible, documenting tooling limitations; do not equate zero axe findings with WCAG certification.
+7. Build/security hygiene: `go tool templ generate` (or documented pinned equivalent), `gofmt`, `go vet ./...`, `go test ./...`, race tests where relevant, integration suite, `govulncheck ./...` (if accessible), Playwright, production Docker build, static assets check and broken-link/route sweep. Avoid depending on global tool installations with unknown versions.
+
+**Real browser coverage matrix:**
+
+| Width/environment | Expectations |
+|---|---|
+| 320px mobile | No horizontal overflow; readable controls; functional filters/header/product/cart |
+| 360px and 390px phone | Thumb-friendly complete purchase and wishlist journey |
+| 768px tablet | Intentional density, sensible drawers/columns, no collapsed overflow |
+| 1024px laptop | Balanced editorial grid, useful header/navigation |
+| 1440px desktop | Polished editorial composition, legible shopping flow |
+| 1920px desktop | No awkward fixed-width island or stretched asset degradation |
+| Reduced motion | No compulsory reveals/transitions; full functionality |
+| Keyboard only | Open/close/select/search/checkout without mouse, correct focus |
+| No JavaScript | Ordinary GET browse, filter, add-to-cart POST fallback, checkout as feasible |
+| Slow/network interruption | Reasonable loading/error states, stable layout, no lost order |
+| Browser back/forward | Search, filter and page states restored appropriately |
+
+**Performance contract (targets, not invented achievements):**
+
+- Monitor real Web Vitals when a real production audience and telemetry exist: **LCP <= 2.5s, INP <= 200ms, CLS <= 0.1** at the 75th percentile. Local synthetic Lighthouse numbers are only lab data; do not pretend they are field results.
+- Measure initial HTML response time with and without a warm database; characterize cold start separately where applicable. Optimize DB queries before arbitrarily caching guest-specific fragments.
+- Establish asset budgets tied to actual routes and responsive displays. Suggested ambitious guide: main JS (including pinned HTMX) around <= 70 KiB gzip, initial CSS around <= 35 KiB gzip, and important images responsive with carefully justified sizes; adjust only based on verified visuals, not hidden bloat. Keep JavaScript lean and do not import giant animation libraries merely for easing. Report concrete bytes and the command used.
+- Hero LCP: properly sized source files, preload only true critical images/fonts, defer below-the-fold images, no layout shifts, efficient server rendering, caching of truly public assets, image dimension attributes and quality settings.
+- Use appropriate HTTP caching: fingerprinted static assets long-lived; public product HTML conditionally cacheable with correct personalization separation; guest carts, order history and checkout responses `no-store` where warranted.
+- Measure complex routes, not merely a blank homepage. Record results at least for homepage, catalogue, product detail and cart/checkout. Do not produce a fake green Lighthouse report by disabling images or interactions.
+
+**Acceptance minimums:** All P0 journeys pass; migrations apply cleanly to empty PostgreSQL; create/read/modify/checkout works after full restart; idempotency and authorization tests pass; desktop/mobile E2E pass; primary accessibility audits have no unresolved critical/serious issues; no production-blocking high/critical dependency/security finding left unjustified; Docker build works; deployment remains untouched. If any fail, label the branch **NOT READY FOR MERGE** and prioritize fixing them above additional features.
+
+**Quality scorecard:** Maintain `docs/QUALITY_SCORECARD.md` with measurable before/after: available routes/features, observed defects fixed, test counts *and coverage boundaries*, failed/passed audits, performance measurements with environment, visual screenshot comparisons, content accuracy/asset verification, security controls and regressions. Do not optimize for vanity test count or flashy static screen.
+
+---
+
+# 8. MIGRATION STRATEGY — REPLACE THE ENGINE WITHOUT LOSING THE PRODUCT
+
+**Don't big-bang the project blindly. Build vertical slices.** Every migration phase should deliver working code, not dozens of empty packages waiting to be connected.
+
+**Feature parity specification and compatibility decisions:**
+
+- Preserve the original data IDs for references and maintain new stable product slugs. Record old-to-new path mapping in tests.
+- Preserve browse-to-cart-to-demo-checkout as the first full integrated journey. That is the spine of the project.
+- Port the actual inventory and pricing from `src/js/data/catalog.js` with provenance notes; review for misnamed items, unrelated images, unsupported variants and unverified claims. Prefer fixing errors in the migration rather than entrenching them as “features.”
+- Define new guest/session persistence honestly: existing browser-local cart/wishlist/order/review state will **not** automatically transfer to PostgreSQL. Since browser localStorage is origin-scoped and previous hash routes run on GitHub Pages, do not promise automatic migration. You may offer an opt-in export/import feature **only if it validates the entire payload, disallows price/order forgery and doesn't leak private data**; otherwise document a clean start and keep old site untouched.
+- Preserve meaningful UX behaviors: focus after route change, accessible feedback, reset and clear demo-data control, product not-found, route error, storage/session edge handling and mobile safety.
+- The old test suite should remain runnable on the baseline git reference. New Go suite must independently demonstrate required equivalent behaviors; delete obsolete Vue dependencies only **after** replacement code and tests exist. A remaining legacy dependency advisory is not “fixed” merely by moving a file; prove it is gone from production toolchain.
+- Existing product reviews are browser-local and not verified. Decide whether to keep them browser-local as a noncritical demo enhancement or port to explicit demo-only guest-owned records with abuse prevention. Don't build a fake marketplace reputation system overnight.
+- The old repo uses hash routing for GitHub Pages. New routes must be clean path URLs because Go controls the server. Explicitly document old fragment limitation and eventual cutover; never silently redirect a live domain.
+
+**Work in this order, even if aesthetically impatient:** stable DB+server → seeded shop/product → variant/cart → checkout/receipt → wishlist/compare/search/filter → unified design → editorial and studio → hardening. Use a minimal unstyled vertical slice initially so database/business logic is verified; then polish it all. Avoid manually copying CSS files blindly, which tends to recreate the old design's layered overrides.
+
+---
+
+# 9. EXECUTION ROADMAP — A TRUE LONG-RUN AUTONOMOUS WORK LOOP
+
+The time windows below are guidance, **not** excuses to stop after reaching a clock. The quality gates determine transitions. You should proactively keep working as long as the session has budget and tools. If a phase grows beyond its budget, stabilize a tested end-to-end slice before moving into more breadth.
+
+## GATE 0 — Snapshot, audit, and blueprint
+
+- Repo branch/worktree safety check and baseline screenshots/tests if possible.
+- Architecture decisions in `docs/ADR/` (why Go monolith; why HTMX 4; why PostgreSQL; session tradeoffs; image strategy; data retention; demo stock semantics).
+- Requirements inventory and feature-parity map, art direction and UI shot list. Maintain a running punch list sorted by user-visible impact.
+- Initialize root `HANDOFF.md` with the exact commands and one next action.
+
+**Exit only when:** Safe branch, baseline ID and list of pre-existing flows/risks are recorded. Do not spend hours producing planning documents instead of building the new app.
+
+## GATE 1 — Secure server and database backbone
+
+- Create `go.mod`, pinned templ tooling, main HTTP server with sensible timeouts, configuration validation, static assets, clean routes, error pages, `/healthz` and `/readyz`, logging and shutdown.
+- Docker Compose for local PostgreSQL with a named persistent volume and healthcheck; realistic `.env.example` without secrets; setup instructions for Windows with Docker Desktop and for Unix-like systems. No assumption that developer has a particular shell.
+- Versioned migrations, seed command, database pool. Clear development-only seed/reset command guarded against production.
+- Render a real full HTML homepage from templ, public catalogue from seeded PostgreSQL and an actual product detail page by slug.
+- Implement reusable layout/head/meta and static CSS tokens; ensure a fresh database migrates and seeds without manual editing.
+- Include HTTP/SQL integration tests for startup, catalog reads, 404s, migrations and constraints.
+
+**Gate test:** From a clean checkout and Docker Compose database, documented commands bring up a real server and seeded products, and browser can navigate home→shop→product. Build and tests pass.
+
+## GATE 2 — Commerce engine and genuine state
+
+- Guest session lifecycle, session cookies, CSRF, ownership, cart domain, DB transactions and HTMX fragment endpoints; normal HTML form fallback.
+- Real product/variant validation, server-side cart totals, quantity controls and out-of-stock behavior; re-render exact cart/header fragments reliably.
+- Demo checkout with clear form, protected order creation transaction, idempotency and durable ownership-scoped receipts. Refresh and duplicate POST behavior correct.
+- Wishlist (variant-aware), comparison (bounded), save-for-later, recently viewed, quick shop. Search/filters/sort/URL pagination with canonical GET and HTMX history behavior.
+- Add old-to-new route map, server-side redirects for path URLs where relevant, and clear handling of fragment limitation.
+
+**Gate test:** A fresh guest on a fresh DB completes product selection→cart→demo receipt, restarts app and still sees appropriate persisted guest history. Test malformed/forged mutation payloads, duplicate checkout, unauthorized access, concurrent mutation. Browser E2E and no-JS fallback pass. Don't proceed with visually complex new features if this is broken.
+
+## GATE 3 — Design-system reconstruction and flagship visual overhaul
+
+- Rebuild the brand identity and layout from new design tokens/components. Update the header/nav, homepage editorial sequence, product listing/grid, product detail hierarchy/gallery, quick shop, wishlist, comparison, cart, checkout and receipt to one coherent system.
+- Establish and verify local licensed image/font pipeline, stable aspect ratios, aggressive image review. Correct fake or mismatched visual product associations. If assets are missing, provide attractive honest fallback states.
+- Create meaningful hover/focus/active/loading/error/empty/disabled/success treatments for all shared controls; polished toast and side sheet interactions, page transitions only where justified.
+- Capture and actually inspect multiple screenshots of **the running new app** at the required widths. Iterate at least twice on major routes: compare with baseline, identify the most glaring three defects in each iteration, fix them, recapture. Look for cropping, hierarchy, lack of brand, weird alignment, overflow, repetitive spacing, inconsistent image treatment, and motion.
+- Polish below the fold and edge states, not just first fold. Remove redundant CSS and unreferenced assets. Do not ship broken browser screenshots or design tokens with no pages using them.
+
+**Gate test:** Hero and site identity are dramatically stronger than the baseline, all major routes visibly belong to one premium system, mobile complete shopping flow works, keyboard and reduced-motion tests pass, no serious automated accessibility violations introduced. Baseline/new screenshots in evidence folder; quality scorecard records what changed, not just subjective praise.
+
+## GATE 4 — Signature product depth and rich editorial experiences
+
+- Implement **STYLE STUDIO** minimum vertical slice once core is stable: curated product relationships, outfit board, category selection, server calculations, persistent saved looks, accessible controls and validated Add Outfit to Bag if feasible.
+- Add curated editorial collection/season lookbook and original credible prose. Every product featured in a story must exist and be linked. No blank promotional sections.
+- Add meaningful relation/recommendation logic and tests; use deterministic data-driven attributes, not fake AI.
+- If new feature scope threatens test quality or coherent UX, pause addition and finalize a smaller complete slice. Never ship a half-visible advanced feature that fails under keyboard or mobile.
+
+**Gate test:** New standout experiences are truly interactive, reflect database data, preserve ownership/state, are usable on mobile/keyboard, and have automated tests. If not, hide behind an explicitly off feature flag and document why.
+
+## GATE 5 — Hardening, review readiness and publication preparation
+
+- Run complete clean install/build pipeline; go formatting/vet/tests/race where feasible, integration with fresh Postgres, browser E2E, axe, security scan, container build, static/asset links, redirects and DB failure behavior.
+- Run browser performance tests and record actual artifact sizes, Lighthouse profiles where available. Optimize critical rendering and DB query work without hiding business correctness. Review images at actual display widths.
+- Audit production dependencies, re-evaluate the old nine-advisory npm audit situation in relation to eliminated legacy toolchain, and record residual issues.
+- Run a full-page **design QA pass**: desktop and mobile, all routes and all states. Fix at least the highest-impact outstanding problems. Check fixed/sticky elements at narrow widths; use real device/browser when available.
+- Write accurate README, architecture diagram/docs, data model, setup steps, operations and Render deploy plan, security/threat model, licensing, test matrix and change log. Remove stale references to Vue SPA as the new runtime. Preserve original project story in a factual way.
+- Commit coherent verified checkpoints using descriptive conventional commit messages (no artificial dates); optionally push new branch and open a **draft** PR for review if allowed/available. Leave `main` and legacy Pages live untouched. Report the exact updated HEAD and what commands did/didn't run.
+
+**Gate test:** `docs/QUALITY_SCORECARD.md` and `docs/REVIEW_READINESS.md` reflect the true state. Explicitly label **READY FOR REVIEW** or **NOT READY FOR MERGE**. Provide ordered next steps and objective reasons. Never declare victory based solely on code generation or aesthetic ambition.
+
+## If everything passes and time remains
+
+Keep improving. Run successive quality passes: design critique, product data cleanup, browser edge-state sweeps, a11y keyboard repair, more meaningful integration scenarios, load-sensitive SQL indexes, session abuse tests, view transition refinement, image pipeline optimization, code simplification and documentation clarity. Choose improvements by measured user impact. Don't churn functioning code to manufacture commits.
+
+---
+
+# 10. INDEPENDENT CRITIQUE LOOPS — DO NOT ACCEPT YOUR OWN FIRST DRAFT
+
+Adopt five reviewer personas **as repeatable checklists against actual output**:
+
+**Creative director:** Would the first fold look at home in a premium fashion portfolio? Is there a distinctive visual system, or only black cards, large headings and stock images? Are the compositions art-directed, including mobile? Do category and product images actually belong together? Does the site look complete below the hero?
+
+**Expert shopper:** Can I find a garment within seconds? Do colour/size choices communicate truthfully? Can I add it, change my mind, save it, compare it and complete a demo checkout without confusion? Are labels accurate and errors recoverable? Does the shop remain intuitive despite editorial visuals?
+
+**Accessibility specialist:** Can I use a keyboard-only path from homepage to confirmed demo order? Is focus visible and restored through HTMX swaps/modal closure? Are selection and validation announcements accurate? Do dialog targets trap correctly, reduced motion work, and mobile tap targets remain usable? Can I browse without JavaScript?
+
+**Threat analyst:** Can I forge a price, read another guest's order, bypass stock validation, double-order, inject HTML/SQL, bypass CSRF, create unbounded requests or expose secrets? What happens on concurrent cart mutation or DB outage? Is an unguarded admin panel accidentally available?
+
+**Engineering lead:** Does the stack genuinely use Go/templ/HTMX 4/Postgres? Are dependencies pinned, packages sensibly separated, tests meaningful, migrations reliable, generated files reproducible, metrics honestly measured, and setup one command/short sequence? Can someone new start this repo tomorrow?
+
+For each critique cycle: record top actionable issues, fix them, rerun relevant checks, and update the quality scorecard. Don't merely write “looks good” with no screenshots or test evidence. At the end, collect unresolved critiques honestly.
+
+---
+
+# 11. CI/CD, RENDER DEPLOYMENT & LIVE-SITE SAFETY
+
+**Local first:** Self-contained Go web app + database + static assets must work with documented local environment commands. Prefer `docker compose up -d db` for database only and `go run ./cmd/web` for developer speed, plus full production-container alternative. Bootstrap with migration/seed command. `templ` code generation must be deterministic and checked in CI as appropriate.
+
+**Continuous integration:** Use a GitHub Actions workflow that builds with the actual pinned Go version, starts PostgreSQL service, migrates and seeds it, runs unit/integration/HTTP tests, builds production binary/container, installs Playwright browsers if E2E is practical, executes browser/a11y smoke suites and checks relevant security tooling. Fail fast but don't skip higher layers silently. Pin action versions sensibly and avoid relying on changed image tags without review.
+
+**Deployment preparation:** Prefer a single multi-stage Docker image with `templ` generation at build time, embedded/static assets, nonroot runtime user, predictable `PORT` binding, readiness and health endpoints. Render is a reasonable initial Go hosting option; supply documented `render.yaml` or instructions **without connecting it to live production automatically**. An external Postgres service is required for actual persistent deployment.
+
+**Render caveats:** Free web services may sleep/cold-start; free database plans may be ephemeral and unsuitable for lasting portfolio persistence. Research exact current price/limits before choosing any paid plans. Render's fully automated PR preview environments may require an upgraded workspace; never assume free previews are available. **No spending or account/service creation without my approval.** Provide local screenshot evidence instead if preview hosting unavailable.
+
+**Production safety:** Do not touch old GitHub Pages deployment while implementing. Never merge or deploy, change domain/DNS, delete data or provision paid infrastructure. Future staged cutover plan must include separate new deployment, smoke tests, secrets and TLS, backups, import/URL strategy, old hash link redirect plan, rollback instructions and explicit signoff.
+
+**Observability:** Useful request/error logs and liveness/readiness endpoints, optionally privacy-preserving metrics. Do not bundle invasive trackers. If data cannot be observed because a monitoring service is unconfigured, report that instead of inventing monitoring dashboards.
+
+**Ops docs:** `docs/OPERATIONS.md` should describe env vars, health, database migrations/seeding, how to reset local demo data safely, deploying a new version, rollbacks, logs, backup/restore concept and who must approve live operations.
+
+---
+
+# 12. AUTONOMOUS SESSION PROTOCOL, CHECKPOINTS & HANDOFF — CRITICAL
+
+You have permission to use local build/test tools, create branches, commit verified changes, refactor files, write docs, create local screenshots and perform reasonable read-only public-source research. **Do not wait for routine confirmation.** You do not have permission to incur charges, expose personal data, publish to `main`, alter real production or use external credentials beyond what is legitimately already configured and appropriate. Do not hand-wave blocked operations.
+
+**At startup:** Read any repository `AGENTS.md`, then write a succinct ordered plan to `HANDOFF.md` and `docs/EXECUTION_LOG.md`; then implement. Do not output hours of commentary instead of code. Maintain the work log with timestamped major milestones and command outcomes. Use a git branch to checkpoint reversible progress.
+
+**At every significant checkpoint:**
+
+- State branch and exact HEAD, dirty/clean, completed scope and major files changed.
+- Record verification evidence: commands, exit codes, test counts, browser screenshots and known environmental conditions. If a test hasn't been run, write `NOT RUN`, never `PASS`.
+- Record design decisions, new feature gates, open regressions and blockers.
+- Put a single **NEXT ACTION** as the final clear instruction; identify why it outranks the others.
+- Make a clean, meaningful commit for a verified boundary. Do not break git history or force push to simplify a migration; rebase only your own branch safely when appropriate.
+
+**If interrupted or context resets:** Re-read `HANDOFF.md`, check branch/HEAD and clean tree, inspect most recent tests, continue exactly from the **NEXT ACTION** without redoing completed work or running expensive suites unnecessarily. Use small targeted tests while iterating and full suites after substantive checkpoints. Prefer a branch-local `docs/EXECUTION_LOG.md` for richer trace and `HANDOFF.md` for concise resume state.
+
+**If blocked by missing dependencies/network/tools:** Attempt normal safe local recovery (e.g., inspect package availability, use existing caches, provide a reproducible install command). Do not hallucinate a running server or browser screenshot. Progress on independent tasks and leave an explicit blocker with tested remedies. Don't replace PostgreSQL with in-memory fake storage as the new final architecture. You may use an in-memory stub **only** for isolated unit tests that are clearly distinguished from integration proof.
+
+**If behind schedule:** Use this strict survival order: (1) secure compileable Go server & schema, (2) genuine browse/cart/checkout vertical slice, (3) parity for previous features, (4) premium unified visual system, (5) thorough tests, (6) style studio and editorial extras. However, if a new feature is halfway complete and unsafe, prefer stubbing it behind an off flag/finishing safety rather than exposing it. Never leave checkout in a deceptively successful but nonpersistent state.
+
+**No blind approval loops:** Make sensible product decisions within the written boundaries. Only ask the user after the session for matters that truly require them: paid-hosting plan, domain cutover, public deployment, data/legal asset choices that cannot be resolved conservatively, real payment integration and irreversible actions.
+
+---
+
+# 13. PROJECT DOCUMENTATION & FINAL EVIDENCE PACKAGE
+
+**Required files at end of session (accurate, not empty scaffolds):**
+
+```text
+HANDOFF.md
+AGENTS.md                         # if created; preserve any existing one
+README.md
+CHANGELOG.md
+docs/BASELINE_AUDIT.md
+docs/FEATURE_PARITY.md
+docs/ARCHITECTURE.md
+docs/DESIGN_SYSTEM.md
+docs/ART_DIRECTION.md
+docs/DATA_MODEL.md
+docs/SECURITY.md
+docs/THREAT_MODEL.md
+docs/TESTING.md
+docs/PERFORMANCE.md
+docs/QUALITY_SCORECARD.md
+docs/OPERATIONS.md
+docs/REVIEW_READINESS.md
+docs/EXECUTION_LOG.md
+docs/screenshots/baseline/*           # if browser captured
+docs/screenshots/overhaul/*           # if browser captured
+docs/ADR/*                            # real architectural decisions
+```
+
+**README must be portfolio-grade, but truthful.** Clear title, polished real screenshots, exact stack, honest demo boundaries, original author, notable features, why architecture changed, quickstart, migrations/seeding, tests, security limitations, and deploy prerequisites. No giant dubious badges, invented metrics or misleading claims. If tests are blocked, state that. Include real build/run instructions for a Windows developer too.
+
+**Final morning report format:**
+
+1. **The transformation**: a concise, concrete summary of what is markedly better visually, functionally and technically.
+2. **Branch / HEAD / git state**: exact identifiers, commits, status, optional draft PR link only if actually created.
+3. **Feature-by-feature status**: COMPLETE / PARTIAL / DEFERRED / BLOCKED with evidence.
+4. **Architecture & database**: what migrated, how persistence works, migrations/seeds, security boundaries.
+5. **Design gallery**: actual before/after screenshots with viewport names and working page paths; links only to verified files.
+6. **Quality checks**: exact command/status/output summaries, failed tests, performance with machine/test conditions, outstanding CVEs and risk acceptance if relevant.
+7. **Known limitations**: genuine remaining risks, missing assets, gaps in parity, browser support, any demo restrictions.
+8. **How to run locally**: exact minimal commands; dependencies; sample `.env` fields without secrets.
+9. **How to review**: 5–10 minute walkthrough: hero→shop/filter→product options→quick shop/wishlist→bag→demo checkout→receipt→studio if complete.
+10. **Safety status**: confirm `main` and current public Pages untouched; whether ready for draft PR/review or NOT READY FOR MERGE.
+11. **Single next action**: one concrete resumable task, not a huge vague list.
+
+**Do not merely report a count of changed files or lines of code.** Demonstrate a completely working improvement. If the available session length or tooling does not permit all objectives, end with a coherent verified branch, no invented checkmarks, and a concrete continuation plan.
+
+---
+
+# 14. CLEAR AUTHORITY / WHAT NOT TO SPEND TIME ON
+
+**You are authorized to:** rewrite the application *on a feature branch*, remove obsolete Vue dependencies once replaced, reorganize repository code with care, introduce Go modules and local migrations, add a real local PostgreSQL environment, implement and refine the design, obtain legitimately licensed/attributed usable public assets when legally appropriate and technically accessible, run browser tests/screenshots, amend docs and commit tested checkpoints.
+
+**You are not authorized to:** merge or deploy to current production, change public DNS, purchase hosting/services/assets, use real personal customer data, run financial transactions, delete production DBs, expose secrets, fake site metrics, rewrite commit dates/authors, or push disruptive changes to main. If a tool cannot access a resource, provide the explicit limitation and continue with available work.
+
+**Complexity must have purpose.** Don't add WebGL, a heavy 3D engine, blockchain, AI chatbots, WebSockets, background workers, Kubernetes, Redis or microservices just so the README looks impressive. The complexity should come from superior frontend interaction design, meaningful product features, transactional data integrity, robust ownership/security, nuanced editorial presentation, thoughtful performance and testable engineering. Add technical complexity only when it delivers a demonstrable user benefit.
+
+---
+
+# 15. START NOW — YOUR FIRST ACTIONS
+
+1. Inspect the actual repository and current git status. Establish a separate safe work branch/worktree, document baseline and preserve existing changes/history.
+2. Build the feature-parity matrix, record design critiques, and establish `HANDOFF.md`/`docs/EXECUTION_LOG.md`.
+3. Implement and test the first real Go + templ + HTMX 4 + PostgreSQL vertical slice.
+4. Continue through the gates; spend remaining time on a substantially more art-directed product experience and signature Style Studio, but never trade away correctness/security.
+5. Repeatedly run targeted checks, capture actual browser screenshots and refine visible work. Leave an exceptional, coherent, testable branch and honest evidence package, ready for my review in the morning.
+
+**I want a breathtaking result, not a breathless promise. I will judge the running website against the previous version page-by-page and interaction-by-interaction. Build it. Test it. Critique it. Improve it again. Keep working.**
+
+---
+
+# Verified reference starting points (always recheck current versions)
+
+- Existing repository: https://github.com/lorenzodarioben-lgtm/style-ease
+- Original rejected redesign: https://github.com/lorenzodarioben-lgtm/style-ease/pull/30
+- Reverted redesign: https://github.com/lorenzodarioben-lgtm/style-ease/pull/32
+- Go releases: https://go.dev/dl/
+- templ: https://templ.guide/
+- HTMX 4: https://four.htmx.org/docs
+- HTMX 4 changes: https://four.htmx.org/docs/whats-new-in-htmx-4/
+- pgx: https://github.com/jackc/pgx
+- Render Docker deployment: https://render.com/docs/docker
+- Render preview environments/cost restrictions: https://render.com/docs/preview-environments
+- OWASP cheatsheets: https://cheatsheetseries.owasp.org/
+- Web Vitals: https://web.dev/articles/vitals
+
+**End of instruction. Start implementing immediately.**

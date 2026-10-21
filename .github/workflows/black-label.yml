@@ -1,0 +1,58 @@
+name: Black Label Go and PostgreSQL
+on:
+  push:
+    branches: ['overhaul/black-label-go', 'overhaul/black-label-go-*']
+  pull_request:
+    paths: ['**.go', '**.templ', 'go.mod', 'go.sum', 'assets/**', 'migrations/**', 'seeds/**', 'e2e-black-label/**', 'Dockerfile', '.github/workflows/black-label.yml']
+permissions:
+  contents: read
+concurrency:
+  group: black-label-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18.6-alpine
+        env:
+          POSTGRES_USER: style
+          POSTGRES_PASSWORD: local_ci_only
+          POSTGRES_DB: style_ease
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U style -d style_ease"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URL: postgres://style:local_ci_only@127.0.0.1:5432/style_ease?sslmode=disable
+      TEST_DATABASE_URL: postgres://style:local_ci_only@127.0.0.1:5432/style_ease?sslmode=disable
+      APP_ORIGIN: http://127.0.0.1:8080
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.27.3'
+          cache: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: go tool templ generate
+      - run: git diff --exit-code -- views/*_templ.go
+      - run: test -z "$(gofmt -l cmd internal views resources.go)"
+      - run: go vet ./cmd/... ./internal/... ./views/...
+      - run: go test -race -count=1 ./cmd/... ./internal/... ./views/...
+      - run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./cmd/web
+      - run: node scripts/check-black-label-assets.mjs
+      - run: go run ./cmd/web migrate
+      - run: go run ./cmd/web seed
+      - run: go build -trimpath -o bin/style-ease ./cmd/web
+      - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: npx playwright install --with-deps chromium
+      - name: Browser journeys against real Go and PostgreSQL
+        run: |
+          ./bin/style-ease > /tmp/style-ease.log 2>&1 &
+          for n in $(seq 1 30); do curl -fsS http://127.0.0.1:8080/readyz && break || sleep 1; done
+          npx playwright test --config=playwright.black-label.config.js
+      - run: docker build -t style-ease-black-label:test .

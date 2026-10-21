@@ -1,0 +1,9 @@
+Style Ease's browser-only demo now has a separate Go/templ/HTMX 4/PostgreSQL runtime: catalogue discovery, exact variants, transactional guest commerce, private immutable demo receipts and a persistent outfit-composition Studio. The visual system replaces the old layout with a visible house identity, editorial campaign, local typography/photography and complete responsive shopping, form, error and print layouts.
+
+**Draft for review; do not merge or deploy.** Main, the live Pages site and its deploy workflow remain untouched. The Vue reference/tests are retained for auditable parity and excluded from the nonroot production image. There are no real payments, delivery details, accounts/admin or invented brand/review claims.
+
+Validation is against actual PostgreSQL and the nonroot Go container: 24 desktop/mobile browser cases, real SQL concurrency/rollback/idempotency/ownership tests, full-module race/vet, Go vulnerability scan, zero-advisory npm audit, all 168 legacy unit tests and six legacy browser scenarios, fresh Compose bootstrap and receipt persistence across runtime restart. Evidence and before/after screens are committed under docs/.
+
+Lighthouse mobile lab: homepage three-run performance 99/98/98, LCP 2.26–2.33s and automated accessibility 100. Shop/product/bag performance is 99/98/100, LCP 1.8/2.3/1.4s and accessibility 100 each. New combined JS is 14.82KiB gzip, CSS 8.94KiB. These are local lab measurements, not production field metrics or accessibility certification. Manual screen-reader review remains the next verification task.
+
+Review README.md → docs/QUALITY_SCORECARD.md → docs/FEATURE_PARITY.md → HANDOFF.md. Run the app locally at http://127.0.0.1:8080 and walk home → filters → quick shop/variants → wishlist/bag → demo receipt → saved Studio composition. Images are explicitly editorial references for sample catalogue data; hosting/cutover and advanced public sharing/export remain deferred.

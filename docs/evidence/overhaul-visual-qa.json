@@ -1,0 +1,452 @@
+[
+  {
+    "name": "home",
+    "width": 1440,
+    "path": "/",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "shop",
+    "width": 1440,
+    "path": "/shop",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "product",
+    "width": 1440,
+    "path": "/products/geometric-t-shirt",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "bag-empty",
+    "width": 1440,
+    "path": "/bag",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 1440,
+    "path": "/wishlist",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "compare-empty",
+    "width": 1440,
+    "path": "/compare",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "checkout-empty",
+    "width": 1440,
+    "path": "/checkout",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "editorial",
+    "width": 1440,
+    "path": "/collections",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "studio",
+    "width": 1440,
+    "path": "/studio",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "not-found",
+    "width": 1440,
+    "path": "/missing",
+    "status": 404,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "home",
+    "width": 1920,
+    "path": "/",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "shop",
+    "width": 1920,
+    "path": "/shop",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "product",
+    "width": 1920,
+    "path": "/products/geometric-t-shirt",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "bag-empty",
+    "width": 1920,
+    "path": "/bag",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 1920,
+    "path": "/wishlist",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "compare-empty",
+    "width": 1920,
+    "path": "/compare",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "checkout-empty",
+    "width": 1920,
+    "path": "/checkout",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "editorial",
+    "width": 1920,
+    "path": "/collections",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "studio",
+    "width": 1920,
+    "path": "/studio",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "not-found",
+    "width": 1920,
+    "path": "/missing",
+    "status": 404,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "home",
+    "width": 768,
+    "path": "/",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "shop",
+    "width": 768,
+    "path": "/shop",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "product",
+    "width": 768,
+    "path": "/products/geometric-t-shirt",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "bag-empty",
+    "width": 768,
+    "path": "/bag",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 768,
+    "path": "/wishlist",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "compare-empty",
+    "width": 768,
+    "path": "/compare",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "checkout-empty",
+    "width": 768,
+    "path": "/checkout",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "editorial",
+    "width": 768,
+    "path": "/collections",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "studio",
+    "width": 768,
+    "path": "/studio",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "not-found",
+    "width": 768,
+    "path": "/missing",
+    "status": 404,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "home",
+    "width": 390,
+    "path": "/",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "shop",
+    "width": 390,
+    "path": "/shop",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "product",
+    "width": 390,
+    "path": "/products/geometric-t-shirt",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "bag-empty",
+    "width": 390,
+    "path": "/bag",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 390,
+    "path": "/wishlist",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "compare-empty",
+    "width": 390,
+    "path": "/compare",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "checkout-empty",
+    "width": 390,
+    "path": "/checkout",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "editorial",
+    "width": 390,
+    "path": "/collections",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "studio",
+    "width": 390,
+    "path": "/studio",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "not-found",
+    "width": 390,
+    "path": "/missing",
+    "status": 404,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "home",
+    "width": 320,
+    "path": "/",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "shop",
+    "width": 320,
+    "path": "/shop",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "product",
+    "width": 320,
+    "path": "/products/geometric-t-shirt",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "bag-empty",
+    "width": 320,
+    "path": "/bag",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 320,
+    "path": "/wishlist",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "compare-empty",
+    "width": 320,
+    "path": "/compare",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "checkout-empty",
+    "width": 320,
+    "path": "/checkout",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "editorial",
+    "width": 320,
+    "path": "/collections",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "studio",
+    "width": 320,
+    "path": "/studio",
+    "status": 200,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  },
+  {
+    "name": "not-found",
+    "width": 320,
+    "path": "/missing",
+    "status": 404,
+    "overflow": false,
+    "violations": [],
+    "errors": []
+  }
+]

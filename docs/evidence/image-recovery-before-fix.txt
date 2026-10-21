@@ -1,0 +1,92 @@
+
+Running 2 tests using 2 workers
+
+(node:28252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (6.6s)
+  x  2 [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (6.9s)
+
+
+  1) [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('.campaign-image img')
+    Expected: "/assets/image-unavailable.svg"
+    Received: "/assets/images/campaign-1600.webp"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.campaign-image img') with timeout 5000ms
+      - waiting for locator('.campaign-image img')
+        13 × locator resolved to <img width="1600" height="2293" fetchpriority="high" src="/assets/images/campaign-1600.webp" alt="Three people in monochrome streetwear, photographed in strong architectural light"/>
+           - unexpected value "/assets/images/campaign-1600.webp"
+
+
+      257 |     resume();
+      258 |     await page.waitForLoadState('load');
+    > 259 |     await expect(photo).toHaveAttribute('src', '/assets/image-unavailable.svg');
+          |                         ^
+      260 |     await expect(photo).toHaveAttribute('alt', /^Image unavailable\./);
+      261 |     await expect
+      262 |       .poll(() =>
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:259:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('.campaign-image img')
+    Expected: "/assets/image-unavailable.svg"
+    Received: "/assets/images/campaign-1600.webp"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.campaign-image img') with timeout 5000ms
+      - waiting for locator('.campaign-image img')
+        13 × locator resolved to <img width="1600" height="2293" fetchpriority="high" src="/assets/images/campaign-1600.webp" alt="Three people in monochrome streetwear, photographed in strong architectural light"/>
+           - unexpected value "/assets/images/campaign-1600.webp"
+
+
+      257 |     resume();
+      258 |     await page.waitForLoadState('load');
+    > 259 |     await expect(photo).toHaveAttribute('src', '/assets/image-unavailable.svg');
+          |                         ^
+      260 |     await expect(photo).toHaveAttribute('alt', /^Image unavailable\./);
+      261 |     await expect
+      262 |       .poll(() =>
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:259:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 
+    [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 

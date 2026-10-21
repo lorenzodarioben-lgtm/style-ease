@@ -1,0 +1,881 @@
+package views
+
+import "github.com/lorenzodarioben-lgtm/style-ease/internal/domain"
+
+templ Mark() {
+	<span class="monogram" aria-hidden="true"><span></span><span></span><span></span></span>
+}
+
+templ Arrow() {
+	<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+}
+
+templ CSRF(m Model) {
+	<input type="hidden" name="csrf" value={ m.Session.CSRF }/>
+}
+
+templ Return(m Model) {
+	<input type="hidden" name="return" value={ m.Return }/>
+}
+
+templ Head(title string) {
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>{ title } | STYLE EASE</title>
+		<meta name="description" content="A considered wardrobe. Explore the Style Ease concept collection, compare pieces and compose a look. A demonstration by Lorenzo Ben."/>
+		<meta name="color-scheme" content="light dark"/>
+		<meta name="htmx-config" content='{"includeIndicatorCSS":false,"history":"reload","defaultTimeout":10000}'/>
+		<meta property="og:title" content={ title + " | STYLE EASE" }/>
+		<meta property="og:description" content="Architectural fashion. A considered wardrobe. An interactive demonstration by Lorenzo Ben."/>
+		<meta property="og:type" content="website"/>
+		<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"/>
+		<link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+		<link rel="stylesheet" href={ assetURL("/assets/css/black-label.css") }/>
+		<script src="/assets/js/htmx-4.0.0.min.js" integrity="sha384-BvJpBiO8Kh31EqtJe5DRIeWrHWnCGkwytKs9NKFi86Hhw96dEqdEMzZDeK9iEGTc" defer></script>
+		<script src={ assetURL("/assets/js/storefront.js") } defer></script>
+	</head>
+}
+
+templ Page(m Model, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		@Head(m.Title)
+		<body>
+			<a class="skip" href="#main-content">Skip to content</a>
+			<div class="announcement" role="region" aria-label="Store information"><span>A considered wardrobe.</span><a href="/about">A concept store. Explore freely.</a><span>Demo collection / USD</span></div>
+			<header class="header">
+				<a class="brand" href="/" aria-label="Style Ease home">
+					@Mark()
+					<span>STYLE EASE</span>
+				</a>
+				<nav class="desktop-nav" aria-label="Main navigation"><a href="/shop" aria-current={ active(m, "/shop") }>Shop</a><a href="/collections" aria-current={ active(m, "/collections") }>Collections</a><a href="/editorial" aria-current={ active(m, "/editorial") }>Editorial</a><a href="/studio" aria-current={ active(m, "/studio") }>Style Studio</a></nav>
+				<nav class="utilities" aria-label="Shopping tools"><a class="search-link" href="/shop#search">Search</a><a class="saved-link" href="/wishlist">Saved <span>{ n(len(m.State.Wishlist)) }</span></a><a href="/bag" aria-label={ "Bag, " + countBag(m) + " items" }>Bag <span class="bag-count">{ countBag(m) }</span></a><button class="menu-trigger js-only" type="button" data-open="mobile-nav" aria-label="Open navigation menu">Menu</button></nav>
+			</header>
+			<noscript><nav class="nojs-nav" aria-label="Mobile navigation"><a href="/shop">Shop</a><a href="/collections">Collections</a><a href="/studio">Style Studio</a><a href="/wishlist">Wishlist</a><a href="/compare">Compare</a></nav></noscript>
+			<dialog id="mobile-nav" class="nav-dialog" aria-labelledby="nav-title"><div class="dialog-top"><h2 id="nav-title">STYLE EASE</h2><button type="button" data-close>Close</button></div><nav aria-label="Mobile main navigation"><a href="/shop">Shop the collection</a><a href="/collections">Collections</a><a href="/editorial">Editorial</a><a href="/studio">Style Studio</a><a href="/wishlist">Wishlist</a><a href="/compare">Compare pieces</a><a href="/orders">Demo receipts</a><a href="/about">About</a></nav></dialog>
+			<main id="main-content" tabindex="-1">
+				if m.Notice!="" {
+					<p class="notice" role="status">{ m.Notice }</p>
+				}
+				@content
+			</main>
+			<footer class="footer"><div class="footer-top"><p>A wardrobe is a composition.<br/>Make it yours.</p><nav aria-label="Footer shop links"><a href="/shop">Shop all pieces</a><a href="/collections/structure">The Structure Edit</a><a href="/collections/everyday">Everyday, reconsidered</a><a href="/collections/objects">Objects of interest</a></nav><nav aria-label="Project information"><a href="/compare">Compare pieces</a><a href="/orders">Demo receipts</a><a href="/about">About Style Ease</a><a href="/privacy">Privacy &amp; clear data</a><a href="https://github.com/lorenzodarioben-lgtm/style-ease">The project on GitHub</a></nav></div><a href="/" class="footer-wordmark" aria-label="Style Ease home">STYLE EASE</a><div class="footer-bottom"><span>Original concept &amp; development by Lorenzo Ben.</span><span>Demonstration only. No payments or fulfilment.</span></div></footer>
+			<dialog id="quick-shop" class="quick-dialog" aria-label="Quick shop"><div id="quick-content"></div></dialog>
+			<div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
+		</body>
+	</html>
+}
+
+templ Picture(p domain.Product, eager bool) {
+	<img src={ p.Image } srcset={ imageSet(p.Image) } sizes="(max-width: 600px) 50vw, (max-width: 1000px) 45vw, 30vw" alt={ "Editorial reference for " + p.Category + "; not the exact demo product" } width="960" height="1280" loading={ map[bool]string{true: "eager", false: "lazy"}[eager] } decoding="async"/>
+}
+
+templ Card(m Model, p domain.Product) {
+	<article class="product-card">
+		<a class="card-image" href={ templ.SafeURL(productPath(p)) } tabindex="-1" aria-hidden="true">
+			@Picture(p, false)
+		</a>
+		<div class="card-top"><span>{ p.Category }</span><span>{ money(p.Price) }</span></div>
+		<h3><a href={ templ.SafeURL(productPath(p)) }>{ p.Name }</a></h3>
+		<div class="card-meta">
+			<span>{ n(len(p.Colors)) } demo colours</span>
+			<a class="quick-link" href={ templ.SafeURL(productPath(p)) } hx-get={ "/quick/" + p.Slug } hx-target="#quick-content" hx-swap="innerHTML" data-quick>
+				Quick shop 
+				@Arrow()
+			</a>
+		</div>
+		<p class="image-note">Editorial reference</p>
+	</article>
+}
+
+templ Home(m Model) {
+	<section class="campaign">
+		<div class="campaign-image"><picture><source type="image/avif" srcset="/assets/images/campaign-400.avif 400w, /assets/images/campaign-640.avif 640w, /assets/images/campaign-960.avif 960w, /assets/images/campaign-1600.avif 1600w" sizes="(max-width: 600px) 82vw, 64vw"/><source media="(max-width: 600px)" srcset="/assets/images/campaign-400.webp 400w, /assets/images/campaign-800.webp 800w" sizes="82vw"/><img src="/assets/images/campaign-1600.webp" alt="Three people in monochrome streetwear, photographed in strong architectural light" width="1600" height="2293" fetchpriority="high"/></picture></div>
+		<div class="campaign-copy">
+			<h1>The shape<br/>of <em>self.</em></h1>
+			<p>Distinct pieces. A different perspective.<br/>Explore the wardrobe, compose your own.</p>
+			<a class="button bone" href="/shop">
+				Explore the collection 
+				@Arrow()
+			</a>
+		</div>
+		<div class="campaign-bottom">
+			<a href="/collections/structure">
+				The Structure Edit 
+				@Arrow()
+			</a><span>Fashion as a point of view.</span>
+		</div>
+	</section>
+	<section class="collection-intro wrap">
+		<p class="manifesto">Less noise.<br/><span>More presence.</span></p>
+		<div class="intro-copy">
+			<p>Style Ease explores the meeting point of clothing and architecture. Shape, texture and the space to be yourself.</p>
+			<a class="text-link" href="/about">
+				Inside Style Ease 
+				@Arrow()
+			</a>
+		</div>
+	</section>
+	<section class="selected wrap">
+		<div class="section-head">
+			<h2>Considered pieces</h2>
+			<a class="text-link" href="/shop">
+				Shop all 20 
+				@Arrow()
+			</a>
+		</div>
+		<div class="product-grid">
+			for _,id:=range []int{2,7,6,18} {
+				@Card(m, ProductByID(m.Products, id))
+			}
+		</div>
+		<p class="catalogue-note">A demonstration catalogue. Photography is editorial inspiration; product names, materials, options and USD prices are sample data.</p>
+	</section>
+	<section class="chapter">
+		<div class="chapter-photo">
+			@Picture(ProductByID(m.Products, 7), false)
+		</div>
+		<div class="chapter-copy">
+			<h2>Structure.<br/>Without<br/><em>restriction.</em></h2>
+			<p>A study in jackets, denim and proportion. Discover the pieces behind the silhouette.</p>
+			<a class="button bone" href="/collections/structure">
+				Enter the edit 
+				@Arrow()
+			</a>
+		</div>
+	</section>
+	<section class="studio-invite wrap">
+		<div>
+			<h2>A look,<br/><em>all your own.</em></h2>
+			<p>Select pieces, choose your variants and save a composition. The Style Studio brings your wardrobe into perspective.</p>
+			<a class="button ink" href="/studio">
+				Compose a look 
+				@Arrow()
+			</a>
+		</div>
+		<div class="invite-board">
+			<figure>
+				@Picture(ProductByID(m.Products, 8), false)
+				<figcaption>Axis Dress Shirt</figcaption>
+			</figure>
+			<figure>
+				@Picture(ProductByID(m.Products, 3), false)
+				<figcaption>Precision Jeans</figcaption>
+			</figure><span class="board-label">Your next composition starts here.</span>
+		</div>
+	</section>
+	if len(m.State.Recent)>0 {
+		<section class="wrap recent">
+			<div class="section-head"><h2>Another look</h2><a href="/privacy">Manage viewing history</a></div>
+			<div class="product-grid">
+				for _,p:=range m.State.Recent[:min(4,len(m.State.Recent))] {
+					@Card(m, p)
+				}
+			</div>
+		</section>
+	}
+}
+
+templ Shop(m Model) {
+	<div class="wrap shop-page">
+		<div class="page-heading"><h1>The collection<span class="small-count">20 pieces</span></h1><p>Find your shape. Make it personal.</p></div>
+		<form id="catalogue-filters" class="filter-form" action="/shop" method="get" hx-get="/shop" hx-target="#shop-results" hx-swap="outerHTML" hx-push-url="true">
+			<div class="search-row">
+				<label class="search-field" for="search"><span>Search the collection</span><input id="search" type="search" name="q" value={ m.Query.Search } maxlength="100" placeholder="A piece, material or colour"/></label>
+				<button class="button ink" type="submit">
+					Search 
+					@Arrow()
+				</button>
+			</div>
+			<details class="filters" open>
+				<summary>Filter &amp; sort</summary>
+				<div class="filter-grid">
+					for _,kind:=range []string{"category","size","color","material"} {
+						if kind!="material" {
+							@FilterChoices(m, kind)
+						} else {
+							<label>
+								{ map[string]string{"category":"Category","size":"Size","color":"Colour","material":"Material"}[kind] }
+								<select name={ kind } aria-label={ map[string]string{"category": "Category", "size": "Size", "color": "Colour", "material": "Material"}[kind] }>
+									<option value="">All</option>
+									for _,v:=range options(m.Products,kind) {
+										<option value={ v } selected?={ isSelected(map[string]string{"category":m.Query.Category,"size":m.Query.Size,"color":m.Query.Color,"material":m.Query.Material}[kind],v) }>{ v }</option>
+									}
+								</select>
+							</label>
+						}
+					}
+					<label>
+						Price (USD)
+						<select name="price">
+							<option value="">All prices</option>
+							for _,v:=range []string{"Under $50","$50 to $100","Over $100"} {
+								<option value={ v } selected?={ m.Query.Price==v }>{ v }</option>
+							}
+						</select>
+					</label>
+					<label>
+						Collection
+						<select name="collection">
+							<option value="">All collections</option>
+							for _,v:=range []string{"structure","everyday","objects"} {
+								<option value={ v } selected?={ m.Query.Collection==v }>{ CollectionTitle(v) }</option>
+							}
+						</select>
+					</label>
+					<label>
+						Sort by
+						<select name="sort">
+							for _,v:=range domain.Sorts {
+								<option value={ v } selected?={ m.Query.Sort==v }>{ map[string]string{"featured":"Featured","newest":"Newest sample entries","price-asc":"Price: low to high","price-desc":"Price: high to low","name":"Name"}[v] }</option>
+							}
+						</select>
+					</label>
+					<label class="check"><input type="checkbox" name="inStock" value="1" checked?={ m.Query.InStock }/>Available in demo</label><button class="button ink" type="submit">Apply filters</button><a class="text-link" href="/shop">Clear all</a>
+				</div>
+			</details>
+		</form>
+		@ShopResults(m)
+	</div>
+}
+
+templ ShopResults(m Model) {
+	<section id="shop-results" tabindex="-1" aria-label="Collection results">
+		<h2 class="sr-only">Collection pieces</h2>
+		if chips:=filterChips(m);len(chips)>0 {
+			<nav class="active-filters" aria-label="Active filters">
+				for _,chip:=range chips {
+					<a href={ templ.SafeURL(chip.URL) } aria-label={ "Remove filter: " + chip.Label }>{ chip.Label }<span aria-hidden="true">×</span></a>
+				}
+			</nav>
+		}
+		<div class="results-meta"><p role="status">{ n(m.Count) } pieces found</p><a href="/compare">Compare ({ n(len(m.State.Compare)) })</a></div>
+		if m.Count==0 {
+			@Empty("Nothing in this composition yet.", "Try another search or clear the filters to see the full collection.", "/shop", "View all pieces")
+		} else {
+			<div class="product-grid">
+				for _,p:=range m.Results {
+					@Card(m, p)
+				}
+			</div>
+		}
+		if m.Pages>1 {
+			<nav class="pagination" aria-label="Collection pages">
+				for page:=1;page<=m.Pages;page++ {
+					<a href={ templ.SafeURL(pageURL(m, page)) } aria-current={ map[bool]string{true: "page", false: "false"}[page == m.Query.Page] }>{ n(page) }</a>
+				}
+			</nav>
+		}
+		<p class="catalogue-note">USD sample prices. Editorial photographs illustrate the collection's mood; they do not show exact demo products or every colour.</p>
+	</section>
+}
+
+templ Selection(m Model, p domain.Product, quick bool) {
+	<form class="selection" action="/actions" method="post">
+		@CSRF(m)
+		@Return(m)
+		<input type="hidden" name="slug" value={ p.Slug }/>
+		<fieldset>
+			<legend>Size <button class="link-button js-only" type="button" data-open={ "size-guide-" + p.Slug }>Size guidance</button></legend>
+			<div class="size-options">
+				for _,s:=range p.Sizes {
+					<label><input type="radio" name="size" value={ s } checked?={ s==defaultSize(p) } required/><span>{ s }</span></label>
+				}
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Colour <span class="sample-label">Sample options</span></legend>
+			<div class="colour-options">
+				for i,c:=range p.Colors {
+					<label><input type="radio" name="color" value={ c } checked?={ i==0 } required/><span>{ c }</span></label>
+				}
+			</div>
+		</fieldset>
+		<div class="selection-quantity"><label for={ "quantity-" + p.Slug + map[bool]string{true: "-quick", false: ""}[quick] }>Quantity</label><input id={ "quantity-" + p.Slug + map[bool]string{true: "-quick", false: ""}[quick] } name="quantity" type="number" value="1" min="1" max={ n(max(1, remaining(m, p))) } required/><span>{ n(remaining(m,p)) } available in this demo</span></div>
+		<button class="button ink add-button" name="action" value="add" disabled?={ remaining(m,p)==0 }>
+			if remaining(m,p)>0 {
+				Add to bag 
+				@Arrow()
+			} else {
+				Unavailable in demo
+			}
+		</button><button class="button outline" name="action" value="wish">Save this variant</button>
+	</form>
+	<dialog class="size-dialog" id={ "size-guide-" + p.Slug } aria-labelledby={ "size-heading-" + p.Slug }><div class="dialog-top"><h2 id={ "size-heading-" + p.Slug }>Size guidance</h2><button type="button" data-close>Close</button></div><p>Sizes are inherited sample labels from the original concept catalogue. No verified measurements or fit standard is available. This demonstration does not sell or ship physical garments.</p><p>Available labels: { stringJoin(p.Sizes) }</p></dialog>
+}
+
+templ Quick(m Model) {
+	<div class="dialog-top"><span>Quick shop</span><button type="button" data-close>Close</button></div>
+	<div class="quick-grid">
+		<div>
+			@Picture(m.Product, false)
+			<p class="image-note">Editorial reference</p>
+		</div>
+		<div>
+			<h2>{ m.Product.Name }</h2>
+			<p class="product-price">{ money(m.Product.Price) } <span>USD</span></p>
+			@Selection(m, m.Product, true)
+			<a class="text-link" href={ templ.SafeURL(productPath(m.Product)) }>
+				View piece details 
+				@Arrow()
+			</a>
+		</div>
+	</div>
+}
+
+templ Product(m Model) {
+	<div class="wrap">
+		<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/shop">Shop</a><span>/</span><a href={ templ.SafeURL("/shop?category=" + urlEscape(m.Product.Category)) }>{ m.Product.Category }</a><span>/</span><span>{ m.Product.Name }</span></nav>
+		<div class="product-detail">
+			<figure class="product-hero">
+				<a href={ templ.SafeURL(m.Product.Image) } aria-label="Open full editorial reference image">
+					@Picture(m.Product, true)
+				</a>
+				<figcaption>Editorial reference. The photograph is inspiration, not an exact representation of this demo product or its selected colour.</figcaption>
+			</figure>
+			<div class="product-info">
+				<div class="product-id">{ m.Product.Category }<span>SE / { n(m.Product.ID) }</span></div>
+				<h1>{ m.Product.Name }</h1>
+				<p class="product-price">{ money(m.Product.Price) } <span>USD / demo price</span></p>
+				<p>{ m.Product.Description }</p>
+				@Selection(m, m.Product, false)
+				<form action="/actions" method="post" class="compare-action">
+					@CSRF(m)
+					@Return(m)
+					<input type="hidden" name="product" value={ n(m.Product.ID) }/>
+					<button class="text-link" name="action" value="compare">
+						Compare this piece 
+						@Arrow()
+					</button><a href="/compare">View comparison</a>
+				</form>
+				<div class="product-notes"><details open><summary>Composition &amp; care</summary><p>{ m.Product.Material } is the original sample catalogue specification. No physical garment composition or care standard has been verified. Consult actual garment labels for real clothing.</p></details><details><summary>Delivery &amp; returns</summary><p>This is a concept store. No payment is taken, no goods are shipped, and no delivery or return service is offered. Checkout records a private demonstration receipt.</p></details><details><summary>Availability &amp; privacy</summary><p>Demo capacity is shared across selected variants within your bag. It is not a physical reservation. Guest data lasts up to 30 days and can be cleared from Privacy &amp; clear data.</p></details></div>
+			</div>
+		</div>
+		<section class="review-section">
+			<div>
+				<h2>Your perspective</h2>
+				<p>Private, unverified demo reviews. Only this guest session can see them; they are not customer testimonials.</p>
+				<form method="get"><label>Order reviews<select name="reviews"><option value="newest">Newest</option><option value="highest" selected?={ queryValue(m,"reviews")=="highest" }>Highest rating</option></select></label><button class="button outline">Update order</button></form>
+				for _,r:=range m.Reviews {
+					<article class="review"><p>{ stars(r.Rating) } <span>{ r.Created }</span></p><p>{ r.Comment }</p></article>
+				}
+			</div>
+			<form method="post" action="/reviews" class="review-form">
+				@CSRF(m)
+				@Return(m)
+				<input type="hidden" name="product" value={ n(m.Product.ID) }/>
+				<fieldset>
+					<legend>Your rating</legend>
+					<div class="rating-options">
+						for rating:=1;rating<=5;rating++ {
+							<label><input type="radio" name="rating" value={ n(rating) } required/><span>{ n(rating) } / 5</span></label>
+						}
+					</div>
+				</fieldset><label>Your demo review<textarea name="comment" required maxlength="500" rows="4" placeholder="Share a thought about this concept. Avoid personal information."></textarea></label><button class="button ink">Save private demo review</button>
+			</form>
+		</section>
+		if related:=domain.Related(m.Products,m.Product);len(related)>0 {
+			<section class="related">
+				<div class="section-head"><h2>A similar perspective</h2><a href="/shop">View collection</a></div>
+				<div class="product-grid">
+					for _,p:=range related {
+						@Card(m, p)
+					}
+				</div>
+			</section>
+		}
+	</div>
+}
+
+templ Empty(title, body, link, label string) {
+	<div class="empty">
+		<div class="empty-mark">
+			@Mark()
+		</div>
+		<h2>{ title }</h2>
+		<p>{ body }</p>
+		<a class="button ink" href={ templ.SafeURL(link) }>
+			{ label }
+			@Arrow()
+		</a>
+	</div>
+}
+
+templ LineActions(m Model, l domain.Line, wishlist bool) {
+	<form action="/actions" method="post" class="line-actions">
+		@CSRF(m)
+		@Return(m)
+		<input type="hidden" name="variant" value={ n(l.Variant.ID) }/>
+		if wishlist {
+			<input type="hidden" name="quantity" value="1"/>
+			<button class="button ink" name="action" value="move" disabled?={ !l.Variant.Active || remaining(m,l.Product)==0 }>
+				Move to bag 
+				@Arrow()
+			</button><button class="link-button" name="action" value="unwish">Remove</button>
+		} else {
+			if l.Variant.Active && l.Product.Stock>0 {
+				<label for={ "line-qty-" + n(l.Variant.ID) }>Quantity</label><input id={ "line-qty-" + n(l.Variant.ID) } type="number" name="quantity" value={ n(l.Quantity) } min="1" max={ n(l.Product.Stock) } required/><button class="link-button" name="action" value="update">Update</button>
+			}
+			if l.Variant.Active {
+				<button class="link-button" name="action" value="save" formnovalidate>Save for later</button>
+			}
+			<button class="link-button" name="action" value="remove" formnovalidate>Remove</button>
+		}
+	</form>
+}
+
+templ ShoppingLine(m Model, l domain.Line, wishlist bool) {
+	<article class="shopping-line">
+		<a class="line-image" href={ templ.SafeURL(productPath(l.Product)) } tabindex="-1" aria-hidden="true">
+			@Picture(l.Product, false)
+		</a>
+		<div class="line-info">
+			<p class="muted">{ l.Product.Category }</p>
+			<h2><a href={ templ.SafeURL(productPath(l.Product)) }>{ l.Product.Name }</a></h2>
+			<p>{ l.Variant.Size } / { l.Variant.Color }</p>
+			<p class="muted">Editorial reference / sample variant</p>
+			if unavailable([]domain.Line{l}) {
+				<p role="status">This selection needs attention. Adjust its quantity or remove it before checkout.</p>
+			}
+			@LineActions(m, l, wishlist)
+		</div><strong class="line-price">{ money(l.Product.Price*l.Quantity) }</strong>
+	</article>
+}
+
+templ Bag(m Model) {
+	<div class="wrap workspace">
+		<div class="page-heading"><h1>Your bag<span class="small-count">{ countBag(m) } pieces</span></h1><p>A composition in progress.</p></div>
+		if restore:=queryValue(m,"restore");restore!="" {
+			<form class="restore" action="/actions" method="post">
+				@CSRF(m)
+				@Return(m)
+				<input type="hidden" name="variant" value={ restore }/><input type="hidden" name="quantity" value={ queryValue(m, "qty") }/>
+				<button name="action" value="restore" class="text-link">
+					Undo removal 
+					@Arrow()
+				</button>
+			</form>
+		}
+		if len(m.State.Bag)==0 {
+			@Empty("Room for something considered.", "Explore the collection and choose a piece that feels like you.", "/shop", "Explore the collection")
+		} else {
+			<div class="bag-layout">
+				<div>
+					for _,l:=range m.State.Bag {
+						@ShoppingLine(m, l, false)
+					}
+				</div>
+				<aside class="order-summary" aria-label="Bag totals">
+					<h2>The composition</h2>
+					<dl><div><dt>Subtotal</dt><dd>{ total(m.State.Bag) }</dd></div><div><dt>Delivery</dt><dd>Demo only</dd></div><div class="summary-total"><dt>Total USD</dt><dd>{ total(m.State.Bag) }</dd></div></dl>
+					<a class="button ink" href="/checkout">
+						Continue to demo checkout 
+						@Arrow()
+					</a>
+					<p>No payment. No shipment. A private demonstration receipt.</p><a class="text-link" href="/shop">Continue exploring</a>
+				</aside>
+			</div>
+		}
+	</div>
+}
+
+templ Wishlist(m Model) {
+	<div class="wrap workspace">
+		<div class="page-heading"><h1>Your wishlist<span class="small-count">{ n(len(m.State.Wishlist)) } variants</span></h1><p>Keep a thought. Come back to it.</p></div>
+		if len(m.State.Wishlist)==0 {
+			@Empty("An open possibility.", "Save a size and colour from any product to keep your selection here.", "/shop", "Find a piece")
+		} else {
+			<div class="wishlist-lines">
+				for _,l:=range m.State.Wishlist {
+					@ShoppingLine(m, l, true)
+				}
+			</div>
+		}
+	</div>
+}
+
+templ Compare(m Model) {
+	<div class="wrap workspace">
+		<div class="page-heading"><h1>A closer comparison</h1><p>Consider up to three pieces, side by side.</p></div>
+		if len(m.State.Compare)==0 {
+			@Empty("Different pieces. Clearer choices.", "Select Compare this piece on a product page to bring its details here.", "/shop", "Explore the collection")
+		} else {
+			<div class="comparison-scroll" tabindex="0" role="region" aria-label="Product comparison; scroll horizontally on small screens">
+				<table class="comparison">
+					<caption class="sr-only">Sample product attributes</caption>
+					<thead>
+						<tr>
+							<th scope="col">The details</th>
+							for _,p:=range m.State.Compare {
+								<th scope="col">
+									<a class="compare-photo" href={ templ.SafeURL(productPath(p)) }>
+										@Picture(p, false)
+									</a><a href={ templ.SafeURL(productPath(p)) }>{ p.Name }</a>
+								</th>
+							}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Demo price USD</th>
+							for _,p:=range m.State.Compare {
+								<td>{ money(p.Price) }</td>
+							}
+						</tr>
+						<tr>
+							<th scope="row">Category</th>
+							for _,p:=range m.State.Compare {
+								<td>{ p.Category }</td>
+							}
+						</tr>
+						<tr>
+							<th scope="row">Sample material</th>
+							for _,p:=range m.State.Compare {
+								<td>{ p.Material }</td>
+							}
+						</tr>
+						<tr>
+							<th scope="row">Size labels</th>
+							for _,p:=range m.State.Compare {
+								<td>{ stringJoin(p.Sizes) }</td>
+							}
+						</tr>
+						<tr>
+							<th scope="row">Colour labels</th>
+							for _,p:=range m.State.Compare {
+								<td>{ stringJoin(p.Colors) }</td>
+							}
+						</tr>
+						<tr>
+							<th scope="row">Demo capacity</th>
+							for _,p:=range m.State.Compare {
+								<td>{ n(p.Stock) } shared across variants</td>
+							}
+						</tr>
+						<tr>
+							<th scope="row">Your choices</th>
+							for _,p:=range m.State.Compare {
+								<td>
+									<a class="text-link" href={ templ.SafeURL(productPath(p)) }>
+										Choose a variant 
+										@Arrow()
+									</a>
+									<form action="/actions" method="post">
+										@CSRF(m)
+										@Return(m)
+										<input type="hidden" name="product" value={ n(p.ID) }/><button class="link-button" name="action" value="uncompare">Remove { p.Name }</button>
+									</form>
+								</td>
+							}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		}
+	</div>
+}
+
+templ Checkout(m Model, review bool) {
+	<div class="wrap checkout-page">
+		<a class="text-link" href="/bag">Back to your bag</a>
+		<div class="page-heading">
+			<h1>
+				if review {
+					Review the composition.
+				} else {
+					Make it considered.
+				}
+			</h1>
+			<p>Demo checkout. No card, address or real personal details needed.</p>
+		</div>
+		if len(m.State.Bag)==0 {
+			@Empty("Your bag is waiting.", "Add a piece before starting a demo order.", "/shop", "Explore the collection")
+		} else if unavailable(m.State.Bag) {
+			@Empty("A selection needs attention.", "An item is unavailable or exceeds its current demo capacity. Return to your bag to adjust or remove it.", "/bag", "Adjust your bag")
+		} else {
+			<div class="checkout-grid">
+				<section>
+					<ol class="checkout-steps" aria-label="Checkout progress"><li aria-current={ map[bool]string{true: "false", false: "step"}[review] }>Choose a scenario</li><li aria-current={ map[bool]string{true: "step", false: "false"}[review] }>Review &amp; confirm</li></ol>
+					if !review {
+						<form action="/checkout/review" method="post" class="checkout-form">
+							@CSRF(m)
+							<input type="hidden" name="key" value={ m.OrderKey }/>
+							<fieldset><legend>How would you like to explore checkout?</legend><label class="scenario"><input type="radio" name="scenario" value="sample-delivery" required checked/><span><strong>Sample delivery</strong><span>A demonstration destination. No address collected.</span></span></label><label class="scenario"><input type="radio" name="scenario" value="studio-pickup" required/><span><strong>Studio pickup concept</strong><span>An interface scenario. No physical location or booking.</span></span></label></fieldset>
+							<button class="button ink">
+								Continue to review 
+								@Arrow()
+							</button>
+						</form>
+					} else {
+						<section class="review-confirm">
+							<h2>Your demo scenario</h2>
+							<p>
+								if m.Scenario=="studio-pickup" {
+									Studio pickup concept. No location or booking.
+								} else {
+									Sample delivery. No real address or fulfilment.
+								}
+							</p>
+							<p>The server will validate availability and calculate prices again when you confirm.</p>
+							<form method="post" action="/checkout">
+								@CSRF(m)
+								<input type="hidden" name="key" value={ m.OrderKey }/><label class="check"><input type="checkbox" name="confirm" value="demo" required/>I understand this records a demo order only.</label>
+								<button class="button ink">
+									Confirm demo order 
+									@Arrow()
+								</button>
+							</form><a class="text-link" href="/checkout">Change scenario</a>
+						</section>
+					}
+				</section>
+				<aside class="order-summary">
+					<h2>Your selection</h2>
+					for _,l:=range m.State.Bag {
+						<div class="summary-line"><span>{ l.Product.Name }<small>{ l.Variant.Size } / { l.Variant.Color } × { n(l.Quantity) }</small></span><strong>{ money(l.Product.Price*l.Quantity) }</strong></div>
+					}
+					<dl><div class="summary-total"><dt>Total USD</dt><dd>{ total(m.State.Bag) }</dd></div></dl>
+					<p>Sample prices. No taxes, shipping charge or real payment is processed.</p>
+				</aside>
+			</div>
+		}
+	</div>
+}
+
+templ Orders(m Model) {
+	<div class="wrap workspace">
+		<div class="page-heading"><h1>Your demo receipts</h1><p>Saved privately to this guest session for up to 30 days.</p></div>
+		if len(m.State.Orders)==0 {
+			@Empty("Your story starts with a piece.", "Complete a demo checkout to keep a receipt here.", "/shop", "Find your first piece")
+		} else {
+			<div class="receipt-list">
+				for _,o:=range m.State.Orders {
+					<a href={ templ.SafeURL("/orders/" + o.Code) }>
+						<span>{ o.Code }<small>{ o.Created } UTC</small></span>
+						<strong>
+							{ money(o.Total) } USD 
+							@Arrow()
+						</strong>
+					</a>
+				}
+			</div>
+		}
+	</div>
+}
+
+templ Receipt(m Model) {
+	<div class="wrap receipt-page">
+		<div class="receipt-heading">
+			@Mark()
+			<span>STYLE EASE / DEMO RECEIPT</span>
+		</div>
+		<h1>A composition,<br/>recorded.</h1>
+		<p>No payment taken. No shipment will follow.</p>
+		<dl class="receipt-meta"><div><dt>Reference</dt><dd>{ m.Order.Code }</dd></div><div><dt>Recorded (UTC)</dt><dd>{ m.Order.Created }</dd></div></dl>
+		<div class="receipt-items">
+			for _,l:=range m.Order.Lines {
+				<div><span><a href={ templ.SafeURL("/products/" + l.Slug) }>{ l.Name }</a><small>{ l.Size } / { l.Color } × { n(l.Quantity) } at { money(l.Price) }</small></span><strong>{ money(l.Price*l.Quantity) }</strong></div>
+			}
+		</div>
+		<div class="receipt-total"><span>Total USD</span><strong>{ money(m.Order.Total) }</strong></div>
+		<p class="muted">Prices and product details are immutable snapshots of this demonstration order. No delivery details have been collected.</p>
+		<div class="receipt-actions">
+			<button class="button ink js-only" type="button" data-print>Print receipt</button><a class="button outline" href="/orders">All demo receipts</a>
+			<a class="text-link" href="/shop">
+				Keep exploring 
+				@Arrow()
+			</a>
+		</div>
+	</div>
+}
+
+templ Collections(m Model) {
+	<div class="wrap editorial-page">
+		<div class="page-heading"><h1>Different perspectives.</h1><p>Three ways into the same wardrobe.</p></div>
+		<div class="collection-stories">
+			for _,collection:=range m.Collections {
+				<article>
+					<a class="story-image" href={ templ.SafeURL("/collections/" + collection.Slug) }>
+						@Picture(collectionHero(m, collection.Slug), false)
+					</a>
+					<div>
+						<h2><a href={ templ.SafeURL("/collections/" + collection.Slug) }>{ collection.Title }</a></h2>
+						<p>{ collection.Summary }</p>
+						<a class="text-link" href={ templ.SafeURL("/collections/" + collection.Slug) }>
+							Explore the story 
+							@Arrow()
+						</a>
+					</div>
+				</article>
+			}
+		</div>
+	</div>
+}
+
+templ Story(m Model) {
+	<div class="wrap editorial-page">
+		<a class="text-link" href="/collections">All collection stories</a>
+		<div class="story-heading"><h1>{ m.Title }</h1><p>{ CollectionDescription(m.Query.Collection) }</p></div>
+		<div class="story-lead">
+			<figure>
+				@Picture(m.Results[0], true)
+				<figcaption>Editorial inspiration, paired with sample catalogue concepts.</figcaption>
+			</figure>
+			<div>
+				<h2>Clothing as composition.</h2>
+				<p>A wardrobe becomes interesting in the relationships between its pieces. Start with a silhouette, change the proportions, and see what feels right.</p>
+				<p>This edit connects real entries in the Style Ease demonstration catalogue. Each piece retains its own sample sizes, colours and price. Take a closer look, compare your choices, or bring them into the studio.</p>
+				<a class="button ink" href="/studio">
+					Compose a look 
+					@Arrow()
+				</a>
+			</div>
+		</div>
+		<div class="product-grid">
+			for _,p:=range m.Results {
+				@Card(m, p)
+			}
+		</div>
+	</div>
+}
+
+templ About(m Model) {
+	<div class="wrap about-page">
+		<div class="page-heading"><h1>Style, considered.</h1><p>An exploration of clothing, composition and digital craft.</p></div>
+		<div class="about-grid">
+			<div class="about-mark">
+				@Mark()
+			</div>
+			<div>
+				<h2>A concept by Lorenzo Ben.</h2>
+				<p>Style Ease began as a fashion storefront experiment. Project Black Label develops that idea into a server-rendered commerce demonstration, with a quieter visual language and more deliberate tools for discovery.</p>
+				<p>The catalogue is fictional sample data. Prices are expressed in USD without converting the original dollar values. Photography is editorial reference from Unsplash, not evidence of exact products, available colours, material claims or brand affiliations.</p>
+				<h2>Your privacy, by design.</h2>
+				<p>An essential guest cookie keeps your bag, wishlist, comparison, private demo reviews, saved looks and receipts together. The cookie lasts up to 30 days. The server stores a digest of its opaque token; there are no accounts, payment details, tracking pixels or real delivery addresses.</p>
+				<p>Data belongs to this guest session, not a public profile or another device. Clearing the cookie loses access; clearing the demo data below deletes the session and its records. Expired records are removed by the documented cleanup command.</p>
+				<form method="post" action="/session/clear" class="clear-form">
+					@CSRF(m)
+					<h3>Clear your demo data</h3><label class="check"><input type="checkbox" name="confirm" value="clear" required/>Delete this guest session, bag, wishlist, comparisons, reviews, looks and receipts. This cannot be undone.</label><button class="button outline">Clear demo data</button>
+				</form>
+				<a class="text-link" href="https://github.com/lorenzodarioben-lgtm/style-ease">
+					Explore the source 
+					@Arrow()
+				</a>
+			</div>
+		</div>
+	</div>
+}
+
+templ Studio(m Model) {
+	<div class="wrap studio-page">
+		<div class="page-heading"><h1>Compose the look.</h1><p>Your pieces. Your proportions. A composition all your own.</p></div>
+		<div class="studio-layout">
+			@StudioBoard(m)
+			<form class="studio-picker" action="/studio/save" method="post">
+				@CSRF(m)
+				<h2>Select your pieces</h2>
+				<p>Choose up to one variant in each category. Suggestions are optional.</p>
+				for _,category:=range []string{"Jackets","Tops","Jeans","Sweaters","Shoes","Accessories"} {
+					<label>
+						{ category }
+						<select name="variant" class="studio-select" data-category={ category }>
+							<option value="">Leave open</option>
+							for _,p:=range m.Products {
+								if p.Category==category {
+									<optgroup label={ p.Name + " / " + money(p.Price) }>
+										for _,v:=range p.Variants {
+											if v.Active {
+												<option value={ n(v.ID) } selected?={ studioSelected(m,v.ID) } disabled?={ p.Stock==0 } data-price={ n(p.Price) } data-image={ p.Image } data-name={ p.Name }>{ p.Name+" / "+v.Size+" / "+v.Color+map[bool]string{true:" / unavailable",false:""}[p.Stock==0] }</option>
+											}
+										}
+									</optgroup>
+								}
+							}
+						</select>
+					</label>
+				}
+				<label>Look name<input name="name" value={ m.ActiveLook.Name } required maxlength="60" placeholder="My considered wardrobe"/></label>
+				<p class="studio-total" id="studio-total">
+					if len(m.ActiveLook.Lines)>0 {
+						{ money(m.ActiveLook.Total) } USD / saved composition
+					} else {
+						Choose pieces to build a look.
+					}
+				</p>
+				<button class="button ink">
+					Save private look 
+					@Arrow()
+				</button>
+				<noscript><p>Choose variants and save. The server will calculate your total and render the saved outfit below.</p></noscript>
+			</form>
+		</div>
+		<section class="saved-looks">
+			<h2>Your compositions</h2>
+			if len(m.State.Looks)==0 {
+				<p>Your saved looks will appear here. No public sharing is enabled.</p>
+			}
+			for _,look:=range m.State.Looks {
+				<article class="saved-look">
+					<div class="section-head"><h3>{ look.Name }</h3><strong>{ money(look.Total) } USD</strong></div>
+					<div class="look-pieces">
+						for _,l:=range look.Lines {
+							<a href={ templ.SafeURL(productPath(l.Product)) }>
+								@Picture(l.Product, false)
+								<span>{ l.Product.Name }<small>{ l.Variant.Size } / { l.Variant.Color }</small></span>
+							</a>
+						}
+					</div>
+					if unavailable(look.Lines) {
+						<p role="status">A piece in this composition is unavailable. Save a new composition or remove this look.</p>
+					}
+					<div class="look-actions">
+						<a class="text-link" href={ templ.SafeURL("/studio?look=" + look.ID) } aria-label={ "Open in Studio: " + look.Name }>Open in Studio @Arrow()</a>
+						<form method="post" action="/studio/bag">
+							@CSRF(m)
+							<input type="hidden" name="look" value={ look.ID }/>
+							<button class="button ink" disabled?={ unavailable(look.Lines)||len(look.Lines)==0 }>
+								Add outfit to bag 
+								@Arrow()
+							</button>
+						</form>
+						<form method="post" action="/studio/rename">
+							@CSRF(m)
+							<input type="hidden" name="look" value={ look.ID }/><label>Rename look<input name="name" value={ look.Name } required maxlength="60"/></label><button class="link-button">Save name</button>
+						</form>
+						<form method="post" action="/studio/delete">
+							@CSRF(m)
+							<input type="hidden" name="look" value={ look.ID }/><button class="link-button">Delete look</button>
+						</form>
+					</div>
+				</article>
+			}
+		</section>
+	</div>
+}
+
+templ Problem(title, message string, status int) {
+	<!DOCTYPE html>
+	<html lang="en">
+		@Head(title)
+		<body class="problem-page">
+			<a class="skip" href="#main-content">Skip to content</a>
+			<header class="header">
+				<a class="brand" href="/">
+					@Mark()
+					<span>STYLE EASE</span>
+				</a><a href="/shop">The collection</a>
+			</header>
+			<main id="main-content" tabindex="-1" class="wrap problem">
+				<p class="error-code">{ n(status) }</p>
+				<h1>{ title }</h1>
+				<p role="alert">{ message }</p>
+				<div>
+					<a class="button bone" href="/shop">
+						Explore the collection 
+						@Arrow()
+					</a><a class="text-link" href="/bag">Return to bag</a>
+				</div>
+			</main>
+		</body>
+	</html>
+}

@@ -4,7 +4,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['dist/**', 'node_modules/**', 'coverage/**']
+    ignores: ['dist/**', 'node_modules/**', 'coverage/**', 'assets/js/htmx-4.0.0.min.js']
   },
   js.configs.recommended,
   ...vue.configs['flat/recommended'],

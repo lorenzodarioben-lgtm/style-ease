@@ -1,0 +1,13 @@
+
+> style-ease@1.0.0 test:run
+> vitest run
+
+
+ RUN  v4.1.10 C:/Users/lorenzodario/Documents/PersonalProjects/style-ease
+
+
+ Test Files  23 passed (23)
+      Tests  168 passed (168)
+   Start at  21:29:25
+   Duration  13.47s (transform 6.58s, setup 0ms, import 11.13s, tests 1.90s, environment 42.81s)
+

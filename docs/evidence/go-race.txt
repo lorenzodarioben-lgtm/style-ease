@@ -1,0 +1,78 @@
+?   	github.com/lorenzodarioben-lgtm/style-ease	[no test files]
+?   	github.com/lorenzodarioben-lgtm/style-ease/cmd/dbinit	[no test files]
+?   	github.com/lorenzodarioben-lgtm/style-ease/cmd/web	[no test files]
+=== RUN   TestMigrationsSeedConstraints
+--- PASS: TestMigrationsSeedConstraints (3.73s)
+=== RUN   TestConcurrentSharedCapacity
+--- PASS: TestConcurrentSharedCapacity (1.55s)
+=== RUN   TestAtomicWishlistAndBounds
+--- PASS: TestAtomicWishlistAndBounds (1.03s)
+=== RUN   TestCheckoutIdempotencyOwnershipSnapshots
+--- PASS: TestCheckoutIdempotencyOwnershipSnapshots (1.05s)
+=== RUN   TestCheckoutRollbackAndInactiveVariant
+--- PASS: TestCheckoutRollbackAndInactiveVariant (1.17s)
+=== RUN   TestSavedLooksOwnershipAndAtomicBag
+--- PASS: TestSavedLooksOwnershipAndAtomicBag (0.95s)
+=== RUN   TestReviewScopeAndSessionCleanup
+--- PASS: TestReviewScopeAndSessionCleanup (0.94s)
+=== RUN   TestArchivedOwnedSelectionsRemainRecoverable
+--- PASS: TestArchivedOwnedSelectionsRemainRecoverable (2.99s)
+PASS
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/database	17.377s
+=== RUN   TestQueryContract
+--- PASS: TestQueryContract (0.00s)
+=== RUN   TestAttributeSearchFiltersSort
+=== RUN   TestAttributeSearchFiltersSort/attribute_intersection
+=== RUN   TestAttributeSearchFiltersSort/comma_lists
+=== RUN   TestAttributeSearchFiltersSort/empty
+=== RUN   TestAttributeSearchFiltersSort/stock
+=== RUN   TestAttributeSearchFiltersSort/price
+=== RUN   TestAttributeSearchFiltersSort/collection
+--- PASS: TestAttributeSearchFiltersSort (0.00s)
+    --- PASS: TestAttributeSearchFiltersSort/attribute_intersection (0.00s)
+    --- PASS: TestAttributeSearchFiltersSort/comma_lists (0.00s)
+    --- PASS: TestAttributeSearchFiltersSort/empty (0.00s)
+    --- PASS: TestAttributeSearchFiltersSort/stock (0.00s)
+    --- PASS: TestAttributeSearchFiltersSort/price (0.00s)
+    --- PASS: TestAttributeSearchFiltersSort/collection (0.00s)
+=== RUN   TestMoneyAndSharedCapacity
+--- PASS: TestMoneyAndSharedCapacity (0.00s)
+=== RUN   TestVariantAndRelations
+--- PASS: TestVariantAndRelations (0.00s)
+PASS
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/domain	1.828s
+?   	github.com/lorenzodarioben-lgtm/style-ease/internal/testsupport	[no test files]
+=== RUN   TestGuestIssuanceCapBeforeDatabase
+--- PASS: TestGuestIssuanceCapBeforeDatabase (0.00s)
+=== RUN   TestCompressionAndQuality
+--- PASS: TestCompressionAndQuality (0.01s)
+=== RUN   TestOriginConfigAndReturnSafety
+--- PASS: TestOriginConfigAndReturnSafety (0.00s)
+=== RUN   TestHTTPIntegration
+=== RUN   TestHTTPIntegration/representations
+=== RUN   TestHTTPIntegration/csrf
+=== RUN   TestHTTPIntegration/trusted_totals_and_idempotency
+=== RUN   TestHTTPIntegration/escaping_and_route_sweep
+=== RUN   TestHTTPIntegration/invalid_payload_and_methods
+=== RUN   TestHTTPIntegration/rate_limit
+=== RUN   TestHTTPIntegration/expired_cookie_becomes_new_guest
+--- PASS: TestHTTPIntegration (3.33s)
+    --- PASS: TestHTTPIntegration/representations (0.07s)
+    --- PASS: TestHTTPIntegration/csrf (0.02s)
+    --- PASS: TestHTTPIntegration/trusted_totals_and_idempotency (0.24s)
+    --- PASS: TestHTTPIntegration/escaping_and_route_sweep (0.54s)
+    --- PASS: TestHTTPIntegration/invalid_payload_and_methods (0.01s)
+    --- PASS: TestHTTPIntegration/rate_limit (1.02s)
+    --- PASS: TestHTTPIntegration/expired_cookie_becomes_new_guest (0.02s)
+=== RUN   TestDatabaseOutage
+2026/10/21 23:12:42 ERROR database operation failed request_id=69240ee78dc8a327
+--- PASS: TestDatabaseOutage (0.95s)
+=== RUN   TestArchivedSelectionRecoveryHTTP
+--- PASS: TestArchivedSelectionRecoveryHTTP (0.98s)
+PASS
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/web	10.119s
+?   	github.com/lorenzodarioben-lgtm/style-ease/node_modules/flatted/golang/pkg/flatted	[no test files]
+=== RUN   TestEmbeddedAssetProvenance
+--- PASS: TestEmbeddedAssetProvenance (0.02s)
+PASS
+ok  	github.com/lorenzodarioben-lgtm/style-ease/views	1.963s

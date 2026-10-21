@@ -1,165 +1,79 @@
-# Style Ease
+# STYLE EASE
 
-[![CI](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml/badge.svg)](https://github.com/lorenzodarioben-lgtm/style-ease/actions/workflows/ci.yml)
+**Project Black Label. A considered wardrobe.**
 
-A responsive front-end fashion storefront built with Vue, Vue Router, and Vite.
+An editorial fashion concept store by **Lorenzo Ben**, rebuilt as a Go + templ + HTMX 4 + PostgreSQL application. Explore 20 sample pieces, compare their details, keep exact variants, compose an outfit and complete a private demo order.
 
-## Live Demo
+![Black Label desktop homepage](docs/screenshots/overhaul/home-1440-first-fold.png)
 
-**[https://lorenzodarioben-lgtm.github.io/style-ease/](https://lorenzodarioben-lgtm.github.io/style-ease/)**
+This feature branch is a separate application. The [existing GitHub Pages storefront](https://lorenzodarioben-lgtm.github.io/style-ease/) and its deployment remain unchanged. Start with the [morning report and gallery](docs/MORNING_REPORT.md), [Review readiness](docs/REVIEW_READINESS.md) and [HANDOFF.md](HANDOFF.md).
 
-Deployed automatically from `main` with GitHub Actions and GitHub Pages.
+## Explore
 
-## Screenshots
+- An architectural monochrome identity, cinematic campaign, self-hosted DM Sans/Bodoni typography, responsive local AVIF/WebP imagery and coherent shopping/receipt/error layouts.
+- Database-backed catalogue, original numeric IDs, stable product slugs, search over attributes, shareable filters, sorting, pagination and real collection relationships.
+- Required size/colour choices, quick shop, shared per-product demo capacity, exact-variant wishlist, save for later, undo removal and comparison of up to three pieces.
+- Guest-owned PostgreSQL state, private demo reviews, recently viewed history and immutable receipts. Checkout is transactional, server-priced and idempotent.
+- **Style Studio:** compose a photographic outfit board, choose valid variants, save/reopen/rename/delete private looks and add an entire outfit atomically. Saved boards also reopen without JavaScript.
+- Ordinary HTML forms, a complete no-JavaScript purchase path, keyboard-operable dialogs, visible focus, reduced motion and ink-friendly receipt printing.
 
-| Desktop                                                                | Mobile                                                                    |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| ![Style Ease home page on desktop](docs/images/style-ease-desktop.png) | ![Style Ease product detail on mobile](docs/images/style-ease-mobile.png) |
+This is a **demonstration**. No payments, real addresses, emails or shipment are collected/processed. Prices, materials, sizes and colours are sample catalogue data; unchanged original dollar values are explicitly designated USD. Unsplash photographs are editorial references, not exact product/variant photographs or brand affiliations. Reviews are private, unverified guest records, not customer testimonials.
 
-## Overview
+## Run locally
 
-Style Ease is a single-page fashion storefront that demonstrates a complete browsing-to-checkout flow on the front end. It started as a static design and was rebuilt into a modular Vue and Vite application with automated quality checks, tests, and continuous deployment.
-
-The storefront behaviour is **simulated**: the catalogue is bundled static data and the checkout flow does not process real payments. There is no backend, database, authentication, or real inventory. The focus of the project is front-end architecture, component structure, accessibility, responsive design, and a professional delivery pipeline.
-
-## Key Features
-
-- Product catalogue of 20 items rendered from local data
-- Attribute-aware search across names, descriptions, categories, materials, colours, and sizes; URL-backed filters, sorting, pagination, and an in-stock-only filter can be bookmarked and restored
-- Product-detail pages with size and colour selection, static demo stock, add-to-bag, variant-aware wishlist selections, and comparison controls
-- Cart lines that preserve selected variants, link back to product details, expose their shared demo-stock capacity, merge matching quantities, enforce static stock limits, and can be saved for later without losing the cart line when saving fails
-- Persisted cart, wishlist, comparison, recently viewed, and demo-receipt state with defensive browser-storage validation and cross-tab synchronization; delivery details are never persisted
-- Dedicated accessible wishlist and side-by-side comparison workspaces, including a labelled header count for selected comparison styles
-- Home-page recently viewed and explicitly curated featured-style sections that reuse the responsive product cards
-- Expandable shipping and care sections on product pages
-- Native-radio star-rating review form with browser-local, non-verified review summaries and newest/highest-rating ordering
-- Two-step checkout with inline validation, accessible error announcements, a delivery-details review, and an explicit demo-order confirmation
-- Browser-local demo order history and expandable, print-friendly demo receipts; delivery details are kept only for the current session
-- Responsive product images with lazy loading, `srcset`, intrinsic sizing, and a visual fallback
-- Route-level lazy loading with a retry UI and a one-time session-guarded recovery reload for failed route chunks
-- Dedicated Page Not Found recovery route, while invalid product IDs retain their product-specific recovery screen
-- Toast feedback when an item is added to the bag
-- Mobile navigation menu and a route-aware header
-
-## Accessibility and Responsive Behaviour
-
-Accessibility work that is implemented in the source includes:
-
-- A skip link to the main content and a focusable main landmark
-- Visible keyboard focus styles
-- Route-specific document titles and focus moved to the main region on navigation
-- Semantic buttons, forms, fieldsets, and labelled controls
-- `aria-expanded`, `aria-controls`, `aria-pressed`, and `aria-current` on interactive elements
-- Polite live-region messages for cart, review, checkout validation, and empty states
-- Keyboard-operable quantity, comparison, filter, checkout, and search-suggestion controls
-- Predictable focus movement for opened filter panels and closed Quick Shop and size-guide dialogs
-- Native keyboard-operable review radio controls, labelled comparison navigation state, and print-safe receipt actions
-
-The layout is responsive and was checked across mobile, tablet, and desktop widths (approximately 320–1440px) without horizontal overflow. These are deliberate accessibility improvements rather than a claim of full WCAG conformance, and they have not been validated with assistive-technology screen-reader testing.
-
-## Technology Stack
-
-- **Vue** – component-based UI (Options API with string templates)
-- **Vue Router** – client-side routing with hash history
-- **Vite** – development server and production build
-- **Vitest** + **happy-dom** – unit and component testing
-- **ESLint** – linting (flat config with the Vue plugin)
-- **Prettier** – code formatting
-- **GitHub Actions** – continuous integration and deployment
-- **GitHub Pages** – hosting for the production build
-
-## Project Structure
-
-```
-.
-├── index.html               # Vite HTML entry point
-├── vite.config.js           # Vite + Vitest config and production base path
-├── eslint.config.js         # ESLint flat config
-├── .github/workflows/       # CI and GitHub Pages deployment workflows
-├── docs/images/             # README screenshots
-└── src/
-    ├── main.js              # App bootstrap (creates and mounts the app)
-    ├── style.css            # Imports the CSS sections in cascade order
-    ├── css/                 # Stylesheet sections
-    └── js/
-        ├── app.js           # Root component and shared cart/wishlist state
-        ├── router.js        # Route definitions, titles, and focus handling
-        ├── components/      # Reusable components (header, toast)
-        ├── pages/           # Route-level pages
-        ├── data/            # Catalogue and site content
-        └── utils/           # Shared helpers (filtering, totals, storage)
-```
-
-## Automated Testing and Quality Checks
-
-The unit suite has **156 tests across 23 test files**, including mounted Vue component interactions through Vue Test Utils. It covers attribute search, URL state, availability filtering, defensive browser storage and cross-tab updates, variants and save-for-later, comparisons, review migration/summaries/order, receipt printing, router recovery, checkout, and image delivery. **Six Playwright scenarios** exercise the production build's purchase flow, direct URL state, accessible primary and not-found routes, keyboard shopping controls, and mobile overflow.
-
-The tests focus on logic and component behaviour. They do not claim full coverage, and they do not cover visual rendering, real payments, or backend behaviour. Browser smoke testing is still useful after layout-sensitive changes.
-
-`npm run validate` runs formatting, lint, unit tests, a production build, and the initial JavaScript/CSS gzip budgets. CI then runs the Playwright production-build suite separately.
-
-## Local Development
-
-Requirements: Node.js 20 or newer and npm.
+Requirements: Go **1.27.3**, Docker with Compose. Node **24.15+** is recommended only for browser tests and the retained legacy reference.
 
 ```sh
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview the production build locally
-npm run preview
+docker compose -p styleease-blacklabel up -d --wait db
+go tool templ generate
+go run ./cmd/web migrate
+go run ./cmd/web seed
+go run ./cmd/web
 ```
 
-## Available npm Scripts
+Open **http://127.0.0.1:8080**. Default database: `style_ease` on loopback port `54329`, user `style`, local-only demo password `local_demo_only`. Override with DATABASE_URL; `.env.example` documents configuration. Go does not automatically read .env.
 
-| Script                 | Description                                           |
-| ---------------------- | ----------------------------------------------------- |
-| `npm run dev`          | Start the Vite development server                     |
-| `npm run build`        | Create the production build in `dist/`                |
-| `npm run preview`      | Serve the production build locally                    |
-| `npm run lint`         | Run ESLint                                            |
-| `npm run format`       | Format supported files with Prettier                  |
-| `npm run format:check` | Check formatting without writing changes              |
-| `npm test`             | Run the test suite in watch mode                      |
-| `npm run test:run`     | Run the test suite once                               |
-| `npm run test:e2e`     | Run production-build browser and accessibility checks |
-| `npm run check:bundle` | Enforce initial JavaScript and CSS gzip budgets       |
-| `npm run validate`     | Run format check, lint, tests, build, and budgets     |
+For the full container application, bootstrap as above, stop the local Go process, then:
 
-## Deployment
+```sh
+docker compose -p styleease-blacklabel --profile app up -d --build app
+```
 
-Pushes to `main` trigger two GitHub Actions workflows:
+PowerShell test configuration:
 
-- **CI** (`.github/workflows/ci.yml`) runs on pull requests and pushes to `main`, installing with `npm ci`, running `npm run validate`, and checking the production build with Playwright.
-- **Deploy** (`.github/workflows/deploy.yml`) runs on pushes to `main`, validates and builds the app, and publishes the generated output with the official GitHub Pages actions. Pull-request branches are never deployed.
+```powershell
+$env:DATABASE_URL='postgres://style:local_demo_only@127.0.0.1:54329/style_ease?sslmode=disable'
+$env:TEST_DATABASE_URL=$env:DATABASE_URL
+go test -count=1 ./cmd/... ./internal/... ./views/...
+```
 
-The production build is served from the `/style-ease/` subpath, configured for production mode only in `vite.config.js`; local development and tests run at the root path. The build output is written to `dist/`, which is generated and not committed to the repository.
+The named database volume survives process/container restarts. Do not remove it as part of normal startup. Migrations/seeding are explicit and never run on ordinary application startup. Seed refuses production. Production needs separate approved hosting, HTTPS origin, secret database connection and actual cleanup/backup configuration.
 
-The application uses hash-based URLs (for example `…/style-ease/#/products`). This is a deliberate choice for GitHub Pages project sites: because Pages has no server-side single-page-app fallback, hash routing keeps direct links and page refreshes working without a custom 404 redirect.
+## Verify
 
-For implementation details and the browser-data boundaries, see [Architecture](docs/ARCHITECTURE.md).
+```sh
+go vet ./cmd/... ./internal/... ./views/...
+go test -count=1 ./cmd/... ./internal/... ./views/...
+go test -race ./cmd/... ./internal/... ./views/...
+go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./cmd/web
+npm ci
+npx playwright install chromium
+npx playwright test --config=playwright.black-label.config.js
+docker build -t style-ease-black-label:local .
+```
 
-## Current Limitations
+Integration tests require TEST_DATABASE_URL and create/drop isolated test schemas. The browser suite runs against the actual Go server and PostgreSQL, covering shopping, ownership, HTMX history, no-JS checkout, Studio, accessibility and 320–1920px layouts. Raw reports, screenshots, measured budgets and limitations are linked from the [quality scorecard](docs/QUALITY_SCORECARD.md). No field-performance or WCAG certification claims are made.
 
-These reflect the intended scope of a front-end demonstration:
+The old Vue reference and its unchanged tests remain runnable with `npm run validate` and `npm run test:e2e`; they are excluded from the Go image. Retrieve the original baseline at `ae12cd35dbfd8b8f4b0ff985718b502bc81bda01`. Old origin-local browser storage does not automatically transfer; old hash links remain intact on Pages. New server aliases cover `/product/1`, `/products` and `/cart` path URLs.
 
-- Front-end only — no backend, database, or server-side persistence
-- No authentication or user accounts
-- No real payment processing; checkout is simulated and ends at an order-confirmation view
-- Catalogue stock is fixed demonstration data; there is no real inventory synchronization
-- Cart, wishlist, comparisons, recently viewed products, and receipts persist only in the current browser and are not customer accounts; delivery details are not persisted
-- Product reviews persist only in the current browser via `localStorage`
-- Product imagery is loaded from Unsplash, so images depend on that external service; the Inter font is bundled with the application
-- URLs are hash-based for GitHub Pages compatibility
+## Review in a few minutes
 
-## Licence
+Home → Shop → search/filter → quick shop → choose a variant → save or add → Bag → sample checkout scenario → Review → demo receipt. Then compare a few pieces and open Style Studio to save and add a composition. Repeat at a phone width and use Tab/Escape; checkout also works without JavaScript.
 
-Released under the [MIT Licence](LICENSE.txt).
+## Engineering notes
 
-Original design: [CodePen](https://codepen.io/Lorenzo-Ben/pen/OPPaqxx).
+The production image runs a nonroot Go binary with embedded assets and an actual readiness healthcheck. Shutdown drains active requests before closing the database pool. PostgreSQL transactions, owner-scoped reads, 256-bit guest tokens hashed at rest, session CSRF, Origin/Referer checks, request limits, a restrictive local-only CSP, gzip and content-fingerprinted CSS/JS form the core. There is no SPA, admin, payment gateway, external tracking or fictional recommendation service.
+
+[Architecture](docs/ARCHITECTURE.md) · [Data model](docs/DATA_MODEL.md) · [Feature parity](docs/FEATURE_PARITY.md) · [Design system](docs/DESIGN_SYSTEM.md) · [Art direction](docs/ART_DIRECTION.md) · [Threat model](docs/THREAT_MODEL.md) · [Testing](docs/TESTING.md) · [Performance](docs/PERFORMANCE.md) · [Operations](docs/OPERATIONS.md)
+
+MIT license. Original [Style Ease design](https://codepen.io/Lorenzo-Ben/pen/OPPaqxx) and development by Lorenzo Ben. Font licenses ship in `assets/fonts`; image sources and terms are recorded in [asset provenance](docs/ASSET_PROVENANCE.md).

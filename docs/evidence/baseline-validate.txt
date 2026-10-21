@@ -1,0 +1,12 @@
+
+> style-ease@1.0.0 validate
+> run-s format:check lint test:run build check:bundle
+
+
+> style-ease@1.0.0 format:check
+> prettier --check "**/*.{css,html,js,json,md,mjs}" .prettierrc
+
+Checking formatting...
+[warn] docs/evidence/baseline-npm-audit.json
+[warn] Code style issues found in the above file. Run Prettier with --write to fix.
+ERROR: "format:check" exited with 1.
