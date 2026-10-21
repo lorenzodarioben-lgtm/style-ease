@@ -1,0 +1,25 @@
+{
+  "phase": "before",
+  "screens": 96,
+  "overflow": [
+    [
+      "about",
+      768
+    ],
+    [
+      "privacy",
+      768
+    ],
+    [
+      "about",
+      1024
+    ],
+    [
+      "privacy",
+      1024
+    ]
+  ],
+  "broken": [],
+  "axe": [],
+  "errors": []
+}

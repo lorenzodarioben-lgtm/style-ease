@@ -1,4 +1,14 @@
-# PROJECT BLACK LABEL — morning handoff
+# BLACK LABEL — creative rescue v2 handoff
+
+Current branch: `overhaul/black-label-creative-v2`. Parent/current checkpoint: `4329de3b61d851b114d52523fea96d7b0b2f8d46`, matching actual open draft PR #34. Started from a clean tree; only creative-v2 documentation/evidence tooling is currently being added. Main/Pages/deployment unchanged. Commerce/database/security implementation is preserved.
+
+Authoritative second-stage brief read completely: 306 lines, exact copy `docs/creative-v2/MASTER_SPEC.txt`, SHA256 `c44634223ece94cf46130dc9f81889446b1139b4df0fb371ca83268ef2d29199`.
+
+Milestones: M0 fresh baseline/tests/screens/motion → M1 three rendered identities/two homepage compositions/signature motion → M2 contextual image manifest/crop laboratory → M3 independent Collections/Editorial/stories → M4 home/nav/footer → M5 shop/product/all commerce states → M6 visual Studio → M7 five critique rounds/regression/performance/evidence/report. User explicitly authorizes independent creative choices and requires five critiques; these override generic skill confirmation/two-round limits.
+
+Current iteration: M0. Actual source confirms duplicated Collections/Editorial routes, a context-free Picture helper, permanently desaturated media and a form-led Studio. App/database are healthy on loopback 8080/54329. Fresh Go race/browser baseline and six-width capture are being established; no new PASS claimed yet. Full original handoff is preserved in `docs/creative-v2/PARENT_HANDOFF.md`.
+
+## Archived stage-one verification (parent checkpoint)
 
 Status: **READY FOR REVIEW**. All 24 browser cases and local gates PASS. Both remote CI workflows PASS at the verified application checkpoint. Four final homepage lab runs meet LCP. [Draft PR #34](https://github.com/lorenzodarioben-lgtm/style-ease/pull/34) is open/attached; no merge or live deployment authorized. See [the morning report](docs/MORNING_REPORT.md).
 
@@ -52,4 +62,4 @@ Fresh setup: start DB with `docker compose -p styleease-blacklabel up -d --wait 
 
 Licensed photographs are editorial references, not verified garment images; sample facts/options are labelled. No invented brands, discounts, ratings or delivery promises. Old origin-local data/hash URLs are not silently migrated; old Pages stays live. Advanced drag/reorder/export/public Studio sharing, accounts/admin/uploads, real payment/delivery integrations are deferred and unexposed. Hosting/secrets/backups/scheduled retention/field telemetry require a separately approved preview/cutover; none was provisioned.
 
-NEXT ACTION: Perform a manual screen-reader review of purchase and saved-Studio journeys, record focus/announcement/validation findings, and repair failures. This closes the highest-impact remaining verification gap after the automated and local performance gates.
+NEXT ACTION: Finish M0 baseline capture/tests, inspect the image contact sheet, then render three identity concepts and two substantially different first folds before choosing the v2 composition.
