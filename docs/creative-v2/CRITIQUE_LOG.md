@@ -32,14 +32,14 @@ Observed result: `m3-home-1440.jpg` and `m3-home-390.jpg` retain all three walki
 
 1. Existing480px files crop away source information → regenerated twenty derivatives from the original960px sources at their actual ratios, without recolouring.
 2. Universal960×1280 declarations misdescribe landscape/portrait media → typed source/context helper now supplies actual dimensions, responsive sizes, fingerprints, fit classes and compiled breakpoint focal settings.
-3. Permanent/partial desaturation conceals colour → original pixels retained; grayscale1→0 is reversible for pointer/focus/touch. p10 is correctly treated as intrinsically monochrome.
+3. Permanent/partial desaturation conceals colour → original pixels retained; grayscale 1→0 is reversible for pointer/focus/touch. p10 is correctly treated as intrinsically monochrome.
 
-Observed evidence: original source sheet inspected; image laboratory48 contact sheets,1008 checks across320/390/768/1024/1440/1920 and DPR1/2, zero ratio/contain/broken-image failures. Comparison columns preserve the prior derivative, repaired derivative and complete original. All current minimum bounds are the complete source; no forced cover crop is used to make a shallow slot fit.
+Observed evidence: original source sheet inspected; image laboratory 48 contact sheets, 1,008 checks across320/390/768/1024/1440/1920 and DPR 1/2, zero ratio/contain/broken-image failures. Comparison columns preserve the prior derivative, repaired derivative and complete original. All current minimum bounds are the complete source; no forced cover crop is used to make a shallow slot fit.
 
 ## Round 3 — motion director / behavior and contrast
 
 1. No recognizable directional CTA fill → pseudo-element sweep560ms, coordinated arrow and press feedback, stable contrast and native action semantics.
-2. Saturation tease stops before true colour → complete grayscale1→0, explicit pressed-state touch choice and keyboard focus reveal; verified computed end states and actual touch context.
+2. Saturation tease stops before true colour → complete grayscale 1→0, explicit pressed-state touch choice and keyboard focus reveal; verified computed end states and actual touch context.
 3. Text fade-ins produce transient low contrast under automated inspection → removed text opacity/curtain hiding and kept a short positional entrance. Reading remains available throughout and without JS. Reduced motion makes states immediate.
 
 Actual recordings: `cta-fill`, `photographic-colour`, `mobile-navigation`, `editorial-entrance`, `product-reference-viewer`, `atelier-selection-390`, `atelier-selection-1440` in evidence/motion. Final decoded-video frame inspection is recorded in the final round; recording alone is not approval.
@@ -60,4 +60,4 @@ Applied one batch, rebuilt, recaptured the same paths, and returned evidence for
 
 Actual video inspection also found the first browser-canvas seek extraction was stale. Replaced it with direct bundled FFmpeg VP9→PNG decoding, then opened the real21-frame contact sheet. All seven recordings show actual actions; direct CTA frames show the moving ink→mineral fill and photographic frames show original colour. Recordings were refreshed after waiting for every image, removing blank lazy-image supplemental stills. Twenty-four direct action frames plus21 actual decoded frames accompany the seven clips.
 
-Final performance critique found real product/Journal LCP regressions3.466/3.635s. Added complete-source640px and AVIF candidates, then corrected mounted detail/cover sizes. Final LCP2.265/2.416s, with all seven measured runs below2.5s. No imagery/content was hidden to meet the metric. The final38-case browser rerun and real-PG race suite pass after these changes.
+Final performance critique found real product/Journal LCP regressions3.466/3.635s. Added complete-source 640px and AVIF candidates, then corrected mounted detail/cover sizes. Final LCP 2.265/2.416s, with all seven measured runs below 2.5s. No imagery/content was hidden to meet the metric. The final 38-case browser rerun and real-PG race suite pass after these changes.
