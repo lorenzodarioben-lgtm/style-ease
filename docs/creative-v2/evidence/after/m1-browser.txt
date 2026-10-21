@@ -1,0 +1,1043 @@
+
+Running 28 tests using 3 workers
+
+(node:18852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20284) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  3 [desktop] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (3.8s)
+  ok  2 [desktop] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (5.4s)
+  ok  5 [desktop] › e2e-black-label\commerce.spec.js:119:1 › guest changes synchronize between tabs after a committed mutation (1.5s)
+  ok  1 [desktop] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (9.6s)
+  x   4 [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (5.9s)
+  ok  6 [desktop] › e2e-black-label\commerce.spec.js:133:1 › comparison attributes, bounded membership and mobile scrolling (4.5s)
+(node:28620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  8 [desktop] › e2e-black-label\commerce.spec.js:199:1 › mobile navigation, size dialog and reduced motion keyboard behavior (1.9s)
+  ok 10 [desktop] › e2e-black-label\commerce.spec.js:219:1 › ordinary forms complete checkout with JavaScript disabled (2.2s)
+  x   9 [desktop] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable (3.9s)
+  x   7 [desktop] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit (7.8s)
+  x  11 [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (2.6s)
+(node:9772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  12 [desktop] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe (777ms)
+  ok 14 [desktop] › e2e-black-label\creative.spec.js:33:1 › reduced motion retains instant colour choice and visible editorial content (942ms)
+(node:3968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29560) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 13 [desktop] › e2e-black-label\creative.spec.js:3:1 › signature fill and complete colour reveal support pointer and focus (3.4s)
+(node:10244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 16 [mobile] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (3.0s)
+  ok 17 [mobile] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (2.6s)
+  ok 15 [mobile] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (7.1s)
+  ok 19 [mobile] › e2e-black-label\commerce.spec.js:119:1 › guest changes synchronize between tabs after a committed mutation (958ms)
+  x  18 [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (5.4s)
+  ok 20 [mobile] › e2e-black-label\commerce.spec.js:133:1 › comparison attributes, bounded membership and mobile scrolling (3.8s)
+(node:20972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 22 [mobile] › e2e-black-label\commerce.spec.js:199:1 › mobile navigation, size dialog and reduced motion keyboard behavior (4.8s)
+  ok 24 [mobile] › e2e-black-label\commerce.spec.js:219:1 › ordinary forms complete checkout with JavaScript disabled (1.5s)
+  x  21 [mobile] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit (9.7s)
+  x  23 [mobile] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable (3.8s)
+(node:9572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  26 [mobile] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe (810ms)
+  x  25 [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (2.6s)
+(node:3264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 27 [mobile] › e2e-black-label\creative.spec.js:3:1 › signature fill and complete colour reveal support pointer and focus (3.6s)
+  ok 28 [mobile] › e2e-black-label\creative.spec.js:33:1 › reduced motion retains instant colour choice and visible editorial content (785ms)
+
+
+  1) [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 60
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Geometric T-Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "article:nth-child(1) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Axis Dress Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "article:nth-child(2) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:113:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 93
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#d8d3c8",
+    +               "contrastRatio": 4.48,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#585e53",
+    +               "fontSize": "8.3pt (11px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"composition-board\">",
+    +                 "target": Array [
+    +                   ".composition-board",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Private outfit board</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".board-heading > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#d8d3c8",
+    +               "contrastRatio": 4.48,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#585e53",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"composition-board\">",
+    +                 "target": Array [
+    +                   ".composition-board",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<p class=\"catalogue-note\">Editorial photographs are arranged as references. They are not a photograph of the garments together.</p>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".catalogue-note",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:182:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-desktop\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-desktop\test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-desktop\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 60
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Axis Dress Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card.colour-surface:nth-child(1) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Drape Front Blouse\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card.colour-surface:nth-child(2) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:197:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-private-demo-reviews-are-escaped-and-sortable-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-private-demo-reviews-are-escaped-and-sortable-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-private-demo-reviews-are-escaped-and-sortable-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-private-demo-reviews-are-escaped-and-sortable-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 100
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Geometric T-Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(1) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Angular Jacket\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(2) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Contour Sweater\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(3) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Apex Shoulder Bag\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(4) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:271:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [desktop] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+
+    Error: / at 320
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      294 |         ),
+      295 |         `${path} at ${width}`
+    > 296 |       ).toBe(true);
+          |         ^
+      297 |     }
+      298 |   }
+      299 |   for (const path of [
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:296:9
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 60
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Geometric T-Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "article:nth-child(1) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Axis Dress Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "article:nth-child(2) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:113:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-query-filters-HTMX-partial-back-forward-and-reload-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [mobile] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 93
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#d8d3c8",
+    +               "contrastRatio": 4.48,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#585e53",
+    +               "fontSize": "7.5pt (10px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"composition-board\">",
+    +                 "target": Array [
+    +                   ".composition-board",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Private outfit board</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".board-heading > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#d8d3c8",
+    +               "contrastRatio": 4.48,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#585e53",
+    +               "fontSize": "8.3pt (11px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"composition-board\">",
+    +                 "target": Array [
+    +                   ".composition-board",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.48 (foreground color: #585e53, background color: #d8d3c8, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<p class=\"catalogue-note\">Editorial photographs are arranged as references. They are not a photograph of the garments together.</p>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".catalogue-note",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:182:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-studio-saves-rena-715ea-nsactionally-adds-an-outfit-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [mobile] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 60
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Axis Dress Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card.colour-surface:nth-child(1) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Drape Front Blouse\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card.colour-surface:nth-child(2) > .colour-toggle.card-colour[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:197:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-private-demo-reviews-are-escaped-and-sortable-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 100
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=playwright",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Geometric T-Shirt\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(1) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Angular Jacket\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(2) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Contour Sweater\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(3) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<button class=\"colour-toggle card-colour js-only\" type=\"button\" data-colour-toggle=\"\" aria-pressed=\"false\" aria-label=\"See original colour reference for Apex Shoulder Bag\">See in colour</button>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".product-card:nth-child(4) > .card-colour.colour-toggle[data-colour-toggle=\"\"]",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:271:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-missing-picture-a-ad617-re-enhancement-script-loads-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [mobile] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+
+    Error: / at 320
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      294 |         ),
+      295 |         `${path} at ${width}`
+    > 296 |       ).toBe(true);
+          |         ^
+      297 |     }
+      298 |   }
+      299 |   for (const path of [
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:296:9
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10 failed
+    [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+    [desktop] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit 
+    [desktop] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable 
+    [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 
+    [desktop] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+    [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload 
+    [mobile] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit 
+    [mobile] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable 
+    [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads 
+    [mobile] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+  18 passed (50.6s)

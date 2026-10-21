@@ -1,0 +1,86 @@
+[
+  {
+    "name": "cta-fill",
+    "duration": 3.4,
+    "width": 1440,
+    "height": 900,
+    "method": "bundled FFmpeg VP9 decoder / PNG encoder",
+    "frames": [
+      "cta-fill-0.png",
+      "cta-fill-1.png",
+      "cta-fill-2.png"
+    ]
+  },
+  {
+    "name": "photographic-colour",
+    "duration": 3.12,
+    "width": 1440,
+    "height": 900,
+    "method": "bundled FFmpeg VP9 decoder / PNG encoder",
+    "frames": [
+      "photographic-colour-0.png",
+      "photographic-colour-1.png",
+      "photographic-colour-2.png"
+    ]
+  },
+  {
+    "name": "mobile-navigation",
+    "duration": 3.48,
+    "width": 390,
+    "height": 844,
+    "method": "bundled FFmpeg VP9 decoder / PNG encoder",
+    "frames": [
+      "mobile-navigation-0.png",
+      "mobile-navigation-1.png",
+      "mobile-navigation-2.png"
+    ]
+  },
+  {
+    "name": "editorial-entrance",
+    "duration": 3.32,
+    "width": 1440,
+    "height": 900,
+    "method": "bundled FFmpeg VP9 decoder / PNG encoder",
+    "frames": [
+      "editorial-entrance-0.png",
+      "editorial-entrance-1.png",
+      "editorial-entrance-2.png"
+    ]
+  },
+  {
+    "name": "product-reference-viewer",
+    "duration": 3.12,
+    "width": 1440,
+    "height": 900,
+    "method": "bundled FFmpeg VP9 decoder / PNG encoder",
+    "frames": [
+      "product-reference-viewer-0.png",
+      "product-reference-viewer-1.png",
+      "product-reference-viewer-2.png"
+    ]
+  },
+  {
+    "name": "atelier-selection-390",
+    "duration": 4.8,
+    "width": 390,
+    "height": 844,
+    "method": "bundled FFmpeg VP9 decoder / PNG encoder",
+    "frames": [
+      "atelier-selection-390-0.png",
+      "atelier-selection-390-1.png",
+      "atelier-selection-390-2.png"
+    ]
+  },
+  {
+    "name": "atelier-selection-1440",
+    "duration": 4.88,
+    "width": 1440,
+    "height": 900,
+    "method": "bundled FFmpeg VP9 decoder / PNG encoder",
+    "frames": [
+      "atelier-selection-1440-0.png",
+      "atelier-selection-1440-1.png",
+      "atelier-selection-1440-2.png"
+    ]
+  }
+]

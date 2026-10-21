@@ -1,0 +1,68 @@
+[
+  {
+    "name": "cta-fill",
+    "width": 1440,
+    "frames": [
+      "cta-fill-before.jpg",
+      "cta-fill-during.jpg",
+      "cta-fill-after.jpg"
+    ]
+  },
+  {
+    "name": "photographic-colour",
+    "width": 1440,
+    "frames": [
+      "photographic-colour-before.jpg",
+      "photographic-colour-during.jpg",
+      "photographic-colour-after.jpg"
+    ]
+  },
+  {
+    "name": "mobile-navigation",
+    "width": 390,
+    "frames": [
+      "mobile-navigation-during.jpg",
+      "mobile-navigation-open.jpg",
+      "mobile-navigation-closed.jpg"
+    ]
+  },
+  {
+    "name": "editorial-entrance",
+    "width": 1440,
+    "frames": [
+      "editorial-entrance-top.jpg",
+      "editorial-entrance-during.jpg",
+      "editorial-entrance-settled.jpg"
+    ]
+  },
+  {
+    "name": "product-reference-viewer",
+    "width": 1440,
+    "frames": [
+      "product-reference-viewer-open.jpg",
+      "product-reference-viewer-restored.jpg"
+    ]
+  },
+  {
+    "name": "atelier-selection-390",
+    "width": 390,
+    "frames": [
+      "atelier-selection-390-empty.jpg",
+      "atelier-selection-390-inspector.jpg",
+      "atelier-selection-390-piece.jpg",
+      "atelier-selection-390-saved.jpg",
+      "atelier-selection-390-reopen.jpg"
+    ]
+  },
+  {
+    "name": "atelier-selection-1440",
+    "width": 1440,
+    "frames": [
+      "atelier-selection-1440-empty.jpg",
+      "atelier-selection-1440-inspector.jpg",
+      "atelier-selection-1440-piece.jpg",
+      "atelier-selection-1440-saved.jpg",
+      "atelier-selection-1440-reopen.jpg"
+    ]
+  }
+]

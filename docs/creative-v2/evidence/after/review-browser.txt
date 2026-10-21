@@ -1,0 +1,53 @@
+
+Running 36 tests using 3 workers
+
+(node:29808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › e2e-black-label\atelier.spec.js:42:1 › single reference gallery preserves focus and the full original photograph (3.3s)
+  ok  4 [desktop] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (4.4s)
+  ok  5 [desktop] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (2.2s)
+  ok  2 [desktop] › e2e-black-label\atelier.spec.js:4:1 › visual atelier places, replaces, removes, saves and reopens exact variants (10.0s)
+  ok  3 [desktop] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (10.0s)
+  ok  7 [desktop] › e2e-black-label\commerce.spec.js:119:1 › guest changes synchronize between tabs after a committed mutation (1.7s)
+  ok  6 [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (4.6s)
+  ok  8 [desktop] › e2e-black-label\commerce.spec.js:133:1 › comparison attributes, bounded membership and mobile scrolling (5.2s)
+  ok 11 [desktop] › e2e-black-label\commerce.spec.js:199:1 › mobile navigation, size dialog and reduced motion keyboard behavior (2.6s)
+  ok 10 [desktop] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable (3.4s)
+  ok  9 [desktop] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit (7.8s)
+  ok 12 [desktop] › e2e-black-label\commerce.spec.js:219:1 › ordinary forms complete checkout with JavaScript disabled (1.7s)
+  ok 13 [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (2.4s)
+  ok 15 [desktop] › e2e-black-label\creative.spec.js:4:1 › touch colour choice remains explicit and accessibly labelled (3.5s)
+  ok 16 [desktop] › e2e-black-label\creative.spec.js:22:1 › signature fill and complete colour reveal support pointer and focus (3.3s)
+  ok 17 [desktop] › e2e-black-label\creative.spec.js:52:1 › reduced motion retains instant colour choice and visible editorial content (843ms)
+(node:8152) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 18 [desktop] › e2e-black-label\journal.spec.js:4:1 › collections shop real edits while the journal has independent stories and metadata (7.0s)
+(node:30660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 19 [mobile] › e2e-black-label\atelier.spec.js:4:1 › visual atelier places, replaces, removes, saves and reopens exact variants (6.0s)
+  ok 20 [mobile] › e2e-black-label\atelier.spec.js:42:1 › single reference gallery preserves focus and the full original photograph (1.9s)
+  ok 22 [mobile] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (3.3s)
+  ok 23 [mobile] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (1.7s)
+  ok 21 [mobile] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (6.4s)
+  ok 14 [desktop] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe (21.9s)
+  ok 25 [mobile] › e2e-black-label\commerce.spec.js:119:1 › guest changes synchronize between tabs after a committed mutation (1.0s)
+(node:6588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 24 [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (3.2s)
+  ok 27 [mobile] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable (2.5s)
+  ok 29 [mobile] › e2e-black-label\commerce.spec.js:199:1 › mobile navigation, size dialog and reduced motion keyboard behavior (3.5s)
+  ok 28 [mobile] › e2e-black-label\commerce.spec.js:133:1 › comparison attributes, bounded membership and mobile scrolling (5.5s)
+  ok 26 [mobile] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit (8.2s)
+  ok 30 [mobile] › e2e-black-label\commerce.spec.js:219:1 › ordinary forms complete checkout with JavaScript disabled (2.4s)
+  ok 31 [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (2.9s)
+  ok 34 [mobile] › e2e-black-label\creative.spec.js:22:1 › signature fill and complete colour reveal support pointer and focus (3.2s)
+  ok 35 [mobile] › e2e-black-label\creative.spec.js:52:1 › reduced motion retains instant colour choice and visible editorial content (912ms)
+  ok 33 [mobile] › e2e-black-label\creative.spec.js:4:1 › touch colour choice remains explicit and accessibly labelled (5.8s)
+  ok 36 [mobile] › e2e-black-label\journal.spec.js:4:1 › collections shop real edits while the journal has independent stories and metadata (5.1s)
+  ok 32 [mobile] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe (17.0s)
+
+  36 passed (1.1m)

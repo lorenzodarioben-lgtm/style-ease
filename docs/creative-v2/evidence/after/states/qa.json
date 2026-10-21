@@ -1,0 +1,98 @@
+[
+  {
+    "name": "quick-shop",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "bag-filled",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "checkout-scenario",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "checkout-review",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "receipt",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "wishlist-filled",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "compare-filled",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "studio-saved",
+    "width": 1440,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "quick-shop",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "bag-filled",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "checkout-scenario",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "checkout-review",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "receipt",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "wishlist-filled",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "compare-filled",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "name": "studio-saved",
+    "width": 390,
+    "overflow": false,
+    "violations": []
+  }
+]

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Black Label photographic laboratory</title>
+    <link rel="stylesheet" href="/assets/css/black-label.css" />
+    <link rel="stylesheet" href="/assets/css/art-direction.css" />
+    <style>
+      body {
+        padding: 20px;
+        max-width: 1600px;
+        margin: auto;
+        background: #eceee7;
+      }
+      h1 {
+        font-size: 30px;
+      }
+      header p {
+        font-size: 12px;
+        margin: 12px 0 25px;
+      }
+      .lab-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        border-top: 1px solid #b7beb0;
+        padding: 15px 0;
+        align-items: start;
+      }
+      .lab-row h2 {
+        grid-column: 1/-1;
+        font: 500 12px 'DM Sans';
+        margin: 0;
+      }
+      .lab-row figure {
+        margin: 0;
+        min-width: 0;
+      }
+      .lab-row figcaption {
+        font-size: 10px;
+        line-height: 1.5;
+        margin-top: 8px;
+      }
+      .frame {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 2/3;
+        background: #dce1d4;
+        overflow: hidden;
+      }
+      .frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .lab-detail .frame {
+        aspect-ratio: auto;
+        height: 450px;
+      }
+      .lab-line .frame {
+        aspect-ratio: auto;
+        height: 140px;
+      }
+      .lab-studio .frame {
+        aspect-ratio: auto;
+        height: 280px;
+      }
+      .state-mono img {
+        filter: grayscale(1);
+      }
+      .lab-row footer {
+        grid-column: 1/-1;
+        font-size: 10px;
+      }
+      .badge {
+        display: block;
+        margin-top: 10px;
+        font-size: 10px;
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 12px;
+        }
+        .lab-row {
+          gap: 6px;
+        }
+        .lab-row figcaption {
+          font-size: 8px;
+        }
+        .lab-detail .frame {
+          height: 190px;
+        }
+        .lab-studio .frame {
+          height: 150px;
+        }
+        .lab-line .frame {
+          height: 80px;
+        }
+      }
+      @media print {
+        body {
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Full source. Every frame.</h1>
+      <p id="lab-note"></p>
+    </header>
+    <main id="lab"></main>
+    <script type="module">
+      const query = new URLSearchParams(location.search),
+        context = query.get('context') || 'card',
+        state = query.get('state') || 'colour';
+      document.body.classList.add('lab-' + context, 'state-' + state);
+      document.getElementById('lab-note').textContent =
+        `${context} / ${state} — left: prior 480px derivative; centre: repaired component; right: complete original. p3 and p14 have intentional source crops. No image has invented colour or missing anatomy.`;
+      const records = await (await fetch('/assets/data/image-art-direction.json')).json();
+      for (const source of records) {
+        const row = document.createElement('section');
+        row.className = 'lab-row';
+        const title = document.createElement('h2');
+        title.textContent = `${source.id} / ${source.width}×${source.height} / ${source.orientation}`;
+        row.append(title);
+        for (const mode of ['before', 'after', 'source']) {
+          const figure = document.createElement('figure'),
+            frame = document.createElement('div'),
+            image = document.createElement('img'),
+            caption = document.createElement('figcaption');
+          frame.className = 'frame';
+          image.alt = source.alt;
+          image.loading = 'eager';
+          image.width = source.width;
+          image.height = source.height;
+          image.src =
+            mode === 'before'
+              ? source.id === 'campaign'
+                ? source.src
+                : `/docs/creative-v2/evidence/before/source-${source.id}-480.webp`
+              : mode === 'after'
+                ? source.id === 'campaign'
+                  ? source.src
+                  : source.src.replace('-960.', '-480.')
+                : source.src;
+          caption.textContent =
+            mode === 'before'
+              ? 'BEFORE / prior derivative'
+              : mode === 'after'
+                ? `AFTER / ${source.contexts[context].fit}, full bounds`
+                : 'SOURCE / original colour pixels';
+          if (mode === 'after' && source.avifSources?.length) {
+            const picture = document.createElement('picture'),
+              modern = document.createElement('source');
+            picture.className = `art-media photo-${source.id} media-${context} fit-contain`;
+            modern.type = 'image/avif';
+            modern.srcset = source.avifSources.map((s) => `${s.path} ${s.width}w`).join(', ');
+            modern.sizes =
+              '(max-width:600px) calc(33.333vw - 12px), (max-width:1600px) calc(33.333vw - 21.333px), 512px';
+            image.srcset = source.sources.map((s) => `${s.path} ${s.width}w`).join(', ');
+            image.sizes = modern.sizes;
+            picture.append(modern, image);
+            frame.append(picture);
+          } else frame.append(image);
+          figure.append(frame, caption);
+          row.append(figure);
+        }
+        const note = document.createElement('footer');
+        note.textContent = source.subject;
+        row.append(note);
+        document.getElementById('lab').append(row);
+      }
+      document.body.dataset.ready = 'true';
+    </script>
+  </body>
+</html>

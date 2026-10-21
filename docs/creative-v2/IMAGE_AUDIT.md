@@ -16,4 +16,12 @@ Colour changes are reversible CSS grayscale 1→0 over original pixels. The inhe
 
 ## Gate status
 
-Source inventory: visually inspected. M1 contextual component and full-frame derivatives implemented; actual six-width before/after context contact sheets and final high-DPR inspection remain open until the completed route designs are captured. Do not treat this source audit as final page approval.
+Source inventory and final page compositions inspected. Final image lab:48 actual before/after/source contact sheets, four contexts(card/detail/Studio/line), six widths320/390/768/1024/1440/1920, each at DPR1 and2.1008 source/context checks found zero broken images, ratio mismatches or loss of contain fit. Final114-route sweep likewise has no broken media, overflow or axe/JS findings. See `evidence/image-lab/qa.json` and `evidence/after/qa.json`.
+
+Source provenance accompanies every reference through the manifest/inventory and63 WebP sidecars; the final scan reports0 missing. A43-file pixel/profile comparison confirms adding provenance did not change the existing decoded pixels or colour profiles. The60 new product AVIF derivatives also have sidecars; decoded aspect ratios and ICC profiles were checked. Campaign derivatives retain their source attribution through the manifest. No AI-generated garment imagery was introduced. Full contextual frame safety is intentional; no reviewer claim of perfect source photography is implied.
+
+## Measured responsive delivery repair
+
+The final mobile laboratory first exposed product LCP3.466s and Journal LCP3.635s. The physical phone image slots fell between480 and960px candidates at simulated DPR1.75. Added a640px WebP intermediate and480/640/960 AVIF sources for all twenty products, preserving their full source bounds and ICC profiles. The typed picture helper prefers AVIF and keeps WebP fallbacks. Corrected detail and Journal-cover sizes to the actual mounted widths rather than the whole viewport.
+
+After these repairs, measured product LCP is2.265s and Journal2.416s; the three home runs are2.120–2.364s. No creative content was removed or hidden. The final1008-check laboratory selected modern product sources960 times; the remaining48 checks use the campaign reference. Source dimensions are decoded from the selected file, avoiding browser density-corrected naturalWidth rounding. See performance/summary.json, the preserved pre-640 and pre-cover-sizes reports, and avif-source-checks.json in evidence.

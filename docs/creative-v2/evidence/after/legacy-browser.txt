@@ -1,0 +1,19 @@
+
+Running 6 tests using 4 workers
+
+(node:29252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\storefront.spec.js:93:1 › renders an accessible not-found recovery route without changing product not-found handling (1.8s)
+  ok 2 e2e\storefront.spec.js:41:1 › preserves direct catalogue state and moves a wishlisted style into the bag (2.8s)
+  ok 5 e2e\storefront.spec.js:108:1 › keeps the catalogue within a mobile viewport (2.5s)
+  ok 6 e2e\storefront.spec.js:119:1 › supports keyboard navigation through search suggestions and opened filters (1.7s)
+  ok 4 e2e\storefront.spec.js:10:1 › completes the demo purchase flow through its saved receipt (5.2s)
+  ok 3 e2e\storefront.spec.js:63:1 › has no automated accessibility violations on primary routes and navigation states (12.0s)
+
+  6 passed (14.7s)
