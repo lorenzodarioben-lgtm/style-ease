@@ -1,0 +1,12 @@
+.git
+node_modules
+dist
+bin
+tmp
+test-results
+playwright-report
+docs
+.env
+.env.*
+.codex
+.agents

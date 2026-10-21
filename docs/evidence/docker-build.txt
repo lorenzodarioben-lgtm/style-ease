@@ -1,0 +1,75 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 596B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 452B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for gcr.io/distroless/static-debian12:nonroot
+#3 DONE 1.2s
+
+#4 [auth] library/golang:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/golang:1.27.3-alpine
+#5 DONE 2.1s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 134B 0.0s done
+#6 DONE 0.1s
+
+#7 [internal] load build context
+#7 DONE 0.0s
+
+#8 [stage-1 1/2] FROM gcr.io/distroless/static-debian12:nonroot@sha256:afa5c872c891853ca7fcf1f12c3edb23f7eeef36189728842dd51042ff57f7ab
+#8 resolve gcr.io/distroless/static-debian12:nonroot@sha256:afa5c872c891853ca7fcf1f12c3edb23f7eeef36189728842dd51042ff57f7ab 0.1s done
+#8 DONE 0.1s
+
+#9 [build 1/6] FROM docker.io/library/golang:1.27.3-alpine@sha256:f2c872bcee949b7be9c490efd02b48a8a2fbf947cdf533f1c58525ec9d8170fd
+#9 resolve docker.io/library/golang:1.27.3-alpine@sha256:f2c872bcee949b7be9c490efd02b48a8a2fbf947cdf533f1c58525ec9d8170fd 0.1s done
+#9 DONE 0.1s
+
+#7 [internal] load build context
+#7 transferring context: 1.22MB 0.3s done
+#7 DONE 0.4s
+
+#10 [build 2/6] WORKDIR /src
+#10 CACHED
+
+#11 [build 3/6] COPY go.mod go.sum ./
+#11 CACHED
+
+#12 [build 4/6] RUN go mod download
+#12 CACHED
+
+#13 [build 5/6] COPY . .
+#13 DONE 0.2s
+
+#14 [build 6/6] RUN go tool templ generate && CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/style-ease ./cmd/web
+#14 29.86 (✓) Post-generation event received, processing... [ updates=0 needsRestart=true needsBrowserReload=true ]
+#14 29.94 (✓) Complete [ updates=0 duration=182.436701ms ]
+#14 DONE 64.2s
+
+#8 [stage-1 1/2] FROM gcr.io/distroless/static-debian12:nonroot@sha256:afa5c872c891853ca7fcf1f12c3edb23f7eeef36189728842dd51042ff57f7ab
+#8 CACHED
+
+#15 [stage-1 2/2] COPY --from=build /out/style-ease /style-ease
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 1.0s done
+#16 exporting manifest sha256:79525880deb9797360b8a1e998a2b9e40634f1a54a8549e8514cb41b90d8b1d5 0.0s done
+#16 exporting config sha256:8c386cb517d4824e2907cd56e53dde0d923ad2191b304fa2321b7ea521b7a75a 0.0s done
+#16 exporting attestation manifest sha256:c9ba33914743cba627af34751c4ce0ed3b0770e903d526b85e695264c2b9242d 0.1s done
+#16 exporting manifest list sha256:d3755e3c4348affa26127bd128b0f57bee8d06e25efce9b7772bdbe5e9f0403d
+#16 exporting manifest list sha256:d3755e3c4348affa26127bd128b0f57bee8d06e25efce9b7772bdbe5e9f0403d 0.0s done
+#16 naming to docker.io/library/styleease-blacklabel-app:latest done
+#16 unpacking to docker.io/library/styleease-blacklabel-app:latest
+#16 unpacking to docker.io/library/styleease-blacklabel-app:latest 0.2s done
+#16 DONE 1.4s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.1s
+ styleease-blacklabel-app  Built

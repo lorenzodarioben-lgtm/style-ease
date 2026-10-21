@@ -19,3 +19,10 @@ Thumbs.db
 .vscode/
 .idea/
 .claude/
+.env
+.env.*
+!.env.example
+/bin/
+/tmp/
+*.exe
+*.test

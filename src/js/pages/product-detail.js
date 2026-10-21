@@ -435,7 +435,6 @@ export default {
               <button
                 class="compare-toggle"
                 type="button"
-                :aria-label="comparisonLabel"
                 :aria-pressed="String(isCompared)"
                 @click="toggleComparison"
               >

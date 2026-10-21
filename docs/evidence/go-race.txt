@@ -1,0 +1,4 @@
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/database	6.483s
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/domain	1.267s
+?   	github.com/lorenzodarioben-lgtm/style-ease/internal/testsupport	[no test files]
+ok  	github.com/lorenzodarioben-lgtm/style-ease/internal/web	4.950s

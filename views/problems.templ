@@ -1,0 +1,10 @@
+package views
+
+templ FragmentProblem(title, message string, status int, shop bool) {
+	<section class="fragment-error" id={ map[bool]string{true: "shop-results", false: "request-error"}[shop] } tabindex="-1">
+		<h2>{ title }</h2>
+		<p role="alert">{ message }</p>
+		<p>Request status { n(status) }</p>
+		<a class="text-link" href="/shop">Reload the collection @Arrow()</a>
+	</section>
+}

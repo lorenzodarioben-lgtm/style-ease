@@ -1,0 +1,247 @@
+[
+  {
+    "name": "home",
+    "width": 1440,
+    "height": 900,
+    "route": "/",
+    "overflow": false
+  },
+  {
+    "name": "shop",
+    "width": 1440,
+    "height": 900,
+    "route": "/#/products",
+    "overflow": false
+  },
+  {
+    "name": "product",
+    "width": 1440,
+    "height": 900,
+    "route": "/#/product/1",
+    "overflow": false
+  },
+  {
+    "name": "bag-empty",
+    "width": 1440,
+    "height": 900,
+    "route": "/#/cart",
+    "overflow": false
+  },
+  {
+    "name": "checkout-empty",
+    "width": 1440,
+    "height": 900,
+    "route": "/#/checkout",
+    "overflow": false
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 1440,
+    "height": 900,
+    "route": "/#/wishlist",
+    "overflow": false
+  },
+  {
+    "name": "compare-empty",
+    "width": 1440,
+    "height": 900,
+    "route": "/#/compare",
+    "overflow": false
+  },
+  {
+    "name": "home",
+    "width": 1920,
+    "height": 1080,
+    "route": "/",
+    "overflow": false
+  },
+  {
+    "name": "shop",
+    "width": 1920,
+    "height": 1080,
+    "route": "/#/products",
+    "overflow": false
+  },
+  {
+    "name": "product",
+    "width": 1920,
+    "height": 1080,
+    "route": "/#/product/1",
+    "overflow": false
+  },
+  {
+    "name": "bag-empty",
+    "width": 1920,
+    "height": 1080,
+    "route": "/#/cart",
+    "overflow": false
+  },
+  {
+    "name": "checkout-empty",
+    "width": 1920,
+    "height": 1080,
+    "route": "/#/checkout",
+    "overflow": false
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 1920,
+    "height": 1080,
+    "route": "/#/wishlist",
+    "overflow": false
+  },
+  {
+    "name": "compare-empty",
+    "width": 1920,
+    "height": 1080,
+    "route": "/#/compare",
+    "overflow": false
+  },
+  {
+    "name": "home",
+    "width": 768,
+    "height": 1024,
+    "route": "/",
+    "overflow": false
+  },
+  {
+    "name": "shop",
+    "width": 768,
+    "height": 1024,
+    "route": "/#/products",
+    "overflow": false
+  },
+  {
+    "name": "product",
+    "width": 768,
+    "height": 1024,
+    "route": "/#/product/1",
+    "overflow": false
+  },
+  {
+    "name": "bag-empty",
+    "width": 768,
+    "height": 1024,
+    "route": "/#/cart",
+    "overflow": false
+  },
+  {
+    "name": "checkout-empty",
+    "width": 768,
+    "height": 1024,
+    "route": "/#/checkout",
+    "overflow": false
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 768,
+    "height": 1024,
+    "route": "/#/wishlist",
+    "overflow": false
+  },
+  {
+    "name": "compare-empty",
+    "width": 768,
+    "height": 1024,
+    "route": "/#/compare",
+    "overflow": false
+  },
+  {
+    "name": "home",
+    "width": 390,
+    "height": 844,
+    "route": "/",
+    "overflow": false
+  },
+  {
+    "name": "shop",
+    "width": 390,
+    "height": 844,
+    "route": "/#/products",
+    "overflow": false
+  },
+  {
+    "name": "product",
+    "width": 390,
+    "height": 844,
+    "route": "/#/product/1",
+    "overflow": false
+  },
+  {
+    "name": "bag-empty",
+    "width": 390,
+    "height": 844,
+    "route": "/#/cart",
+    "overflow": false
+  },
+  {
+    "name": "checkout-empty",
+    "width": 390,
+    "height": 844,
+    "route": "/#/checkout",
+    "overflow": false
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 390,
+    "height": 844,
+    "route": "/#/wishlist",
+    "overflow": false
+  },
+  {
+    "name": "compare-empty",
+    "width": 390,
+    "height": 844,
+    "route": "/#/compare",
+    "overflow": false
+  },
+  {
+    "name": "home",
+    "width": 320,
+    "height": 700,
+    "route": "/",
+    "overflow": false
+  },
+  {
+    "name": "shop",
+    "width": 320,
+    "height": 700,
+    "route": "/#/products",
+    "overflow": false
+  },
+  {
+    "name": "product",
+    "width": 320,
+    "height": 700,
+    "route": "/#/product/1",
+    "overflow": false
+  },
+  {
+    "name": "bag-empty",
+    "width": 320,
+    "height": 700,
+    "route": "/#/cart",
+    "overflow": false
+  },
+  {
+    "name": "checkout-empty",
+    "width": 320,
+    "height": 700,
+    "route": "/#/checkout",
+    "overflow": false
+  },
+  {
+    "name": "wishlist-empty",
+    "width": 320,
+    "height": 700,
+    "route": "/#/wishlist",
+    "overflow": false
+  },
+  {
+    "name": "compare-empty",
+    "width": 320,
+    "height": 700,
+    "route": "/#/compare",
+    "overflow": false
+  }
+]

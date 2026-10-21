@@ -1,0 +1,72 @@
+{
+  "environment": "Windows, local Go/PostgreSQL 18.6, loopback, synthetic full-response measurements; not field Web Vitals or database cold-start evidence",
+  "assets": [
+    {
+      "path": "assets/js/htmx-4.0.0.min.js",
+      "bytes": 36716,
+      "gzip": 13097
+    },
+    {
+      "path": "assets/js/storefront.js",
+      "bytes": 4463,
+      "gzip": 1637
+    },
+    {
+      "path": "assets/css/black-label.css",
+      "bytes": 36094,
+      "gzip": 8247
+    },
+    {
+      "path": "assets/fonts/dm-sans.woff2",
+      "bytes": 36932,
+      "gzip": 36852
+    },
+    {
+      "path": "assets/fonts/bodoni-moda.woff2",
+      "bytes": 25884,
+      "gzip": 25912
+    },
+    {
+      "path": "assets/images/campaign-1600.webp",
+      "bytes": 511944,
+      "gzip": 511627
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "firstRequestMs": 72.29769999999999,
+      "warmMedianMs": 2.99290000000002,
+      "warmP95Ms": 5.999300000000005,
+      "samples": 20
+    },
+    {
+      "path": "/shop",
+      "firstRequestMs": 2.8049999999999784,
+      "warmMedianMs": 2.1082000000000107,
+      "warmP95Ms": 3.8809000000000253,
+      "samples": 20
+    },
+    {
+      "path": "/products/geometric-t-shirt",
+      "firstRequestMs": 9.377299999999991,
+      "warmMedianMs": 3.4148999999999887,
+      "warmP95Ms": 5.597700000000032,
+      "samples": 20
+    },
+    {
+      "path": "/bag",
+      "firstRequestMs": 2.225900000000024,
+      "warmMedianMs": 2.1779000000000224,
+      "warmP95Ms": 3.6462999999999965,
+      "samples": 20
+    },
+    {
+      "path": "/checkout",
+      "firstRequestMs": 3.4624000000000024,
+      "warmMedianMs": 2.1189999999999714,
+      "warmP95Ms": 3.9746000000000095,
+      "samples": 20
+    }
+  ]
+}

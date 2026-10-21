@@ -1,0 +1,35 @@
+
+Running 20 tests using 3 workers
+
+(node:5940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:25444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (9.4s)
+  ok  2 [desktop] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (9.7s)
+  ok  4 [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (8.3s)
+  ok  3 [desktop] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (18.2s)
+  ok  5 [desktop] › e2e-black-label\commerce.spec.js:107:1 › comparison attributes, bounded membership and mobile scrolling (10.4s)
+  ok  7 [desktop] › e2e-black-label\commerce.spec.js:145:1 › private demo reviews are escaped and sortable (5.5s)
+  ok  8 [desktop] › e2e-black-label\commerce.spec.js:156:1 › mobile navigation, size dialog and reduced motion keyboard behavior (3.7s)
+  ok  6 [desktop] › e2e-black-label\commerce.spec.js:124:1 › studio saves, renames, reloads and transactionally adds an outfit (9.0s)
+  ok  9 [desktop] › e2e-black-label\commerce.spec.js:176:1 › ordinary forms complete checkout with JavaScript disabled (6.8s)
+(node:8604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:24260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 12 [mobile] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (7.9s)
+  ok 13 [mobile] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (7.1s)
+  ok 11 [mobile] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (19.3s)
+  ok 14 [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (9.2s)
+  ok 15 [mobile] › e2e-black-label\commerce.spec.js:107:1 › comparison attributes, bounded membership and mobile scrolling (10.7s)
+  ok 17 [mobile] › e2e-black-label\commerce.spec.js:145:1 › private demo reviews are escaped and sortable (5.4s)
+  ok 16 [mobile] › e2e-black-label\commerce.spec.js:124:1 › studio saves, renames, reloads and transactionally adds an outfit (8.9s)
+  ok 18 [mobile] › e2e-black-label\commerce.spec.js:156:1 › mobile navigation, size dialog and reduced motion keyboard behavior (6.2s)
+  ok 19 [mobile] › e2e-black-label\commerce.spec.js:176:1 › ordinary forms complete checkout with JavaScript disabled (8.8s)
+  ok 10 [desktop] › e2e-black-label\commerce.spec.js:190:1 › viewport matrix has no overflow and primary routes pass axe (57.7s)
+  ok 20 [mobile] › e2e-black-label\commerce.spec.js:190:1 › viewport matrix has no overflow and primary routes pass axe (44.6s)
+
+  20 passed (2.1m)

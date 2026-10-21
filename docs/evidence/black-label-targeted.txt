@@ -1,0 +1,15 @@
+
+Running 4 tests using 3 workers
+
+(node:28404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [mobile] › e2e-black-label\commerce.spec.js:20:1 › quick shop uses HTMX 4 and restores keyboard focus (3.3s)
+  ok 3 [desktop] › e2e-black-label\commerce.spec.js:31:1 › query filters, HTMX partial, back/forward and reload (3.2s)
+  ok 2 [desktop] › e2e-black-label\commerce.spec.js:20:1 › quick shop uses HTMX 4 and restores keyboard focus (3.5s)
+  ok 4 [mobile] › e2e-black-label\commerce.spec.js:31:1 › query filters, HTMX partial, back/forward and reload (1.6s)
+
+  4 passed (6.8s)

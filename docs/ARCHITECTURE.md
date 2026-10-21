@@ -1,4 +1,29 @@
-# Storefront Architecture
+# Black Label architecture
+
+```mermaid
+flowchart LR
+  Browser[HTML browser / optional HTMX 4] --> HTTP[Go net/http + CSRF + guest session]
+  HTTP --> Domain[Typed domain rules]
+  HTTP --> Views[templ pages and fragments]
+  HTTP --> Repo[Transactional pgx repository]
+  Repo --> PG[(PostgreSQL)]
+  Views --> Browser
+  Assets[Embedded local CSS / JS / fonts / WebP] --> Browser
+```
+
+The new runtime is one Go monolith. cmd/web owns explicit configuration, timeouts, database pool and graceful shutdown. internal/web validates requests, enforces CSRF/ownership, negotiates full/fragment HTML and gzip. internal/domain owns money, variants, capacity, query filtering and deterministic relationships. internal/database owns parameterized SQL and transaction locking. views holds typed view models and templ components.
+
+Products, variants, media provenance, collection stories and their memberships load from PostgreSQL. For the bounded 20-product seed, search/filter/sort uses a server-side scan of database-loaded records; pagination renders 8 pieces. Larger datasets should move discovery into measured indexed SQL. There is no Redis, microservice layer, browser application runtime or frontend bundler in the Go production image.
+
+Session-row locks serialize a guest's mutations. Active variants/shared capacity are revalidated before additions/checkout. Orders snapshot trusted prices and immutable details while clearing the bag atomically; owner+idempotency-key uniqueness handles retries. Wishlist transfers and outfit-to-bag use the same transaction boundary. Guest data is scoped by hashed opaque cookie and expires after 30 days.
+
+HTMX 4.0.0 enhances GET filters and quick shop. All mutations use ordinary POST/Redirect/GET. HX-Request-Type=partial returns suitable fragment HTML; history/full requests receive a document. Vary separates representations. Events expose detail.ctx. Native forms still purchase without JavaScript. No version-2 event/inheritance assumptions are used.
+
+Resources embed local CSS/JS, fonts, WebP, migrations and seeds. Authored CSS/JS URLs carry content fingerprints; HTMX uses its exact version and official SRI. Gzip covers compressible responses; guest HTML remains no-store. Original Vue assets/tests remain for regression reference and unchanged Pages, excluded from the production image. Path aliases support numeric products, /cart and /products; hash fragments require an explicitly approved old-origin strategy.
+
+The following is the preserved baseline description, not the Go runtime.
+
+## Legacy Vue reference (ae12cd3)
 
 Style Ease is a static Vue storefront designed for GitHub Pages. It is intentionally front-end only: customer information, orders, catalogue stock, and saved products are simulated in the browser and never sent to a service.
 
