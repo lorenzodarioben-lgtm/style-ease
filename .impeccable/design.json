@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T16:48:50Z",
+  "title": "Design System: Style Ease — Black Label",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Olive Black Ink",
+        "canonical": "#141612",
+        "tonalRamp": [
+          "oklch(0.15 0.00844 128.95)",
+          "oklch(0.26 0.00844 128.95)",
+          "oklch(0.38 0.00844 128.95)",
+          "oklch(0.49 0.00844 128.95)",
+          "oklch(0.61 0.00844 128.95)",
+          "oklch(0.72 0.00844 128.95)",
+          "oklch(0.84 0.00844 128.95)",
+          "oklch(0.95 0.00844 128.95)"
+        ]
+      },
+      "bone": {
+        "role": "neutral",
+        "displayName": "Ivory Bone",
+        "canonical": "#f5f4f0",
+        "tonalRamp": [
+          "oklch(0.15 0.00541 95.10)",
+          "oklch(0.26 0.00541 95.10)",
+          "oklch(0.38 0.00541 95.10)",
+          "oklch(0.49 0.00541 95.10)",
+          "oklch(0.61 0.00541 95.10)",
+          "oklch(0.72 0.00541 95.10)",
+          "oklch(0.84 0.00541 95.10)",
+          "oklch(0.95 0.00541 95.10)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Light Paper",
+        "canonical": "#fbfbf8",
+        "tonalRamp": [
+          "oklch(0.15 0.00395 106.47)",
+          "oklch(0.26 0.00395 106.47)",
+          "oklch(0.38 0.00395 106.47)",
+          "oklch(0.49 0.00395 106.47)",
+          "oklch(0.61 0.00395 106.47)",
+          "oklch(0.72 0.00395 106.47)",
+          "oklch(0.84 0.00395 106.47)",
+          "oklch(0.95 0.00395 106.47)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Olive",
+        "canonical": "#50564b",
+        "tonalRamp": [
+          "oklch(0.15 0.01917 130.68)",
+          "oklch(0.26 0.01917 130.68)",
+          "oklch(0.38 0.01917 130.68)",
+          "oklch(0.49 0.01917 130.68)",
+          "oklch(0.61 0.01917 130.68)",
+          "oklch(0.72 0.01917 130.68)",
+          "oklch(0.84 0.01917 130.68)",
+          "oklch(0.95 0.01917 130.68)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Quiet Rule",
+        "canonical": "#c7cbc1",
+        "tonalRamp": [
+          "oklch(0.15 0.01436 124.59)",
+          "oklch(0.26 0.01436 124.59)",
+          "oklch(0.38 0.01436 124.59)",
+          "oklch(0.49 0.01436 124.59)",
+          "oklch(0.61 0.01436 124.59)",
+          "oklch(0.72 0.01436 124.59)",
+          "oklch(0.84 0.01436 124.59)",
+          "oklch(0.95 0.01436 124.59)"
+        ]
+      },
+      "light-muted": {
+        "role": "neutral",
+        "displayName": "Light Muted",
+        "canonical": "#c5c8bc",
+        "tonalRamp": [
+          "oklch(0.15 0.01677 118.18)",
+          "oklch(0.26 0.01677 118.18)",
+          "oklch(0.38 0.01677 118.18)",
+          "oklch(0.49 0.01677 118.18)",
+          "oklch(0.61 0.01677 118.18)",
+          "oklch(0.72 0.01677 118.18)",
+          "oklch(0.84 0.01677 118.18)",
+          "oklch(0.95 0.01677 118.18)"
+        ]
+      },
+      "mineral": {
+        "role": "neutral",
+        "displayName": "Mineral Ground",
+        "canonical": "#cbd0c3",
+        "tonalRamp": [
+          "oklch(0.15 0.01851 124.02)",
+          "oklch(0.26 0.01851 124.02)",
+          "oklch(0.38 0.01851 124.02)",
+          "oklch(0.49 0.01851 124.02)",
+          "oklch(0.61 0.01851 124.02)",
+          "oklch(0.72 0.01851 124.02)",
+          "oklch(0.84 0.01851 124.02)",
+          "oklch(0.95 0.01851 124.02)"
+        ]
+      },
+      "mineral-dark": {
+        "role": "primary",
+        "displayName": "Mineral Fill",
+        "canonical": "#414b3e",
+        "tonalRamp": [
+          "oklch(0.15 0.02500 138.48)",
+          "oklch(0.26 0.02500 138.48)",
+          "oklch(0.38 0.02500 138.48)",
+          "oklch(0.49 0.02500 138.48)",
+          "oklch(0.61 0.02500 138.48)",
+          "oklch(0.72 0.02500 138.48)",
+          "oklch(0.84 0.02500 138.48)",
+          "oklch(0.95 0.02500 138.48)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Optical Serif Display",
+        "purpose": "Base page heading; discovery deliberately overrides scale by surface."
+      },
+      "headline": {
+        "displayName": "House Headline",
+        "purpose": "Section hierarchy in Bodoni Moda."
+      },
+      "title": {
+        "displayName": "Task Title",
+        "purpose": "Compact medium-weight DM Sans hierarchy."
+      },
+      "body": {
+        "displayName": "Task Body",
+        "purpose": "Default legible reading and form typography."
+      },
+      "editorial-body": {
+        "displayName": "Essay Body",
+        "purpose": "Long-form Journal chapter prose."
+      },
+      "action": {
+        "displayName": "Action",
+        "purpose": "Sentence-case button text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "modal",
+        "value": "0 25px 90px #0006",
+        "purpose": "The native modal above the page; ordinary cards remain flat."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Movement settles without overshoot."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "The sliding button fill."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Full-screen native navigation entrance."
+      },
+      {
+        "name": "motion-fill",
+        "value": "560ms",
+        "purpose": "Button fill and arrow movement."
+      },
+      {
+        "name": "motion-colour",
+        "value": "620ms",
+        "purpose": "Reversible grayscale-to-source-colour transition."
+      },
+      {
+        "name": "section-reveal",
+        "value": "500ms",
+        "purpose": "20px translation only for prepared offscreen sections; content stays visible by default."
+      },
+      {
+        "name": "piece-in",
+        "value": "250ms",
+        "purpose": "New Studio reference entry; removed for reduced motion."
+      },
+      {
+        "name": "nav-enter",
+        "value": "320ms",
+        "purpose": "Bounded navigation entrance; removed for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-campaign",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-header",
+        "value": "1150px"
+      },
+      {
+        "name": "compact-commerce",
+        "value": "1100px"
+      },
+      {
+        "name": "compact-editorial-atelier",
+        "value": "1000px"
+      },
+      {
+        "name": "mobile-navigation",
+        "value": "850px"
+      },
+      {
+        "name": "phone",
+        "value": "600px"
+      },
+      {
+        "name": "narrow-phone",
+        "value": "350px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Ink Sliding-fill Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action with the implemented left-to-right mineral fill; keyboard focus and fine-pointer hover share feedback.",
+      "html": "<button class=\"ds-button\" type=\"button\">Explore the collection <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;position:relative;isolation:isolate;overflow:hidden;min-height:54px;max-width:100%;padding:16px 22px;border:1px solid var(--ink,#141612);border-radius:0;background:var(--ink,#141612);color:var(--bone,#f5f4f0);font:500 13px/1.35 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.23,1,.32,1),opacity 150ms}.ds-button:before{content:'';position:absolute;z-index:-1;inset:-1px -20%;background:var(--mineral-dark,#414b3e);transform:translateX(-105%) skewX(-12deg);transition:transform 560ms cubic-bezier(.77,0,.175,1);pointer-events:none}.ds-button svg{width:20px;height:20px;transition:transform 560ms cubic-bezier(.23,1,.32,1)}.ds-button:focus-visible{outline:2px solid currentColor;outline-offset:5px}.ds-button:focus-visible:before{transform:translateX(0) skewX(-12deg)}.ds-button:focus-visible svg{transform:translateX(5px)}.ds-button:active{transform:scale(.985)}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-button:disabled:before{transform:translateX(-105%) skewX(-12deg)}@media(hover:hover) and (pointer:fine){.ds-button:not(:disabled):hover:before{transform:translateX(0) skewX(-12deg)}.ds-button:hover svg{transform:translateX(5px)}}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button:before,.ds-button svg{transition:none}.ds-button:active{transform:none}}@media(max-width:600px){.ds-button{min-height:48px;padding:14px 18px;gap:20px;font-size:12px}}"
+    },
+    {
+      "name": "Bone Sliding-fill Button",
+      "kind": "button",
+      "refersTo": "button-bone",
+      "description": "Light action for ink passages, sharing the primary action's motion grammar.",
+      "html": "<button class=\"ds-button ds-button-bone\" type=\"button\">Read the journal <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;position:relative;isolation:isolate;overflow:hidden;min-height:54px;max-width:100%;padding:16px 22px;border:1px solid var(--ink,#141612);border-radius:0;background:var(--ink,#141612);color:var(--bone,#f5f4f0);font:500 13px/1.35 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.23,1,.32,1),opacity 150ms}.ds-button:before{content:'';position:absolute;z-index:-1;inset:-1px -20%;background:var(--mineral-dark,#414b3e);transform:translateX(-105%) skewX(-12deg);transition:transform 560ms cubic-bezier(.77,0,.175,1);pointer-events:none}.ds-button svg{width:20px;height:20px;transition:transform 560ms cubic-bezier(.23,1,.32,1)}.ds-button:focus-visible{outline:2px solid currentColor;outline-offset:5px}.ds-button:focus-visible:before{transform:translateX(0) skewX(-12deg)}.ds-button:focus-visible svg{transform:translateX(5px)}.ds-button:active{transform:scale(.985)}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-button:disabled:before{transform:translateX(-105%) skewX(-12deg)}@media(hover:hover) and (pointer:fine){.ds-button:not(:disabled):hover:before{transform:translateX(0) skewX(-12deg)}.ds-button:hover svg{transform:translateX(5px)}}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button:before,.ds-button svg{transition:none}.ds-button:active{transform:none}}@media(max-width:600px){.ds-button{min-height:48px;padding:14px 18px;gap:20px;font-size:12px}}.ds-button-bone{background:var(--bone,#f5f4f0);border-color:var(--bone,#f5f4f0);color:var(--ink,#141612)}.ds-button-bone:before{background:var(--mineral,#cbd0c3)}"
+    },
+    {
+      "name": "Outlined Sliding-fill Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary square action with a quiet mineral fill.",
+      "html": "<button class=\"ds-button ds-button-outline\" type=\"button\">Shop this edit <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;position:relative;isolation:isolate;overflow:hidden;min-height:54px;max-width:100%;padding:16px 22px;border:1px solid var(--ink,#141612);border-radius:0;background:var(--ink,#141612);color:var(--bone,#f5f4f0);font:500 13px/1.35 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.23,1,.32,1),opacity 150ms}.ds-button:before{content:'';position:absolute;z-index:-1;inset:-1px -20%;background:var(--mineral-dark,#414b3e);transform:translateX(-105%) skewX(-12deg);transition:transform 560ms cubic-bezier(.77,0,.175,1);pointer-events:none}.ds-button svg{width:20px;height:20px;transition:transform 560ms cubic-bezier(.23,1,.32,1)}.ds-button:focus-visible{outline:2px solid currentColor;outline-offset:5px}.ds-button:focus-visible:before{transform:translateX(0) skewX(-12deg)}.ds-button:focus-visible svg{transform:translateX(5px)}.ds-button:active{transform:scale(.985)}.ds-button:disabled{opacity:.45;cursor:not-allowed}.ds-button:disabled:before{transform:translateX(-105%) skewX(-12deg)}@media(hover:hover) and (pointer:fine){.ds-button:not(:disabled):hover:before{transform:translateX(0) skewX(-12deg)}.ds-button:hover svg{transform:translateX(5px)}}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button:before,.ds-button svg{transition:none}.ds-button:active{transform:none}}@media(max-width:600px){.ds-button{min-height:48px;padding:14px 18px;gap:20px;font-size:12px}}.ds-button-outline{background:transparent;color:var(--ink,#141612)}.ds-button-outline:before{background:#d9ddd2}"
+    },
+    {
+      "name": "Native Text Field",
+      "kind": "input",
+      "refersTo": "text-field",
+      "description": "Visible label, transparent square field and current-colour focus outline.",
+      "html": "<label class=\"ds-field\">Look name<input class=\"ds-input\" name=\"look-name\" placeholder=\"My considered wardrobe\"></label>",
+      "css": ".ds-field{display:grid;gap:8px;color:var(--ink,#141612);font:400 15px/1.6 'DM Sans',sans-serif}.ds-input{max-width:100%;border:1px solid #9b9790;background:transparent;border-radius:0;padding:12px;font:inherit;color:inherit;caret-color:var(--ink,#141612)}.ds-input:focus-visible{outline:2px solid currentColor;outline-offset:5px}.ds-input:disabled{opacity:.5}"
+    },
+    {
+      "name": "Desktop Route Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "The link group within the light house header; active and focused routes receive a fine underline.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary\"><a href=\"/shop\">Shop</a><a href=\"/collections\" aria-current=\"page\">Collections</a><a href=\"/editorial\">Editorial</a><a href=\"/studio\">Style Studio</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;flex-wrap:wrap;gap:27px;background:var(--bone,#f5f4f0);color:var(--ink,#141612);font:400 13px/1.6 'DM Sans',sans-serif}.ds-nav a{position:relative;display:block;padding:34px 0;color:inherit;text-decoration:none}.ds-nav a:after{content:'';position:absolute;bottom:26px;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 280ms cubic-bezier(.23,1,.32,1)}.ds-nav a[aria-current='page']:after,.ds-nav a:focus-visible:after{transform:scaleX(1)}.ds-nav a:focus-visible{outline:2px solid currentColor;outline-offset:5px}@media(hover:hover) and (pointer:fine){.ds-nav a:hover:after{transform:scaleX(1)}}@media(prefers-reduced-motion:reduce){.ds-nav a:after{transition:none}}"
+    },
+    {
+      "name": "Wardrobe Category Buttons",
+      "kind": "chip",
+      "refersTo": "category-chip",
+      "description": "Actual Studio category choices; pressed state inverts ink and bone, independent of any step sequence.",
+      "html": "<div class=\"ds-categories\" role=\"group\" aria-label=\"Discover pieces by category\"><button type=\"button\" aria-pressed=\"true\">Jackets</button><button type=\"button\" aria-pressed=\"false\">Tops</button><button type=\"button\" aria-pressed=\"false\">Jeans</button></div>",
+      "css": ".ds-categories{display:flex;flex-wrap:wrap;gap:6px}.ds-categories button{border:1px solid var(--line,#c7cbc1);background:transparent;color:var(--ink,#141612);padding:8px 12px;min-height:42px;font:400 11px/1.6 'DM Sans',sans-serif;border-radius:0;cursor:pointer}.ds-categories button[aria-pressed='true']{background:var(--ink,#141612);color:var(--bone,#f5f4f0);border-color:var(--ink,#141612)}.ds-categories button:hover{border-color:var(--ink,#141612)}.ds-categories button:focus-visible{outline:2px solid currentColor;outline-offset:5px}.ds-categories button:active{transform:translateY(1px)}@media(prefers-reduced-motion:reduce){.ds-categories button:active{transform:none}}"
+    },
+    {
+      "name": "Catalogue Card Information",
+      "kind": "card",
+      "refersTo": "product-card",
+      "description": "The information portion below a contained 2:3 photographic frame. The real photograph is supplied by the typed media helper, not fabricated in this snippet.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-top\"><span>Tops</span><span>$75.00</span></div><h3><a href=\"/shop\">Geometric T-Shirt</a></h3><div class=\"ds-card-meta\"><span>5 colour labels</span><a href=\"/shop\">Quick shop <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></a></div></article>",
+      "css": ".ds-card{min-width:0;background:transparent;color:var(--ink,#141612);font-family:'DM Sans',sans-serif;border-radius:0}.ds-card-top{display:flex;justify-content:space-between;gap:12px;margin-top:17px;color:var(--muted,#50564b);font-size:11px;line-height:1.5}.ds-card-top span:last-child{color:var(--ink,#141612);font-variant-numeric:tabular-nums;white-space:nowrap}.ds-card h3{font:500 19px/1.25 'DM Sans',sans-serif;letter-spacing:-.015em;margin:7px 0 11px}.ds-card a{color:inherit;text-decoration:none}.ds-card-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted,#50564b)}.ds-card-meta a{display:inline-flex;align-items:center;gap:10px;padding:5px 0;color:var(--ink,#141612)}.ds-card-meta svg{width:20px;height:20px;transition:transform 250ms cubic-bezier(.23,1,.32,1)}.ds-card a:focus-visible{outline:2px solid currentColor;outline-offset:5px}.ds-card a:hover{text-decoration:underline}@media(hover:hover) and (pointer:fine){.ds-card-meta a:hover svg{transform:translateX(5px)}}@media(prefers-reduced-motion:reduce){.ds-card-meta svg{transition:none}}"
+    },
+    {
+      "name": "Empty Composition Board",
+      "kind": "custom",
+      "refersTo": "composition-board",
+      "description": "Mineral board heading, actual capacity and direct empty prompt. Photographic inspiration, when present, is separately labelled as an example arrangement.",
+      "html": "<section class=\"ds-board\" aria-labelledby=\"ds-board-title\"><div class=\"ds-board-heading\"><h2 id=\"ds-board-title\">Your composition.</h2><span>0 / 6 pieces</span></div><p class=\"ds-board-empty\">Begin with one piece.<br>Let the rest find its place.</p><a class=\"ds-board-link\" href=\"/studio\">Choose your first piece <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 12h15m-6-6 6 6-6 6\"/></svg></a></section>",
+      "css": ".ds-board{padding:25px 30px;background:#dde0d3;color:var(--ink,#141612);border-radius:0;font-family:'DM Sans',sans-serif}.ds-board-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid #a7af9a;padding-bottom:20px}.ds-board-heading h2{font:450 35px/1.15 'Bodoni Moda',serif;letter-spacing:-.035em;margin:7px 0 0}.ds-board-heading span{font-size:11px;white-space:nowrap}.ds-board-empty{font:450 38px/1.16 'Bodoni Moda',serif;text-align:center;max-width:20ch;margin:33px auto 0}.ds-board-link{display:inline-flex;align-items:center;justify-content:space-between;gap:22px;max-width:100%;color:inherit;text-decoration:none;font-size:13px;line-height:1.45;padding:8px 0;border-bottom:1px solid currentColor;margin-top:25px}.ds-board-link svg{width:20px;height:20px;transition:transform 250ms cubic-bezier(.23,1,.32,1)}.ds-board-link:focus-visible{outline:2px solid currentColor;outline-offset:5px}.ds-board-link:hover{text-decoration:underline}@media(hover:hover) and (pointer:fine){.ds-board-link:hover svg{transform:translateX(5px)}}@media(max-width:600px){.ds-board{padding:20px 16px}.ds-board-heading h2{font-size:30px}.ds-board-empty{font-size:32px}}@media(prefers-reduced-motion:reduce){.ds-board-link svg{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Clothing as spatial composition",
+    "overview": "Style Ease frames clothing as spatial composition: a complete photograph, a deliberate interval and a clear next action. The house is architectural, confident and precise. Olive-black ink, ivory and mineral grounds support optical serif lettering and quiet shopping typography.\n\nDiscovery allows scale, staggered image arrangements and transitions from monochrome into the photograph's real colour. Reading uses authored sequences and generous text measures; shopping and checkout increase information density and reduce motion. Style Studio makes references into a visual composition while exact variant choices remain explicit.\n\nThe second-stage world is code-led and user-pinned (user-pinned-black-label-creative-v2). The existing direction contract and rendered source govern it; there is no approved raster comp or QUALITY BAR card. PRODUCT.md retains product truth. This file records the visual system rather than redefining purchasing, privacy or persistence.",
+    "keyCharacteristics": [
+      "Complete-source photographs, with space around the subject instead of forced crops.",
+      "Bodoni Moda display lettering, DM Sans task typography and the custom lowercase house wordmark.",
+      "Flat square controls, sparse structural rules and a restrained mineral tonal family.",
+      "Sliding button fill and reversible true-colour reveal, with keyboard, touch and reduced-motion equivalents.",
+      "Distinct discovery, reading, commerce and visual atelier compositions inside one house."
+    ],
+    "rules": [
+      {
+        "name": "The Real Colour Rule",
+        "section": "colors",
+        "body": "Monochrome is a reversible CSS treatment of the original photograph. Reveal its genuine colour; never simulate selectable sample colours by tinting the reference."
+      },
+      {
+        "name": "The Heading First Rule",
+        "section": "typography",
+        "body": "Begin a section with its actual heading. Do not add ornamental labels above it or make independent tools look like numbered steps. Collection counts, article identifiers and real checkout progress may communicate actual structure."
+      },
+      {
+        "name": "The Complete Source Rule",
+        "section": "layout",
+        "body": "Preserve the full source bounds in every shipping image context. Containment and a proportion-led frame carry the composition; photographic cropping or zoom is not a substitute for layout."
+      },
+      {
+        "name": "The Flat Ground Rule",
+        "section": "elevation",
+        "body": "Use ground changes, intervals and thin rules for ordinary hierarchy. Reserve the existing diffuse shadow and dimmed backdrop for a modal above the page."
+      }
+    ],
+    "dos": [
+      "Do use the source tokens and self-hosted fonts; preserve the custom wordmark and house mark assets.",
+      "Do show the complete reference photograph and use its manifest context, intrinsic dimensions and responsive sources.",
+      "Do let source colour return through pointer hover, keyboard focus and the explicit touch toggle.",
+      "Do keep headings direct, shopping choices explicit and real metadata next to the content it describes.",
+      "Do preserve visible focus, native forms, no-JavaScript routes and instant reduced-motion states.",
+      "Do keep the order summary before the confirmation action on phones and reveal an opened Studio inspector in the viewport."
+    ],
+    "donts": [
+      "Don't restore the earlier pure-black, DM Sans display or cinematic cover-crop rules.",
+      "Don't place text over faces, fabricate colour variants, crop away source edges or scale photographs on hover.",
+      "Don't turn Collections into Journal cards or turn Style Studio into a decorative dashboard.",
+      "Don't add ornamental heading kickers, false step numbers, pill-shaped primary controls or ordinary card shadows.",
+      "Don't hide content until an entrance animation runs or make hover the only way to reach information.",
+      "Don't use subordinate caption sizing for instructions or general body copy."
+    ]
+  }
+}

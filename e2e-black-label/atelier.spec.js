@@ -8,6 +8,14 @@ test('visual atelier places, replaces, removes, saves and reopens exact variants
   await expect(page.locator('.studio-inspiration')).toContainText('not a saved personal look');
   await page.locator('[data-pick-product="2"]').click();
   await expect(page.locator('#atelier-inspector')).toBeVisible();
+  await expect
+    .poll(() =>
+      page.locator('#active-studio-variant').evaluate((el) => {
+        const box = el.getBoundingClientRect();
+        return box.top >= 0 && box.bottom <= globalThis.innerHeight;
+      })
+    )
+    .toBe(true);
   await page.getByRole('button', { name: 'Place in composition', exact: true }).click();
   await expect(page.locator('#board-preview figure')).toHaveCount(1);
   await expect(page.locator('.studio-inspiration')).toBeHidden();

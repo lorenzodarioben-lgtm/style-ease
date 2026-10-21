@@ -3,30 +3,36 @@ package views
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
 	styleease "github.com/lorenzodarioben-lgtm/style-ease"
 	"github.com/lorenzodarioben-lgtm/style-ease/internal/domain"
-	"strings"
 )
 
 type ImageContext string
 
 const (
-	ImageCard       ImageContext = "card"
-	ImageDetail     ImageContext = "detail"
-	ImageQuick      ImageContext = "quick"
-	ImageLine       ImageContext = "line"
-	ImageCompare    ImageContext = "compare"
-	ImageStudio     ImageContext = "studio"
-	ImageSaved      ImageContext = "saved"
-	ImageCollection ImageContext = "collection"
-	ImageEditorial  ImageContext = "editorial"
-	ImageHero       ImageContext = "hero"
+	ImageCard         ImageContext = "card"
+	ImageDetail       ImageContext = "detail"
+	ImageQuick        ImageContext = "quick"
+	ImageLine         ImageContext = "line"
+	ImageCompare      ImageContext = "compare"
+	ImageStudio       ImageContext = "studio"
+	ImageSaved        ImageContext = "saved"
+	ImageCollection   ImageContext = "collection"
+	ImageEditorial    ImageContext = "editorial"
+	ImageJournalCover ImageContext = "journal-cover"
+	ImageHero         ImageContext = "hero"
 )
 
 type ArtDirection struct {
 	ID, Src, Alt, Subject, Source, License, Orientation string
 	Width, Height                                       int
 	Sources                                             []struct {
+		Path          string
+		Width, Height int
+	}
+	AVIFSources []struct {
 		Path          string
 		Width, Height int
 	}
@@ -85,6 +91,12 @@ func imageMedia(id string, context ImageContext) Media {
 		sources = append(sources, fmt.Sprintf("%s %dw", assetURL(source.Path), source.Width))
 	}
 	media.Srcset = strings.Join(sources, ", ")
+	for _, source := range direction.AVIFSources {
+		if media.AVIF != "" {
+			media.AVIF += ", "
+		}
+		media.AVIF += fmt.Sprintf("%s %dw", assetURL(source.Path), source.Width)
+	}
 	switch context {
 	case ImageCard:
 		media.Sizes = "(max-width: 600px) 46vw, (max-width: 1000px) 30vw, 23vw"
@@ -94,6 +106,10 @@ func imageMedia(id string, context ImageContext) Media {
 		media.Sizes = "(max-width: 600px) 44vw, 30vw"
 	case ImageHero:
 		media.Sizes = "(max-width: 600px) 86vw, 43vw"
+	case ImageDetail:
+		media.Sizes = "(max-width: 600px) calc(100vw - 70px), 48vw"
+	case ImageJournalCover:
+		media.Sizes = "(max-width: 600px) calc(100vw - 84px), 45vw"
 	default:
 		media.Sizes = "(max-width: 600px) 92vw, 50vw"
 	}

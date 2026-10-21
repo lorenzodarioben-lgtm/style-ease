@@ -1,42 +1,47 @@
 package views
 
 templ Collections(m Model) {
- <div class="collections-house">
-  <header class="edit-heading wrap"><p class="eyebrow">The wardrobe / three considered edits</p><h1>Find your<br/><em>point of view.</em></h1><div><p>Not more things.<br/>A different way of putting them together.</p><a class="text-link" href="/shop">Shop all 20 pieces @Arrow()</a></div></header>
-  <div class="edit-index wrap">
-   for i,c:=range m.Collections {
-    <article class={"edit-cover edit-cover-"+c.Slug} data-reveal>
-     <a class="edit-photo colour-surface" href={templ.SafeURL("/collections/"+c.Slug)} aria-label={n(i+1)+" / 03 Shop "+c.Title}>@EditorialPicture(collectionCover(c.Slug),ImageCollection,i==0)<span class="edit-number" aria-hidden="true">{n(i+1)} / 03</span></a>
-     <div class="edit-description"><p class="eyebrow">Shop the edit / {n(editCount(m,c.Slug))} pieces</p><h2><a href={templ.SafeURL("/collections/"+c.Slug)}>{c.Title}</a></h2><p>{CollectionDescription(c.Slug)}</p><a class="button outline" href={templ.SafeURL("/collections/"+c.Slug)}>Shop this edit @Arrow()</a></div>
-    </article>
-   }
-  </div>
-  <aside class="edit-studio wrap"><p class="eyebrow">Make the connection</p><h2>From an edit<br/>to your own composition.</h2><a class="button ink" href="/studio">Enter Style Studio @Arrow()</a></aside>
- </div>
+	<div class="collections-house">
+		<header class="edit-heading wrap"><h1>Find your<br/><em>point of view.</em></h1><div><p>Not more things.<br/>A different way of putting them together.</p><a class="text-link" href="/shop">Shop all 20 pieces @Arrow()</a></div></header>
+		<div class="edit-index wrap">
+			for i,c:=range m.Collections {
+				<article class={ "edit-cover edit-cover-" + c.Slug } data-reveal>
+					<a class="edit-photo colour-surface" href={ templ.SafeURL("/collections/" + c.Slug) } aria-label={ n(i+1) + " / 03 Shop " + c.Title }>@EditorialPicture(collectionCover(c.Slug), ImageCollection, i == 0)<span class="edit-number" aria-hidden="true">{ n(i+1) } / 03</span></a>
+					<div class="edit-description"><h2><a href={ templ.SafeURL("/collections/" + c.Slug) }>{ c.Title }</a></h2><p class="edit-count">{ n(editCount(m,c.Slug)) } pieces in the edit</p><p>{ CollectionDescription(c.Slug) }</p><a class="button outline" href={ templ.SafeURL("/collections/" + c.Slug) }>Shop this edit @Arrow()</a></div>
+				</article>
+			}
+		</div>
+		<aside class="edit-studio wrap"><h2>From an edit<br/>to your own composition.</h2><a class="button ink" href="/studio">Enter Style Studio @Arrow()</a></aside>
+	</div>
 }
 
 templ CollectionDetail(m Model) {
- <div class="collection-detail">
-  <header class={"collection-intro collection-"+m.Query.Collection}>
-   <div><a class="text-link" href="/collections">All collections @Arrow()</a><p class="eyebrow">Shop the edit / {n(editCount(m,m.Query.Collection))} pieces</p><h1>{m.Title}</h1><p>{CollectionDescription(m.Query.Collection)}</p><a class="button ink" href="#edit-pieces">Explore the pieces @Arrow()</a></div>
-   <figure class="colour-surface">@EditorialPicture(collectionCover(m.Query.Collection),ImageCollection,true)<figcaption>Original editorial reference. Sample variants may differ.</figcaption><button class="colour-toggle js-only" type="button" data-colour-toggle aria-pressed="false">See in colour</button></figure>
-  </header>
-  <section class="wrap edit-pieces" id="edit-pieces" aria-labelledby="edit-pieces-title"><div class="section-head"><h2 id="edit-pieces-title">The pieces.</h2><span>{n(len(m.Results))} in this view</span></div>
-   <form method="get" class="edit-controls"><label>Find within this edit<input name="q" value={m.Query.Search} type="search" placeholder="Name, material, detail"/></label><label>Sort<select name="sort"><option value="featured" selected={m.Query.Sort=="featured"}>Featured</option><option value="price-asc" selected={m.Query.Sort=="price-asc"}>Price: low to high</option><option value="price-desc" selected={m.Query.Sort=="price-desc"}>Price: high to low</option><option value="name" selected={m.Query.Sort=="name"}>Name</option></select></label><button class="button outline" type="submit">Apply @Arrow()</button><a class="text-link" href={templ.SafeURL("/collections/"+m.Query.Collection)}>Reset</a></form>
-   if len(m.Results)==0 {
-<div class="empty"><h3>A little more space.</h3><p>No pieces match this search in the edit.</p><a class="button ink" href={templ.SafeURL("/collections/"+m.Query.Collection)}>See the full edit @Arrow()</a></div>
-}
-   <div class="product-grid">
-for _,p:=range m.Results {
-@Card(m,p)
-}</div>
-   <p class="catalogue-note">Sample catalogue in USD. Photographs are original editorial references, not exact colour or size previews.</p>
-  </section>
-  <aside class="wrap related-edits"><p class="eyebrow">Another perspective</p><div>
-for _,c:=range m.Collections {
-if c.Slug!=m.Query.Collection {
-<a href={templ.SafeURL("/collections/"+c.Slug)}>{c.Title} @Arrow()</a>
-}
-}</div></aside>
- </div>
+	<div class="collection-detail">
+		<header class={ "collection-intro collection-" + m.Query.Collection }>
+			<div><a class="text-link" href="/collections">All collections @Arrow()</a><h1>{ m.Title }</h1><p class="edit-count">{ n(editCount(m,m.Query.Collection)) } pieces in the edit</p><p>{ CollectionDescription(m.Query.Collection) }</p><a class="button ink" href="#edit-pieces">Explore the pieces @Arrow()</a></div>
+			<figure class="colour-surface">@EditorialPicture(collectionCover(m.Query.Collection), ImageCollection, true)<figcaption>Original editorial reference. Sample variants may differ.</figcaption><button class="colour-toggle js-only" type="button" data-colour-toggle aria-pressed="false">See in colour</button></figure>
+		</header>
+		<section class="wrap edit-pieces" id="edit-pieces" aria-labelledby="edit-pieces-title">
+			<div class="section-head"><h2 id="edit-pieces-title">The pieces.</h2><span>{ n(len(m.Results)) } in this view</span></div>
+			<form method="get" class="edit-controls"><label>Find within this edit<input name="q" value={ m.Query.Search } type="search" placeholder="Name, material, detail"/></label><label>Sort<select name="sort"><option value="featured" selected={ m.Query.Sort == "featured" }>Featured</option><option value="price-asc" selected={ m.Query.Sort == "price-asc" }>Price: low to high</option><option value="price-desc" selected={ m.Query.Sort == "price-desc" }>Price: high to low</option><option value="name" selected={ m.Query.Sort == "name" }>Name</option></select></label><button class="button outline" type="submit">Apply @Arrow()</button><a class="text-link" href={ templ.SafeURL("/collections/" + m.Query.Collection) }>Reset</a></form>
+			if len(m.Results)==0 {
+				<div class="empty"><h3>A little more space.</h3><p>No pieces match this search in the edit.</p><a class="button ink" href={ templ.SafeURL("/collections/" + m.Query.Collection) }>See the full edit @Arrow()</a></div>
+			}
+			<div class="product-grid">
+				for _,p:=range m.Results {
+					@Card(m, p)
+				}
+			</div>
+			<p class="catalogue-note">Sample catalogue in USD. Photographs are original editorial references, not exact colour or size previews.</p>
+		</section>
+		<aside class="wrap related-edits">
+			<div>
+				for _,c:=range m.Collections {
+					if c.Slug!=m.Query.Collection {
+						<a href={ templ.SafeURL("/collections/" + c.Slug) }>{ c.Title } @Arrow()</a>
+					}
+				}
+			</div>
+		</aside>
+	</div>
 }

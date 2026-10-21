@@ -1,61 +1,82 @@
 package views
 
 templ Journal(m Model) {
- <div class="journal-house">
-  <header class="journal-masthead wrap"><p class="eyebrow">Style Ease / The journal</p><h1>Ways of<br/><em>looking.</em></h1><div><p>Notes on getting dressed.<br/>Space for a different perspective.</p><span>Volume 01 / Three visual essays</span></div></header>
-  <div class="journal-index wrap">
-   for _,a:=range JournalArticles() {
-    <article class={"journal-entry journal-entry-"+a.Kind} data-reveal><a class="journal-cover" href={templ.SafeURL("/editorial/"+a.Slug)} aria-label={a.Number+" Read "+a.Title}>@EditorialPicture(a.Hero,ImageEditorial,a.Number=="01")<span aria-hidden="true">{a.Number}</span></a><div><p class="eyebrow">{a.Kind} / {a.ReadTime}</p><h2><a href={templ.SafeURL("/editorial/"+a.Slug)}>{a.Title}</a></h2><p>{a.Deck}</p><a class="text-link" href={templ.SafeURL("/editorial/"+a.Slug)}>Read the story @Arrow()</a></div></article>
-   }
-  </div>
-  <div class="journal-colophon wrap"><p>Words and compositions by Style Ease.</p><p>Original photography is credited in the <a href="/about#photography">image register</a>. These styling essays accompany a demonstration catalogue.</p></div>
- </div>
+	<div class="journal-house">
+		<header class="journal-masthead wrap"><h1>Ways of<br/><em>looking.</em></h1><div><p>Notes on getting dressed.<br/>Space for a different perspective.</p><span>The Style Ease journal / Three visual essays</span></div></header>
+		<div class="journal-index wrap">
+			for _,a:=range JournalArticles() {
+				<article class={ "journal-entry journal-entry-" + a.Kind } data-reveal><a class="journal-cover" href={ templ.SafeURL("/editorial/" + a.Slug) } aria-label={ a.Number + " Read " + a.Title }>@EditorialPicture(a.Hero, ImageJournalCover, a.Number == "01")<span aria-hidden="true">{ a.Number }</span></a><div><h2><a href={ templ.SafeURL("/editorial/" + a.Slug) }>{ a.Title }</a></h2><p class="story-meta">{ a.Kind } / { a.ReadTime }</p><p>{ a.Deck }</p><a class="text-link" href={ templ.SafeURL("/editorial/" + a.Slug) }>Read the story @Arrow()</a></div></article>
+			}
+		</div>
+		<div class="journal-colophon wrap"><p>Words and compositions by Style Ease.</p><p>Original photography is credited in the <a href="/about#photography">image register</a>. These styling essays accompany a demonstration catalogue.</p></div>
+	</div>
 }
 
 templ JournalArticle(m Model) {
- <article class={"journal-article essay-"+m.Article.Kind}>
-  <header class="essay-header wrap"><a class="text-link" href="/editorial">Back to the journal @Arrow()</a><p class="eyebrow">Visual essay {m.Article.Number} / {m.Article.Kind}</p><h1>{m.Article.Title}</h1><p class="essay-deck">{m.Article.Deck}</p><p class="essay-byline">An authored Style Ease styling essay / {m.Article.ReadTime}</p></header>
-  if m.Article.Kind=="proportion" {
-   <div class="proportion-opening wrap"><figure>@EditorialPicture(m.Article.Hero,ImageEditorial,true)<figcaption>01 / The complete silhouette. Space is part of the frame.</figcaption></figure><div><p class="essay-pull">“The interval between pieces becomes as important as the pieces themselves.”</p><nav aria-label="In this story"><p class="eyebrow">In this story</p>
-for _,c:=range m.Article.Chapters {
-<a href={templ.SafeURL("#"+c.ID)}>{c.Title} @Arrow()</a>
-}</nav></div></div>
-  } else if m.Article.Kind=="colour" {
-   <div class="colour-opening"><figure>@EditorialPicture(m.Article.Hero,ImageEditorial,true)<figcaption>Original colour. No simulated sample variants.</figcaption></figure><p>Let one<br/><em>colour</em><br/>set the mood.</p></div>
-   <nav class="essay-toc wrap" aria-label="In this story">
-for _,c:=range m.Article.Chapters {
-<a href={templ.SafeURL("#"+c.ID)}>{c.Title}</a>
-}</nav>
-  } else {
-   <div class="objects-opening wrap">
-for i,id:=range append([]string{m.Article.Hero},m.Article.Images...) {
-<figure>@EditorialPicture(id,ImageEditorial,i==0)<figcaption>Object study / {n(i+1)}</figcaption></figure>
-}</div>
-   <nav class="essay-toc wrap" aria-label="In this story">
-for _,c:=range m.Article.Chapters {
-<a href={templ.SafeURL("#"+c.ID)}>{c.Title}</a>
-}</nav>
-  }
-  <div class="essay-body wrap">
-   for i,c:=range m.Article.Chapters {
-    <section class="essay-chapter" id={c.ID} data-reveal><span class="chapter-number">0{n(i+1)}</span><div><h2>{c.Title}</h2>
-for _,p:=range c.Paragraphs {
-<p>{p}</p>
-}</div></section>
-    if i==0 && m.Article.Kind!="objects" {
-<figure class="essay-interlude" data-reveal>@EditorialPicture(m.Article.Images[0],ImageEditorial,false)<figcaption>A second point of view / original editorial reference</figcaption></figure>
-}
-   }
-  </div>
-  <section class="essay-shop wrap" aria-labelledby="essay-shop-title"><div class="section-head"><div><p class="eyebrow">From looking to composing</p><h2 id="essay-shop-title">Explore the references.</h2></div><a class="text-link" href="/studio">Make a composition @Arrow()</a></div><p class="catalogue-note">Related sample pieces. Photography is a reference, not an exact preview of selectable variants.</p><div class="product-grid">
-for _,p:=range articleProducts(m) {
-@Card(m,p)
-}</div></section>
-  <nav class="next-stories wrap" aria-label="More stories"><p class="eyebrow">Keep looking</p>
-for _,a:=range JournalArticles() {
-if a.Slug!=m.Article.Slug {
-<a href={templ.SafeURL("/editorial/"+a.Slug)}>{a.Title} @Arrow()</a>
-}
-}</nav>
- </article>
+	<article class={ "journal-article essay-" + m.Article.Kind }>
+		<header class="essay-header wrap"><a class="text-link" href="/editorial">Back to the journal @Arrow()</a><h1>{ m.Article.Title }</h1><p class="essay-deck">{ m.Article.Deck }</p><p class="essay-byline">Visual essay { m.Article.Number } / An authored Style Ease styling essay / { m.Article.ReadTime }</p></header>
+		if m.Article.Kind=="proportion" {
+			<div class="proportion-opening wrap">
+				<figure>@EditorialPicture(m.Article.Hero, ImageEditorial, true)<figcaption>01 / The complete silhouette. Space is part of the frame.</figcaption></figure>
+				<div>
+					<p class="essay-pull">“The interval between pieces becomes as important as the pieces themselves.”</p>
+					<nav aria-label="In this story">
+						for _,c:=range m.Article.Chapters {
+							<a href={ templ.SafeURL("#" + c.ID) }>{ c.Title } @Arrow()</a>
+						}
+					</nav>
+				</div>
+			</div>
+		} else if m.Article.Kind=="colour" {
+			<div class="colour-opening"><figure>@EditorialPicture(m.Article.Hero, ImageEditorial, true)<figcaption>Original colour. No simulated sample variants.</figcaption></figure><p>Let one<br/><em>colour</em><br/>set the mood.</p></div>
+			<nav class="essay-toc wrap" aria-label="In this story">
+				for _,c:=range m.Article.Chapters {
+					<a href={ templ.SafeURL("#" + c.ID) }>{ c.Title }</a>
+				}
+			</nav>
+		} else {
+			<div class="objects-opening wrap">
+				for i,id:=range append([]string{m.Article.Hero},m.Article.Images...) {
+					<figure>@EditorialPicture(id, ImageEditorial, i == 0)<figcaption>Object study / { n(i+1) }</figcaption></figure>
+				}
+			</div>
+			<nav class="essay-toc wrap" aria-label="In this story">
+				for _,c:=range m.Article.Chapters {
+					<a href={ templ.SafeURL("#" + c.ID) }>{ c.Title }</a>
+				}
+			</nav>
+		}
+		<div class="essay-body wrap">
+			for i,c:=range m.Article.Chapters {
+				<section class="essay-chapter" id={ c.ID } data-reveal>
+					<span class="chapter-number">0{ n(i+1) }</span>
+					<div>
+						<h2>{ c.Title }</h2>
+						for _,p:=range c.Paragraphs {
+							<p>{ p }</p>
+						}
+					</div>
+				</section>
+				if i==0 && m.Article.Kind!="objects" {
+					<figure class="essay-interlude" data-reveal>@EditorialPicture(m.Article.Images[0], ImageEditorial, false)<figcaption>A second point of view / original editorial reference</figcaption></figure>
+				}
+			}
+		</div>
+		<section class="essay-shop wrap" aria-labelledby="essay-shop-title">
+			<div class="section-head"><div><h2 id="essay-shop-title">Explore the references.</h2></div><a class="text-link" href="/studio">Make a composition @Arrow()</a></div>
+			<p class="catalogue-note">Related sample pieces. Photography is a reference, not an exact preview of selectable variants.</p>
+			<div class="product-grid">
+				for _,p:=range articleProducts(m) {
+					@Card(m, p)
+				}
+			</div>
+		</section>
+		<nav class="next-stories wrap" aria-label="More stories">
+			for _,a:=range JournalArticles() {
+				if a.Slug!=m.Article.Slug {
+					<a href={ templ.SafeURL("/editorial/" + a.Slug) }>{ a.Title } @Arrow()</a>
+				}
+			}
+		</nav>
+	</article>
 }

@@ -1,62 +1,65 @@
 package views
 
 templ Home(m Model) {
- <section class="campaign">
-  <div class="campaign-copy">
-   <h1>A different<br/>perspective.</h1>
+	<section class="campaign">
+		<div class="campaign-copy">
+			<h1>A different<br/>perspective.</h1>
 			<p>Explore the pieces. Change the proportions. Make the composition your own.</p>
-   <a class="button ink" href="/shop">Explore the collection @Arrow()</a>
-  </div>
-  <figure class="campaign-image colour-surface">
-   @EditorialPicture("campaign",ImageHero,true)
-   <figcaption><span>Clothing as a composition.</span><button type="button" class="colour-toggle js-only" data-colour-toggle aria-pressed="false">See in colour</button></figcaption>
-  </figure>
- </section>
- <section class="house-statement wrap" data-reveal>
-  <h2>Familiar pieces.<br/><em>Unexpected company.</em></h2>
-  <p>A jacket changes a silhouette. A colour changes the mood. The interesting part is what happens between them.</p>
-  <a class="text-link" href="/about">The Style Ease perspective @Arrow()</a>
- </section>
- <section class="home-edits wrap">
-  <div class="section-head"><h2>Shop a point of view.</h2><a class="text-link" href="/collections">All collections @Arrow()</a></div>
-  <div class="home-edit-grid">
-   <article class="home-edit colour-surface" data-reveal>
-    <a class="edit-image" href="/collections/structure">@EditorialPicture("p7",ImageCollection,false)</a>
-    <div class="edit-caption"><h3><a href="/collections/structure">The Structure Edit</a></h3><p>A line. A layer. A new proportion.</p><a class="text-link" href="/collections/structure">Shop the edit @Arrow()</a></div>
-   </article>
-   <article class="home-edit colour-surface" data-reveal>
-    <a class="edit-image" href="/collections/everyday">@EditorialPicture("p6",ImageCollection,false)</a>
-    <div class="edit-caption"><h3><a href="/collections/everyday">Everyday, reconsidered</a></h3><p>Make room for something familiar.</p><a class="text-link" href="/collections/everyday">Shop the edit @Arrow()</a></div>
-   </article>
-  </div>
- </section>
- <section class="journal-invite">
-  <div class="journal-invite-copy" data-reveal><h2>The space<br/><em>between.</em></h2><p>On proportion, pause and the simple pleasure of looking a little closer. A visual essay from the Style Ease journal.</p><a class="button bone" href="/editorial">Read the journal @Arrow()</a></div>
-  <figure class="journal-invite-image colour-surface" data-reveal>@EditorialPicture("p20",ImageEditorial,false)<figcaption>Original editorial imagery. An authored styling perspective.</figcaption></figure>
- </section>
- <section class="selected wrap">
-  <div class="section-head"><h2>Pieces to begin with.</h2><a class="text-link" href="/shop">Explore all 20 @Arrow()</a></div>
-  <div class="product-grid">
-   for _,id:=range []int{1,2,6,18} {
-    @Card(m,ProductByID(m.Products,id))
-   }
-  </div>
-  <p class="catalogue-note">A demonstration catalogue. Photography is editorial inspiration; names, specifications, options and USD prices are sample data.</p>
- </section>
- <section class="studio-invite">
-  <div class="studio-invite-copy" data-reveal><h2>Make the<br/>composition<br/><em>your own.</em></h2><p>A visual space for your next combination. Explore references, choose exact sample variants and save a private look.</p><a class="button ink" href="/studio">Enter Style Studio @Arrow()</a></div>
-  <div class="invite-board" aria-label="Example inspiration board, not a saved personal look" data-reveal>
-   <figure>@EditorialPicture("p7",ImageStudio,false)<figcaption>Start with a silhouette.</figcaption></figure>
-   <figure>@EditorialPicture("p3",ImageStudio,false)<figcaption>Change the proportion.</figcaption></figure>
-   <figure>@EditorialPicture("p18",ImageStudio,false)<figcaption>Find a point of emphasis.</figcaption></figure>
-   <p>One way to begin. Yours will be different.</p>
-  </div>
- </section>
- if len(m.State.Recent)>0 {
-  <section class="wrap recent"><div class="section-head"><h2>Worth another look.</h2><a href="/privacy">Manage viewing history</a></div><div class="product-grid">
-   for _,p:=range m.State.Recent[:min(4,len(m.State.Recent))] {
-    @Card(m,p)
-   }
-  </div></section>
- }
+			<a class="button ink" href="/shop">Explore the collection @Arrow()</a>
+		</div>
+		<figure class="campaign-image colour-surface">
+			@EditorialPicture("campaign", ImageHero, true)
+			<figcaption><span>Clothing as a composition.</span><button type="button" class="colour-toggle js-only" data-colour-toggle aria-pressed="false">See in colour</button></figcaption>
+		</figure>
+	</section>
+	<section class="house-statement wrap" data-reveal>
+		<h2>Familiar pieces.<br/><em>Unexpected company.</em></h2>
+		<p>A jacket changes a silhouette. A colour changes the mood. The interesting part is what happens between them.</p>
+		<a class="text-link" href="/about">The Style Ease perspective @Arrow()</a>
+	</section>
+	<section class="home-edits wrap">
+		<div class="section-head"><h2>Shop a point of view.</h2><a class="text-link" href="/collections">All collections @Arrow()</a></div>
+		<div class="home-edit-grid">
+			<article class="home-edit colour-surface" data-reveal>
+				<a class="edit-image" href="/collections/structure">@EditorialPicture("p7", ImageCollection, false)</a>
+				<div class="edit-caption"><h3><a href="/collections/structure">The Structure Edit</a></h3><p>A line. A layer. A new proportion.</p><a class="text-link" href="/collections/structure">Shop the edit @Arrow()</a></div>
+			</article>
+			<article class="home-edit colour-surface" data-reveal>
+				<a class="edit-image" href="/collections/everyday">@EditorialPicture("p6", ImageCollection, false)</a>
+				<div class="edit-caption"><h3><a href="/collections/everyday">Everyday, reconsidered</a></h3><p>Make room for something familiar.</p><a class="text-link" href="/collections/everyday">Shop the edit @Arrow()</a></div>
+			</article>
+		</div>
+	</section>
+	<section class="journal-invite">
+		<div class="journal-invite-copy" data-reveal><h2>The space<br/><em>between.</em></h2><p>On proportion, pause and the simple pleasure of looking a little closer. A visual essay from the Style Ease journal.</p><a class="button bone" href="/editorial">Read the journal @Arrow()</a></div>
+		<figure class="journal-invite-image colour-surface" data-reveal>@EditorialPicture("p20", ImageEditorial, false)<figcaption>Original editorial imagery. An authored styling perspective.</figcaption></figure>
+	</section>
+	<section class="selected wrap">
+		<div class="section-head"><h2>Pieces to begin with.</h2><a class="text-link" href="/shop">Explore all 20 @Arrow()</a></div>
+		<div class="product-grid">
+			for _,id:=range []int{1,2,6,18} {
+				@Card(m, ProductByID(m.Products, id))
+			}
+		</div>
+		<p class="catalogue-note">A demonstration catalogue. Photography is editorial inspiration; names, specifications, options and USD prices are sample data.</p>
+	</section>
+	<section class="studio-invite">
+		<div class="studio-invite-copy" data-reveal><h2>Make the<br/>composition<br/><em>your own.</em></h2><p>A visual space for your next combination. Explore references, choose exact sample variants and save a private look.</p><a class="button ink" href="/studio">Enter Style Studio @Arrow()</a></div>
+		<div class="invite-board" aria-label="Example inspiration board, not a saved personal look" data-reveal>
+			<figure>@EditorialPicture("p7", ImageStudio, false)<figcaption>Start with a silhouette.</figcaption></figure>
+			<figure>@EditorialPicture("p3", ImageStudio, false)<figcaption>Change the proportion.</figcaption></figure>
+			<figure>@EditorialPicture("p18", ImageStudio, false)<figcaption>Find a point of emphasis.</figcaption></figure>
+			<p>One way to begin. Yours will be different.</p>
+		</div>
+	</section>
+	if len(m.State.Recent)>0 {
+		<section class="wrap recent">
+			<div class="section-head"><h2>Worth another look.</h2><a href="/privacy">Manage viewing history</a></div>
+			<div class="product-grid">
+				for _,p:=range m.State.Recent[:min(4,len(m.State.Recent))] {
+					@Card(m, p)
+				}
+			</div>
+		</section>
+	}
 }

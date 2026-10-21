@@ -32,24 +32,35 @@ notes={
  'p20':'Blouse portrait at a green doorway; preserve head, hands and visible blouse. The source intentionally ends at the skirt.'
 }
 records=[]
-contexts=['card','detail','quick','line','compare','studio','saved','collection','editorial','hero']
+contexts=['card','detail','quick','line','compare','studio','saved','collection','editorial','hero','journal-cover']
 for item in inventory:
     key='campaign' if item['id']=='campaign' else 'p'+str(item['id'])
     path=item['path']; img=Image.open(path.lstrip('/')); width,height=img.size
+    avif_sources=[]
+    if key!='campaign':
+        for target_width in [480,640,960]:
+            derivative=img.copy();derivative.thumbnail((target_width,2000),Image.Resampling.LANCZOS)
+            avif_path=path.replace('-960.webp','-'+str(target_width)+'.avif')
+            derivative.save(avif_path.lstrip('/'),quality=60,speed=6,icc_profile=img.info.get('icc_profile',b''))
+            avif_sources.append({'path':avif_path,'width':derivative.width,'height':derivative.height})
     if key!='campaign':
         small=img.copy();small.thumbnail((480,2000),Image.Resampling.LANCZOS)
         small.save(path.lstrip('/').replace('-960.','-480.'),quality=82,method=6)
+        medium=img.copy();medium.thumbnail((640,2000),Image.Resampling.LANCZOS)
+        medium.save(path.lstrip('/').replace('-960.','-640.'),quality=82,method=6,icc_profile=img.info.get('icc_profile',b''))
     sources=[{'path':path,'width':width,'height':height}]
     if key!='campaign':
         small_path=path.replace('-960.','-480.');w,h=Image.open(small_path.lstrip('/')).size
         sources.insert(0,{'path':small_path,'width':w,'height':h})
+        medium_path=path.replace('-960.','-640.');w,h=Image.open(medium_path.lstrip('/')).size
+        sources.insert(1,{'path':medium_path,'width':w,'height':h})
     record={
       'id':key,'src':path,'width':width,'height':height,'orientation':'landscape' if width>height else 'portrait',
       'format':'webp','source':item['source'],'license':item['license'],
       'alt':notes[key].split(';')[0].split('. ')[0], 'subject':notes[key],
       'minimumVisibleBounds':[0,0,100,100], 'mobileCropRequired':False,
       'treatment':'natural monochrome' if key=='p10' else 'original colour; grayscale is CSS-only and reversible',
-      'sources':sources,
+      'sources':sources,'avifSources':avif_sources,
       'contexts':{context:{'fit':'contain','desktopFocal':[50,50],'tabletFocal':[50,50],'mobileFocal':[50,50],
        'ratio':'2 / 3 frame; complete source contained' if context=='card' else 'intrinsic source ratio',
        'maxZoom':1,'loading':'eager' if context in ['hero','detail'] else 'lazy'} for context in contexts}

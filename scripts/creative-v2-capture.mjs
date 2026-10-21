@@ -26,6 +26,12 @@ const routes = [
   ['privacy', '/privacy'],
   ['404', '/missing']
 ];
+if (phase === 'after')
+  routes.push(
+    ['story-colour', '/editorial/colour-when-it-counts'],
+    ['story-objects', '/editorial/a-small-point-of-difference'],
+    ['collection-objects', '/collections/objects']
+  );
 try {
   for (const width of [320, 390, 768, 1024, 1440, 1920]) {
     const context = await browser.newContext({
@@ -118,7 +124,7 @@ try {
   await videoPage.waitForTimeout(1000);
   const video = videoPage.video();
   await videoContext.close();
-  await video.saveAs(`${base}/signature-baseline.webm`);
+  await video.saveAs(`${base}/signature-${phase}.webm`);
 } finally {
   await browser.close();
 }

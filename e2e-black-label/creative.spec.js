@@ -1,6 +1,35 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+test('task surfaces disclose the mobile total and comparison navigation before commitment', async ({
+  page
+}) => {
+  await page.goto('/products/geometric-t-shirt');
+  await page.getByRole('button', { name: 'Add to bag', exact: true }).click();
+  await page.goto('/checkout');
+  await page.getByRole('button', { name: 'Continue to review', exact: true }).click();
+  const summary = page.locator('.order-summary');
+  const confirm = page.getByRole('button', { name: 'Confirm demo order', exact: true });
+  if (page.viewportSize().width < 600) {
+    const first = await summary.boundingBox(),
+      last = await confirm.boundingBox();
+    expect(first.y + first.height).toBeLessThan(last.y);
+  }
+  for (const slug of ['angular-jacket', 'precision-jeans']) {
+    await page.goto('/products/' + slug);
+    await page.getByRole('button', { name: 'Compare this piece', exact: true }).click();
+  }
+  await page.goto('/compare');
+  await expect(page.locator('.comparison-guide')).toContainText('2 pieces selected');
+  if (page.viewportSize().width < 600) {
+    await page.getByRole('button', { name: 'Next comparison columns' }).click();
+    await expect
+      .poll(() => page.locator('.comparison-scroll').evaluate((el) => el.scrollLeft))
+      .toBeGreaterThan(0);
+  }
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
 test('touch colour choice remains explicit and accessibly labelled', async ({ browser }) => {
   const context = await browser.newContext({
     viewport: { width: 390, height: 844 },

@@ -3,6 +3,28 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const seen = new WeakSet();
   let imageOpener;
+  const comparison = document.querySelector('.comparison-scroll');
+  if (comparison) {
+    const controls = [...document.querySelectorAll('[data-compare-scroll]')];
+    const sync = () =>
+      controls.forEach((button) => {
+        button.disabled =
+          button.dataset.compareScroll === '-1'
+            ? comparison.scrollLeft < 1
+            : comparison.scrollLeft + comparison.clientWidth >= comparison.scrollWidth - 1;
+      });
+    controls.forEach((button) =>
+      button.addEventListener('click', () =>
+        comparison.scrollBy({
+          left: Number(button.dataset.compareScroll) * Math.max(220, comparison.clientWidth * 0.8),
+          behavior: reduced.matches ? 'instant' : 'smooth'
+        })
+      )
+    );
+    comparison.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
   const viewer = document.getElementById('image-viewer');
   viewer?.addEventListener('close', () => imageOpener?.focus());
   let observer;

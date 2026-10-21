@@ -22,6 +22,9 @@ func TestArtDirectionCoversActualSourcesAndContexts(t *testing.T) {
 			if !strings.Contains(media.Src, "?v=") {
 				t.Fatal("source is not fingerprinted", media.Src)
 			}
+			if media.AVIF == "" {
+				t.Fatalf("responsive AVIF missing: %s/%s", id, context)
+			}
 		}
 	}
 	// These sources expose the old universal 3:4 dimension bug.

@@ -2252,12 +2252,14 @@ html:not(.has-js) .js-only {
 }
 .media-detail,
 .media-editorial,
+.media-journal-cover,
 .media-collection,
 .media-hero {
   height: auto;
 }
 .media-detail img,
 .media-editorial img,
+.media-journal-cover img,
 .media-collection img,
 .media-hero img {
   height: auto;

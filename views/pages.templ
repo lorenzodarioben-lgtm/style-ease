@@ -3,7 +3,7 @@ package views
 import "github.com/lorenzodarioben-lgtm/style-ease/internal/domain"
 
 templ Mark() {
- <span class="house-mark" aria-hidden="true"><img src={assetURL("/assets/favicon.svg")} width="40" height="40" alt=""/></span>
+	<span class="house-mark" aria-hidden="true"><img src={ assetURL("/assets/favicon.svg") } width="40" height="40" alt=""/></span>
 }
 
 templ Arrow() {
@@ -23,24 +23,24 @@ templ Head(title string) {
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>{ title } | STYLE EASE</title>
-		<meta name="description" content={pageDescription(title)}/>
+		<meta name="description" content={ pageDescription(title) }/>
 		<meta name="color-scheme" content="light dark"/>
 		<meta name="htmx-config" content='{"includeIndicatorCSS":false,"history":"reload","defaultTimeout":10000}'/>
 		<meta property="og:title" content={ title + " | STYLE EASE" }/>
-		<meta property="og:description" content={pageDescription(title)}/>
+		<meta property="og:description" content={ pageDescription(title) }/>
 		<meta property="og:type" content="website"/>
-		<link rel="icon" href={assetURL("/assets/favicon.svg")} type="image/svg+xml"/>
+		<link rel="icon" href={ assetURL("/assets/favicon.svg") } type="image/svg+xml"/>
 		<link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-<link rel="preload" href="/assets/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+		<link rel="preload" href="/assets/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
 		<link rel="stylesheet" href={ assetURL("/assets/css/black-label.css") }/>
-        <link rel="stylesheet" href={ assetURL("/assets/css/creative-pages.css") }/>
-        <link rel="stylesheet" href={ assetURL("/assets/css/atelier.css") }/>
-        <link rel="stylesheet" href={ assetURL("/assets/css/commerce-finish.css") }/>
-        <link rel="stylesheet" href={ assetURL("/assets/css/art-direction.css") }/>
+		<link rel="stylesheet" href={ assetURL("/assets/css/creative-pages.css") }/>
+		<link rel="stylesheet" href={ assetURL("/assets/css/atelier.css") }/>
+		<link rel="stylesheet" href={ assetURL("/assets/css/commerce-finish.css") }/>
+		<link rel="stylesheet" href={ assetURL("/assets/css/art-direction.css") }/>
 		<script src="/assets/js/htmx-4.0.0.min.js" integrity="sha384-BvJpBiO8Kh31EqtJe5DRIeWrHWnCGkwytKs9NKFi86Hhw96dEqdEMzZDeK9iEGTc" defer></script>
 		<script src={ assetURL("/assets/js/storefront.js") } defer></script>
-<script src={assetURL("/assets/js/creative.js")} defer></script>
-<script src={assetURL("/assets/js/atelier.js")} defer></script>
+		<script src={ assetURL("/assets/js/creative.js") } defer></script>
+		<script src={ assetURL("/assets/js/atelier.js") } defer></script>
 	</head>
 }
 
@@ -68,7 +68,7 @@ templ Page(m Model, content templ.Component) {
 			</main>
 			<footer class="footer"><div class="footer-top"><p>A wardrobe is a composition.<br/>Make it yours.</p><nav aria-label="Footer shop links"><a href="/shop">Shop all pieces</a><a href="/collections/structure">The Structure Edit</a><a href="/collections/everyday">Everyday, reconsidered</a><a href="/collections/objects">Objects of interest</a></nav><nav aria-label="Project information"><a href="/compare">Compare pieces</a><a href="/orders">Demo receipts</a><a href="/about">About Style Ease</a><a href="/privacy">Privacy &amp; clear data</a><a href="https://github.com/lorenzodarioben-lgtm/style-ease">The project on GitHub</a></nav></div><a href="/" class="footer-wordmark" aria-label="Style Ease home">@Brand()</a><div class="footer-bottom"><span>Original concept &amp; development by Lorenzo Ben.</span><span>Demonstration only. No payments or fulfilment.</span></div></footer>
 			<dialog id="quick-shop" class="quick-dialog" aria-label="Quick shop"><div id="quick-content"></div></dialog>
-            <dialog id="image-viewer" class="image-viewer" aria-labelledby="image-viewer-title"><div class="dialog-top"><h2 id="image-viewer-title">The original reference</h2><button type="button" data-close>Close</button></div><div class="image-viewer-frame"><img id="image-viewer-photo" src="/assets/image-unavailable.svg" alt=""/></div><p>Original editorial photograph. Use browser zoom for a closer view; no additional product angles are implied.</p></dialog>
+			<dialog id="image-viewer" class="image-viewer" aria-labelledby="image-viewer-title"><div class="dialog-top"><h2 id="image-viewer-title">The original reference</h2><button type="button" data-close>Close</button></div><div class="image-viewer-frame"><img id="image-viewer-photo" src="/assets/image-unavailable.svg" alt=""/></div><p>Original editorial photograph. Use browser zoom for a closer view; no additional product angles are implied.</p></dialog>
 			<div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
 		</body>
 	</html>
@@ -89,9 +89,9 @@ templ Card(m Model, p domain.Product) {
 			</a>
 		</div>
 		if p.ID!=10 {
- <button class="colour-toggle card-colour js-only" type="button" data-colour-toggle data-colour-label={p.Name} aria-pressed="false" aria-label={"See in colour: "+p.Name}>See in colour</button>
-}
- </article>
+			<button class="colour-toggle card-colour js-only" type="button" data-colour-toggle data-colour-label={ p.Name } aria-pressed="false" aria-label={ "See in colour: " + p.Name }>See in colour</button>
+		}
+	</article>
 }
 
 templ Shop(m Model) {
@@ -105,7 +105,7 @@ templ Shop(m Model) {
 					@Arrow()
 				</button>
 			</div>
-			<details class="filters" open?={m.Query.Search!="" || m.Query.Category!="" || m.Query.Size!="" || m.Query.Color!="" || m.Query.Material!="" || m.Query.Price!="" || m.Query.Collection!="" || m.Query.InStock || m.Query.Sort!="featured"}>
+			<details class="filters" open?={ m.Query.Search!="" || m.Query.Category!="" || m.Query.Size!="" || m.Query.Color!="" || m.Query.Material!="" || m.Query.Price!="" || m.Query.Collection!="" || m.Query.InStock || m.Query.Sort!="featured" }>
 				<summary>Filter &amp; sort</summary>
 				<div class="filter-grid">
 					for _,kind:=range []string{"category","size","color","material"} {
@@ -246,7 +246,7 @@ templ Product(m Model) {
 		<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/shop">Shop</a><span>/</span><a href={ templ.SafeURL("/shop?category=" + urlEscape(m.Product.Category)) }>{ m.Product.Category }</a><span>/</span><span>{ m.Product.Name }</span></nav>
 		<div class="product-detail">
 			<figure class="product-hero">
-				<a href={ templ.SafeURL(m.Product.Image) } aria-label="Open full editorial reference image" data-image-zoom data-photo={m.Product.Image} data-photo-alt={productMedia(m.Product,ImageDetail).Alt}>
+				<a href={ templ.SafeURL(m.Product.Image) } aria-label="Open full editorial reference image" data-image-zoom data-photo={ m.Product.Image } data-photo-alt={ productMedia(m.Product, ImageDetail).Alt }>
 					@Picture(m.Product, ImageDetail, true)
 				</a>
 				<figcaption>Editorial reference. The photograph is inspiration, not an exact representation of this demo product or its selected colour.</figcaption>
@@ -418,7 +418,8 @@ templ Compare(m Model) {
 		if len(m.State.Compare)==0 {
 			@Empty("Different pieces. Clearer choices.", "Select Compare this piece on a product page to bring its details here.", "/shop", "Explore the collection")
 		} else {
-			<div class="comparison-scroll" tabindex="0" role="region" aria-label="Product comparison; scroll horizontally on small screens">
+			<div class="comparison-guide"><p id="comparison-guide"><strong>{ n(len(m.State.Compare)) } pieces selected</strong><span>Swipe or scroll horizontally to compare every piece.</span></p><div class="comparison-controls js-only"><button type="button" data-compare-scroll="-1" aria-label="Previous comparison columns">Previous</button><button type="button" data-compare-scroll="1" aria-label="Next comparison columns">Next</button></div></div>
+			<div class="comparison-scroll" tabindex="0" role="region" aria-label="Product comparison; scroll horizontally on small screens" aria-describedby="comparison-guide">
 				<table class="comparison">
 					<caption class="sr-only">Sample product attributes</caption>
 					<thead>
@@ -512,6 +513,14 @@ templ Checkout(m Model, review bool) {
 			@Empty("A selection needs attention.", "An item is unavailable or exceeds its current demo capacity. Return to your bag to adjust or remove it.", "/bag", "Adjust your bag")
 		} else {
 			<div class="checkout-grid">
+				<aside class="order-summary">
+					<h2>Your selection</h2>
+					for _,l:=range m.State.Bag {
+						<div class="summary-line"><span>{ l.Product.Name }<small>{ l.Variant.Size } / { l.Variant.Color } × { n(l.Quantity) }</small></span><strong>{ money(l.Product.Price*l.Quantity) }</strong></div>
+					}
+					<dl><div class="summary-total"><dt>Total USD</dt><dd>{ total(m.State.Bag) }</dd></div></dl>
+					<p>Sample prices. No taxes, shipping charge or real payment is processed.</p>
+				</aside>
 				<section>
 					<ol class="checkout-steps" aria-label="Checkout progress"><li aria-current={ map[bool]string{true: "false", false: "step"}[review] }>Choose a scenario</li><li aria-current={ map[bool]string{true: "step", false: "false"}[review] }>Review &amp; confirm</li></ol>
 					if !review {
@@ -546,14 +555,6 @@ templ Checkout(m Model, review bool) {
 						</section>
 					}
 				</section>
-				<aside class="order-summary">
-					<h2>Your selection</h2>
-					for _,l:=range m.State.Bag {
-						<div class="summary-line"><span>{ l.Product.Name }<small>{ l.Variant.Size } / { l.Variant.Color } × { n(l.Quantity) }</small></span><strong>{ money(l.Product.Price*l.Quantity) }</strong></div>
-					}
-					<dl><div class="summary-total"><dt>Total USD</dt><dd>{ total(m.State.Bag) }</dd></div></dl>
-					<p>Sample prices. No taxes, shipping charge or real payment is processed.</p>
-				</aside>
 			</div>
 		}
 	</div>
@@ -609,19 +610,21 @@ templ Receipt(m Model) {
 templ About(m Model) {
 	<div class="wrap about-page">
 		<div class="page-heading">
-        if m.Path=="/privacy" {
-         <p class="eyebrow">The house / Your privacy</p><h1>Your space.<br/>Your data.</h1><p>A private demonstration, with a clear way to start again.</p>
-        } else {
-         <p class="eyebrow">The house / A perspective by Lorenzo Ben</p><h1>Style, considered.</h1><p>An exploration of clothing, composition and digital craft.</p>
-        }
-        </div>
+			if m.Path=="/privacy" {
+				<h1>Your space.<br/>Your data.</h1>
+				<p>A private demonstration, with a clear way to start again.</p>
+			} else {
+				<h1>Style, considered.</h1>
+				<p>An exploration of clothing, composition and digital craft.</p>
+			}
+		</div>
 		<div class="about-grid">
 			<div class="about-mark">
-                if m.Path=="/privacy" {
- @Mark()
- } else {
- @EditorialPicture("p14",ImageEditorial,true)
- }
+				if m.Path=="/privacy" {
+					@Mark()
+				} else {
+					@EditorialPicture("p14", ImageEditorial, true)
+				}
 			</div>
 			<div>
 				<h2>A concept by Lorenzo Ben.</h2>
@@ -640,51 +643,58 @@ templ About(m Model) {
 				</a>
 			</div>
 		</div>
-        <details class="photography-register" id="photography"><summary>Original photography / source &amp; licensing register</summary><p>Existing Unsplash editorial references; all crops and original colour are preserved. Sample product names do not identify the photographed garments. Wordmark outlines derive from licensed Bodoni Moda; utility typography is DM Sans. Font licence files ship with the project.</p><ul>
-        for _,id:=range photoIDs() {
-         <li><a href={templ.SafeURL(artDirections[id].Source)}>{id} / {artDirections[id].Alt}</a><span>{artDirections[id].License}</span></li>
-        }
-        </ul></details>
+		<details class="photography-register" id="photography">
+			<summary>Original photography / source &amp; licensing register</summary>
+			<p>Existing Unsplash editorial references; all crops and original colour are preserved. Sample product names do not identify the photographed garments. Wordmark outlines derive from licensed Bodoni Moda; utility typography is DM Sans. Font licence files ship with the project.</p>
+			<ul>
+				for _,id:=range photoIDs() {
+					<li><a href={ templ.SafeURL(artDirections[id].Source) }>{ id } / { artDirections[id].Alt }</a><span>{ artDirections[id].License }</span></li>
+				}
+			</ul>
+		</details>
 	</div>
 }
 
 templ Studio(m Model) {
 	<div class="wrap studio-page">
-		<div class="atelier-title"><div><p class="eyebrow">Style Studio / A private visual atelier</p><h1>Compose the look.</h1></div><p>Start with a silhouette. Add a different texture. Find the relationship that feels like you.</p></div>
+		<div class="atelier-title"><div><h1>Compose the look.</h1><p class="studio-description">Your private visual atelier.</p></div><p>Start with a silhouette. Add a different texture. Find the relationship that feels like you.</p></div>
 		<div class="atelier-workspace">
- @AtelierLibrary(m)
- <div class="atelier-canvas">
- @StudioBoard(m)
- @AtelierInspector()
- </div>
- </div>
- <div class="studio-layout">
+			@AtelierLibrary(m)
+			<div class="atelier-canvas">
+				@StudioBoard(m)
+				@AtelierInspector()
+			</div>
+		</div>
+		<div class="studio-layout">
 			<form id="studio-form" class="studio-picker" action="/studio/save" method="post">
 				@CSRF(m)
-				<p class="eyebrow">03 / Keep your composition</p><h2>Make it yours.</h2>
+				<h2>Make it yours.</h2>
 				<p>One exact sample variant per category. Save privately, reopen and make a new version.</p>
- <details class="studio-native" open><summary>Exact variant controls / also work without JavaScript</summary><div class="native-variant-grid">
-				for _,category:=range []string{"Jackets","Tops","Jeans","Sweaters","Shoes","Accessories"} {
-					<label>
-						{ category }
-						<select name="variant" class="studio-select" data-category={ category }>
-							<option value="">Leave open</option>
-							for _,p:=range m.Products {
-								if p.Category==category {
-									<optgroup label={ p.Name + " / " + money(p.Price) }>
-										for _,v:=range p.Variants {
-											if v.Active {
-												<option value={ n(v.ID) } selected?={ studioSelected(m,v.ID) } disabled?={ p.Stock==0 } data-product={n(p.ID)} data-slug={p.Slug} data-size={v.Size} data-colour={v.Color} data-width={n(productMedia(p,ImageStudio).Width)} data-height={n(productMedia(p,ImageStudio).Height)} data-price={ n(p.Price) } data-image={productMedia(p,ImageStudio).Src} data-name={ p.Name }>{ p.Name+" / "+v.Size+" / "+v.Color+map[bool]string{true:" / unavailable",false:""}[p.Stock==0] }</option>
-											}
+				<details class="studio-native" open>
+					<summary>Exact variant controls / also work without JavaScript</summary>
+					<div class="native-variant-grid">
+						for _,category:=range []string{"Jackets","Tops","Jeans","Sweaters","Shoes","Accessories"} {
+							<label>
+								{ category }
+								<select name="variant" class="studio-select" data-category={ category }>
+									<option value="">Leave open</option>
+									for _,p:=range m.Products {
+										if p.Category==category {
+											<optgroup label={ p.Name + " / " + money(p.Price) }>
+												for _,v:=range p.Variants {
+													if v.Active {
+														<option value={ n(v.ID) } selected?={ studioSelected(m,v.ID) } disabled?={ p.Stock==0 } data-product={ n(p.ID) } data-slug={ p.Slug } data-size={ v.Size } data-colour={ v.Color } data-width={ n(productMedia(p, ImageStudio).Width) } data-height={ n(productMedia(p, ImageStudio).Height) } data-price={ n(p.Price) } data-image={ productMedia(p, ImageStudio).Src } data-name={ p.Name }>{ p.Name+" / "+v.Size+" / "+v.Color+map[bool]string{true:" / unavailable",false:""}[p.Stock==0] }</option>
+													}
+												}
+											</optgroup>
 										}
-									</optgroup>
-								}
-							}
-						</select>
-					</label>
-				}
-				</div></details>
- <label>Look name<input name="name" value={ m.ActiveLook.Name } required maxlength="60" placeholder="My considered wardrobe"/></label>
+									}
+								</select>
+							</label>
+						}
+					</div>
+				</details>
+				<label>Look name<input name="name" value={ m.ActiveLook.Name } required maxlength="60" placeholder="My considered wardrobe"/></label>
 				<p class="studio-total" id="studio-total">
 					if len(m.ActiveLook.Lines)>0 {
 						{ money(m.ActiveLook.Total) } USD / saved composition

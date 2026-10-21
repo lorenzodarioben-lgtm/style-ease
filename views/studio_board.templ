@@ -1,23 +1,26 @@
 package views
 
 templ StudioBoard(m Model) {
- <section class="composition-board">
-  <div class="board-heading"><div><p class="eyebrow">02 / Compose</p><h2>Your composition.</h2></div><span id="board-count">{n(len(m.ActiveLook.Lines))} / 6 pieces</span></div>
-  if m.ActiveLook.ID!="" {
-   <p>{m.ActiveLook.Name}. Save to create a new private version.</p>
-  }
-  <div class="board-preview" id="board-preview">
-   if len(m.ActiveLook.Lines)==0 {
-    <p class="board-empty">Begin with one piece.<br/>Let the rest find its place.</p>
-   } else {
-    for _,line:=range m.ActiveLook.Lines {
-     <figure>@Picture(line.Product, ImageStudio, false)<figcaption>{line.Product.Name}<small>{line.Variant.Size} / {line.Variant.Color}</small></figcaption></figure>
-    }
-   }
-  </div>
-  if len(m.ActiveLook.Lines)==0 {
-   <div class="studio-inspiration" id="studio-inspiration"><div>@EditorialPicture("p7",ImageStudio,false)<span>A line</span></div><div>@EditorialPicture("p3",ImageStudio,false)<span>A proportion</span></div><div>@EditorialPicture("p18",ImageStudio,false)<span>A finishing note</span></div><p>Example arrangement / inspiration only, not a saved personal look.</p></div>
-  }
-  <p class="catalogue-note">Editorial photographs are arranged as references. They are not a photograph of the garments together.</p>
- </section>
+	<section class="composition-board">
+		<div class="board-heading"><div><h2>Your composition.</h2></div><span id="board-count">{ n(len(m.ActiveLook.Lines)) } / 6 pieces</span></div>
+		if m.ActiveLook.ID!="" {
+			<p>{ m.ActiveLook.Name }. Save to create a new private version.</p>
+		}
+		<div class="board-preview" id="board-preview">
+			if len(m.ActiveLook.Lines)==0 {
+				<p class="board-empty">Begin with one piece.<br/>Let the rest find its place.</p>
+			} else {
+				for _,line:=range m.ActiveLook.Lines {
+					<figure>@Picture(line.Product, ImageStudio, false)<figcaption>{ line.Product.Name }<small>{ line.Variant.Size } / { line.Variant.Color }</small></figcaption></figure>
+				}
+			}
+		</div>
+		if len(m.ActiveLook.Lines)==0 {
+			<a class="text-link js-only" href="#library-title">Choose your first piece @Arrow()</a>
+		}
+		if len(m.ActiveLook.Lines)==0 {
+			<div class="studio-inspiration" id="studio-inspiration"><div>@EditorialPicture("p7", ImageStudio, false)<span>A line</span></div><div>@EditorialPicture("p3", ImageStudio, false)<span>A proportion</span></div><div>@EditorialPicture("p18", ImageStudio, false)<span>A finishing note</span></div><p>Example arrangement / inspiration only, not a saved personal look.</p></div>
+		}
+		<p class="catalogue-note">Editorial photographs are arranged as references. They are not a photograph of the garments together.</p>
+	</section>
 }

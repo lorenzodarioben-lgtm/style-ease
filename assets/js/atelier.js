@@ -38,9 +38,10 @@
       ? 'Replace this category'
       : 'Place in composition';
     variantPicker.focus({ preventScroll: true });
-    if (inspector.getBoundingClientRect().bottom > innerHeight)
+    const bounds = inspector.getBoundingClientRect();
+    if (bounds.top < 40 || bounds.bottom > innerHeight)
       inspector.scrollIntoView({
-        block: 'nearest',
+        block: 'center',
         behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
       });
   }

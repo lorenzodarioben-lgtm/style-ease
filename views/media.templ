@@ -3,22 +3,22 @@ package views
 import "github.com/lorenzodarioben-lgtm/style-ease/internal/domain"
 
 templ Brand() {
- <img class="wordmark" src={assetURL("/assets/brand/wordmark.svg")} width="296" height="66" alt="Style Ease"/>
+	<img class="wordmark" src={ assetURL("/assets/brand/wordmark.svg") } width="296" height="66" alt="Style Ease"/>
 }
 
 templ ArtImage(media Media, eager bool) {
- <picture class={media.Class} data-image={media.ID}>
-  if media.AVIF!="" {
-   <source type="image/avif" srcset={media.AVIF} sizes={media.Sizes}/>
-  }
-  <img src={media.Src} srcset={media.Srcset} sizes={media.Sizes} alt={media.Alt} width={n(media.Width)} height={n(media.Height)} loading={map[bool]string{true:"eager",false:"lazy"}[eager]} fetchpriority={map[bool]string{true:"high",false:"auto"}[eager]} decoding="async"/>
- </picture>
+	<picture class={ media.Class } data-image={ media.ID }>
+		if media.AVIF!="" {
+			<source type="image/avif" srcset={ media.AVIF } sizes={ media.Sizes }/>
+		}
+		<img src={ media.Src } srcset={ media.Srcset } sizes={ media.Sizes } alt={ media.Alt } width={ n(media.Width) } height={ n(media.Height) } loading={ map[bool]string{true: "eager", false: "lazy"}[eager] } fetchpriority={ map[bool]string{true: "high", false: "auto"}[eager] } decoding="async"/>
+	</picture>
 }
 
 templ EditorialPicture(id string, context ImageContext, eager bool) {
- @ArtImage(imageMedia(id,context),eager)
+	@ArtImage(imageMedia(id, context), eager)
 }
 
 templ Picture(p domain.Product, context ImageContext, eager bool) {
- @ArtImage(productMedia(p,context),eager)
+	@ArtImage(productMedia(p, context), eager)
 }

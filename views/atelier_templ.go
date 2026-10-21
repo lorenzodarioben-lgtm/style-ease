@@ -29,7 +29,7 @@ func AtelierLibrary(m Model) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<aside class=\"atelier-library js-only\" aria-labelledby=\"library-title\"><div class=\"library-heading\"><p class=\"eyebrow\">01 / Discover</p><h2 id=\"library-title\">The wardrobe.</h2><p>Choose a reference, then an exact sample variant.</p></div><div class=\"atelier-categories\" role=\"group\" aria-label=\"Discover pieces by category\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<aside class=\"atelier-library js-only\" aria-labelledby=\"library-title\"><div class=\"library-heading\"><h2 id=\"library-title\">The wardrobe.</h2><p>Choose a reference, then an exact sample variant.</p></div><div class=\"atelier-categories\" role=\"group\" aria-label=\"Discover pieces by category\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,7 +41,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.ResolveAttributeValue(c)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 7, Col: 49}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 8, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var2)
 			if templ_7745c5c3_Err != nil {
@@ -54,7 +54,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.ResolveAttributeValue(map[bool]string{true: "true", false: "false"}[i == 0])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 7, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 8, Col: 121}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
 			if templ_7745c5c3_Err != nil {
@@ -67,7 +67,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(c)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 7, Col: 117}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 8, Col: 127}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -90,7 +90,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.ResolveAttributeValue(n(p.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 12, Col: 88}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 13, Col: 89}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 			if templ_7745c5c3_Err != nil {
@@ -103,7 +103,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.ResolveAttributeValue(p.Category)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 12, Col: 115}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 13, Col: 118}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 			if templ_7745c5c3_Err != nil {
@@ -134,7 +134,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(p.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 14, Col: 18}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 15, Col: 19}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -147,7 +147,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(money(p.Price))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 14, Col: 48}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 15, Col: 51}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -160,7 +160,7 @@ func AtelierLibrary(m Model) templ.Component {
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(map[bool]string{true: "Unavailable", false: "Choose piece"}[p.Stock == 0])
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 14, Col: 124}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/atelier.templ`, Line: 15, Col: 129}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
@@ -200,7 +200,7 @@ func AtelierInspector() templ.Component {
 			templ_7745c5c3_Var10 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<section class=\"atelier-inspector js-only\" id=\"atelier-inspector\" hidden aria-labelledby=\"inspector-title\"><div><p class=\"eyebrow\">Choose the sample variant</p><h3 id=\"inspector-title\"></h3><p id=\"inspector-price\"></p></div><label>Size and colour<select id=\"active-studio-variant\"></select></label><button type=\"button\" id=\"place-studio-piece\" class=\"button ink\">Place in composition ")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<section class=\"atelier-inspector js-only\" id=\"atelier-inspector\" hidden aria-labelledby=\"inspector-title\"><div><h3 id=\"inspector-title\"></h3><p id=\"inspector-price\"></p></div><label>Size and colour<select id=\"active-studio-variant\"></select></label><button type=\"button\" id=\"place-studio-piece\" class=\"button ink\">Place in composition ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

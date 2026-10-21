@@ -1,8 +1,8 @@
 ---
 version: 1
-slug: "views-home-templ"
-primary_target: "views/home.templ"
-related_targets: ["views/collections.templ","views/editorial.templ","views/atelier.templ"]
+slug: 'views-home-templ'
+primary_target: 'views/home.templ'
+related_targets: ['views/collections.templ', 'views/editorial.templ', 'views/atelier.templ']
 ---
 
 # Creative rescue direction

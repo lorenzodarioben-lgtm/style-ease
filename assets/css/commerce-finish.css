@@ -1,4 +1,62 @@
 /* Task surfaces share the house typography but keep actions compact. */
+.checkout-grid > .order-summary {
+  order: 2;
+}
+.checkout-grid > section {
+  order: 1;
+}
+.comparison-guide {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+.comparison-guide p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.comparison-guide strong {
+  display: block;
+  font-weight: 550;
+}
+.comparison-guide span {
+  color: var(--muted);
+}
+.has-js .comparison-controls {
+  display: flex;
+  gap: 8px;
+}
+.comparison-controls button {
+  background: transparent;
+  border: 1px solid var(--line);
+  min-height: 44px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.comparison-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+@media (max-width: 600px) {
+  .checkout-grid > .order-summary {
+    order: 0;
+  }
+  .comparison-guide {
+    align-items: start;
+    gap: 15px;
+  }
+  .comparison-guide p {
+    font-size: 11px;
+    max-width: 24ch;
+  }
+  .comparison-controls button {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+}
 .shop-page .page-heading {
   padding-block: 38px 18px;
 }
@@ -230,11 +288,6 @@
   font-size: clamp(60px, 7.5vw, 115px);
   line-height: 1.04;
   letter-spacing: -0.045em;
-}
-.about-page .page-heading > .eyebrow {
-  font-size: 11px;
-  color: var(--ink);
-  margin: 0 0 23px;
 }
 .about-grid {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -474,12 +527,7 @@
     padding-block: 35px 30px;
   }
   .about-page .page-heading h1 {
-    font-size: 65px;
-  }
-  .about-page .page-heading > .eyebrow {
-    font-size: 10px;
-    line-height: 1.7;
-    margin-bottom: 20px;
+    font-size: clamp(51px, 16.5vw, 65px);
   }
   .about-page .page-heading > p:last-child {
     font-size: 14px;

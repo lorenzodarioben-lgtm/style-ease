@@ -1,4 +1,9 @@
 /* A visual workspace first; native exact-variant controls remain below it. */
+.atelier-title .studio-description {
+  font-size: 12px;
+  margin-top: 18px;
+  color: var(--muted);
+}
 .atelier-title {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
@@ -75,6 +80,7 @@
   background: #e5e5dc;
   aspect-ratio: 2/3;
   display: block;
+  height: auto;
   padding: 7px;
 }
 .atelier-tile img {
@@ -149,6 +155,7 @@
   max-width: 20ch;
   margin: 8px auto 0;
   color: var(--ink);
+  padding-top: 0;
 }
 .atelier-canvas .board-preview figure {
   background: var(--bone);
@@ -284,7 +291,6 @@
   padding: 30px 0;
   margin: 0 0 55px;
 }
-.studio-picker > .eyebrow,
 .studio-picker > h2,
 .studio-picker > p:first-of-type,
 .studio-native {
@@ -293,7 +299,7 @@
 .studio-picker > h2 {
   font-size: 40px;
 }
-.studio-picker > p:not(.eyebrow) {
+.studio-picker > p {
   font-size: 13px;
 }
 .studio-picker > .button {
