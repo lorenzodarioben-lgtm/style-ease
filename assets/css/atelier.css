@@ -1,0 +1,603 @@
+/* A visual workspace first; native exact-variant controls remain below it. */
+.atelier-title .studio-description {
+  font-size: 12px;
+  margin-top: 18px;
+  color: var(--muted);
+}
+.atelier-title {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: end;
+  padding-block: 45px 40px;
+}
+.atelier-title h1 {
+  font-size: clamp(56px, 6.5vw, 95px);
+  line-height: 1.1;
+  margin-top: 12px;
+  letter-spacing: -0.04em;
+}
+.atelier-title > p {
+  max-width: 34ch;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 5px;
+}
+.atelier-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+  gap: 30px;
+  align-items: start;
+  margin-bottom: 35px;
+}
+.has-js .atelier-library {
+  display: block;
+}
+.library-heading h2 {
+  font-size: 34px;
+  margin: 8px 0;
+}
+.library-heading > p:last-child {
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 32ch;
+}
+.atelier-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 22px 0;
+}
+.atelier-categories button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  padding: 8px 12px;
+  min-height: 42px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.atelier-categories button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--bone);
+  border-color: var(--ink);
+}
+.atelier-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 12px;
+}
+.atelier-tile {
+  display: block;
+  text-align: left;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.atelier-tile .art-media {
+  background: #e5e5dc;
+  aspect-ratio: 2/3;
+  display: block;
+  height: auto;
+  padding: 7px;
+}
+.atelier-tile img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.atelier-tile > span {
+  display: block;
+  font-size: 12px;
+  font-weight: 550;
+  line-height: 1.5;
+  margin: 10px 0 5px;
+}
+.atelier-tile > small {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 10px;
+}
+.atelier-tile > small > span {
+  border-bottom: 1px solid var(--ink);
+}
+.atelier-tile[aria-pressed='true'] .art-media {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+.atelier-tile:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.atelier-canvas {
+  min-width: 0;
+}
+.atelier-canvas .composition-board {
+  position: static;
+  background: #dde0d3;
+  padding: 25px 30px;
+}
+.atelier-canvas .board-heading {
+  border-bottom: 1px solid #a7af9a;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.atelier-canvas .board-heading h2 {
+  font-size: 35px;
+  line-height: 1.15;
+  margin-top: 7px;
+}
+.atelier-canvas .board-heading > span {
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.atelier-canvas .board-preview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px 18px;
+  min-height: 0;
+  padding-block: 25px;
+}
+.atelier-canvas .board-preview:has(.board-empty) {
+  display: block;
+  padding: 25px 0 0;
+}
+.atelier-canvas .board-preview .board-empty {
+  font-family: var(--display);
+  font-size: 38px;
+  line-height: 1.16;
+  text-align: center;
+  max-width: 20ch;
+  margin: 8px auto 0;
+  color: var(--ink);
+  padding-top: 0;
+}
+.atelier-canvas .board-preview figure {
+  background: var(--bone);
+  padding: 10px;
+  margin: 0;
+  align-self: start;
+  animation: piece-in 250ms var(--ease);
+}
+.atelier-canvas .board-preview figure:nth-child(3n + 2) {
+  margin-top: 35px;
+}
+.atelier-canvas .board-preview img {
+  width: 100%;
+  height: 260px;
+  object-fit: contain;
+  filter: none;
+}
+.atelier-canvas .board-preview figcaption {
+  font-size: 11px;
+  line-height: 1.5;
+  padding-top: 8px;
+  color: var(--ink);
+}
+.atelier-canvas .board-preview figcaption small {
+  display: block;
+  font-size: 10px;
+  margin-top: 4px;
+  color: var(--muted);
+}
+.board-piece-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+.board-piece-actions button {
+  font-size: 10px;
+  min-height: 30px;
+  background: transparent;
+  border: 0;
+  padding: 2px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.studio-inspiration {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  padding: 25px 10px 0;
+  align-items: start;
+}
+.studio-inspiration > div {
+  background: var(--bone);
+  padding: 10px;
+  transform: rotate(-3deg);
+}
+.studio-inspiration > div:nth-child(2) {
+  transform: rotate(2deg);
+  margin-top: 40px;
+}
+.studio-inspiration > div:nth-child(3) {
+  transform: rotate(-2deg);
+  margin-top: 18px;
+}
+.studio-inspiration img {
+  height: 260px;
+  width: 100%;
+  object-fit: contain;
+}
+.studio-inspiration span {
+  display: block;
+  font-size: 10px;
+  margin-top: 10px;
+}
+.studio-inspiration > p {
+  grid-column: 1/-1;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 10px;
+  color: var(--muted);
+}
+.atelier-canvas > .composition-board > .catalogue-note {
+  font-size: 10px;
+  text-align: center;
+  margin-top: 25px;
+  max-width: 65ch;
+  margin-inline: auto;
+}
+.has-js .atelier-inspector:not([hidden]) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  padding: 25px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+.atelier-inspector h3 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.atelier-inspector #inspector-price {
+  font-size: 12px;
+}
+.atelier-inspector > label {
+  font-size: 11px;
+  align-self: center;
+}
+.atelier-inspector > .catalogue-note {
+  grid-column: 1/-1;
+  margin: 0;
+}
+.atelier-inspector > .text-link {
+  justify-self: start;
+  align-self: center;
+  font-size: 11px;
+}
+.studio-page > .studio-layout {
+  display: block;
+}
+.studio-picker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 15px 35px;
+  border-block: 1px solid var(--ink);
+  padding: 30px 0;
+  margin: 0 0 55px;
+}
+.studio-picker > h2,
+.studio-picker > p:first-of-type,
+.studio-native {
+  grid-column: 1/-1;
+}
+.studio-picker > h2 {
+  font-size: 40px;
+}
+.studio-picker > p {
+  font-size: 13px;
+}
+.studio-picker > .button {
+  align-self: end;
+  justify-self: start;
+}
+.studio-picker > .studio-total {
+  grid-column: 1;
+}
+.studio-native {
+  order: 8;
+  margin-top: 15px;
+}
+.studio-native summary {
+  font-size: 11px;
+  cursor: pointer;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+}
+.native-variant-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 15px 0;
+}
+.native-variant-grid label {
+  min-width: 0;
+  font-size: 11px;
+}
+.native-variant-grid select {
+  font-size: 11px;
+  max-width: 100%;
+  width: 100%;
+}
+.studio-picker > label {
+  grid-column: 1/-1;
+  max-width: 480px;
+}
+.saved-looks > h2 {
+  font-size: 48px;
+  margin-bottom: 25px;
+}
+.saved-look {
+  background: #e9e9e1;
+  padding: 28px;
+  margin-top: 25px;
+}
+.saved-look .section-head h3 {
+  font-size: 33px;
+}
+.saved-look .look-pieces {
+  gap: 25px;
+}
+.saved-look .look-pieces img {
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  filter: none;
+}
+.saved-look .look-pieces a {
+  max-width: 240px;
+}
+.saved-look .look-actions {
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+  margin-top: 25px;
+}
+[hidden],
+.has-js .js-only[hidden] {
+  display: none !important;
+}
+@keyframes piece-in {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: none;
+  }
+}
+@media (max-width: 1000px) {
+  .atelier-workspace {
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    gap: 20px;
+  }
+  .atelier-canvas .composition-board {
+    padding: 22px;
+  }
+  .atelier-canvas .board-preview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .atelier-canvas .board-preview figure:nth-child(3n + 2) {
+    margin-top: 0;
+  }
+  .atelier-canvas .board-preview figure:nth-child(2n) {
+    margin-top: 30px;
+  }
+  .atelier-canvas .board-preview img {
+    height: 230px;
+  }
+  .studio-inspiration {
+    gap: 10px;
+    padding-inline: 0;
+  }
+  .studio-inspiration img {
+    height: 190px;
+  }
+  .atelier-canvas .board-preview .board-empty {
+    font-size: 32px;
+  }
+  .native-variant-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .atelier-canvas .board-heading {
+    align-items: start;
+  }
+  .atelier-canvas .board-heading h2 {
+    font-size: 29px;
+  }
+  .atelier-canvas .board-heading > span {
+    font-size: 10px;
+  }
+  .atelier-title {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .atelier-title {
+    padding-block: 30px;
+    gap: 20px;
+  }
+  .atelier-title h1 {
+    font-size: 54px;
+  }
+  .atelier-title > p {
+    font-size: 13px;
+    max-width: 37ch;
+  }
+  .atelier-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 25px;
+  }
+  .atelier-library {
+    order: 2;
+  }
+  .atelier-canvas {
+    order: 1;
+  }
+  .atelier-canvas .composition-board {
+    padding: 20px 16px;
+  }
+  .atelier-canvas .board-heading h2 {
+    font-size: 30px;
+  }
+  .atelier-canvas .board-preview .board-empty {
+    font-size: 32px;
+    margin-top: 0;
+  }
+  .studio-inspiration {
+    gap: 10px;
+    padding-top: 20px;
+  }
+  .studio-inspiration > div {
+    padding: 5px;
+  }
+  .studio-inspiration img {
+    height: 145px;
+  }
+  .studio-inspiration > div:nth-child(2) {
+    margin-top: 25px;
+  }
+  .studio-inspiration span {
+    font-size: 8px;
+    margin: 6px 2px;
+  }
+  .studio-inspiration > p {
+    font-size: 9px;
+    margin-top: 7px;
+  }
+  .atelier-canvas > .composition-board > .catalogue-note {
+    font-size: 9px;
+    margin-top: 18px;
+  }
+  .atelier-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px 10px;
+  }
+  .atelier-tile > span {
+    font-size: 11px;
+  }
+  .atelier-tile > small {
+    font-size: 9px;
+  }
+  .atelier-categories {
+    flex-wrap: nowrap;
+    overflow: auto;
+    padding-bottom: 8px;
+    gap: 7px;
+  }
+  .atelier-categories button {
+    white-space: nowrap;
+  }
+  .atelier-canvas .board-preview img {
+    height: 220px;
+  }
+  .atelier-canvas .board-preview {
+    gap: 20px 12px;
+  }
+  .has-js .atelier-inspector:not([hidden]) {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px;
+    gap: 18px;
+  }
+  .atelier-inspector > .catalogue-note {
+    grid-column: 1;
+  }
+  .atelier-inspector > .button {
+    font-size: 11px;
+    gap: 10px;
+  }
+  .studio-picker {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    padding-block: 25px;
+    margin-bottom: 40px;
+  }
+  .studio-picker > h2 {
+    font-size: 37px;
+  }
+  .native-variant-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .studio-native summary {
+    font-size: 10px;
+  }
+  .saved-looks > h2 {
+    font-size: 40px;
+  }
+  .saved-look {
+    padding: 20px;
+  }
+  .saved-look .section-head {
+    align-items: start;
+    gap: 10px;
+  }
+  .saved-look .section-head h3 {
+    font-size: 29px;
+  }
+  .saved-look .section-head strong {
+    font-size: 12px;
+  }
+  .saved-look .look-pieces {
+    gap: 18px;
+  }
+  .saved-look .look-pieces img {
+    height: 190px;
+  }
+  .saved-look .look-pieces a {
+    max-width: none;
+  }
+  .saved-look .look-actions {
+    gap: 25px;
+  }
+  .saved-look .look-actions > form {
+    width: 100%;
+  }
+}
+@media (max-width: 350px) {
+  .atelier-title h1 {
+    font-size: 46px;
+  }
+  .atelier-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .studio-inspiration img {
+    height: 120px;
+  }
+  .atelier-canvas .board-heading h2 {
+    font-size: 27px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atelier-canvas .board-preview figure {
+    animation: none;
+  }
+}
+@media print {
+  .atelier-library,
+  .atelier-inspector,
+  .board-piece-actions,
+  .studio-picker {
+    display: none !important;
+  }
+  .atelier-workspace {
+    display: block;
+  }
+  .atelier-canvas .composition-board {
+    background: white;
+  }
+}

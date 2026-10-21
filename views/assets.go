@@ -4,16 +4,21 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	styleease "github.com/lorenzodarioben-lgtm/style-ease"
+	"io/fs"
 )
 
 var versions = func() map[string]string {
 	m := map[string]string{}
-	for _, path := range []string{"/assets/css/black-label.css", "/assets/js/storefront.js"} {
-		if b, e := styleease.Resources.ReadFile(path[1:]); e == nil {
-			sum := sha256.Sum256(b)
-			m[path] = hex.EncodeToString(sum[:6])
+	_ = fs.WalkDir(styleease.Resources, "assets", func(path string, entry fs.DirEntry, err error) error {
+		if err != nil || entry.IsDir() {
+			return err
 		}
-	}
+		if b, e := styleease.Resources.ReadFile(path); e == nil {
+			sum := sha256.Sum256(b)
+			m["/"+path] = hex.EncodeToString(sum[:6])
+		}
+		return nil
+	})
 	return m
 }()
 

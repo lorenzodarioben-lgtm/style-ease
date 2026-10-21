@@ -1,0 +1,135 @@
+[
+  {
+    "name": "home-1",
+    "url": "/",
+    "performance": 98,
+    "accessibility": 100,
+    "LCPms": 2364.2189999999996,
+    "CLS": 0,
+    "TBTms": 34,
+    "version": "13.5.0",
+    "environment": {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2202,
+      "credits": {
+        "axe-core": "4.14.0"
+      }
+    },
+    "fetchTime": "2026-10-21T16:58:52.407Z"
+  },
+  {
+    "name": "home-2",
+    "url": "/",
+    "performance": 99,
+    "accessibility": 100,
+    "LCPms": 2129.136,
+    "CLS": 0,
+    "TBTms": 15,
+    "version": "13.5.0",
+    "environment": {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1495,
+      "credits": {
+        "axe-core": "4.14.0"
+      }
+    },
+    "fetchTime": "2026-10-21T16:59:08.427Z"
+  },
+  {
+    "name": "home-3",
+    "url": "/",
+    "performance": 98,
+    "accessibility": 100,
+    "LCPms": 2120.27595,
+    "CLS": 0,
+    "TBTms": 96,
+    "version": "13.5.0",
+    "environment": {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1030.5,
+      "credits": {
+        "axe-core": "4.14.0"
+      }
+    },
+    "fetchTime": "2026-10-21T16:59:23.414Z"
+  },
+  {
+    "name": "shop",
+    "url": "/shop",
+    "performance": 97,
+    "accessibility": 100,
+    "LCPms": 1956.976,
+    "CLS": 0,
+    "TBTms": 169,
+    "version": "13.5.0",
+    "environment": {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 711,
+      "credits": {
+        "axe-core": "4.14.0"
+      }
+    },
+    "fetchTime": "2026-10-21T16:59:45.876Z"
+  },
+  {
+    "name": "product",
+    "url": "/products/geometric-t-shirt",
+    "performance": 99,
+    "accessibility": 100,
+    "LCPms": 2265.4140000000007,
+    "CLS": 0.0007292843103150156,
+    "TBTms": 0,
+    "version": "13.5.0",
+    "environment": {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 1129,
+      "credits": {
+        "axe-core": "4.14.0"
+      }
+    },
+    "fetchTime": "2026-10-21T17:00:06.645Z"
+  },
+  {
+    "name": "studio",
+    "url": "/studio",
+    "performance": 97,
+    "accessibility": 100,
+    "LCPms": 2355.93,
+    "CLS": 0.01081364630462313,
+    "TBTms": 120.19000000000005,
+    "version": "13.5.0",
+    "environment": {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 908,
+      "credits": {
+        "axe-core": "4.14.0"
+      }
+    },
+    "fetchTime": "2026-10-21T17:00:28.038Z"
+  },
+  {
+    "name": "editorial",
+    "url": "/editorial",
+    "performance": 98,
+    "accessibility": 100,
+    "LCPms": 2415.888,
+    "CLS": 0,
+    "TBTms": 0,
+    "version": "13.5.0",
+    "environment": {
+      "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+      "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2041,
+      "credits": {
+        "axe-core": "4.14.0"
+      }
+    },
+    "fetchTime": "2026-10-21T17:00:45.557Z"
+  }
+]

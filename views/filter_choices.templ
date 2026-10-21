@@ -1,13 +1,13 @@
 package views
 
-templ FilterChoices(m Model,kind string) {
- <details class="choice-filter" data-filter={kind}>
-  <summary>{map[string]string{"category":"Category","size":"Size","color":"Colour"}[kind]}</summary>
-  <fieldset class="choice-panel">
-   <legend class="sr-only">{map[string]string{"category":"Categories","size":"Sizes","color":"Colours"}[kind]}</legend>
-   for _,value:=range options(m.Products,kind) {
-    <label class="check"><input type="checkbox" name={kind} value={value} checked?={isSelected(map[string]string{"category":m.Query.Category,"size":m.Query.Size,"color":m.Query.Color}[kind],value)}/>{value}</label>
-   }
-  </fieldset>
- </details>
+templ FilterChoices(m Model, kind string) {
+	<details class="choice-filter" data-filter={ kind }>
+		<summary>{ map[string]string{"category":"Category","size":"Size","color":"Colour"}[kind] }</summary>
+		<fieldset class="choice-panel">
+			<legend class="sr-only">{ map[string]string{"category":"Categories","size":"Sizes","color":"Colours"}[kind] }</legend>
+			for _,value:=range options(m.Products,kind) {
+				<label class="check"><input type="checkbox" name={ kind } value={ value } checked?={ isSelected(map[string]string{"category":m.Query.Category,"size":m.Query.Size,"color":m.Query.Color}[kind],value) }/>{ value }</label>
+			}
+		</fieldset>
+	</details>
 }

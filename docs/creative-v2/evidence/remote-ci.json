@@ -1,0 +1,25 @@
+{
+  "pull_request": "https://github.com/lorenzodarioben-lgtm/style-ease/pull/35",
+  "head_sha": "90a18e46501c74dbc1a2e0907ad8faf4853c4d38",
+  "application_sha": "eba11bf600efe75054669abafe051470dafcaa27",
+  "base_sha": "4329de3b61d851b114d52523fea96d7b0b2f8d46",
+  "event": "pull_request",
+  "runs": [
+    {
+      "id": 39642833906,
+      "name": "CI",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 70,
+      "url": "https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39642833906"
+    },
+    {
+      "id": 39642834268,
+      "name": "Black Label Go and PostgreSQL",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 6,
+      "url": "https://github.com/lorenzodarioben-lgtm/style-ease/actions/runs/39642834268"
+    }
+  ]
+}

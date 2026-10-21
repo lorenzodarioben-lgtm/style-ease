@@ -1,0 +1,306 @@
+# STYLE EASE — BLACK LABEL / CREATIVE RESCUE
+## Autonomous Codex Master Prompt: Art Direction, Image Composition, Motion, Identity, and Total Frontend Refinement
+
+> **This is an implementation order, not a research assignment or a request for another plan.** Read this entire document before changing files. The goal is not merely to pass tests or add features. The goal is to transform the already-working Go-based Style Ease rebuild into a fashion-commerce experience with a powerful, recognisable visual identity, art-directed imagery, superb motion, and meticulous interaction design. Work autonomously, continuously inspect actual rendered output, and iterate until the result is substantially stronger than the current build. Never claim visual excellence solely from test passes.
+
+## 00 — Mission, starting point, and hierarchy
+
+You are the acting **creative director, principal brand designer, motion designer, art director, staff frontend engineer, accessibility specialist, and visual QA lead** for Style Ease. Treat this as a flagship portfolio-quality fashion-commerce commission, not a generic ecommerce template and not a backend rewrite.
+
+**Repository:** `https://github.com/lorenzodarioben-lgtm/style-ease`.
+
+**Actual target:** the draft **PR #34**, branch `overhaul/black-label-go`, currently at `4329de3b61d851b114d52523fea96d7b0b2f8d46` when this brief was written. Resolve and inspect the CURRENT actual Git history before starting; do not assume this SHA remains HEAD. The current rebuilt application already uses **Go + templ + HTMX 4 + PostgreSQL**, has an extensively tested server-authoritative commerce system, real guest session persistence, a Style Studio, Docker, CI, and baseline screenshots.
+
+**Critical constraint:** Preserve the working backend, transaction logic, privacy protections, security, database constraints, accessible forms, routes and purchase functionality unless a verified design requirement makes a small change necessary. **DO NOT start again from `main`. DO NOT reconstruct Vue. DO NOT switch to React, Next.js or TypeScript.** Plain CSS and small, purposeful vanilla JavaScript modules are encouraged for artful client-side interactions; Go/templ/HTMX/PostgreSQL remain the application architecture. Avoid adding large dependencies without proof they are worthwhile.
+
+**Priority order, highest first:**
+1. Protect the working application and production deployment.
+2. Fix unquestionably bad creative regressions: image crops, identical Collections/Editorial routes, poor mark, lost sliding-fill and colour-reveal interactions.
+3. Deliver a genuinely superior brand and image-led visual language across every page.
+4. Make motion rich, responsive and coherent without compromising usability.
+5. Transform Style Studio into an image-led, interactive hero feature.
+6. Raise detail-level craftsmanship on all commerce, empty, error, mobile and modal states.
+7. Preserve or improve performance, accessibility, robustness and test coverage.
+
+The desired viewer response: **“This feels like an original digital fashion house and a premium interactive editorial, not a student shop, default template, or typical agency landing page.”** We want visual ambition with compositional discipline. A bright rainbow, parallax everywhere, unreadable type, noisy custom cursors, gratuitous 3D and perpetual movement do NOT equal premium.
+
+This job is not finished when the page “looks modern” or when Lighthouse is green. The visual and interaction quality must be demonstrated through inspected screenshots, motion recordings, coherent page differentiation, and repeated revisions.
+
+## 01 — Non-negotiable observed defects: begin by reproducing them
+
+These are verified from the actual branch source and repository screenshots. Locate the current equivalents, document whether the defects remain, and prove each fix:
+
+**A. Collections and Editorial are literally duplicated.** In `internal/web/server.go`, `/collections` and `/editorial` currently resolve to the same `views.Collections(vm)` template. `/collections/{slug}` and `/editorial/{slug}` also share the `views.Story(vm)` implementation. This must stop. They need fundamentally different data, information architecture, page templates, visual compositions, interactions and calls to action. Do not create two skins for the same listing.
+
+**B. Image composition is not art directed.** The shared `views/pages.templ` `Picture` helper accepts a product and loading flag; it does not accept focal metadata or usage context. The CSS applies `object-fit: cover`, landscape fixed-height `.story-image`, global filters, and largely hard-coded object positions such as `.story-image img { object-position: center 30%; }`. These produce arbitrary crops across desktop/mobile. The screenshots committed in `docs/screenshots/overhaul/` show the problem. This must be systematically corrected, not cosmetically hidden.
+
+**C. Signature sliding-fill buttons disappeared.** Original `src/css/02-home-layout.css` contains a pseudo-element sliding across `.hero-cta`, `.add-to-cart`, `.add-to-cart-detail`, and `.checkout-btn`. The Go UI's `.button` in `assets/css/black-label.css` largely just changes colour and moves the arrow ~4px. Restore and greatly refine the original sliding-fill signature, adapted to the new design system. Keyboard focus must reveal an equivalent state.
+
+**D. Original grayscale-to-colour transitions disappeared or were neutered.** Original `src/css/02-home-layout.css` hero/product styles transitioned from grayscale to colour. New campaign/story photos are often permanently grayscale; product cards only go from `saturate(.25)` to `.7`. Build an unmistakable but tasteful monochrome→true-colour image-reveal system on appropriately selected surfaces. Not every image needs full colour; the selective release of colour IS the dramatic point. Test it on hover, focus and touch alternatives.
+
+**E. Brand identity looks generic and awkward.** The current mark (`templ Mark()`, `.monogram`, `assets/favicon.svg`) is a hastily assembled square-stroke S-like glyph. The header wordmark is generic. Replace it with a defensible, custom visual identity, not another little geometric doodle. Show real concept alternatives and assess at tiny and giant sizes.
+
+**F. Motion language is nearly absent.** The page currently has a simple hero heading entrance, occasional zooms, arrow translations, and standard hover/background transitions. Create a cohesive motion system with memorable but quiet mechanics: directional masking, stagger, sliding fills, image saturation reveal, hover micro-architecture, thoughtful scroll entrances, refined menu/overlay states and feedback for cart, wishlist and Studio actions. Avoid scroll hijacking, forced waits and perpetual movements.
+
+**G. Style Studio looks like a backend form.** The current empty `docs/screenshots/overhaul/studio-1440.png` has a large empty neutral panel and six conventional `<select>` elements. The underlying durable look system is impressive; its UX is not. Transform the surface into a visual styling atelier without discarding the working authoritative saving/ownership logic.
+
+**H. Visual sameness everywhere.** The same neutral beige paper, oversized sans headings, repetitive card patterns and fixed image sections recur. Develop a compelling rhythm: ink/bone alternation, asymmetry, hero storytelling, varied image scales, expressive typography, quieter dense shopping surfaces, and intentional whitespace. The end product must still feel like ONE brand.
+
+**I. Product catalogue copy and imagery are demo references, not verified SKU photographs.** Do not misrepresent them. Keep clear, non-repetitive disclosures, and do not create fictitious material, colour, sustainability, discount, rating, shipping or brand claims. An artful UI should not depend on dishonesty. Where exact product photos do not exist, use art-directed editorial images appropriately, with truthful labels.
+
+## 02 — Git safety and first actions
+
+1. Read `AGENTS.md`, `HANDOFF.md`, `docs/ARCHITECTURE.md`, `docs/ART_DIRECTION.md`, `docs/DESIGN_SYSTEM.md`, `docs/FEATURE_PARITY.md`, `docs/QUALITY_SCORECARD.md`, `docs/ASSET_PROVENANCE.md`, and the relevant code/tests. Inspect `git status`, remotes, PR/branch state and current HEAD. Do not discard any user changes or reset uncommitted work. If a dirty working tree exists, inspect and safely preserve it before proceeding.
+2. Starting from the **current** Black Label branch state (not `main`), create a child work branch such as `overhaul/black-label-creative-v2`; if already on a dedicated active branch, continue safely there. Record parent HEAD and branch relationship in `HANDOFF.md`.
+3. Do not merge either PR, force push, alter `main`, rewrite history, deploy, provision paid services, edit DNS, or expose credentials. Local previews and localhost Docker/PostgreSQL are allowed.
+4. Run the appropriate existing backend/browser baseline checks and screenshot capture before modifying. Do not falsify results if dependencies are missing; report exact blockers and proceed with unaffected work.
+5. Preserve working Go commerce semantics and the existing original Vue reference/test assets, as applicable. Add coverage for new creative interactions without rewriting business logic.
+6. Make small cohesive commits after **passing** checkpoints. Follow normal configured Git author metadata; never forge author dates or invent attribution. Push a dedicated branch and prepare a draft PR only if already authorised and credentials work; never merge or deploy.
+7. Keep a root `HANDOFF.md` continuously updated: branch/HEAD, running services, files changed, current visual iteration, screenshots reviewed, tests passed/failed, design choices, exact issues, blocked items, and one executable NEXT ACTION. A later Codex instance must be able to resume without guesswork.
+
+## 03 — Brand north star: a genuinely original fashion house
+
+Choose a design world: **STYLE EASE / BLACK LABEL — kinetic monochrome editorialism**. Keywords: architectural, bold, sensorial, unexpected, fashion-forward, tactile, directional, minimal but not empty, precise but not corporate, cinematic but not gimmicky.
+
+Visual quality should approach carefully art-directed independent luxury fashion magazines and outstanding award-level ecommerce experiences. This is a benchmark of **craft**, not permission to copy another brand's site, product photography, trademarks or layouts. Avoid Shopify starter templates, generic SaaS dashboards, cookie-cutter UI kits, glassmorphism, purple gradients, randomly rounded cards, and stock-photo collage with no cohesive art direction.
+
+Make the visual identity cohesive using:
+- A beautiful custom wordmark and optional truly excellent secondary mark.
+- Display typography with rich contrast between expressive editorial type and utility typography; intentional optical sizes, ligatures/kerning where appropriate, disciplined width/line breaking, typographic hierarchy, readable small text.
+- Deep charcoal/ink, warm bone/ivory, graphite and one nuanced secondary tonal family, allowing source photography's TRUE colour to emerge through interaction. Keep gradients only where they solve a real compositional or legibility need.
+- Rich modular editorial grids: full-bleed, off-grid, magazine spreads, asymmetric ratios, negative space, overlapping type only when legible, unexpectedly scaled image moments, strong alignment across sections.
+- Distinctive reusable motion primitives, but not identical entrances on every component.
+- Sharp image quality and meaningful, consistent photographic treatment; careful crop selection on every major image.
+- Thoughtful navigation/footers and robust commerce controls with excellent hierarchy.
+
+**Art direction needs visual choices.** Create `docs/creative-v2/CREATIVE_DIRECTION.md` explaining the final idea, audience, decisions, rejected generic options, typography, palettes, image treatment, layout rules, motion vocabulary and per-page differentiation. Include at least one actual rendered mood/composition contact sheet using appropriately licensed existing images, not invented claims. Use browser captures, not merely written descriptions.
+
+### The wordmark challenge — mandatory three-way comparison
+
+Design **at least three meaningfully different** original wordmark/identity concepts, such as: (1) custom high-fashion typographic ligature, (2) architectural grotesk with careful cut/spacing, (3) refined editorial serif/sans tension. Do not make three versions of the same angular S. Create actual SVG/CSS/HTML renderings and screenshot a comparison sheet at header size, square avatar size, light/dark surfaces and large footer treatment. Evaluate legibility, distinctiveness, optical spacing, mobile header fit, favicon clarity, and accessibility. Pick the strongest and explain why. Use properly licensed typefaces, self-hosted when practical. Do not distribute unlicensed font binaries.
+
+An icon is NOT mandatory. If the best identity is just a beautiful typographic `STYLE EASE` wordmark, use that instead of forcing a bad monogram. Keep favicon legible at 16/32px and ensure the logo is not distorted or visually off-center. No generic bag, hanger, crown or “SE inside a circle” unless the form truly merits inclusion.
+
+## 04 — Image laboratory: cropping, editorial assets and truthful merchandising
+
+Treat every image as an art-direction problem. **Do not continue blindly applying `object-fit:cover` and one `object-position` to unrelated photographs.** First produce a real inventory of all campaign, collections, editorial, product, related and Studio images and where they appear.
+
+Create `docs/creative-v2/IMAGE_AUDIT.md` and a machine-readable `assets/data/image-art-direction.json` or equivalent typed Go asset metadata. Per image/context record:
+- source asset and provenance/licence, true pixel dimensions, orientation and file type;
+- intended usage: campaign full bleed, collection cover, editorial portrait/landscape, product card, product detail, Studio tile, etc.;
+- subject location and important content: face, entire garment, headroom, hands/feet, key silhouette, composition-safe text area;
+- desktop/tablet/mobile focal anchors (e.g. percentages), allowed crop ratios and minimal visible subject bounds;
+- whether a distinct mobile image or manually exported crop is required;
+- image colour/grayscale treatment and intended colour-reveal state;
+- responsive sources, intrinsic dimensions, loading priority, alt/caption requirements and graceful fallback.
+
+**Important:** CSS `object-position` alone cannot rescue a portrait photo shoved into a very wide shallow box. For irreconcilable aspect ratios, choose a different licensed image, alter the layout, export an intentional art-directed crop, or use `<picture>` with genuinely different source crops. Never distort an image, cut off a subject's head/face/feet in a fashion hero without explicit artistic justification, crop away the product, or hide a problem under gradients. Prefer actual assets with sufficient resolution. Do not invent product angles or recolour photographed clothes to imply genuine listed colour variants.
+
+Build a reusable responsive image component/helper with explicit **context-specific** art direction rather than product+eager only. It should support responsive art-direction sources, focal positioning, distinct intrinsic sizes, aspect-ratio choices, zoom safety, progressive enhancement, loading priority, sensible fallback and alt semantics. Keep layout shift low. Avoid putting heavy image processing on request paths; generate derivatives offline/build time with provenance.
+
+Make before/after side-by-side comparison contact sheets for homepage hero, collection covers, editorial features, product grid and product details at **320, 390, 768, 1024, 1440 and 1920px**. For high-impact images also check DPR 2. Inspect actual photos visually. A successful audit has **zero obvious accidental face or garment amputations**, no stretched distortion, no blurry hero and no awkward text/photo collision. Mark each image pass/fail in the audit. If an asset is inherently unsuitable, replace it with an appropriately licensed asset and record the source. Do not use unknown watermarked stock photography.
+
+Do not fill the repository with dozens of near-identical generated derivatives without reason; select a high-quality coherent image set. Avoid unnecessary transfer weight. Make interactive coloured reveals meaningful: grayscale is the editorial resting state, colour reveals can be full-saturation and beautiful when intentional.
+
+## 05 — Motion grammar: resurrect the signature, then surpass it
+
+Design the motion system BEFORE scattering CSS transitions. Define motion tokens for duration, easing, distance, stagger, opacity, clip/mask, image zoom, colour saturation, and feedback timing in `docs/creative-v2/MOTION_SPEC.md`.
+
+Mandatory motion primitives:
+
+**A. Signature sliding-fill CTA (non-negotiable).** Across hero, shop actions, product purchases, editorials and dialog actions, a pseudo-element or equivalent layer sweeps horizontally/diagonally across the button on hover/focus. It must have proper stacking, readable foreground contrast throughout transition, thoughtful direction, arrow/text choreography and variants for ink/bone/outline surfaces. Unlike the old crude `left:-100%` rule, implement consistent reusable architecture. Suggested hover timing 450–700ms with premium deceleration; interaction state must not cause layout shift. Disabled and processing states are distinct. Touch receives an immediate pressed/feedback state. Keyboard focus is fully supported.
+
+**B. Monochrome-to-colour photographic reveals (non-negotiable).** At least the homepage collection imagery and primary catalogue/product-card system must visibly shift from elegant monochrome to genuine colour on hover/focus. A default `saturate(.25)`→`.7` is NOT enough. Animate `filter` deliberately; consider layered colour and grayscale images for more artful mask/wipe reveal where performant. Keep contrast/readability, responsive handling and no irreversible low-contrast text overlays. Do not force grayscale on every photo.
+
+**C. Editorial image choreography.** Restrained mask/curtain reveals, coordinated scale settling and staggered caption entrance. One statement effect per section is better than six simultaneous effects. Scroll reveals must not block content if JavaScript fails or if content is immediately reached via deep link.
+
+**D. Navigation.** Desktop underline/bar transitions with tasteful microinteraction; mobile navigation that opens with clear layered choreography, works without unexpected jumping, traps and restores focus correctly when modal, and is immediately usable under reduced motion.
+
+**E. Product interaction.** Beautiful but fast image response, card emphasis, optional context-sensitive quick actions, variant selection, gallery thumbnail swap and full-image zoom, wishlist/save acknowledgement, add-to-bag feedback, and graceful loading/error states. State changes must be honest and server-validated.
+
+**F. Style Studio.** Choosing a piece should produce deliberate visual arrival/replacement, reorder transitions where supported, selection feedback and total changes without long blocking animation. Save/reopen state should feel satisfying, with meaningful live announcement.
+
+**G. Page navigation.** With server-rendered Go and HTMX history, implement *only* tasteful progressive page transitions if they preserve back/forward semantics, scroll restoration, focus movement, deep links and accessibility. Never hide route content behind asynchronous animation. CSS View Transitions API is optional with safe fallback, not an excuse to break navigation.
+
+**H. Scrolling.** Implement selected IntersectionObserver-based entrances or CSS-native scroll-driven motion with graceful fallback. Prefer transform/opacity/masks over layout and paint-heavy properties. Absolutely no universal hijacked scrolling, giant cinematic loader, frozen scroll, perpetual marquee, mandatory audio, or pointer-following decoration that obstructs tasks. Optional tasteful ticker only if actually useful and motion-safe.
+
+Every motion feature MUST have: pointer test, keyboard test, reduced-motion behaviour, touch fallback, graceful failure, acceptable frame rate, and no interaction blocking. Use `prefers-reduced-motion: reduce` to remove nonessential animation while retaining meaningful state changes. Do not add a large animation library by default; if one is unavoidable, prove its value and show bundle/performance effect.
+
+Record short actual Playwright videos and animated-hover before/after captures: hero CTA sweep, product image colour reveal, nav/menu, one scroll reveal, product gallery, Studio selection and save. No claim that an animation is restored unless its footage actually shows it working. Where tests cannot judge beauty, inspect recordings manually and write observations.
+
+## 06 — Separate Collections and Editorial for real
+
+This is an **information architecture and content model** correction, not a CSS tweak. Remove route aliasing and implement independent handlers/views and appropriately distinct data structures. Keep existing collection slugs/bookmarks functioning, and decide carefully whether existing `/editorial/{slug}` links redirect to a valid new article or preserve a compatibility path; document the decision. Never knowingly serve the exact same DOM/template under two supposedly different top-level destinations.
+
+### Collections = SHOP THE EDIT
+
+Collections are commercial curation, not articles. Design a compelling **collection hub**: image-led campaign covers of varied proportions; meaningful categories/edits; strong selection counts and navigational affordance; cinematic but fast card/image hover; typography that frames merchandise; curated product sets with accurate data; shop-this-edit and refine actions; mobile layouts that show what is being sold. Individual collection pages should be beautifully merchandised with a distinct campaign panel, related collection navigation, clear product grid, sorting/filter state and quick-shop flows. Use data-driven collection hero assets distinct from editorial story leads when possible.
+
+### Editorial = READ THE STORY
+
+Editorial is a fashion publication. Create an independent **journal/editorial landing page** with its own hero, issue/chapter hierarchy, asymmetrical magazine grid, visual essays, readable dek/byline/date only when factually justified, art-directed typography, interspersed portrait and landscape imagery, pull quotes when authored, and deliberate cinematic scroll reveals. Stories must have real narrative structure and several sections, not generic filler or product descriptions disguised as articles. Provide contextual shop-the-story references to existing demo products, properly labelled. The editorial reading experience should have its own table of contents or chapter flow when appropriate; reading should never feel like filtering a product list.
+
+Editorial content can be transparently creative/fictional rather than pretending real designers were interviewed. Do not invent journalists, photographers, endorsements, reviews or product facts. Create 2–3 **substantive and visually different** editorial stories, with intentional cover images and layouts, not three templated clones. Editorial assets must be appropriate for narrative crops, not automatically selected as the first product in a category.
+
+**Acceptance test:** a first-time visitor should distinguish Collections from Editorial within one screen, without looking at the URL. Build independent templates and browser tests verifying meaningful structural/content differences, distinct metadata/title and navigation active states. Screenshot both at desktop and mobile side by side and critique the difference. If they still look or behave like twins, redesign one again.
+
+## 07 — Page-by-page creative brief
+
+### Home: opening scene, not a boilerplate storefront
+
+The first viewport should be a piece of art direction: excellent logo and header, elegantly framed or full-bleed campaign photograph with verified composition, unexpectedly confident typographic scale, carefully authored headline (not generic luxury clichés), and a prominent sliding-fill CTA. It must be recognisable, legible, load quickly and remain elegant at 390px. Behind the hero: signature brand statement, editorial image moments, curated collection chapters, product teaser with colour reveal, dynamic but unintrusive navigation to Editorial, a compelling Style Studio invitation, selected featured products and a polished end-of-page close. Avoid the predictable repeated pattern “huge heading, beige section, four cards, repeat”. Design varied rhythm, but preserve functional paths to Shop/Cart.
+
+Create at least **two substantially different actual first-fold compositions**, not just two colours of the same layout. Capture at 1440 and 390, critique focal balance, CTA priority, breathing room and cinematic presence; select and refine the stronger. Crop every responsive hero separately if needed. Pay special attention to mobile: no headline overlapping the face, no CTA covering the subject, no awkward central dead space, no illegible image overlay.
+
+### Collections: premium browse-by-edit
+
+See section 06. This must have unique navigation/content from Editorial, rich curated covers, substantial hover treatment, clear categories and useful paths to merchandise. Resist 3 identical cards with the same treatment. Each collection earns its own visual identity while remaining on brand.
+
+### Editorial: a living fashion magazine
+
+See section 06. Break the simple repeated left-photo/right-text grid. Use dramatically distinct narrative compositions while remaining readable. Introduce clearly intentional photographic scale shifts, full-bleed image essays, flowing text, compact section indexes and sophisticated image transitions. It should be scroll-worthy even if nobody shops.
+
+### Shop / catalogue: beautiful but genuinely usable
+
+Product cards should feel like photography-driven fashion catalogues: high-quality crop, beautiful hover-to-colour treatment, mild zoom/overlay reveal, price/name/category hierarchy, direct actionable quick shop, and no UI clutter over faces. Maintain server-derived filtering, paging, URL sharing, default selection and stock semantics. Offer helpful sorting, filters and empty results. The grid density adapts intelligently across devices; remove accidental clipping and overly narrow control layouts. A shopper should be able to scan without decorative motion slowing them down.
+
+### Product detail: tactile gallery, credible information
+
+The current product page has one editorial reference photo and a large form. Make this visually extraordinary within the truth constraints. Use a multi-image gallery **only when legitimate distinct images exist**; otherwise use an elegant single-photo gallery with optional details and zoom without pretending to have new angles. Provide thumbnails where real assets exist, full-size image view, responsive and image-specific focal framing, tactful image reveal, premium variant selectors, clear price/stock, sticky or anchored buy information when usable, thoughtful product story/related styles, and beautiful responsive state. Keep disclosures honest and appropriately consolidated, not repeated every few pixels. No fake swatch-image mapping.
+
+### Style Studio: visual fashion atelier (signature experience)
+
+The current six-dropdown layout is not acceptable as the primary interaction. Create an image-led styling workspace with product discovery cards/tiles, category selection, live visual composition board, individual items visually represented and clear removal/replacement controls. A side panel/tool rail can expose size/colour choices and cost, while the canvas is the visual centre. Consider layered frames, drag/reorder **only if** it can be fully keyboard-accessible and persist safely; otherwise use accessible move controls and polished visual transitions. Save, reopen, rename, delete, outfit-to-bag must continue to use existing PostgreSQL ownership/transaction rules. Server-render a complete saved state; the interface must not depend on JavaScript for essential persistence. Work especially hard on empty state: show an inspirational sample composition or animated guide without falsely presenting a saved personal look. The Studio screenshot should immediately communicate what the feature does. Treat tablet and 390px mobile Studio as first-class layouts, not squeezed desktop panels.
+
+### Bag, wishlist, compare, checkout and receipts
+
+Do NOT leave these as plainly styled database pages while the homepage becomes cinematic. Every route needs the same visual finish: consistent typography, alignment, spacing, rich but efficient imagery, clear interactive states, legible empty states, graceful form focus/error handling, transient feedback, considered mobile layouts, tasteful print receipt styling and no empty oversized deserts. Preserve server validation, transaction correctness, quantity restrictions and session ownership. No fake checkout claims or real payments. These are task surfaces: favour clarity and confidence over editorial theatrics.
+
+### About, privacy, 404, errors, loading, offline/degradation
+
+Give informational and recovery pages distinctive finished treatment, not just generic title/paragraph/button. Brand storytelling belongs here, including a concise honest explanation that Style Ease is a demonstration. Make errors helpful, safe and calm, with correct accessibility semantics and working recovery links. Never let an elaborate design create blank pages during network/HTMX failures.
+
+## 08 — Text, imagery and creative honesty
+
+Rewrite weak repetitive marketing copy in an intentional voice: concise, architectural, human, fashion-aware, never pretentious for its own sake. Distinguish category name, collection concept, editorial story, and product factual information. Eliminate lorem ipsum and vague repeated blurbs. Product properties must come from verified or clearly marked sample data; do not hallucinate measurements or sustainability. The catalogue currently contains 20 seeded demo products; keep ID/variant compatibility. For licensing, create accurate attribution and provenance for any sourced imagery and fonts. Do not represent unrelated editorial photos as exact SKU/colour photographs. Avoid exposing private guest data in public/editorial pages. Keep disclosure visible and honest without ruining every card with repeated legalistic language.
+
+## 09 — Implementation approach and component boundaries
+
+Do not re-platform. Work in `views/pages.templ`, new dedicated view files where appropriate, `assets/css/`, small `assets/js/` modules and a minimal number of Go handler/model/data/migration additions justified by distinct Collections/Editorial content. Run `templ generate` reliably. Separate the monolithic page templates into focused files/components where useful, avoiding a massive churn-only refactor. Create reusable components such as `Brand`, `SlideCTA`, `EditorialPicture`, `ProductCard`, `StoryTeaser`, `CollectionCover`, `SectionIntro`, `RevealMedia`, `ShopActions`, `StudioPicker`, `StudioCanvas`, and `MotionSafeDialog` as actually needed.
+
+Use a deliberate stylesheet structure: foundational tokens, typography, layout primitives, navigation, commerce, editorial, collections, Studio, motion, responsive rules. Maintain clear component boundaries and avoid escalating `!important` chains. The implementation must support native HTML routes/forms, HTMX fragment updates, history and real database state. For richer Studio/motion interactions, small vanilla JS modules may enhance the server-rendered baseline. Bind behaviours idempotently after HTMX swaps; prevent duplicate event listeners and memory leaks. Test focus restoration, keyboard and pointer behaviour under fragment replacement.
+
+Images should have a manifest, documented derivatives, `picture` responsive sources where needed, and opt-in crop modes. No arbitrary global grayscale transform overriding a carefully selected photograph. Consolidate duplicated ad hoc CSS. If a CSS feature has insufficient browser support, provide a functional fallback.
+
+## 10 — Creative QA is mandatory, visual judgement must drive iteration
+
+Create `docs/creative-v2/QA_MATRIX.md` with **every route and state**, viewport, screenshot name, hover/focus/motion test, image crop assessment and verdict. Test at **320, 390, 768, 1024, 1440, 1920px**, with DPR2 on key hero/product/editorial images; include pointer hover, keyboard-only navigation, reduced motion, no-JS fallbacks, HTMX swaps, product quick view, variant selection, bag filled/empty, checkout errors, Studio empty/filled/saved, editorial stories and collection detail pages.
+
+Capture actual browser screenshots from the running new Go app with PostgreSQL, not static mockup images. Also capture actual brief browser videos/animation evidence. Save review material under `docs/creative-v2/evidence/` with controlled file sizes. Include side-by-side original Black Label versus creative-v2 comparisons, and before/after hover interaction stills. Use deterministic demo state and stable viewport settings. If environment lacks Playwright or browser runtime, report it precisely and install/use the supported local tooling rather than claiming a screenshot was inspected.
+
+**Visual inspection is REQUIRED:** open and look at rendered screenshots, don't merely script generation and assert zero overflow. Use a critique log per page with specific defects, ranked severity, action taken and subsequent reinspection. Check:
+- First-fold impact, visual hierarchy, alignment, negative space and unique identity.
+- Subject crop (hair, face, entire outfit, accessories), image sharpness and photograph consistency.
+- Mobile hero balance, text-image overlap, CTA legibility, usable touch targets and no horizontal overflow.
+- Collections vs Editorial instantly and unmistakably differentiated.
+- Logo readability and optical quality at 16px favicon, 390px header, 1440px header and oversized footer.
+- Colour-reveal genuinely reaches rich colour, button slide visibly works, focus styles and reduced-motion work.
+- Typography scaling, long product names, price/labels, page length, section rhythm, repeated compositions and footer quality.
+- Real flows remain smooth through loading, failure, save, cart updates, checkout validation and Studio reloading.
+
+### Five critique rounds (minimum)
+
+1. **Creative director:** Is it genuinely memorable? What would a strong fashion creative director reject? Fix the top 3 issues.
+2. **Photographic art director:** Are crops, focal points, lighting, colour reveals, resolution and image-to-text compositions right? Fix the top 3 issues.
+3. **Motion designer:** Are interactions delightful, distinctive and consistent? Is colour-and-slide signature obvious? Are animations performant and never obstructive? Fix the top 3 issues.
+4. **Mobile shopper & accessibility reviewer:** Is the site still beautiful and effortlessly usable at 320–390px and via keyboard/reduced-motion? Fix the top 3 issues.
+5. **Final comparative review:** In a side-by-side of prior Black Label and this version, is there a clearly visible, dramatic improvement on **every key route**, not just Home? If a major page is merely different or worse, revise it again.
+
+Do not self-award arbitrary 10/10 scores, invent external endorsements, call designs “award-winning” as fact, or accept unchanged design after noting obvious defects. Record judgments as explicit subjective evaluations alongside verifiable findings.
+
+## 11 — Functional and engineering regression gates
+
+Maintain the quality of the already-working Go build. Before declaring completion, run the applicable existing checks and additional tests for new visual behaviours. At minimum:
+
+- `templ generate` and generated file consistency, Go formatting/vet/tests/race checks where supported.
+- Real PostgreSQL migrations, database-backed server tests, guest ownership, idempotent demo checkout, no leakage of saved looks/receipts, CSRF/origin protections and persistence across restarts. Do not weaken security middleware to accommodate HTMX effects.
+- Full new Playwright Go/HTMX browser flows plus existing legacy tests where the repo's CI expects them. Update selectors only when semantics truly change, not to silence failures. If architecture dictates dropping redundant legacy checks, document and replace them with equivalent coverage; do not silently delete tests.
+- Explicit independent `GET /collections` and `GET /editorial` handlers/templates, with a test proving distinct headings, content types and layouts; verify deep-link and history/back compatibility.
+- Hover interaction tests verifying computed filter state changes and CTA fill transitions; reduced-motion test verifying nonessential entrance animation is disabled; keyboard focus equivalent; image crop snapshots at multiple widths.
+- Check no browser console errors, broken images, invisible focus, trapped tab sequence, accessible-dialog regressions, mobile overflow, broken POST/redirect loops or unexpected redirects.
+- Lint/a11y testing including actual axe where supported, plus manual checklist; automated 100 scores are **not** proof of perfect accessibility.
+- Asset licensing, font loading, CSP compatibility, same-origin JS, no credentials and no analytics/tracking added by stealth.
+
+**Performance budgets:** protect the previously documented fast baseline (home local mobile LCP roughly 2.3s, 14.82 KiB gzip authored+vendor JS combined, and 8.94 KiB gzip CSS in the prior PR's reported environment). New animation cannot be excused by “premium means heavy.” Aim for local mobile LCP <=2.5s, CLS <=0.1, and visibly smooth animations; report actual environment, repetitions and variability. Permit a justified increase in client JS to at most **45 KiB gzip** and CSS to at most **30 KiB gzip**, unless the measurements prove a superior tradeoff and the report identifies it transparently. Avoid replacing the tiny app with a large SPA, autoplay HD video, huge canvas effects or many blocking animation dependencies. Optimize key image loading without gaming metrics by hiding images or removing creative content.
+
+Do not fake measurement results. If tests fail, fix the app or explicitly list unresolved issues. A test suite pass is required but **never sufficient** for creative signoff.
+
+## 12 — Milestone sequence with hard gates
+
+Work deliberately in vertical slices. Do not spend the whole budget writing plans or perfecting a single homepage while other routes remain generic.
+
+**M0: Baseline, protection, evidence** — Record parent SHA, current tests and screenshots, functional routes, benchmark, and crop/interaction failures. Create safe child branch and handoff. No production changes.
+
+**M1: Brand concepts + design system** — Render and compare three identities; choose one. Build design tokens, typography and motion primitives; prototype primary CTA and colour-reveal to visibly prove they work. Gate: first-fold proof on mobile/desktop plus actual hover/focus evidence.
+
+**M2: Image lab + editorial assets** — Audit images; establish art-direction metadata; repair all major crop defects with contextual sources and CSS. Gate: before/after crop contact sheets across breakpoint matrix, no obvious accidental subject cropping.
+
+**M3: Collections and Editorial split** — Independent route handlers, data/templates, distinct art direction and actual content. Gate: screenshot A/B comparison and tests showing these are different products, not route aliases.
+
+**M4: Homepage / navigation / footer** — Recompose for true visual impact; refine brand, choreograph hero, introduce high-quality image moments and compelling exploration. Gate: mobile and desktop hero critically reviewed; first fold better than prior, no lost UX paths.
+
+**M5: Shop + product + commerce polish** — Great cards, interactions, honest product imagery, gallery/zoom as assets allow; cart, wishlist, comparison, checkout, receipts and state surfaces consistent. Gate: actual purchase/variant/keyboard flows and full screenshots.
+
+**M6: Style Studio atelier** — Replace form-first layout with image-first composition workspace while keeping Go/PG saving/ownership semantics. Gate: empty, selected, saved and reopened states dramatically improved; mobile and keyboard users can perform the core tasks.
+
+**M7: Hardening + five critiques + final artefacts** — Responsive, interaction recordings, performance, accessibility, screenshots, docs, tests, fixes, honest final scorecard. Gate: all meaningful P0 issues resolved, core flows passing, no severe crop regressions, no duplicate sections, no broken active states.
+
+If running out of context/time: prioritize completion of M1–M5 and preserve a stable functional app. Do not leave half-finished migration code or incomplete experiences. Record genuinely incomplete M6/M7 work in handoff. Continue proactively without requiring check-ins for normal design decisions. Do not falsely declare completion if unfinished.
+
+## 13 — Deliverable inventory / morning handoff
+
+Provide ALL applicable outputs:
+
+- Running Go/templ/HTMX/PostgreSQL app on the dedicated creative-v2 branch, with production untouched.
+- Actual redesigned logo SVG/wordmark/favicon, three renderable concept comparisons, and recorded selection rationale.
+- Art-directed responsive image component/manifest, source provenance and before/after crop comparisons.
+- Restored-and-refined sliding-fill button signature and true-colour photographic reveals, demonstrated by recordings.
+- Independent Collections and Editorial handlers, templates, content and browser tests.
+- Highly refined Home, Shop, Product, Studio and **every** auxiliary route/state.
+- `docs/creative-v2/CREATIVE_DIRECTION.md`, `IMAGE_AUDIT.md`, `MOTION_SPEC.md`, `QA_MATRIX.md`, `CRITIQUE_LOG.md`, `BEFORE_AFTER.md`, `FINAL_REPORT.md`, and selective evidence screenshots/videos.
+- Tests and actual commands/results, performance table with environment details, disclosed limitations and accessibility caveats.
+- Updated `HANDOFF.md` preserving the single next action, exact Git state, active services and recovery commands.
+- Clean verified commits and optional draft PR. No merge, production deployment, paid infrastructure or DNS edits.
+
+Morning report should distinguish **completed and observed**, **implemented but not visually verified**, **deferred**, and **blocked**. Link to paths, recordings and commits. Do not assert “perfect visuals” without human confirmation.
+
+## 14 — Explicit acceptance / refusal criteria
+
+**FAIL immediately if any of these remain:**
+- `/collections` and `/editorial` display identical content/templates with token heading differences.
+- The logo is still the existing odd geometric glyph or an equally generic replacement chosen without real comparison.
+- The original colour-reveal signature is absent or only changes saturation from 25% to 70%.
+- Primary button CTA has no visible sliding-fill interaction.
+- Hero, editorial or collection images obviously crop faces/garments incorrectly at key viewports.
+- Mobile layout feels like a compressed desktop page, has overlap, horizontal overflow or tiny interactive controls.
+- Style Studio is still visually dominated by six standard selects and a huge empty beige panel.
+- Static screenshot tests or Lighthouse scores are used as the only justification of creative quality.
+- Any backend/auth/session/payment/stock safety feature is silently weakened, original data IDs lost or tests removed to appear green.
+- `main`, original live deployment, billing or external services are changed without approval.
+
+**PASS requires:**
+- Clearly premium, original art direction that holds together across all routes.
+- Purposeful and legible logo, intentional image crops, responsive high-quality photography.
+- Signature hover/focus behaviour **visible in real recordings**.
+- Deep and unmistakable structural difference between Collections and Editorial.
+- A strong homepage, a beautiful shop/product experience, and a Studio that actually feels like a flagship visual tool.
+- Every commerce route polished, mobile-first, keyboard-usable and functionally verified.
+- Documented critique-and-revise evidence, passing core engineering checks, honest limits.
+
+## 15 — Work ethic and stopping rules
+
+Do not ask for approval on ordinary compositional choices; make informed decisions, render them, critique them, improve them. Don't respond with only a list of recommendations. **Actually edit the code, run the app, and demonstrate the result.** Prioritize quality over churn. If a layout is merely “fine,” do another thoughtful pass. If the crop is poor, fix the source, focal point or composition, not just the border radius. If Editorial feels like Collections, rebuild the page structure. If the logo is weak, reject it and test a better concept. If the animation is too subtle to notice, refine the effect; if it is distracting, dial it back. Strong fashion design is controlled contrast, not chaos.
+
+Keep the existing Go backend as the reliable foundation. Make the visual output **dramatically** better than the current Black Label branch, while preserving extraordinary reliability. Only stop when you've either met the explicit acceptance criteria with real evidence or exhausted the available session budget and preserved a clear, honest handoff.
+
+**START NOW:** verify the actual branch and runtime; capture the currently broken routes; create the safety branch; implement the wordmark concepts and restored signature button/image motion; then proceed through the milestones without waiting for further prompts.

@@ -364,11 +364,28 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		}
 		vm.Title = "Demo receipt"
 		s.render(w, r, 200, views.Page(vm, views.Receipt(vm)))
-	case r.URL.Path == "/collections" || r.URL.Path == "/editorial":
-		vm.Title = "Collection stories"
+	case r.URL.Path == "/collections":
+		vm.Title = "Collections: shop the edit"
 		s.render(w, r, 200, views.Page(vm, views.Collections(vm)))
-	case strings.HasPrefix(r.URL.Path, "/collections/") || strings.HasPrefix(r.URL.Path, "/editorial/"):
-		slug := strings.TrimPrefix(strings.TrimPrefix(r.URL.Path, "/collections/"), "/editorial/")
+	case r.URL.Path == "/editorial":
+		vm.Title = "Editorial: ways of looking"
+		s.render(w, r, 200, views.Page(vm, views.Journal(vm)))
+	case strings.HasPrefix(r.URL.Path, "/editorial/"):
+		slug := strings.TrimPrefix(r.URL.Path, "/editorial/")
+		if replacement := views.LegacyArticle(slug); replacement != "" {
+			http.Redirect(w, r, "/editorial/"+replacement, http.StatusPermanentRedirect)
+			return
+		}
+		article, found := views.ArticleBySlug(slug)
+		if !found {
+			s.problem(w, r, 404, "Story not found", "Explore the Style Ease journal.")
+			return
+		}
+		vm.Article = article
+		vm.Title = article.Title
+		s.render(w, r, 200, views.Page(vm, views.JournalArticle(vm)))
+	case strings.HasPrefix(r.URL.Path, "/collections/"):
+		slug := strings.TrimPrefix(r.URL.Path, "/collections/")
 		found := false
 		for _, c := range vm.Collections {
 			if c.Slug == slug {
@@ -383,13 +400,12 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		}
 		vm.Query.Collection = slug
 		vm.Results = domain.Filter(products, vm.Query)
-		if len(vm.Results) == 0 {
-			s.problem(w, r, 404, "This edit is between chapters", "Explore the full collection while new pieces are selected.")
-			return
-		}
-		s.render(w, r, 200, views.Page(vm, views.Story(vm)))
+		s.render(w, r, 200, views.Page(vm, views.CollectionDetail(vm)))
 	case r.URL.Path == "/about" || r.URL.Path == "/privacy":
 		vm.Title = "About the project"
+		if r.URL.Path == "/privacy" {
+			vm.Title = "Privacy and your demo data"
+		}
 		s.render(w, r, 200, views.Page(vm, views.About(vm)))
 	case r.URL.Path == "/studio":
 		if wanted := r.URL.Query().Get("look"); wanted != "" {

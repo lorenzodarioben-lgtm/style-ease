@@ -1,0 +1,482 @@
+[
+  {
+    "path": "assets/images/p1-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 39656,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p1-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 61916,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p1-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 127059,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p2-480.avif",
+    "width": 480,
+    "height": 717,
+    "bytes": 33170,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p2-640.avif",
+    "width": 640,
+    "height": 956,
+    "bytes": 52851,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p2-960.avif",
+    "width": 960,
+    "height": 1434,
+    "bytes": 120069,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p3-480.avif",
+    "width": 480,
+    "height": 672,
+    "bytes": 19533,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p3-640.avif",
+    "width": 640,
+    "height": 896,
+    "bytes": 31395,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p3-960.avif",
+    "width": 960,
+    "height": 1344,
+    "bytes": 67905,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p4-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 31324,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p4-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 45467,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p4-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 78337,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p5-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 30196,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p5-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 52212,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p5-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 134103,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p6-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 41438,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p6-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 73019,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p6-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 176439,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p7-480.avif",
+    "width": 480,
+    "height": 600,
+    "bytes": 40441,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p7-640.avif",
+    "width": 640,
+    "height": 800,
+    "bytes": 65065,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p7-960.avif",
+    "width": 960,
+    "height": 1200,
+    "bytes": 135144,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p8-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 21436,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p8-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 30310,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p8-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 49359,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p9-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 24537,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p9-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 39522,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p9-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 88631,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p10-480.avif",
+    "width": 480,
+    "height": 734,
+    "bytes": 7428,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p10-640.avif",
+    "width": 640,
+    "height": 978,
+    "bytes": 9006,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p10-960.avif",
+    "width": 960,
+    "height": 1467,
+    "bytes": 13340,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p11-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 21011,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p11-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 37272,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p11-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 96917,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p12-480.avif",
+    "width": 480,
+    "height": 600,
+    "bytes": 11596,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p12-640.avif",
+    "width": 640,
+    "height": 800,
+    "bytes": 15345,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p12-960.avif",
+    "width": 960,
+    "height": 1200,
+    "bytes": 23372,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p13-480.avif",
+    "width": 480,
+    "height": 384,
+    "bytes": 15939,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p13-640.avif",
+    "width": 640,
+    "height": 512,
+    "bytes": 23971,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p13-960.avif",
+    "width": 960,
+    "height": 768,
+    "bytes": 44109,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p14-480.avif",
+    "width": 480,
+    "height": 719,
+    "bytes": 32188,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p14-640.avif",
+    "width": 640,
+    "height": 959,
+    "bytes": 46931,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p14-960.avif",
+    "width": 960,
+    "height": 1438,
+    "bytes": 83836,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p15-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 16604,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p15-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 24071,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p15-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 46453,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p16-480.avif",
+    "width": 480,
+    "height": 720,
+    "bytes": 11755,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p16-640.avif",
+    "width": 640,
+    "height": 960,
+    "bytes": 16480,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p16-960.avif",
+    "width": 960,
+    "height": 1440,
+    "bytes": 29219,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p17-480.avif",
+    "width": 480,
+    "height": 625,
+    "bytes": 14672,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p17-640.avif",
+    "width": 640,
+    "height": 833,
+    "bytes": 20732,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p17-960.avif",
+    "width": 960,
+    "height": 1249,
+    "bytes": 36066,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p18-480.avif",
+    "width": 480,
+    "height": 602,
+    "bytes": 15724,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p18-640.avif",
+    "width": 640,
+    "height": 802,
+    "bytes": 22845,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p18-960.avif",
+    "width": 960,
+    "height": 1203,
+    "bytes": 48582,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p19-480.avif",
+    "width": 480,
+    "height": 641,
+    "bytes": 18117,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p19-640.avif",
+    "width": 640,
+    "height": 855,
+    "bytes": 24714,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p19-960.avif",
+    "width": 960,
+    "height": 1282,
+    "bytes": 41349,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p20-480.avif",
+    "width": 480,
+    "height": 722,
+    "bytes": 24982,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p20-640.avif",
+    "width": 640,
+    "height": 962,
+    "bytes": 35140,
+    "ratioOK": true,
+    "profilePreserved": true
+  },
+  {
+    "path": "assets/images/p20-960.avif",
+    "width": 960,
+    "height": 1443,
+    "bytes": 59408,
+    "ratioOK": true,
+    "profilePreserved": true
+  }
+]

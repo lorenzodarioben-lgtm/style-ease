@@ -1,0 +1,191 @@
+[
+  {
+    "id": "campaign",
+    "label": "Three people, original full composition",
+    "path": "/assets/images/campaign-1600.webp",
+    "width": 1600,
+    "height": 2293,
+    "source": "https://images.unsplash.com/photo-1615222443417-6d76586644a9",
+    "license": "Unsplash License"
+  },
+  {
+    "id": 1,
+    "label": "Geometric T-Shirt",
+    "path": "/assets/images/p1-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1616006897093-5e4635c0de35",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 2,
+    "label": "Angular Jacket",
+    "path": "/assets/images/p2-960.webp",
+    "width": 960,
+    "height": 1434,
+    "source": "https://images.unsplash.com/photo-1532332248682-206cc786359f",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 3,
+    "label": "Precision Jeans",
+    "path": "/assets/images/p3-960.webp",
+    "width": 960,
+    "height": 1344,
+    "source": "https://images.unsplash.com/photo-1578693082747-50c396cacd81",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 4,
+    "label": "Architectural Boots",
+    "path": "/assets/images/p4-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1579121162206-f447748edb50",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 5,
+    "label": "Structure Hat",
+    "path": "/assets/images/p5-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1517941823-815bea90d291",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 6,
+    "label": "Contour Sweater",
+    "path": "/assets/images/p6-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1580331451062-99ff652288d7",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 7,
+    "label": "Vertex Blazer",
+    "path": "/assets/images/p7-960.webp",
+    "width": 960,
+    "height": 1200,
+    "source": "https://images.unsplash.com/photo-1607033948035-8bc42d817252",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 8,
+    "label": "Axis Dress Shirt",
+    "path": "/assets/images/p8-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1604695573706-53170668f6a6",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 9,
+    "label": "Polygon Backpack",
+    "path": "/assets/images/p9-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1606585924795-60ed8d435741",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 10,
+    "label": "Facet Sunglasses",
+    "path": "/assets/images/p10-960.webp",
+    "width": 960,
+    "height": 1467,
+    "source": "https://images.unsplash.com/photo-1584036553516-bf83210aa16c",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 11,
+    "label": "Linear Scarf",
+    "path": "/assets/images/p11-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1607198463850-1b682798e6ea",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 12,
+    "label": "Prism Watch",
+    "path": "/assets/images/p12-960.webp",
+    "width": 960,
+    "height": 1200,
+    "source": "https://images.unsplash.com/photo-1546868871-7041f2a55e12",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 13,
+    "label": "Vector Leather Belt",
+    "path": "/assets/images/p13-960.webp",
+    "width": 960,
+    "height": 768,
+    "source": "https://images.unsplash.com/photo-1631160246898-58192f971b5f",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 14,
+    "label": "Grid Pullover",
+    "path": "/assets/images/p14-960.webp",
+    "width": 960,
+    "height": 1438,
+    "source": "https://images.unsplash.com/photo-1640087976001-2416cbbdfdf6",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 15,
+    "label": "Angle Running Shoes",
+    "path": "/assets/images/p15-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1582898967731-b5834427fd66",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 16,
+    "label": "Tangent Wallet",
+    "path": "/assets/images/p16-960.webp",
+    "width": 960,
+    "height": 1440,
+    "source": "https://images.unsplash.com/photo-1627123424574-724758594e93",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 17,
+    "label": "Facet Earrings",
+    "path": "/assets/images/p17-960.webp",
+    "width": 960,
+    "height": 1249,
+    "source": "https://images.unsplash.com/photo-1630019852942-f89202989a59",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 18,
+    "label": "Apex Shoulder Bag",
+    "path": "/assets/images/p18-960.webp",
+    "width": 960,
+    "height": 1203,
+    "source": "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 19,
+    "label": "Crest Cuff Bracelet",
+    "path": "/assets/images/p19-960.webp",
+    "width": 960,
+    "height": 1282,
+    "source": "https://images.unsplash.com/photo-1602173574767-37ac01994b2a",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  },
+  {
+    "id": 20,
+    "label": "Drape Front Blouse",
+    "path": "/assets/images/p20-960.webp",
+    "width": 960,
+    "height": 1443,
+    "source": "https://images.unsplash.com/photo-1609493259716-612a700a8d16",
+    "license": "Unsplash License; inherited licensed editorial reference"
+  }
+]

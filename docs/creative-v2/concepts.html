@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Style Ease creative laboratory</title>
+    <style>
+      @font-face {
+        font-family: DM;
+        src: url('/assets/fonts/dm-sans.woff2');
+      }
+      @font-face {
+        font-family: Bodoni;
+        src: url('/assets/fonts/bodoni-moda.woff2');
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f5f4f0;
+        color: #141612;
+        font:
+          15px/1.5 DM,
+          sans-serif;
+      }
+      button,
+      a {
+        font: inherit;
+      }
+      a {
+        color: inherit;
+      }
+      header {
+        height: 94px;
+        margin: 0 4.5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #bcbbb4;
+      }
+      header img {
+        width: 230px;
+        height: 55px;
+      }
+      nav {
+        display: flex;
+        gap: 32px;
+      }
+      nav a {
+        text-decoration: none;
+      }
+      nav a:last-child {
+        margin-left: 40px;
+      }
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+      h1 {
+        font-family: Bodoni;
+        font-weight: 450;
+        letter-spacing: -0.04em;
+        line-height: 0.99;
+      }
+      p {
+        max-width: 35ch;
+      }
+      figure {
+        margin: 0;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      .button {
+        isolation: isolate;
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        min-height: 58px;
+        padding: 17px 24px;
+        color: #f5f4f0;
+        background: #141612;
+        text-decoration: none;
+        border: 1px solid #141612;
+      }
+      .button:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: #cbd0c3;
+        z-index: -1;
+        transform: translateX(-101%);
+        transition: transform 560ms cubic-bezier(0.77, 0, 0.175, 1);
+      }
+      .button:hover,
+      .button:focus-visible {
+        color: #141612;
+      }
+      .button:hover:before,
+      .button:focus-visible:before {
+        transform: translateX(0);
+      }
+      .button span {
+        position: relative;
+        z-index: 1;
+      }
+      .button span:last-child {
+        transition: transform 560ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .button:hover span:last-child {
+        transform: translateX(4px);
+      }
+      :focus-visible {
+        outline: 3px solid #777c68;
+        outline-offset: 5px;
+      }
+      .view {
+        display: none;
+      }
+      .view.active {
+        display: block;
+      }
+      .lab-heading {
+        padding: 40px 4.5%;
+        font-size: 30px;
+      }
+      .identities {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        padding: 0 4.5% 50px;
+      }
+      .identity {
+        border-top: 1px solid #a4a69d;
+      }
+      .identity h2 {
+        font-size: 20px;
+        font-weight: 500;
+        padding: 18px 0;
+      }
+      .identity .sample {
+        height: 180px;
+        padding: 30px;
+        display: grid;
+        place-items: center;
+        background: #e9e9e3;
+      }
+      .identity .dark {
+        background: #151713;
+      }
+      .identity .dark img {
+        filter: invert(1);
+      }
+      .identity .tiny {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        height: 95px;
+      }
+      .tiny img:first-child {
+        height: 16px;
+        width: 16px;
+      }
+      .tiny img:nth-child(2) {
+        width: 32px;
+        height: 32px;
+      }
+      .tiny img:nth-child(3) {
+        width: 56px;
+        height: 56px;
+      }
+      .identity .header-size {
+        height: 90px;
+        padding: 20px;
+        display: grid;
+        place-items: center;
+      }
+      .header-size img {
+        width: 220px;
+        max-height: 50px;
+      }
+      .identity > p {
+        padding: 15px 0;
+        font-size: 14px;
+      }
+      .footer-size {
+        height: 250px;
+        background: #151713;
+        padding: 30px;
+        display: grid;
+        align-items: center;
+      }
+      .footer-size img {
+        filter: invert(1);
+        width: 100%;
+      }
+      .image-sheet {
+        padding: 25px 4.5%;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 25px;
+      }
+      .image-sheet figure {
+        border-bottom: 1px solid #aaa;
+      }
+      .image-sheet img {
+        width: 100%;
+        height: 260px;
+        object-fit: contain;
+        background: #e6e5df;
+      }
+      .image-sheet figcaption {
+        padding: 10px 0;
+        font-size: 13px;
+      }
+      .hero-a {
+        display: grid;
+        grid-template-columns: 1.25fr 0.9fr;
+        gap: 6%;
+        padding: 38px 4.5%;
+        height: calc(100svh - 94px);
+        min-height: 650px;
+        max-height: 900px;
+      }
+      .hero-a .copy {
+        align-self: center;
+        padding-bottom: 30px;
+      }
+      .hero-a h1 {
+        font-size: clamp(75px, 8vw, 142px);
+        margin-bottom: 30px;
+        max-width: 8ch;
+      }
+      .hero-a p {
+        margin-bottom: 30px;
+      }
+      .hero-a .photo {
+        height: 100%;
+        min-height: 0;
+        position: relative;
+        background: #d9d9d0;
+      }
+      .hero-a .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: grayscale(1);
+        transition: filter 700ms;
+      }
+      .hero-a .photo:hover img {
+        filter: grayscale(0);
+      }
+      .hero-a figcaption {
+        position: absolute;
+        bottom: 10px;
+        left: 12px;
+        font-size: 11px;
+        background: #f5f4f0e8;
+        padding: 4px 7px;
+      }
+      .view-b {
+        background: #141612;
+        color: #f5f4f0;
+        min-height: 100svh;
+      }
+      .view-b header {
+        border-color: #54564c;
+      }
+      .view-b header img {
+        filter: invert(1);
+      }
+      .hero-b {
+        position: relative;
+        padding: 28px 4.5% 36px;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 5%;
+        height: calc(100svh - 94px);
+        min-height: 650px;
+        max-height: 900px;
+      }
+      .hero-b .copy {
+        align-self: center;
+        z-index: 1;
+      }
+      .hero-b h1 {
+        font-size: clamp(75px, 8vw, 138px);
+        max-width: 8ch;
+        margin-bottom: 28px;
+      }
+      .hero-b .copy p {
+        margin-bottom: 28px;
+        max-width: 30ch;
+        color: #c2c5b9;
+      }
+      .hero-b .button {
+        background: #f5f4f0;
+        color: #141612;
+        border-color: #f5f4f0;
+      }
+      .hero-b .photo {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 16px;
+        align-items: center;
+        height: 100%;
+        min-height: 0;
+      }
+      .hero-b .photo img {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        filter: grayscale(1);
+        transition: filter 700ms;
+      }
+      .hero-b .photo img:first-child {
+        align-self: start;
+        margin-top: 24px;
+      }
+      .hero-b .photo img:last-child {
+        align-self: end;
+        margin-bottom: 24px;
+      }
+      .hero-b .photo:hover img {
+        filter: grayscale(0);
+      }
+      .lab-notice {
+        padding: 18px 4.5%;
+        font-size: 12px;
+        border-top: 1px solid #aaa;
+      }
+      @media (max-width: 650px) {
+        header {
+          height: 76px;
+        }
+        header img {
+          width: 165px;
+          height: 44px;
+        }
+        nav {
+          gap: 18px;
+        }
+        nav a {
+          display: none;
+        }
+        nav a:last-child,
+        nav a:first-child {
+          display: block;
+          margin: 0;
+          font-size: 13px;
+        }
+        .hero-a {
+          padding: 24px 20px 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          height: auto;
+          min-height: 0;
+        }
+        .hero-a .copy {
+          align-self: stretch;
+          padding: 0;
+        }
+        .hero-a h1 {
+          font-size: 66px;
+          max-width: 8ch;
+          margin-bottom: 16px;
+        }
+        .hero-a p {
+          font-size: 13px;
+          max-width: 31ch;
+          margin-bottom: 20px;
+        }
+        .hero-a .button {
+          min-height: 48px;
+          padding: 12px 18px;
+          font-size: 13px;
+        }
+        .hero-a .photo {
+          height: 400px;
+          flex-shrink: 0;
+        }
+        .hero-a .photo img {
+          object-fit: contain;
+        }
+        .hero-a figcaption {
+          display: none;
+        }
+        .hero-b {
+          height: auto;
+          min-height: 0;
+          display: flex;
+          flex-direction: column;
+          padding: 25px 20px;
+          gap: 25px;
+        }
+        .hero-b h1 {
+          font-size: 68px;
+          margin-bottom: 18px;
+          max-width: 8ch;
+        }
+        .hero-b .copy p {
+          font-size: 13px;
+          margin-bottom: 20px;
+        }
+        .hero-b .button {
+          font-size: 13px;
+          min-height: 48px;
+          padding: 12px 18px;
+        }
+        .hero-b .photo {
+          height: auto;
+          gap: 12px;
+        }
+        .hero-b .photo img {
+          height: auto;
+          margin: 0 !important;
+          max-height: 330px;
+        }
+        .hero-b .photo img:first-child {
+          margin-top: 35px !important;
+        }
+        .hero-b .photo img:last-child {
+          margin-bottom: 35px !important;
+        }
+        .identities {
+          grid-template-columns: 1fr;
+        }
+        .image-sheet {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .image-sheet img {
+          height: 240px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="view" id="identities">
+      <h1 class="lab-heading">Three identities, one fashion house.</h1>
+      <div class="identities" id="identity-grid"></div>
+      <div class="lab-notice">
+        Original typographic studies from the project's licensed Bodoni Moda and DM Sans. Source
+        lettering is outlined and optically spaced; not a claimed external brand.
+      </div>
+    </main>
+    <main class="view" id="images">
+      <h1 class="lab-heading">Image laboratory: original colour and complete source bounds.</h1>
+      <div class="image-sheet" id="image-grid"></div>
+    </main>
+    <main class="view" id="hero-a">
+      <header>
+        <img src="/assets/brand/concept-a.svg" alt="Style Ease" />
+        <nav>
+          <a href="#">Shop</a><a href="#">Collections</a><a href="#">Editorial</a
+          ><a href="#">Style Studio</a><a href="#">Bag 0</a>
+        </nav>
+      </header>
+      <section class="hero-a">
+        <div class="copy">
+          <h1>Different pieces.<br />A point of view.</h1>
+          <p>A wardrobe becomes interesting in the way you put it together.</p>
+          <a class="button" href="#"><span>Explore the collection</span><span>→</span></a>
+        </div>
+        <figure class="photo">
+          <img
+            src="/assets/images/campaign-1600.avif"
+            alt="Three people in full-length streetwear"
+          />
+          <figcaption>Editorial photography / demonstration catalogue</figcaption>
+        </figure>
+      </section>
+    </main>
+    <main class="view view-b" id="hero-b">
+      <header>
+        <img src="/assets/brand/concept-b.svg" alt="Style Ease" />
+        <nav>
+          <a href="#">Shop</a><a href="#">Collections</a><a href="#">Editorial</a
+          ><a href="#">Style Studio</a><a href="#">Bag 0</a>
+        </nav>
+      </header>
+      <section class="hero-b">
+        <div class="copy">
+          <h1>Style is what<br />you make.</h1>
+          <p>Explore the pieces. Find a new proportion. Make the composition your own.</p>
+          <a class="button" href="#"><span>Explore the collection</span><span>→</span></a>
+        </div>
+        <figure class="photo">
+          <img src="/assets/images/p7-960.webp" alt="Jacket editorial portrait" /><img
+            src="/assets/images/p8-960.webp"
+            alt="Shirt editorial portrait"
+          />
+        </figure>
+      </section>
+    </main>
+    <script>
+      const view = new URLSearchParams(location.search).get('view') || 'identities';
+      document.getElementById(view)?.classList.add('active');
+      const names = [
+        'The seam / lowercase couture',
+        'The cut / architectural grotesk',
+        'The imprint / editorial contrast'
+      ];
+      document.getElementById('identity-grid').innerHTML = ['a', 'b', 'c']
+        .map(
+          (x, i) =>
+            `<section class="identity"><h2>${names[i]}</h2><div class="header-size"><img src="/assets/brand/concept-${x}.svg" alt="Style Ease concept ${x}"></div><div class="sample"><img src="/assets/brand/concept-${x}.svg" alt="Style Ease"></div><div class="sample dark"><img src="/assets/brand/concept-${x}.svg" alt="Style Ease on ink"></div><div class="tiny">${[16, 32, 56].map((n) => `<img src="/assets/brand/favicon-${x}.svg" alt="${n}px favicon">`).join('')}</div><div class="footer-size"><img src="/assets/brand/concept-${x}.svg" alt="Footer scale"></div><p>${['Lowercase curves, a low optical seam and complete counter shapes. A quieter, self-contained signature.', 'Clear at a glance, with cut spacing and confident utility proportions.', 'A more literary masthead; the slash establishes a deliberate two-part rhythm.'][i]}</p></section>`
+        )
+        .join('');
+      fetch('/assets/data/creative-image-inventory.json')
+        .then((r) => r.json())
+        .then((images) => {
+          document.getElementById('image-grid').innerHTML = images
+            .map(
+              (x) =>
+                `<figure><img src="${x.path}" alt="Full source ${x.id}"><figcaption>${x.id} / ${x.width} × ${x.height}<br>${x.label}</figcaption></figure>`
+            )
+            .join('');
+        });
+    </script>
+  </body>
+</html>

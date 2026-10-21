@@ -11,6 +11,7 @@ import (
 )
 
 type Model struct {
+	Article                                         Article
 	ActiveLook                                      domain.Look
 	Title, Path, Return, Notice, OrderKey, Scenario string
 	Session                                         domain.Session
@@ -67,7 +68,7 @@ func options(products []domain.Product, kind string) []string {
 }
 func countBag(m Model) string { return n(domain.Quantity(m.State.Bag)) }
 func active(m Model, path string) string {
-	if m.Path == path || path == "/shop" && strings.HasPrefix(m.Path, "/products/") {
+	if m.Path == path || path == "/shop" && strings.HasPrefix(m.Path, "/products/") || (path == "/collections" || path == "/editorial") && strings.HasPrefix(m.Path, path+"/") {
 		return "page"
 	}
 	return "false"

@@ -1,0 +1,379 @@
+
+Running 36 tests using 3 workers
+
+(node:30164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [desktop] › e2e-black-label\atelier.spec.js:34:1 › single reference gallery preserves focus and the full original photograph (4.6s)
+  ok  2 [desktop] › e2e-black-label\atelier.spec.js:4:1 › visual atelier places, replaces, removes, saves and reopens exact variants (7.5s)
+  ok  4 [desktop] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (3.3s)
+  ok  3 [desktop] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (11.9s)
+  ok  5 [desktop] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (4.7s)
+  ok  7 [desktop] › e2e-black-label\commerce.spec.js:119:1 › guest changes synchronize between tabs after a committed mutation (2.2s)
+  ok  6 [desktop] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (6.9s)
+  ok  8 [desktop] › e2e-black-label\commerce.spec.js:133:1 › comparison attributes, bounded membership and mobile scrolling (6.5s)
+  ok 10 [desktop] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable (4.7s)
+  ok 11 [desktop] › e2e-black-label\commerce.spec.js:199:1 › mobile navigation, size dialog and reduced motion keyboard behavior (2.8s)
+  ok 12 [desktop] › e2e-black-label\commerce.spec.js:219:1 › ordinary forms complete checkout with JavaScript disabled (2.7s)
+  ok  9 [desktop] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit (9.8s)
+  ok 13 [desktop] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (4.6s)
+  ok 16 [desktop] › e2e-black-label\creative.spec.js:22:1 › signature fill and complete colour reveal support pointer and focus (4.4s)
+  ok 15 [desktop] › e2e-black-label\creative.spec.js:4:1 › touch colour choice remains explicit and accessibly labelled (6.6s)
+  ok 17 [desktop] › e2e-black-label\creative.spec.js:52:1 › reduced motion retains instant colour choice and visible editorial content (1.2s)
+(node:21376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 18 [desktop] › e2e-black-label\journal.spec.js:4:1 › collections shop real edits while the journal has independent stories and metadata (7.7s)
+(node:11464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 19 [mobile] › e2e-black-label\atelier.spec.js:4:1 › visual atelier places, replaces, removes, saves and reopens exact variants (5.7s)
+  ok 21 [mobile] › e2e-black-label\atelier.spec.js:34:1 › single reference gallery preserves focus and the full original photograph (3.9s)
+  ok 22 [mobile] › e2e-black-label\commerce.spec.js:46:1 › quick shop uses HTMX 4 and restores keyboard focus (5.2s)
+  ok 20 [mobile] › e2e-black-label\commerce.spec.js:12:1 › variant to bag to persistent private receipt, including forged owner access (11.2s)
+  ok 23 [mobile] › e2e-black-label\commerce.spec.js:63:1 › wishlist exact variants, save for later, move, remove and undo (2.8s)
+  ok 25 [mobile] › e2e-black-label\commerce.spec.js:119:1 › guest changes synchronize between tabs after a committed mutation (1.2s)
+  ok 24 [mobile] › e2e-black-label\commerce.spec.js:81:1 › query filters, HTMX partial, back/forward and reload (4.7s)
+  ok 26 [mobile] › e2e-black-label\commerce.spec.js:133:1 › comparison attributes, bounded membership and mobile scrolling (3.0s)
+  ok 28 [mobile] › e2e-black-label\commerce.spec.js:188:1 › private demo reviews are escaped and sortable (3.3s)
+  ok 29 [mobile] › e2e-black-label\commerce.spec.js:199:1 › mobile navigation, size dialog and reduced motion keyboard behavior (3.2s)
+  ok 27 [mobile] › e2e-black-label\commerce.spec.js:150:1 › studio saves, renames, reloads and transactionally adds an outfit (8.6s)
+  x  14 [desktop] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe (35.8s)
+  ok 30 [mobile] › e2e-black-label\commerce.spec.js:219:1 › ordinary forms complete checkout with JavaScript disabled (1.9s)
+(node:29584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 31 [mobile] › e2e-black-label\commerce.spec.js:233:1 › missing picture assets recover even before enhancement script loads (2.3s)
+  ok 34 [mobile] › e2e-black-label\creative.spec.js:22:1 › signature fill and complete colour reveal support pointer and focus (3.1s)
+  ok 35 [mobile] › e2e-black-label\creative.spec.js:52:1 › reduced motion retains instant colour choice and visible editorial content (1.2s)
+  ok 32 [mobile] › e2e-black-label\creative.spec.js:4:1 › touch colour choice remains explicit and accessibly labelled (5.6s)
+  ok 36 [mobile] › e2e-black-label\journal.spec.js:4:1 › collections shop real edits while the journal has independent stories and metadata (8.1s)
+  x  33 [mobile] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe (27.0s)
+
+
+  1) [desktop] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 128
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#e7eadd",
+    +               "contrastRatio": 1.1,
+    +               "expectedContrastRatio": "3:1",
+    +               "fgColor": "#f5f4f0",
+    +               "fontSize": "78.8pt (105px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 78.8pt (105px), font weight: normal). Expected contrast ratio of 3:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<body class=\"problem-page\">",
+    +                 "target": Array [
+    +                   "body",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 78.8pt (105px), font weight: normal). Expected contrast ratio of 3:1",
+    +         "html": "<h1>A different direction</h1>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "h1",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#e7eadd",
+    +               "contrastRatio": 1.39,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#c5c8bc",
+    +               "fontSize": "12.0pt (16px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 1.39 (foreground color: #c5c8bc, background color: #e7eadd, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<body class=\"problem-page\">",
+    +                 "target": Array [
+    +                   "body",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 1.39 (foreground color: #c5c8bc, background color: #e7eadd, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<p role=\"alert\">This page isn't here. The collection is a good place to start.</p>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "p[role=\"alert\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#e7eadd",
+    +               "contrastRatio": 1.1,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#f5f4f0",
+    +               "fontSize": "9.8pt (13px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<body class=\"problem-page\">",
+    +                 "target": Array [
+    +                   "body",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<a class=\"text-link\" href=\"/bag\">Return to bag</a>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".text-link",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:314:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 128
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#e7eadd",
+    +               "contrastRatio": 1.1,
+    +               "expectedContrastRatio": "3:1",
+    +               "fgColor": "#f5f4f0",
+    +               "fontSize": "78.8pt (105px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 78.8pt (105px), font weight: normal). Expected contrast ratio of 3:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<body class=\"problem-page\">",
+    +                 "target": Array [
+    +                   "body",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 78.8pt (105px), font weight: normal). Expected contrast ratio of 3:1",
+    +         "html": "<h1>A different direction</h1>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "h1",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#e7eadd",
+    +               "contrastRatio": 1.39,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#c5c8bc",
+    +               "fontSize": "12.0pt (16px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 1.39 (foreground color: #c5c8bc, background color: #e7eadd, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<body class=\"problem-page\">",
+    +                 "target": Array [
+    +                   "body",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 1.39 (foreground color: #c5c8bc, background color: #e7eadd, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<p role=\"alert\">This page isn't here. The collection is a good place to start.</p>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "p[role=\"alert\"]",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#e7eadd",
+    +               "contrastRatio": 1.1,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#f5f4f0",
+    +               "fontSize": "9.8pt (13px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<body class=\"problem-page\">",
+    +                 "target": Array [
+    +                   "body",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 1.1 (foreground color: #f5f4f0, background color: #e7eadd, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<a class=\"text-link\" href=\"/bag\">Return to bag</a>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".text-link",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +       "RGAAv4",
+    +       "RGAA-3.2.1",
+    +     ],
+    +   },
+    + ]
+
+       8 | async function axe(page) {
+       9 |   const result = await new AxeBuilder({ page }).analyze();
+    > 10 |   expect(result.violations).toEqual([]);
+         |                             ^
+      11 | }
+      12 | test('variant to bag to persistent private receipt, including forged owner access', async ({
+      13 |   page,
+        at axe (C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:10:29)
+        at C:\Users\lorenzodario\Documents\PersonalProjects\style-ease\e2e-black-label\commerce.spec.js:314:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\commerce-viewport-matrix-h-fe79a-and-primary-routes-pass-axe-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+    [mobile] › e2e-black-label\commerce.spec.js:277:1 › viewport matrix has no overflow and primary routes pass axe 
+  34 passed (1.6m)

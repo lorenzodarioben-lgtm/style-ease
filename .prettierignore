@@ -5,3 +5,4 @@ coverage/
 # Exact upstream vendor bytes and raw machine evidence are not authored source.
 assets/js/htmx-4.0.0.min.js
 docs/evidence/
+docs/creative-v2/evidence/
